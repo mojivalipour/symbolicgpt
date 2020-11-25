@@ -14,7 +14,6 @@ big_eps = 1e-3
 def safe_abs(x):
     return np.sqrt(x * x + eps)
 
-
 def safe_div(x, y):
     return np.sign(y) * x / safe_abs(y)
 
@@ -48,8 +47,8 @@ def generate_random_eqn_raw(n_levels=num_levels, n_vars=num_vars, op_list=main_o
 # Output is a list with entries of the form of pairs [ [x1, ..., xn], y ]
 def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=num_vars,
                                 min_x=domain_min_x, max_x=domain_max_x,
-                                noise_std_dev=0):
-    x_data = [list(np.random.uniform(min_x, max_x, n_vars)) for _ in range(n_points)]
+                                noise_std_dev=0, decimals=2):
+    x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals)) for _ in range(n_points)]
     y_data = [evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev)
               for x_data_i in x_data]
     return [[x_data[i], y_data[i]] for i in range(len(y_data))]
