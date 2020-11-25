@@ -235,10 +235,10 @@ def eqn_to_str(raw_eqn):
 ######################################
 
 # Create a new random equation
-curr_eqn = generate_random_eqn_raw()
-clean_eqn = eqn_to_str(curr_eqn)
-print(clean_eqn)
+# curr_eqn = generate_random_eqn_raw()
+# clean_eqn = eqn_to_str(curr_eqn)
+# print(clean_eqn)
 
-# Create data for that equation
-data = create_dataset_from_raw_eqn(curr_eqn, n_points=5)
-print(data)
+# # Create data for that equation
+# data = create_dataset_from_raw_eqn(curr_eqn, n_points=5)
+# print(data)
