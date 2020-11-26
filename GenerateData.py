@@ -1,6 +1,18 @@
-import numpy as np
+''' References:
+- https://stackoverflow.com/questions/492519/timeout-on-a-function-call
+'''
+
+import sys
 import sympy
+#import threading
+import numpy as np
 from sympy import sympify, expand
+from func_timeout import func_timeout, FunctionTimedOut
+
+# try:
+#     import thread
+# except ImportError:
+#     import _thread as thread
 
 main_op_list = ["id", "add", "mul", "div", "sin", "exp", "log"]
 num_vars = 1
@@ -11,12 +23,36 @@ domain_max_x = 3.0
 eps = 1e-4
 big_eps = 1e-3
 
+# def quit_function(fn_name):
+#     # print to stderr, unbuffered in Python 2.
+#     #TODO: find a cleaner way, using sys without importing is going to raise an error (it seems this is the only way for now)
+#     print('{0} took too long'.format(fn_name), file=sys.stderr)
+#     raise KeyboardInterrupt
+#     sys.stderr.flush() # Python 3 stderr is likely buffered.
+#     thread.interrupt_main() # raises KeyboardInterrupt
+
+# def exit_after(s):
+#     '''
+#     use as decorator to exit process if 
+#     function takes longer than s seconds
+#     '''
+#     def outer(fn):
+#         def inner(*args, **kwargs):
+#             timer = threading.Timer(s, quit_function, args=[fn.__name__])
+#             timer.start()
+#             try:
+#                 result = fn(*args, **kwargs)
+#             finally:
+#                 timer.cancel()
+#             return result
+#         return inner
+#     return outer
+
 def safe_abs(x):
     return np.sqrt(x * x + eps)
 
 def safe_div(x, y):
     return np.sign(y) * x / safe_abs(y)
-
 
 def is_float(value):
     try:
@@ -110,7 +146,6 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
 
     return None
 
-
 def raw_eqn_to_str(raw_eqn, n_vars=num_vars):
     eqn_ops = raw_eqn[0]
     eqn_vars = raw_eqn[1]
@@ -201,7 +236,6 @@ def raw_eqn_to_str(raw_eqn, n_vars=num_vars):
 
     return None
 
-
 def simplify_formula(formula_to_simplify, digits=4):
     if len("{}".format(formula_to_simplify)) > 1000:
         return "{}".format(formula_to_simplify)
@@ -213,7 +247,18 @@ def simplify_formula(formula_to_simplify, digits=4):
         orig_form_str = expand(orig_form_str)
 
     rounded = orig_form_str
-    for a in sympy.preorder_traversal(orig_form_str):
+
+    func_timeout
+    #traversed = sympy.preorder_traversal(orig_form_str)
+    try:
+        traversed = func_timeout(5, sympy.preorder_traversal, args=(orig_form_str))
+    except FunctionTimedOut:
+        print ( "sympy.preorder_traversal(orig_form_str) could not complete within 5 seconds and was terminated.\n")
+    except Exception as e:
+        # Handle any exceptions that doit might raise here
+        return False
+
+    for a in traversed:
         if isinstance(a, sympy.Float):
             if digits is not None:
                 if np.abs(a) < 10**(-1*digits):
@@ -224,7 +269,6 @@ def simplify_formula(formula_to_simplify, digits=4):
                 rounded = rounded.subs(a, 0)
 
     return "{}".format(rounded)
-
 
 def eqn_to_str(raw_eqn):
     return simplify_formula(raw_eqn_to_str(raw_eqn))

@@ -27,6 +27,10 @@ for nv in numVars:
         # Create a new random equation
         currEqn = generate_random_eqn_raw(n_vars=nv)
         cleanEqn = eqn_to_str(currEqn)
+        if cleanEqn==False:
+            i = i-1
+            continue
+            
         data = create_dataset_from_raw_eqn(currEqn, n_points=1, n_vars=nv, decimals=decimals)
         x,y = data[0]
         
