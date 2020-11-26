@@ -7,7 +7,7 @@ import sympy
 #import threading
 import numpy as np
 from sympy import sympify, expand
-from func_timeout import func_timeout, FunctionTimedOut
+from wrapt_timeout_decorator import *
 
 # try:
 #     import thread
@@ -236,6 +236,10 @@ def raw_eqn_to_str(raw_eqn, n_vars=num_vars):
 
     return None
 
+# @func_set_timeout(5)
+# def timing(x):
+#     return sympy.preorder_traversal(x)
+
 def simplify_formula(formula_to_simplify, digits=4):
     if len("{}".format(formula_to_simplify)) > 1000:
         return "{}".format(formula_to_simplify)
@@ -248,15 +252,15 @@ def simplify_formula(formula_to_simplify, digits=4):
 
     rounded = orig_form_str
 
-    func_timeout
-    #traversed = sympy.preorder_traversal(orig_form_str)
-    try:
-        traversed = func_timeout(5, sympy.preorder_traversal, args=(orig_form_str))
-    except FunctionTimedOut:
-        print ( "sympy.preorder_traversal(orig_form_str) could not complete within 5 seconds and was terminated.\n")
-    except Exception as e:
-        # Handle any exceptions that doit might raise here
-        return False
+    traversed = sympy.preorder_traversal(orig_form_str)
+    # try:
+    #     traversed = timing(orig_form_str) #ft(5, timing, kargs={'x':orig_form_str})
+    # except FunctionTimedOut:
+    #     print("sympy.preorder_traversal(orig_form_str) could not complete within 5 seconds and was terminated.\n")
+    # except Exception as e:
+    #     # Handle any exceptions that timing might raise here
+    #     print("sympy.preorder_traversal(orig_form_str) was terminated.\n")
+    #     return False
 
     for a in traversed:
         if isinstance(a, sympy.Float):
@@ -273,6 +277,12 @@ def simplify_formula(formula_to_simplify, digits=4):
 def eqn_to_str(raw_eqn):
     return simplify_formula(raw_eqn_to_str(raw_eqn))
 
+@timeout(5) #, use_signals=False)
+def dataGen(nv, decimals):
+    currEqn = generate_random_eqn_raw(n_vars=nv)
+    cleanEqn = eqn_to_str(currEqn)    
+    data = create_dataset_from_raw_eqn(currEqn, n_points=1, n_vars=nv, decimals=decimals)
+    return data[0][0], data[0][1], cleanEqn
 
 ######################################
 # Use cases
