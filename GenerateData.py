@@ -15,10 +15,6 @@ from wrapt_timeout_decorator import *
 #     import _thread as thread
 
 main_op_list = ["id", "add", "mul", "div", "sin", "exp", "log"]
-num_vars = 1
-num_levels = 4
-domain_min_x = 0.1
-domain_max_x = 3.0
 
 eps = 1e-4
 big_eps = 1e-3
@@ -33,7 +29,7 @@ big_eps = 1e-3
 
 # def exit_after(s):
 #     '''
-#     use as decorator to exit process if 
+#     use as decorator to exit process if
 #     function takes longer than s seconds
 #     '''
 #     def outer(fn):
@@ -64,7 +60,7 @@ def is_float(value):
 # Function to generate random equation as operator/input list
 # Variables are numbered 1 ... n, and 0 does not appear
 # Constants appear as [float] e.g [3.14]
-def generate_random_eqn_raw(n_levels=num_levels, n_vars=num_vars, op_list=main_op_list,
+def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
                             allow_constants=True, const_min_val=-4.0, const_max_val=4.0):
     eqn_ops = list(np.random.choice(op_list, size=int(2**n_levels)-1, replace=True))
 
@@ -81,8 +77,8 @@ def generate_random_eqn_raw(n_levels=num_levels, n_vars=num_vars, op_list=main_o
 
 # Function to create a data set given an operator/input list
 # Output is a list with entries of the form of pairs [ [x1, ..., xn], y ]
-def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=num_vars,
-                                min_x=domain_min_x, max_x=domain_max_x,
+def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
+                                min_x=0.1, max_x=3.1,
                                 noise_std_dev=0, decimals=2):
     x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals)) for _ in range(n_points)]
     y_data = [evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev)
@@ -146,7 +142,7 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
 
     return None
 
-def raw_eqn_to_str(raw_eqn, n_vars=num_vars):
+def raw_eqn_to_str(raw_eqn, n_vars=2):
     eqn_ops = raw_eqn[0]
     eqn_vars = raw_eqn[1]
     current_op = eqn_ops[0]
@@ -274,13 +270,13 @@ def simplify_formula(formula_to_simplify, digits=4):
 
     return "{}".format(rounded)
 
-def eqn_to_str(raw_eqn):
-    return simplify_formula(raw_eqn_to_str(raw_eqn))
+def eqn_to_str(raw_eqn, n_vars=2):
+    return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars))
 
 @timeout(5) #, use_signals=False)
 def dataGen(nv, decimals):
     currEqn = generate_random_eqn_raw(n_vars=nv)
-    cleanEqn = eqn_to_str(currEqn)    
+    cleanEqn = eqn_to_str(currEqn, n_vars=nv)
     data = create_dataset_from_raw_eqn(currEqn, n_points=1, n_vars=nv, decimals=decimals)
     return data[0][0], data[0][1], cleanEqn
 
@@ -288,11 +284,13 @@ def dataGen(nv, decimals):
 # Use cases
 ######################################
 
-# Create a new random equation
+# # Create a new random equation
 # curr_eqn = generate_random_eqn_raw()
 # clean_eqn = eqn_to_str(curr_eqn)
 # print(clean_eqn)
-
+#
 # # Create data for that equation
 # data = create_dataset_from_raw_eqn(curr_eqn, n_points=5)
 # print(data)
+
+# print(dataGen(4, 3))
