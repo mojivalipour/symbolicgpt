@@ -79,8 +79,9 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
 # Output is a list with entries of the form of pairs [ [x1, ..., xn], y ]
 def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
                                 min_x=0.1, max_x=3.1,
-                                noise_std_dev=0, decimals=2):
-    x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals)) for _ in range(n_points)]
+                                noise_std_dev=0, decimals=2, 
+                                supportPoints=None):
+    x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals)) for _ in range(n_points)] if supportPoints is None else supportPoints
     y_data = [evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev)
               for x_data_i in x_data]
     return [[x_data[i], y_data[i]] for i in range(len(y_data))]
@@ -274,10 +275,10 @@ def eqn_to_str(raw_eqn, n_vars=2):
     return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars))
 
 @timeout(5) #, use_signals=False)
-def dataGen(nv, decimals):
+def dataGen(nv, decimals, supportPoints=None):
     currEqn = generate_random_eqn_raw(n_vars=nv)
     cleanEqn = eqn_to_str(currEqn, n_vars=nv)
-    data = create_dataset_from_raw_eqn(currEqn, n_points=1, n_vars=nv, decimals=decimals)
+    data = create_dataset_from_raw_eqn(currEqn, n_points=1, n_vars=nv, decimals=decimals, supportPoints=supportPoints)
     return data[0][0], data[0][1], cleanEqn
 
 ######################################

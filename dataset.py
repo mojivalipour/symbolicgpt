@@ -3,18 +3,19 @@
 
 import os
 import json
+import numpy as np
 from tqdm import tqdm
 import multiprocessing as mp
 from GenerateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
 
-def processData(numSamples, nv, decimals, template, dataPath, fileID):
+def processData(numSamples, nv, decimals, template, dataPath, fileID, supportPoints=None):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
         
         # generate a formula
         # Create a new random equation
         try:
-            x,y,cleanEqn = dataGen(nv, decimals)
+            x,y,cleanEqn = dataGen(nv, decimals, supportPoints=supportPoints)
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
@@ -42,6 +43,7 @@ def main():
     numSamples = 1000000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}.json'
+    supportPoints = np.concatenate([np.arange(-5,-0.01,0.01),np.arange(0.02,5,0.01)])
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
@@ -52,7 +54,7 @@ def main():
     processes = []
     for nv in numVars:
         print('Processing equations with {} variables!'.format(nv))
-        p = mp.Process(target=processData, args=(numSamples, nv, decimals, template, dataPath, fileID,))
+        p = mp.Process(target=processData, args=(numSamples, nv, decimals, template, dataPath, fileID, supportPoints,))
         p.start()
         processes.append(p)
     
