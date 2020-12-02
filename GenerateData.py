@@ -81,10 +81,12 @@ def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
                                 min_x=0.1, max_x=3.1,
                                 noise_std_dev=0, decimals=2, 
                                 supportPoints=None):
-    x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals)) for _ in range(n_points)] if supportPoints is None else supportPoints
+    x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals)) for _ in range(n_points)] if supportPoints is None else list(supportPoints)
     y_data = [evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev)
               for x_data_i in x_data]
-    return [[x_data[i], y_data[i]] for i in range(len(y_data))]
+    #[[list(x_data[i]), y_data[i]] for i in range(len(y_data))]
+
+    return x_data, y_data
 
 
 # Function to evaluate equation (in list format) on a data point
@@ -276,10 +278,11 @@ def eqn_to_str(raw_eqn, n_vars=2):
 
 @timeout(5) #, use_signals=False)
 def dataGen(nv, decimals, supportPoints=None):
+    nPoints = 1 if supportPoints is None else len(supportPoints)
     currEqn = generate_random_eqn_raw(n_vars=nv)
     cleanEqn = eqn_to_str(currEqn, n_vars=nv)
-    data = create_dataset_from_raw_eqn(currEqn, n_points=1, n_vars=nv, decimals=decimals, supportPoints=supportPoints)
-    return data[0][0], data[0][1], cleanEqn
+    data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints)
+    return data[0], data[1], cleanEqn
 
 ######################################
 # Use cases

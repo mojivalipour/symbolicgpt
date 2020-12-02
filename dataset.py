@@ -23,7 +23,7 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, supportPoi
             continue
         
         # hold data in the structure
-        structure['X'] = x
+        structure['X'] = list(x)
         structure['Y'] = y
         structure['EQ'] = cleanEqn
         
@@ -38,12 +38,13 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, supportPoi
 
 def main():
     # Config
-    numVars = list(range(31)) #[1,2,3,4,5]
+    numVars = [1] #list(range(31)) #[1,2,3,4,5]
     decimals = 2
     numSamples = 1000000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}.json'
-    supportPoints = np.concatenate([np.arange(-5,-0.01,0.01),np.arange(0.02,5,0.01)])
+    supportPoints = np.linspace(0.1,3.1,30)
+    supportPoints = [[p] for p in supportPoints]
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
