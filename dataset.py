@@ -44,7 +44,7 @@ def main():
     folder = './Dataset'
     dataPath = folder +'/{}_{}.json'
     supportPoints = np.linspace(0.1,3.1,30)
-    supportPoints = [[p] for p in supportPoints]
+    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
