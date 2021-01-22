@@ -81,8 +81,15 @@ def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
                                 noise_std_dev=0, decimals=2, 
                                 supportPoints=None):
     x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals)) for _ in range(n_points)] if supportPoints is None else list(supportPoints)
-    y_data = [np.round(evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev), decimals)
-              for x_data_i in x_data]
+    #y_data = [np.round(np.log(evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev)), decimals)
+    #          for x_data_i in x_data]
+    y_data = []
+    for x_data_i in x_data:
+        y = evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev)    
+        #sign = np.sign(y)
+        #y = sign * np.log(np.abs(y)) #
+        y = np.round(y, decimals)
+        y_data.append(y)
     #[[list(x_data[i]), y_data[i]] for i in range(len(y_data))]
 
     return x_data, y_data
