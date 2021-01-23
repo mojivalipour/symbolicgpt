@@ -8,10 +8,9 @@ from tqdm import tqdm
 import multiprocessing as mp
 from GenerateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
 
-def processData(numSamples, nv, decimals, template, dataPath, fileID, supportPoints=None):
+def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints=None):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
-        
         # generate a formula
         # Create a new random equation
         try:
@@ -26,8 +25,8 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, supportPoi
         structure['X'] = list(x)
         structure['Y'] = y
         structure['EQ'] = cleanEqn
-        
-        outputPath = dataPath.format(fileID, nv)
+
+        outputPath = dataPath.format(fileID, nv, time)
         if os.path.exists(outputPath):
             fileSize = os.path.getsize(outputPath)
             if fileSize > 500000000: # 500 MB
@@ -38,11 +37,11 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, supportPoi
 
 def main():
     # Config
-    numVars = [1] #list(range(31)) #[1,2,3,4,5]
+    numVars = [1] * 20 #list(range(31)) #[1,2,3,4,5]
     decimals = 2
-    numSamples = 1000000 # number of generated samples
+    numSamples = 50000 # number of generated samples
     folder = './Dataset'
-    dataPath = folder +'/{}_{}.json'
+    dataPath = folder +'/{}_{}_{}.json'
     supportPoints = np.linspace(0.1,3.1,30)
     supportPoints = [[np.round(p,decimals)] for p in supportPoints]
 
@@ -53,9 +52,12 @@ def main():
     #mp.set_start_method('spawn')
     #q = mp.Queue()
     processes = []
-    for nv in numVars:
+    for i, nv in enumerate(numVars):
+        from datetime import datetime
+        now = datetime.now()
+        time = '{}_'.format(i) + now.strftime("%d%m%Y_%H%M%S")
         print('Processing equations with {} variables!'.format(nv))
-        p = mp.Process(target=processData, args=(numSamples, nv, decimals, template, dataPath, fileID, supportPoints,))
+        p = mp.Process(target=processData, args=(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints,))
         p.start()
         processes.append(p)
     
