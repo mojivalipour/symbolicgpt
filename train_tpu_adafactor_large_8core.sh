@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export PYTHONPATH=/home/m5valipo/persiangpt2
+export PYTHONPATH=/home/m5valipo/symbolicGPT2
 
 learning_rate=1e-4
 init_checkpoint=""
@@ -11,8 +11,8 @@ gradient_accumulation=16
 # You can customize the training here
 # mega, medium, or base
 model_type="large"
-OUTPUT_DIR="gs://persian-storage/experiments/${model_type}/" # put your output directory here
-input_file="gs://persian-storage/integrated/WSGanjoor/data_1024/*.tfrecord" # put your input files here, it can also be something like "*.tfrecord"
+OUTPUT_DIR="gs://persian-storage/experimentsSymbolic/${model_type}/" # put your output directory here
+input_file="gs://persian-storage/symbolic/var1/data_1024/*.tfrecord" # put your input files here, it can also be something like "*.tfrecord"
 
 if [ ${model_type} == "base" ]; then
     num_tpu_cores=32
