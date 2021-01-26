@@ -163,7 +163,7 @@ def main():
     proj_root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     vocab_file_path = os.path.join(proj_root_path, "tokenization/clue-vocab.txt")
     #tokenizer = tokenization.FullTokenizer(vocab_file=vocab_file_path , do_lower_case=True)
-    tokenizer = Tokenizer.from_file("../persiandataset/persian-bpe.tokenizer.json")
+    tokenizer = Tokenizer.from_file("bpe.tokenizer.json")
     news_config = GroverConfig.from_json_file(args.config_fn)
 
     # We might have to split the batch into multiple chunks if the batch size is too large
@@ -247,7 +247,6 @@ def main():
                 prompt.append(line)
                 line = input() 
             text = "\n".join(prompt)
-            text = text.replace('\\t', '\t')
             text = text.replace('\\n', '\n')
 
             # ask if we want to save the output 
@@ -297,24 +296,6 @@ def main():
                             f.write('\n --- \n')
                             f.write('{}'.format(lf.replace(';','\n')))
 
-                    #else: # User hate the result
-                    #   # just ignore this sample and go for the next one
-                    
-                    # if i >= args.samples:
-                    #     # rerun the current cell
-                    #     print('Downloading the current results ...')
-                    #     files.download('results.txt')
-                    #     #display(Javascript('IPython.notebook.execute_cell_range(IPython.notebook.get_selected_index()-1, IPython.notebook.get_selected_index())'))
-                    #     #display(Javascript('IPython.notebook.kernel.execute(nb_name = IPython.notebook.notebook_name)'))
-                    #     ip = get_ipython()
-                    #     with io.open("persianGPT2.ipynb") as f:
-                    #         nb = nbformat.read(f, 4)
-                    #     for cell in nb.cells:
-                    #         if cell.cell_type != 'code':
-                    #             continue
-                    #         if cell.metadata.id=='ldMWkMV3Y3h7':
-                    #             ip.run_cell(cell.source)
-                    # else:
                     print("--> Sample,", i + 1, " of ", args.samples)
                     lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
                     print(lf)
@@ -349,7 +330,6 @@ def main():
                         line = input()
 
                     text = "\n".join(prompt)
-                    text = text.replace('\\t', '\t')
                     text = text.replace('\\n', '\n')
 
 def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters):
