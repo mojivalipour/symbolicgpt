@@ -190,7 +190,7 @@ def main():
         encodedLine = tokenizer.encode(line)
         bert_tokens = encodedLine.tokens
         encodedIDS = encodedLine.ids 
-        context_formatted = []
+        context_formatted = [0]
         context_formatted.extend(encodedIDS)
 
         gens = []
@@ -334,7 +334,7 @@ def main():
 
 def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters):
     import sys
-    sys.argv = ['', '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(-10000000), '-top_p', '{}'.format(top_p)] 
+    sys.argv = ['', '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(9), '-top_p', '{}'.format(top_p)] 
     if saveFlag:
         sys.argv += ['-saveOutput']
     if filters != '':
