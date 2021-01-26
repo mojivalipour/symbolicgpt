@@ -190,7 +190,7 @@ def main():
         encodedLine = tokenizer.encode(line)
         bert_tokens = encodedLine.tokens
         encodedIDS = encodedLine.ids 
-        context_formatted = [256]
+        context_formatted = []
         context_formatted.extend(encodedIDS)
 
         gens = []
