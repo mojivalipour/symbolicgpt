@@ -6,9 +6,12 @@ export TPU_ZONE=us-central1-f
 gcloud compute ssh $INSTANCE_NAME --zone=$TPU_ZONE
 ```
 
+```
 git clone https://m5valipo:1ezHio5Rff6y-GET5drm@git.uwaterloo.ca/data-analytics-lab/symbolicgpt2.git
 cd symbolicgpt2
+```
 
+```
 pu list
 cd symbolicgpt2
 export INSTANCE_NAME=tpu-persian
@@ -17,6 +20,7 @@ export STORAGE_BUCKET=gs://persian-storage
 export TPU_NAME=tpu-persian2
 export MODEL_DIR=gs://persian-storage/experimentsSymbolic/
 source ~/conda/bin/activate
+```
 
 # TODO: 
 - [x] Add the constant (Maysum)
