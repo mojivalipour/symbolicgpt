@@ -37,6 +37,7 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
 
 def main():
     # Config
+    #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
     numVars = [1,2,3,4] #list(range(31)) #[1,2,3,4,5]
     decimals = 4
     numberofPoints = 30 # upper bound 

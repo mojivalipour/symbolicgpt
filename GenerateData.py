@@ -312,7 +312,7 @@ def simplify_formula(formula_to_simplify, digits=4):
 def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
     return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars), digits=decimals)
 
-@timeout(5) #, use_signals=False)
+@timeout(5) #, use_signals=False) #NOTE: For linux comment this line
 def dataGen(nv, decimals, numberofPoints=10, supportPoints=None):
     nPoints = np.random.randint(numberofPoints) if supportPoints is None else len(supportPoints)
     currEqn = generate_random_eqn_raw(n_vars=nv)
