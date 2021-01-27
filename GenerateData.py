@@ -14,7 +14,7 @@ from wrapt_timeout_decorator import *
 # except ImportError:
 #     import _thread as thread
 
-main_op_list = ["id", "add", "mul", "div", "sin", "exp", "log"]
+main_op_list = ["id", "add", "mul", "div", "sqrt", "sin", "exp", "log"]
 
 eps = 1e-4
 big_eps = 1e-3
@@ -57,6 +57,7 @@ def is_float(value):
     except ValueError:
         return False
 
+"""
 # Function to generate random equation as operator/input list
 # Variables are numbered 1 ... n, and 0 does not appear
 # Constants appear as [float] e.g [3.14]
@@ -73,6 +74,35 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
     else:
         eqn_vars = list(np.random.choice(range(1, 1+n_vars), size=int(2 ** n_levels), replace=True))
     return [eqn_ops, eqn_vars]
+"""
+
+
+# Function to generate random equation as operator/input list and weight/bias list
+# Variables are numbered 1 ... n, and 0 does not appear
+# Constants appear in weight and bias lists.
+# const_ratio determines how many weights are not 1, and how many biases are not 0
+def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
+                            allow_constants=True, const_min_val=-4.0, const_max_val=4.0,
+                            const_ratio=0.8):
+    eqn_ops = list(np.random.choice(op_list, size=int(2**n_levels)-1, replace=True))
+    eqn_vars = list(np.random.choice(range(1, (n_vars + 1)), size=int(2 ** n_levels), replace=True))
+    max_bound = max(np.abs(const_min_val), np.abs(const_max_val))
+    eqn_weights = list(np.random.uniform(-1 * max_bound, max_bound, size=len(eqn_vars)))
+    eqn_biases = list(np.random.uniform(-1 * max_bound, max_bound, size=len(eqn_vars)))
+
+    if not allow_constants:
+        const_ratio = 0.0
+    random_const_chooser_w = np.random.uniform(0, 1, len(eqn_weights))
+    random_const_chooser_b = np.random.uniform(0, 1, len(eqn_biases))
+
+    for i in range(len(eqn_weights)):
+        if random_const_chooser_w[i] >= const_ratio:
+            eqn_weights[i] = 1
+        if random_const_chooser_b[i] >= const_ratio:
+            eqn_biases[i] = 0
+
+    return [eqn_ops, eqn_vars, eqn_weights, eqn_biases]
+
 
 # Function to create a data set given an operator/input list
 # Output is a list with entries of the form of pairs [ [x1, ..., xn], y ]
@@ -96,19 +126,15 @@ def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
 
 # Function to evaluate equation (in list format) on a data point
 def evaluate_eqn_list_on_datum(raw_eqn, input_x):
-    eqn_ops = raw_eqn[0]
-    eqn_vars = raw_eqn[1]
+    eqn_ops = eqn_as_list[0]
+    eqn_vars = eqn_as_list[1]
+    eqn_weights = eqn_as_list[2]
+    eqn_biases = eqn_as_list[3]
     current_op = eqn_ops[0]
 
     if len(eqn_ops) == 1:
-        if type(eqn_vars[0]) is list:
-            left_side = eqn_vars[0][0]
-        else:
-            left_side = input_x[eqn_vars[0]-1]
-        if type(eqn_vars[1]) is list:
-            right_side = eqn_vars[1][0]
-        else:
-            right_side = input_x[eqn_vars[1]-1]
+        left_side = eqn_weights[0] * input_x[eqn_vars[0] - 1] + eqn_biases[0]
+        right_side = eqn_weights[1] * input_x[eqn_vars[1] - 1] + eqn_biases[1]
 
     else:
         split_point = int((len(eqn_ops) + 1) / 2)
@@ -118,8 +144,14 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
         left_vars = eqn_vars[:split_point]
         right_vars = eqn_vars[split_point:]
 
-        left_side = evaluate_eqn_list_on_datum([left_ops, left_vars], input_x)
-        right_side = evaluate_eqn_list_on_datum([right_ops, right_vars], input_x)
+        left_weights = eqn_weights[:split_point]
+        right_weights = eqn_weights[split_point:]
+
+        left_biases = eqn_biases[:split_point]
+        right_biases = eqn_biases[split_point:]
+
+        left_side = evaluate_eqn_list_on_datum([left_ops, left_vars, left_weights, left_biases], input_x)
+        right_side = evaluate_eqn_list_on_datum([right_ops, right_vars, right_weights, right_biases], input_x)
 
     if current_op == 'id':
         return left_side
@@ -151,26 +183,19 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
     return None
 
 def raw_eqn_to_str(raw_eqn, n_vars=2):
-    eqn_ops = raw_eqn[0]
-    eqn_vars = raw_eqn[1]
+    eqn_ops = eqn_as_list[0]
+    eqn_vars = eqn_as_list[1]
+    eqn_weights = eqn_as_list[2]
+    eqn_biases = eqn_as_list[3]
     current_op = eqn_ops[0]
 
     if len(eqn_ops) == 1:
-        if type(eqn_vars[0]) is list:
-            left_side = "{:.3f}".format(eqn_vars[0][0])
+        if n_vars > 1:
+            left_side = "({} * x{} + {})".format(eqn_weights[0], eqn_vars[0], eqn_biases[0])
+            right_side = "({} * x{} + {})".format(eqn_weights[1], eqn_vars[1], eqn_biases[1])
         else:
-            if n_vars > 1:
-                left_side = "x{}".format(eqn_vars[0])
-            else:
-                left_side = "x"
-
-        if type(eqn_vars[1]) is list:
-            right_side = "{:.3f}".format(eqn_vars[1][0])
-        else:
-            if n_vars > 1:
-                right_side = "x{}".format(eqn_vars[1])
-            else:
-                right_side = "x"
+            left_side = "({} * x + {})".format(eqn_weights[0], eqn_biases[0])
+            right_side = "({} * x + {})".format(eqn_weights[1], eqn_biases[1])
 
     else:
         split_point = int((len(eqn_ops) + 1) / 2)
