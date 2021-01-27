@@ -19,14 +19,14 @@ export MODEL_DIR=gs://persian-storage/experimentsSymbolic/
 source ~/conda/bin/activate
 
 # TODO: 
--[ ] Add the constant (Maysum)
--[ ] Generate Data with multiple variables (Moji)
--[ ] Train the model with the new data (Moji)
--[ ] MSE PLOT Code (Maysum)
--[ ] Test cases, limited number (1000)
--[ ] MSE + Cumulative Implementation Plot
--[ ] Find Interesting Showcases
--[ ] Compare with other methods (GPLearn: Python Package)
--[ ] Graph showing running time (CPU/GPU)
--[ ] Maximum NumberVariables: 5
--[ ] decimals: 4
+- [x] Add the constant (Maysum)
+- [x] Generate Data with multiple variables (Moji)
+- [ ] Train the model with the new data (Moji)
+- [ ] MSE PLOT Code (Maysum)
+- [ ] Test cases, limited number (1000)
+- [ ] MSE + Cumulative Implementation Plot
+- [ ] Find Interesting Showcases
+- [ ] Compare with other methods (GPLearn: Python Package)
+- [ ] Graph showing running time (CPU/GPU)
+- [x] Maximum NumberVariables: 5
+- [x] decimals: 4
