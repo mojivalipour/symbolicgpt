@@ -191,11 +191,11 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
 
     if len(eqn_ops) == 1:
         if n_vars > 1:
-            left_side = "({} * x{} + {})".format(eqn_weights[0], eqn_vars[0], eqn_biases[0])
-            right_side = "({} * x{} + {})".format(eqn_weights[1], eqn_vars[1], eqn_biases[1])
+            left_side = "({}*x{}+{})".format(eqn_weights[0], eqn_vars[0], eqn_biases[0])
+            right_side = "({}*x{}+{})".format(eqn_weights[1], eqn_vars[1], eqn_biases[1])
         else:
-            left_side = "({} * x + {})".format(eqn_weights[0], eqn_biases[0])
-            right_side = "({} * x + {})".format(eqn_weights[1], eqn_biases[1])
+            left_side = "({}*x+{})".format(eqn_weights[0], eqn_biases[0])
+            right_side = "({}*x+{})".format(eqn_weights[1], eqn_biases[1])
 
     else:
         split_point = int((len(eqn_ops) + 1) / 2)
@@ -205,8 +205,14 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
         left_vars = eqn_vars[:split_point]
         right_vars = eqn_vars[split_point:]
 
-        left_side = eqn_to_str([left_ops, left_vars])
-        right_side = eqn_to_str([right_ops, right_vars])
+        left_weights = eqn_weights[:split_point]
+        left_biases = eqn_biases[:split_point]
+
+        right_weights = eqn_weights[split_point:]
+        right_biases = eqn_biases[split_point:]
+
+        left_side = eqn_to_str([left_ops, left_vars, left_weights, left_biases])
+        right_side = eqn_to_str([right_ops, right_vars, right_weights, right_biases])
 
     left_is_float = False
     right_is_float = False
@@ -246,22 +252,22 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
     if current_op == 'add':
         if left_is_float and right_is_float:
             return "{:.3f}".format(left_value + right_value)
-        return "({} + {})".format(left_side, right_side)
+        return "({}+{})".format(left_side, right_side)
 
     if current_op == 'mul':
         if left_is_float and right_is_float:
             return "{:.3f}".format(left_value * right_value)
-        return "({} * {})".format(left_side, right_side)
+        return "({}*{})".format(left_side, right_side)
 
     if current_op == 'sub':
         if left_is_float and right_is_float:
             return "{:.3f}".format(left_value - right_value)
-        return "({} - {})".format(left_side, right_side)
+        return "({}-{})".format(left_side, right_side)
 
     if current_op == 'div':
         if left_is_float and right_is_float:
             return "{:.3f}".format(safe_div(left_value, right_value))
-        return "({} / {})".format(left_side, right_side)
+        return "({}/{})".format(left_side, right_side)
 
     return None
 
@@ -301,14 +307,14 @@ def simplify_formula(formula_to_simplify, digits=4):
             elif np.abs(a) < big_eps:
                 rounded = rounded.subs(a, 0)
 
-    return "{}".format(rounded)
+    return "{}".format(rounded).replace(' ','')
 
 def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
     return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars), digits=decimals)
 
 @timeout(5) #, use_signals=False)
-def dataGen(nv, decimals, supportPoints=None):
-    nPoints = 1 if supportPoints is None else len(supportPoints)
+def dataGen(nv, decimals, numberofPoints=10, supportPoints=None):
+    nPoints = np.random.randint(numberofPoints) if supportPoints is None else len(supportPoints)
     currEqn = generate_random_eqn_raw(n_vars=nv)
     cleanEqn = eqn_to_str(currEqn, n_vars=nv, decimals=decimals)
     data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints)
@@ -318,13 +324,15 @@ def dataGen(nv, decimals, supportPoints=None):
 # Use cases
 ######################################
 
-# # Create a new random equation
-# curr_eqn = generate_random_eqn_raw()
-# clean_eqn = eqn_to_str(curr_eqn)
+# Create a new random equation
+# nv = 4
+# numberofPoints = np.random.randint(30)
+# curr_eqn = generate_random_eqn_raw(n_vars=nv)
+# clean_eqn = eqn_to_str(curr_eqn, n_vars=nv)
 # print(clean_eqn)
-#
+
 # # Create data for that equation
-# data = create_dataset_from_raw_eqn(curr_eqn, n_points=5)
+# data = create_dataset_from_raw_eqn(curr_eqn, n_vars=nv, n_points=numberofPoints)
 # print(data)
 
-# print(dataGen(4, 3))
+#print(dataGen(4, 3))

@@ -8,13 +8,13 @@ from tqdm import tqdm
 import multiprocessing as mp
 from GenerateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
 
-def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints=None):
+def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints=None, numberofPoints=30):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
         # generate a formula
         # Create a new random equation
         try:
-            x,y,cleanEqn = dataGen(nv, decimals, supportPoints=supportPoints)
+            x,y,cleanEqn = dataGen(nv, decimals, numberofPoints=numberofPoints, supportPoints=supportPoints)
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
@@ -37,13 +37,15 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
 
 def main():
     # Config
-    numVars = [1] * 20 #list(range(31)) #[1,2,3,4,5]
-    decimals = 2
+    numVars = [1,2,3,4] #list(range(31)) #[1,2,3,4,5]
+    decimals = 4
+    numberofPoints = 30 # upper bound 
     numSamples = 50000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
-    supportPoints = np.linspace(0.1,3.1,30)
-    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    #supportPoints = np.linspace(0.1,3.1,30)
+    #supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    supportPoints = None
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
@@ -57,7 +59,7 @@ def main():
         now = datetime.now()
         time = '{}_'.format(i) + now.strftime("%d%m%Y_%H%M%S")
         print('Processing equations with {} variables!'.format(nv))
-        p = mp.Process(target=processData, args=(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints,))
+        p = mp.Process(target=processData, args=(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints, numberofPoints,))
         p.start()
         processes.append(p)
     
