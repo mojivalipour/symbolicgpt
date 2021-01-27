@@ -126,10 +126,10 @@ def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
 
 # Function to evaluate equation (in list format) on a data point
 def evaluate_eqn_list_on_datum(raw_eqn, input_x):
-    eqn_ops = eqn_as_list[0]
-    eqn_vars = eqn_as_list[1]
-    eqn_weights = eqn_as_list[2]
-    eqn_biases = eqn_as_list[3]
+    eqn_ops = raw_eqn[0]
+    eqn_vars = raw_eqn[1]
+    eqn_weights = raw_eqn[2]
+    eqn_biases = raw_eqn[3]
     current_op = eqn_ops[0]
 
     if len(eqn_ops) == 1:
@@ -183,10 +183,10 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
     return None
 
 def raw_eqn_to_str(raw_eqn, n_vars=2):
-    eqn_ops = eqn_as_list[0]
-    eqn_vars = eqn_as_list[1]
-    eqn_weights = eqn_as_list[2]
-    eqn_biases = eqn_as_list[3]
+    eqn_ops = raw_eqn[0]
+    eqn_vars = raw_eqn[1]
+    eqn_weights = raw_eqn[2]
+    eqn_biases = raw_eqn[3]
     current_op = eqn_ops[0]
 
     if len(eqn_ops) == 1:
