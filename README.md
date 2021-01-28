@@ -22,6 +22,11 @@ export MODEL_DIR=gs://persian-storage/experimentsSymbolic/
 source ~/conda/bin/activate
 ```
 
+## How to generate the data
+``` 
+for P in {1..200} ; do sleep 1;  echo $P; python dataset.py ; done
+```
+
 # TODO: 
 - [x] Add the constant (Maysum)
 - [x] Generate Data with multiple variables (Moji)
