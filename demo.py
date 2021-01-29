@@ -363,4 +363,4 @@ def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters, co
     return main()
 
 if __name__ == "__main__":
-    return main()
+    main()
