@@ -355,7 +355,7 @@ def main():
                 return result
 def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters, context='user'):
     import sys
-    sys.argv = ['', '-context', '{}'.format(state), '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(-10000000), '-top_p', '{}'.format(top_p)] 
+    sys.argv = ['', '-context', '{}'.format(context), '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(-10000000), '-top_p', '{}'.format(top_p)] 
     if saveFlag:
         sys.argv += ['-saveOutput']
     if filters != '':
