@@ -139,6 +139,14 @@ def main():
         help='weather save output or not',
     )
 
+    parser.add_argument(
+        '-context',
+        dest='context',
+        default='user',
+        type=str,
+        help='if we want to get input from the user or just generate data based on a context input',
+    )
+
     def extract_generated_target(output_tokens, tokenizer):
         """
         Given some tokens that were generated, extract the target
@@ -241,105 +249,118 @@ def main():
             saver.restore(sess, args.ckpt_fn)
             print('🍺Model loaded. \nInput something please:⬇️')
             #text =  sys.stdin.readlines() #input()
-            prompt = [] 
-            orignalInput = line = input("Input prompt ending with an empty line: ")
-            while line:
-                prompt.append(line)
-                line = input() 
-            text = "\n".join(prompt)
-            text = text.replace('\\n', '\n')
 
-            # ask if we want to save the output 
-            if saveFlag:
-                i = 0 # args.samples
+            if args.context == 'user':
+                prompt = [] 
+                orignalInput = line = input("Input prompt ending with an empty line: ")
+                while line:
+                    prompt.append(line)
+                    line = input() 
+                text = "\n".join(prompt)
+                text = text.replace('\\n', '\n')
 
-                from datetime import datetime
-                now = datetime.now()
-                fileName = 'results_{}.txt'.format(now.strftime("%d%m%Y_%H%M%S"))
-                
-                # save in the output file
-                with open(fileName, 'w') as f:
-                    f.write('Parameters:\n')
-                    json.dump(args.__dict__, f, indent=2)
-                    f.write('\nOriginal Input: {}\n'.format(orignalInput)) # is the orignal input 
-                    f.write('Cherry Picked Results:\n')
+                # ask if we want to save the output 
+                if saveFlag:
+                    i = 0 # args.samples
 
-                print("--> Sample,", i + 1, " of ", args.samples)
-                lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
-                print(lf)
-
-                # Src: https://stackoverflow.com/questions/45188464/return-output-of-the-function-executed-on-click
-                from ipywidgets import widgets, Button, HBox
-                from IPython.display import display, clear_output, Javascript
-                from google.colab import files
-                from traitlets import traitlets
-                from IPython import get_ipython
-                import time
-                import io
-                import nbformat
-
-                class button(widgets.Button):
-                    """A button that can holds a value as a attribute."""
-                    def __init__(self, value=None, info=None, *args, **kwargs):
-                        super(button, self).__init__(*args, **kwargs)
-                        # Create the value attribute.
-                        self.add_traits(value=traitlets.Any(value))
-                        self.add_traits(info=traitlets.Any(info))
-
-                def clicked(ex):
-                    clear_output()
-                    lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName = ex.info
-                    if ex.value: # User like the result
-                        # save in a file
-                        #lf is the generate sample
-                        with open(fileName, 'a') as f:
-                            f.write('\n --- \n')
-                            f.write('{}'.format(lf.replace(';','\n')))
+                    from datetime import datetime
+                    now = datetime.now()
+                    fileName = 'results_{}.txt'.format(now.strftime("%d%m%Y_%H%M%S"))
+                    
+                    # save in the output file
+                    with open(fileName, 'w') as f:
+                        f.write('Parameters:\n')
+                        json.dump(args.__dict__, f, indent=2)
+                        f.write('\nOriginal Input: {}\n'.format(orignalInput)) # is the orignal input 
+                        f.write('Cherry Picked Results:\n')
 
                     print("--> Sample,", i + 1, " of ", args.samples)
                     lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
                     print(lf)
-                    i += 1
-                
-                    #clear_output(wait=True)
+
+                    # Src: https://stackoverflow.com/questions/45188464/return-output-of-the-function-executed-on-click
+                    from ipywidgets import widgets, Button, HBox
+                    from IPython.display import display, clear_output, Javascript
+                    from google.colab import files
+                    from traitlets import traitlets
+                    from IPython import get_ipython
+                    import time
+                    import io
+                    import nbformat
+
+                    class button(widgets.Button):
+                        """A button that can holds a value as a attribute."""
+                        def __init__(self, value=None, info=None, *args, **kwargs):
+                            super(button, self).__init__(*args, **kwargs)
+                            # Create the value attribute.
+                            self.add_traits(value=traitlets.Any(value))
+                            self.add_traits(info=traitlets.Any(info))
+
+                    def clicked(ex):
+                        clear_output()
+                        lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName = ex.info
+                        if ex.value: # User like the result
+                            # save in a file
+                            #lf is the generate sample
+                            with open(fileName, 'a') as f:
+                                f.write('\n --- \n')
+                                f.write('{}'.format(lf.replace(';','\n')))
+
+                        print("--> Sample,", i + 1, " of ", args.samples)
+                        lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                        print(lf)
+                        i += 1
+                    
+                        #clear_output(wait=True)
+                        likeButton = button(description="Save", value=True, info=[lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName])
+                        disLikeButton = button(description="Ignore", value=False, info=[lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName])
+                        likeButton.on_click(clicked)
+                        disLikeButton.on_click(clicked)
+                        display(HBox([likeButton,disLikeButton]))
+
                     likeButton = button(description="Save", value=True, info=[lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName])
                     disLikeButton = button(description="Ignore", value=False, info=[lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName])
                     likeButton.on_click(clicked)
                     disLikeButton.on_click(clicked)
+                    #clear_output(wait=True)
                     display(HBox([likeButton,disLikeButton]))
+                else:
+                    while text != "":
+                        for i in range(args.samples):
+                            print("Sample,", i + 1, " of ", args.samples)
+                            lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                            print(lf)
 
-                likeButton = button(description="Save", value=True, info=[lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName])
-                disLikeButton = button(description="Ignore", value=False, info=[lf, text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, i, orignalInput, fileName])
-                likeButton.on_click(clicked)
-                disLikeButton.on_click(clicked)
-                #clear_output(wait=True)
-                display(HBox([likeButton,disLikeButton]))
+                        print('Next try:⬇️')
+                        #text =  sys.stdin.readlines() #input()
+                        prompt = [] 
+                        line = input("Input prompt ending with an empty line: ")
+                        while line:
+                            prompt.append(line)
+                            line = input()
+
+                        text = "\n".join(prompt)
+                        text = text.replace('\\n', '\n')
             else:
-                while text != "":
-                    for i in range(args.samples):
-                        print("Sample,", i + 1, " of ", args.samples)
-                        lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
-                        print(lf)
-
-                    print('Next try:⬇️')
-                    #text =  sys.stdin.readlines() #input()
-                    prompt = [] 
-                    line = input("Input prompt ending with an empty line: ")
-                    while line:
-                        prompt.append(line)
-                        line = input()
-
-                    text = "\n".join(prompt)
-                    text = text.replace('\\n', '\n')
-
-def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters):
+                result = []
+                text = args.context
+                if text[0] == '[':
+                    text = eval(text) # it should be a list now
+                    for t in text:
+                        res = runSample(t, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                        result.append(res)
+                else: # only single sample
+                    res = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                    result.append(res)
+                return result
+def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters, context='user'):
     import sys
-    sys.argv = ['', '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(-10000000), '-top_p', '{}'.format(top_p)] 
+    sys.argv = ['', '-context', '{}'.format(state), '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(-10000000), '-top_p', '{}'.format(top_p)] 
     if saveFlag:
         sys.argv += ['-saveOutput']
     if filters != '':
         sys.argv += ['-filters', '{}'.format(filters)]
-    main()
+    return main()
 
 if __name__ == "__main__":
-    main()
+    return main()
