@@ -247,10 +247,11 @@ def main():
 
             saver = tf.train.Saver()
             saver.restore(sess, args.ckpt_fn)
-            print('🍺Model loaded. \nInput something please:⬇️')
+            print('🍺Model loaded. \n')
             #text =  sys.stdin.readlines() #input()
 
             if args.context == 'user':
+                print('Input something please:⬇️')
                 prompt = [] 
                 orignalInput = line = input("Input prompt ending with an empty line: ")
                 while line:
