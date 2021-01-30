@@ -63,13 +63,25 @@ parser.add_argument(
     help='Max sequence length',
 )
 
+parser.add_argument(
+    '-max_num_points',
+    dest='max_num_points',
+    default=30,
+    type=int,
+    help='Max number of points for the pointNET',
+)
+
+parser.add_argument(
+    '-modelType',
+    dest='modelType',
+    default='GPT2',
+    type=str,
+    help='The type of the model that use the data. GPT2/PT'
+)
 
 args = parser.parse_args()
 random.seed(args.seed + args.fold)
 
-#encoder = get_encoder()
-#tokenizer = tokenization.FullTokenizer(
-#    vocab_file="bert-base-chinese-vocab.txt", do_lower_case=True)
 tokenizer = Tokenizer.from_file("./bpe.tokenizer.json")
 
 class TFRecordWriter(object):
@@ -125,14 +137,22 @@ def article_iterator(tokenizer, final_desired_size=1025):
             with open(os.path.join(dirpath, filename), 'r') as f:
                 for l_no, l in enumerate(f):
                     if l_no % args.num_folds == args.fold:
-                        article = json.loads(l)
+                        if '[]' in l: # ignore samples without x information
+                            continue
 
-                        # line = article['text'] #tokenization.convert_to_unicode(
-                        #     #article['text'])  # for news2016zh text body
-                        # encoded = tokenizer.encode(line)
-                        # tokens = encoded.tokens #tokenizer.tokenize(line)
-                        # input_ids = encoded.ids #tokenizer.convert_tokens_to_ids(tokens)
-                        # article['input_ids'] = input_ids
+                        # NaN/Infinity
+                        l = l.replace('Infinity','0')
+                        l = l.replace('NaN','0')
+
+                        try:
+                            article = json.loads(l)
+                        except Exception as error:
+                            print('\n-->', l, '\n', error)
+
+                        if args.modelType == 'PT':
+                            x = article.pop("X")
+                            y = article.pop("Y")
+                            article['input_points'] = list(zip(x,y))
 
                         tokens, article['input_ids'] = tokenize_for_grover_training(tokenizer, article, desired_size=final_desired_size,
                                                                     unconditional_prob=.35)
@@ -206,16 +226,8 @@ def tokenize_for_grover_training(tokenizer, item, desired_size=1024, uncondition
     :return:
     """
     # Get all the bits and pieces
-    #tokens = _tokenize_article_pieces(encoder, item)
-
     article_pieces_tokens, article_pieces_ids = _tokenize_article_pieces(tokenizer, item)
     canonical_metadata_order = ['X', 'Y', 'EQ'] #list(article_pieces_ids) if article_pieces_ids is not None else []
-    # if 'text' in canonical_metadata_order:
-    #     canonical_metadata_order.remove('text')
-    # if 'split' in canonical_metadata_order:
-    #     canonical_metadata_order.remove('split')
-    # if 'url' in canonical_metadata_order:
-    #     canonical_metadata_order.remove('url')
 
     if stratified:
         #TODO: add a stratified strategy
@@ -232,9 +244,6 @@ def tokenize_for_grover_training(tokenizer, item, desired_size=1024, uncondition
         #     memory[item['type']]['samples'][item['domain']] = [(article_pieces_tokens, article_pieces_ids)]
         #     memory[item['type']]['size'] += 1
         pass
-
-    #['type', 'domain', 'date', 'authors', 'title']
-    #nextLineTokensID = tokenizer.encode('\n').ids
     
     # unconditional_prob is probability we only generate the text first, without any metadata
     switch = random.random()
@@ -310,13 +319,25 @@ def create_int_feature(values):
         int64_list=tf.train.Int64List(value=list(values)))
     return feature
 
-def buffered_and_sliding_window_article_iterator(tokenizer, final_desired_size=1025):
+def create_float_feature(values):
+    feature = tf.train.Feature(
+        float_list=tf.train.FloatList(value=list(values)))
+    return feature
+
+def buffered_and_sliding_window_article_iterator(tokenizer, final_desired_size=1025, final_desired_points=30):
     """ We apply a sliding window to fix long sequences, and use a buffer that combines short sequences."""
     for article in article_iterator(tokenizer):
         if len(article['input_ids']) >= final_desired_size:
             article['input_ids'] = article['input_ids'][0:final_desired_size-1]
         while len(article['input_ids']) < final_desired_size:
             article['input_ids'].append(0)
+
+        if args.modelType == 'PT': # if we are using pointNET
+            if len(article['input_points']) >= final_desired_points:
+                article['input_points'] = article['input_points'][0:final_desired_points-1]
+            while len(article['input_points']) < final_desired_points:
+                article['input_points'].append(0) # TODO: Need to handle this in the data because it is not a tuple (x,y) like the others
+
         yield article
 
 # OK now write the tfrecord file
@@ -324,12 +345,18 @@ total_written = 0
 train_file = args.base_fn + 'train_{:04d}.tfrecord'.format(args.fold)
 with TFRecordWriter(train_file) as train_writer:
     for article in buffered_and_sliding_window_article_iterator(tokenizer,
-                                                                final_desired_size=args.max_seq_length + 1):
+                                                                final_desired_size=args.max_seq_length + 1,
+                                                                final_desired_points=args.max_num_points + 1):
         writer2use = train_writer
         assert len(article['input_ids']) == (args.max_seq_length + 1)
 
         features = collections.OrderedDict()
         features["input_ids"] = create_int_feature(article['input_ids'])
+
+        if args.modelType == 'PT': # if we are using pointNET
+            assert len(article['input_points']) == (args.max_num_points + 1)
+            features["input_points"] = create_float_feature(article['input_points'])
+
         tf_example = tf.train.Example(
             features=tf.train.Features(feature=features))
 
@@ -343,10 +370,11 @@ with TFRecordWriter(train_file) as train_writer:
             #                                                                    article['input_ids']),
             #                                                                article['input_ids']
             #                                                                ), flush=True)
-            print("~~~\nIndex {}. ARTICLE: {}\n---\nTokens: {}\n\n".format(article['inst_index'],
+            print("~~~\nIndex {}. ARTICLE: {}\n---\nTokens: {}\nPoints: {}\n\n".format(article['inst_index'],
                                                                            tokenizer.decode(
-                                                                               article['input_ids'], skip_special_tokens=False),
-                                                                           article['input_ids']
+                                                                           article['input_ids'], skip_special_tokens=False),
+                                                                           article['input_ids'],
+                                                                           article['input_points'] if args.modelType == 'PT' else ''
                                                                            ), flush=True)
         if article['inst_index'] % 1000 == 0:
             print("{} articles, {} written".format(

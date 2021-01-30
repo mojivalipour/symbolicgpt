@@ -101,8 +101,15 @@ flags.DEFINE_integer(
     "gradient_accumulation", 5,
     "Number of gradient accumulation before updating the model weights.")
 
-    
+flags.DEFINE_integer(
+    "numberofPoints", 30,
+    "Maximum number of points in the PointNET.")
 
+flags.DEFINE_string(
+    "model_type", 'GPT2',
+    "[Optional] Model Type, it can be either GPT2 or PT"
+    "PT use PointNET to process input points, GPT2 use the input as a sequence of "
+    "strings even the numbers.")
 
 def main(_):
     tf.logging.set_verbosity(tf.logging.INFO)
@@ -177,7 +184,9 @@ def main(_):
     train_input_fn = input_fn_builder(
         input_files=input_files,
         seq_length=FLAGS.max_seq_length,
-        is_training=True)
+        is_training=True,
+        model_type=args.model_type,
+        numberofPoints=args.numberofPoints)
 
     estimator.train(input_fn=train_input_fn, max_steps=FLAGS.num_train_steps)
 

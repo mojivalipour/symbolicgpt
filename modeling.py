@@ -1,5 +1,6 @@
 # Original work Copyright 2018 The Google AI Language Team Authors.
 # Modified work Copyright 2019 Rowan Zellers
+# Modified work Copyright 2021 Mojtaba Valipour
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,13 +21,9 @@ import math
 import six
 import tensorflow.compat.v1 as tf
 
-# from lm import optimization_adafactor
-# from lm.utils import get_assignment_map_from_checkpoint, get_shape_list, get_attention_mask, gelu, layer_norm, dropout, \
-#     construct_scalar_host_call
 import optimization_adafactor
 from utils import get_assignment_map_from_checkpoint, get_shape_list, get_attention_mask, gelu, layer_norm, dropout, \
     construct_scalar_host_call
-
 
 class GroverConfig(object):
     """Configuration for `GroverModel`"""
@@ -245,6 +242,61 @@ def attention_layer(x_flat, attention_mask, batch_size, seq_length, size_per_hea
 
     return context_layer_projected, cached_keys_and_values
 
+def pointNET(x, embedding_size=768):
+    """
+    :param x: a tensor of (x,y)s, it should be [batch_size, maximum_number_of_points, len(x)+len(y)]
+
+    we would return yet another embedding for the GPT2, it should be [batch_size, embedding_size]
+    :return:
+
+    Model: 
+        Given input {(x1,y1), (x2, y2), ... (xn, yn)}
+
+        Set up a (feed forward) network h that takes in (xi, yi) and outputs a vector h_i
+
+        Feed all data points into that so you get 
+        {h1, h2, ... hn} = (h(x1, y1), h(x2, y2), ... h(xn, yn))
+
+        Then pass this into an order invariant pooling function, like max or sum or avg, so you get (for example using max)
+        u = max(h1, h2, ..., hn)
+
+        Then set up another network g that takes in j and outputs the output embedding y
+        y = g(u)
+
+        So in other words, we learn two networks: h and g
+        and
+        y = g( max((h(x1, y1), ...., h(xn, yn)) )
+    """
+
+    batch_size, maximum_number_of_points, xyDim = get_shape_list(x, expected_rank=3)
+
+    h = tf.layers.Conv2D(
+            filters, kernel_size, strides=(1, 1), padding='valid',
+            data_format=None, dilation_rate=(1, 1), groups=1, activation=None,
+            use_bias=True, kernel_initializer='glorot_uniform',
+            bias_initializer='zeros', kernel_regularizer=None,
+            bias_regularizer=None, activity_regularizer=None, kernel_constraint=None,
+            bias_constraint=None, **kwargs
+        )
+
+    g = tf.layers.dense(
+        x_norm,
+        intermediate_size,
+        activation=gelu,
+        kernel_initializer=create_initializer(initializer_range),
+        name='intermediate',
+    )
+
+    output = tf.layers.dense(
+        intermediate_output,
+        hidden_size,
+        name='output',
+        kernel_initializer=create_initializer(initializer_range))
+    output = dropout(output, hidden_dropout_prob)
+
+    layer_output = layer_norm(output, name='mlp_ln1')
+
+    return embedding
 
 def residual_mlp_layer(x_flat, intermediate_size, initializer_range=0.02, hidden_dropout_prob=0.1):
     """
@@ -283,7 +335,8 @@ def embed(input_ids,
           position_offset=0,
           initializer_range=0.02,
           max_position_embeddings=512,
-          use_one_hot_embeddings=True):
+          use_one_hot_embeddings=True,
+          input_points=None):
     """reur and position embeddings
     :param input_ids: int Tensor of shape [batch_size, seq_length].
     :param vocab_size: number of words in vocab
@@ -331,17 +384,23 @@ def embed(input_ids,
         # sequence has positions [0, 1, 2, ... seq_length-1], so we can just
         # perform a slice.
         if position_offset == 0:
-            embedded_input += tf.slice(full_position_embeddings, [0, 0], [seq_length, -1])[None]
+            # If size[i] is -1, all remaining elements in dimension i are included in the slice. 
+            embedded_input += tf.slice(full_position_embeddings, [0, 0], [seq_length, -1])[None] 
         else:
             # Tensorflow is too stupid to allow slicing
             flat_pos_ids = (tf.range(seq_length, dtype=tf.int32) + position_offset)
             one_hot_pos_ids = tf.one_hot(flat_pos_ids, depth=max_position_embeddings)
 
             # [seq_length, full_position_embeddings], [full_position_embeddings, dim]
-            seq_embeds = tf.matmul(one_hot_pos_ids, full_position_embeddings)
-            embedded_input += seq_embeds[None]
+            seq_embeds = tf.matmul(one_hot_pos_ids, full_position_embeddings) # [seq_length, dim]
+            embedded_input += seq_embeds[None] # [None] add a dimension in the first axis [1, seq_length, dim]
 
             # embedded_input += tf.slice(full_position_embeddings[position_offset:], [0, 0], [seq_length, -1])[None]
+
+    if input_points is not None:
+        # pass the input to the pointNET
+        point_embeds = pointNET(input_points, embedding_size=embedding_size) # [batch_size, dim]
+        embedded_input += point_embeds[:, None, :]
 
     return layer_norm(embedded_input, name='embed_norm'), embedding_table
 
@@ -440,6 +499,7 @@ class GroverModel(object):
                  config: GroverConfig,
                  is_training,
                  input_ids,
+                 input_points=None,
                  cache=None,
                  do_cache=False,
                  pad_token_id=0,
@@ -450,6 +510,7 @@ class GroverModel(object):
         :param config:
         :param is_training:
         :param input_ids: Tensor thats of size [batch_size, seq_length]
+        :param input_points: It is either None or a Tensor of size [batch_size, points_length]
         :param cache: Optionally, a tensor to use that will contain cached information of the size
             [batch_size, num_layers, 2, num_heads, cache_length, features]
         :param do_cache: Whether to cache again.
@@ -461,6 +522,10 @@ class GroverModel(object):
         self.config = copy.deepcopy(config)
         self.is_training = is_training
         self.pad_token_id = pad_token_id
+
+        self.input_points = None
+        if input_points is not None:
+            self.input_points = input_points
 
         if not is_training:
             self.config.hidden_dropout_prob = 0.0
@@ -497,7 +562,8 @@ class GroverModel(object):
                                                          position_offset=self.cache_length,
                                                          initializer_range=config.initializer_range,
                                                          max_position_embeddings=config.max_position_embeddings,
-                                                         use_one_hot_embeddings=True)
+                                                         use_one_hot_embeddings=True,
+                                                         input_points=self.input_points)
 
             mask = get_attention_mask(self.seq_length, self.seq_length + self.cache_length, dtype=embeddings.dtype)
 
@@ -593,6 +659,10 @@ def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
             tf.logging.info("  name = %s, shape = %s" % (name, features[name].shape))
 
         input_ids = features["input_ids"]
+        input_points = None
+
+        if 'input_points' in features:
+            input_points = features["input_points"]
 
         is_training = (mode == tf.estimator.ModeKeys.TRAIN)
 
@@ -600,6 +670,7 @@ def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
             config=config,
             is_training=is_training,
             input_ids=input_ids,
+            input_points=input_points,
             pad_token_id=config.pad_token_id,
             chop_off_last_token=True,
         )

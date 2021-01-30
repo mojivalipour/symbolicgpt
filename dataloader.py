@@ -35,7 +35,9 @@ def input_fn_builder(input_files,
                      seq_length,
                      is_training,
                      num_cpu_threads=4,
-                     evaluate_for_fixed_number_of_steps=True):
+                     evaluate_for_fixed_number_of_steps=True,
+                     model_type='GPT2',
+                     numberofPoints=30):
     """Creates an `input_fn` closure to be passed to TPUEstimator."""
 
     def input_fn(params):
@@ -44,6 +46,9 @@ def input_fn_builder(input_files,
         name_to_features = {
             "input_ids": tf.FixedLenFeature([seq_length + 1], tf.int64),
         }
+
+        if model_type == 'PT': # use pointNET
+            name_to_features['input_points'] = tf.FixedLenFeature([numberofPoints + 1], tf.float32)
 
         #print('---> input files: ',input_files)
 

@@ -37,11 +37,10 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
 
 def main():
     # Config
-    #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
     numVars = [1,2,3,4,5] #list(range(31)) #[1,2,3,4,5]
-    decimals = 5
-    numberofPoints = [0,30] # upper bound 
-    numSamples = 50000 # number of generated samples
+    decimals = 4
+    numberofPoints = [5,30] # upper bound 
+    numSamples = 200 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
     #supportPoints = np.linspace(0.1,3.1,30)
