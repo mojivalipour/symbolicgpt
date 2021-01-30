@@ -31,9 +31,9 @@ for P in {1..200} ; do sleep 1;  echo $P; python dataset.py ; done
 - [x] Add the constant (Maysum)
 - [x] Generate Data with multiple variables (Moji)
 - [ ] Train the model with the new data (Moji)
-- [ ] MSE PLOT Code (Maysum)
-- [ ] Test cases, limited number (1000)
-- [ ] MSE + Cumulative Implementation Plot
+- [x] MSE PLOT Code (Moji)
+- [x] Test cases, limited number (1000)
+- [x] MSE + Cumulative Implementation Plot
 - [ ] Find Interesting Showcases
 - [ ] Compare with other methods (GPLearn: Python Package)
 - [ ] Graph showing running time (CPU/GPU)
