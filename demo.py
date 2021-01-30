@@ -350,7 +350,7 @@ def main():
                     for idx, t in enumerate(text):
                         res = runSample(t, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
                         result.append(res)
-                        print('i/{}->eq:{}\n'.format(idx, res, len(text)))
+                        print('{}/{}->eq:{}\n'.format(idx, len(text), res))
                 else: # only single sample
                     res = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
                     result.append(res)
