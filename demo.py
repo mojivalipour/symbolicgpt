@@ -347,9 +347,10 @@ def main():
                 text = args.context
                 if text[0] == '[':
                     text = eval(text) # it should be a list now
-                    for t in text:
+                    for idx, t in enumerate(text):
                         res = runSample(t, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
                         result.append(res)
+                        print('i/{}->eq:{}\n'.format(idx, res, len(text)))
                 else: # only single sample
                     res = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
                     result.append(res)
