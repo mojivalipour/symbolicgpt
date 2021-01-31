@@ -38,7 +38,7 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
 def main():
     # Config
     numVars = [1,2,3,4,5] #list(range(31)) #[1,2,3,4,5]
-    decimals = 4
+    decimals = 5
     numberofPoints = [5,30] # upper bound 
     numSamples = 200 # number of generated samples
     folder = './Dataset'

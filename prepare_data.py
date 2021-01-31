@@ -72,6 +72,14 @@ parser.add_argument(
 )
 
 parser.add_argument(
+    '-max_num_vars',
+    dest='max_num_vars',
+    default=5,
+    type=int,
+    help='Max number of variables in the input x',
+)
+
+parser.add_argument(
     '-modelType',
     dest='modelType',
     default='GPT2',
@@ -137,7 +145,7 @@ def article_iterator(tokenizer, final_desired_size=1025):
             with open(os.path.join(dirpath, filename), 'r') as f:
                 for l_no, l in enumerate(f):
                     if l_no % args.num_folds == args.fold:
-                        if '[]' in l: # ignore samples without x information
+                        if '[]' in l or '}' != l[-2]: # ignore samples without x information
                             continue
 
                         # NaN/Infinity
@@ -150,9 +158,9 @@ def article_iterator(tokenizer, final_desired_size=1025):
                             print('\n-->', l, '\n', error)
 
                         if args.modelType == 'PT':
-                            x = article.pop("X")
+                            x = [e+[0]*(args.max_num_vars-len(e)) for e in article.pop("X")]
                             y = article.pop("Y")
-                            article['input_points'] = list(zip(x,y))
+                            article['input_points'] = list(map(lambda x,y:x+[y],x,y)) + [[0]*len(x[0]+[y[0]])]*args.max_num_points #list(zip(x,y))
 
                         tokens, article['input_ids'] = tokenize_for_grover_training(tokenizer, article, desired_size=final_desired_size,
                                                                     unconditional_prob=.35)
@@ -320,8 +328,9 @@ def create_int_feature(values):
     return feature
 
 def create_float_feature(values):
+    # The list has been flatten to be able to use FloatList protocol
     feature = tf.train.Feature(
-        float_list=tf.train.FloatList(value=list(values)))
+        float_list=tf.train.FloatList(value=[item for l in values for item in l])) # TODO: remember to reshape it back to 2D ([numPoints, numVars+1]) in the modelling code
     return feature
 
 def buffered_and_sliding_window_article_iterator(tokenizer, final_desired_size=1025, final_desired_points=30):
@@ -336,7 +345,7 @@ def buffered_and_sliding_window_article_iterator(tokenizer, final_desired_size=1
             if len(article['input_points']) >= final_desired_points:
                 article['input_points'] = article['input_points'][0:final_desired_points-1]
             while len(article['input_points']) < final_desired_points:
-                article['input_points'].append(0) # TODO: Need to handle this in the data because it is not a tuple (x,y) like the others
+                article['input_points'].append([0]*len(article['input_points'][0])) 
 
         yield article
 
