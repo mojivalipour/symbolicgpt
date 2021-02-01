@@ -105,6 +105,10 @@ flags.DEFINE_integer(
     "numberofPoints", 30,
     "Maximum number of points in the PointNET.")
 
+flags.DEFINE_integer(
+    "numberofVars", 5,
+    "Maximum number of variables in the PointNET.")
+
 flags.DEFINE_string(
     "model_type", 'GPT2',
     "[Optional] Model Type, it can be either GPT2 or PT"
@@ -165,6 +169,9 @@ def main(_):
                                 num_warmup_steps=FLAGS.num_warmup_steps,
                                 use_tpu=FLAGS.use_tpu,
                                 gradient_accumulation=FLAGS.gradient_accumulation,
+                                model_type=FLAGS.model_type,
+                                numberofPoints=FLAGS.numberofPoints,
+                                numberofVars=FLAGS.numberofVars
                                 )
 
     # If TPU is not available, this will fall back to normal Estimator on CPU
@@ -185,8 +192,9 @@ def main(_):
         input_files=input_files,
         seq_length=FLAGS.max_seq_length,
         is_training=True,
-        model_type=args.model_type,
-        numberofPoints=args.numberofPoints)
+        model_type=FLAGS.model_type,
+        numberofPoints=FLAGS.numberofPoints,
+        numberofVars=FLAGS.numberofVars)
 
     estimator.train(input_fn=train_input_fn, max_steps=FLAGS.num_train_steps)
 

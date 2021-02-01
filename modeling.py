@@ -244,7 +244,7 @@ def attention_layer(x_flat, attention_mask, batch_size, seq_length, size_per_hea
 
 def pointNET(x, embedding_size=768):
     """
-    :param x: a tensor of (x,y)s, it should be [batch_size, maximum_number_of_points, len(x)+len(y)]
+    :param x: a tensor of (x,y)s, it should be [batch_size, maximum_number_of_points, maximum_num_of_variables+1]
 
     we would return yet another embedding for the GPT2, it should be [batch_size, embedding_size]
     :return:
@@ -268,33 +268,35 @@ def pointNET(x, embedding_size=768):
         y = g( max((h(x1, y1), ...., h(xn, yn)) )
     """
 
-    batch_size, maximum_number_of_points, xyDim = get_shape_list(x, expected_rank=3)
+    batch_size, maxNumPoints, XYDim = get_shape_list(x, expected_rank=3)
+    #x = tf.transpose(x, perm=[0, 2, 1]) # now the dimensionality is [batch_size, maximum_num_of_variables+1, maximum_number_of_points]
 
-    h = tf.layers.Conv2D(
-            filters, kernel_size, strides=(1, 1), padding='valid',
-            data_format=None, dilation_rate=(1, 1), groups=1, activation=None,
-            use_bias=True, kernel_initializer='glorot_uniform',
-            bias_initializer='zeros', kernel_regularizer=None,
-            bias_regularizer=None, activity_regularizer=None, kernel_constraint=None,
-            bias_constraint=None, **kwargs
-        )
+    # we have to process each point independently and calculate a feature vector
+    # valid means no padding
+    h = tf.layers.Conv1D(
+            filters=256, kernel_size=1, strides=1, padding='valid',
+            data_format=None, dilation_rate=1, groups=1, activation=None,
+            use_bias=True, kernel_initializer=create_initializer(initializer_range) #'glorot_uniform',
+        ) # the new shape is [batch_size, maximum_number_of_points, 256]
+
+    # pass the concatenated feature vectors to an order invariant pooling function like max or sum or avg
+    
+    # u = tf.layers.MaxPool1D(
+    #         pool_size=2, strides=None, padding='valid'
+    #     ) # maxPool need to reshape data
+
+    u = tf.math.reduce_max(h, axis=1, keepdims=False, name='u_pointnet') # the new shape should be [batch_size, 256]
 
     g = tf.layers.dense(
-        x_norm,
-        intermediate_size,
+        u,
+        hidden_size,
         activation=gelu,
         kernel_initializer=create_initializer(initializer_range),
-        name='intermediate',
+        name='g',
     )
 
-    output = tf.layers.dense(
-        intermediate_output,
-        hidden_size,
-        name='output',
-        kernel_initializer=create_initializer(initializer_range))
-    output = dropout(output, hidden_dropout_prob)
-
-    layer_output = layer_norm(output, name='mlp_ln1')
+    g = dropout(g, hidden_dropout_prob)
+    embedding = layer_norm(g, name='g_mlp_ln1_pointnet')
 
     return embedding
 
@@ -339,6 +341,7 @@ def embed(input_ids,
           input_points=None):
     """reur and position embeddings
     :param input_ids: int Tensor of shape [batch_size, seq_length].
+    :param input_points: None or float Tensor of shape [batch_size, number_of_points, number_of_variables+1].
     :param vocab_size: number of words in vocab
     :param embedding_size: dimensionality of the embedding
     :param position_offset: aka number of cached tokens.
@@ -400,7 +403,7 @@ def embed(input_ids,
     if input_points is not None:
         # pass the input to the pointNET
         point_embeds = pointNET(input_points, embedding_size=embedding_size) # [batch_size, dim]
-        embedded_input += point_embeds[:, None, :]
+        embedded_input += point_embeds[:, None, :] # add PointNET embedding to other emebddings
 
     return layer_norm(embedded_input, name='embed_norm'), embedding_table
 
@@ -505,12 +508,15 @@ class GroverModel(object):
                  pad_token_id=0,
                  chop_off_last_token=True,
                  scope=None,
-                 reuse=False):
+                 reuse=False,
+                 model_type='GPT2', 
+                 numberofPoints=30, 
+                 numberofVars=5):
         """
         :param config:
         :param is_training:
         :param input_ids: Tensor thats of size [batch_size, seq_length]
-        :param input_points: It is either None or a Tensor of size [batch_size, points_length]
+        :param input_points: It is either None or a Tensor of size [batch_size, number_of_points, (number_of_vars+1)]
         :param cache: Optionally, a tensor to use that will contain cached information of the size
             [batch_size, num_layers, 2, num_heads, cache_length, features]
         :param do_cache: Whether to cache again.
@@ -648,7 +654,8 @@ class GroverModel(object):
 
 
 def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
-                     num_train_steps, num_warmup_steps, use_tpu, gradient_accumulation=20):
+                     num_train_steps, num_warmup_steps, use_tpu, gradient_accumulation=20,
+                     model_type='GPT2', numberofPoints=30, numberofVars=5):
     """Returns `model_fn` closure for TPUEstimator."""
 
     def model_fn(features, labels, mode, params):  # pylint: disable=unused-argument
@@ -662,7 +669,9 @@ def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
         input_points = None
 
         if 'input_points' in features:
-            input_points = features["input_points"]
+            input_points = features["input_points"] 
+            # reshape [batch_size, number_of_points*(number_of_vars+1)] to the [batch_size, number_of_points, (number_of_vars+1)]
+            input_points = tf.reshape(input_points, (-1, number_of_points, number_of_vars+1))
 
         is_training = (mode == tf.estimator.ModeKeys.TRAIN)
 
@@ -673,6 +682,9 @@ def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
             input_points=input_points,
             pad_token_id=config.pad_token_id,
             chop_off_last_token=True,
+            model_type=model_type, 
+            numberofPoints=numberofPoints, 
+            numberofVars=numberofVars
         )
 
         total_loss = model.lm_loss()

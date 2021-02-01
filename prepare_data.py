@@ -158,8 +158,9 @@ def article_iterator(tokenizer, final_desired_size=1025):
                             print('\n-->', l, '\n', error)
 
                         if args.modelType == 'PT':
-                            x = [e+[0]*(args.max_num_vars-len(e)) for e in article.pop("X")]
-                            y = article.pop("Y")
+                            x = [e+[0]*(args.max_num_vars-len(e)) for e in article.pop("X")] # [[1..n],[1..n]]
+                            y = article.pop("Y") # [1,2]
+                            # Convert X and Y to [[1..n+1],[1..n+1]]
                             article['input_points'] = list(map(lambda x,y:x+[y],x,y)) + [[0]*len(x[0]+[y[0]])]*args.max_num_points #list(zip(x,y))
 
                         tokens, article['input_ids'] = tokenize_for_grover_training(tokenizer, article, desired_size=final_desired_size,

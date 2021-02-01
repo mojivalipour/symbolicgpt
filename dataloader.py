@@ -30,14 +30,14 @@ def _decode_record(record, name_to_features):
         example[name] = t
     return example
 
-
 def input_fn_builder(input_files,
                      seq_length,
                      is_training,
                      num_cpu_threads=4,
                      evaluate_for_fixed_number_of_steps=True,
                      model_type='GPT2',
-                     numberofPoints=30):
+                     numberofPoints=30,
+                     numberofVars=5):
     """Creates an `input_fn` closure to be passed to TPUEstimator."""
 
     def input_fn(params):
@@ -48,7 +48,7 @@ def input_fn_builder(input_files,
         }
 
         if model_type == 'PT': # use pointNET
-            name_to_features['input_points'] = tf.FixedLenFeature([numberofPoints + 1], tf.float32)
+            name_to_features['input_points'] = tf.FixedLenFeature([numberofPoints*(numberofVars+1) + 1], tf.float32)
 
         #print('---> input files: ',input_files)
 
