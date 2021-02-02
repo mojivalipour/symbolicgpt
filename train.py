@@ -116,6 +116,7 @@ flags.DEFINE_string(
     "strings even the numbers.")
 
 def main(_):
+    print('**********\n',FLAGS,'**********\n')
     tf.logging.set_verbosity(tf.logging.INFO)
     
     if not FLAGS.use_tpu:

@@ -147,6 +147,30 @@ def main():
         help='if we want to get input from the user or just generate data based on a context input',
     )
 
+    parser.add_argument(
+        '-modelType',
+        dest='modelType',
+        default='GPT2', # GPT2/PT
+        type=str,
+        help='if we want to use GPT2 (default) model or PTNet',
+    )
+
+    parser.add_argument(
+        '-max_num_points',
+        dest='max_num_points',
+        default=30, 
+        type=int,
+        help='maximum number of points in the PTNet',
+    )
+
+    parser.add_argument(
+        '-max_num_vars',
+        dest='max_num_vars',
+        default=5, 
+        type=int,
+        help='maximum number of variables in the PTNet',
+    )
+
     def extract_generated_target(output_tokens, tokenizer):
         """
         Given some tokens that were generated, extract the target
@@ -190,7 +214,7 @@ def main():
     filterList = args.filters.split(';') if args.filters != '' else None
     saveFlag = args.saveOutput
 
-    def runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList):
+    def runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=None):
         #line = tokenization.convert_to_unicode(text)
         #bert_tokens = tokenizer.tokenize(line)
         #encoded = tokenizer.convert_tokens_to_ids(bert_tokens)
@@ -209,7 +233,9 @@ def main():
             tokens_out, probs_out = sess.run([tokens, probs],
                                             feed_dict={initial_context: [context_formatted] * batch_size_per_chunk,
                                                         eos_token: args.eos_token, min_len: args.min_len,
-                                                        p_for_topp: top_p[chunk_i]})
+                                                        p_for_topp: top_p[chunk_i],
+                                                        input_points: points
+                                                        })
 
             for t_i, p_i in zip(tokens_out, probs_out):
                 extraction = extract_generated_target(output_tokens=t_i, tokenizer=tokenizer)
@@ -238,12 +264,13 @@ def main():
     with g.as_default() as graph: 
         with sess.as_default() as sess:
             initial_context = tf.placeholder(tf.int32, [batch_size_per_chunk, None])
+            input_points = tf.placeholder(tf.float32, [batch_size_per_chunk, None, None]) # [batch_size, number_of_points, (number_of_vars+1)]
             p_for_topp = tf.placeholder(tf.float32, [batch_size_per_chunk])
             eos_token = tf.placeholder(tf.int32, [])
             min_len = tf.placeholder(tf.int32, [])
             tokens, probs = sample(news_config=news_config, initial_context=initial_context,
                                 eos_token=eos_token, min_len=min_len, ignore_ids=None, p_for_topp=p_for_topp,
-                                do_topk=False)
+                                do_topk=False, points=input_points)
 
             saver = tf.train.Saver()
             saver.restore(sess, args.ckpt_fn)
@@ -259,6 +286,33 @@ def main():
                     line = input() 
                 text = "\n".join(prompt)
                 text = text.replace('\\n', '\n')
+
+                # Filter points 
+                if '<SOS_EQ>' in text:
+                    posSOS_EQ = text.find('<SOS_EQ>')
+                else:
+                    posSOS_EQ = -1 # assume everything is points
+                points = text[:posSOS_EQ]
+
+                if '<SOS_Y>' in text:
+                    posSOS_Y = text.find('<SOS_Y>')
+                else:
+                    posSOS_Y = -1 # assume everything is x
+                
+                pointsX = points[:posSOS_Y]
+                pointsY = points[posSOS_Y+1:] if posSOS_Y != -1 else ''
+                pointsY = pointsY.replace('<EOS_Y>','')
+
+                pointsX = pointsY.replace('<SOS_X>','')
+                pointsX = pointsY.replace('<EOS_X>','')
+
+                x = eval(pointsX)
+                y = eval(pointsY)
+
+                points = list(map(lambda x,y:x+[y],x,y)) + [[0]*(args.max_num_vars+1)]*args.max_num_points 
+                
+                if args.modelType == 'PT':
+                    text = text[posSOS_EQ:]
 
                 # ask if we want to save the output 
                 if saveFlag:
@@ -276,7 +330,7 @@ def main():
                         f.write('Cherry Picked Results:\n')
 
                     print("--> Sample,", i + 1, " of ", args.samples)
-                    lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                    lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                     print(lf)
 
                     # Src: https://stackoverflow.com/questions/45188464/return-output-of-the-function-executed-on-click
@@ -308,7 +362,7 @@ def main():
                                 f.write('{}'.format(lf.replace(';','\n')))
 
                         print("--> Sample,", i + 1, " of ", args.samples)
-                        lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                        lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                         print(lf)
                         i += 1
                     
@@ -329,7 +383,7 @@ def main():
                     while text != "":
                         for i in range(args.samples):
                             print("Sample,", i + 1, " of ", args.samples)
-                            lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                            lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                             print(lf)
 
                         print('Next try:⬇️')
@@ -348,16 +402,20 @@ def main():
                 if text[0] == '[':
                     text = eval(text) # it should be a list now
                     for idx, t in enumerate(text):
-                        res = runSample(t, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                        res = runSample(t, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                         result.append(res)
                         print('{}/{}->eq:{}\n'.format(idx, len(text), res))
                 else: # only single sample
-                    res = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList)
+                    res = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                     result.append(res)
                 return result
-def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters, context='user'):
+
+def wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, saveFlag, filters, context='user', modelType='GPT2', max_num_points=30, max_num_vars=5):
     import sys
-    sys.argv = ['', '-context', '{}'.format(context), '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(-10000000), '-top_p', '{}'.format(top_p)] 
+    sys.argv = ['', '-modelType', '{}'.format(modelType), '-max_num_points', '{}'.format(max_num_points), '-max_num_vars', '{}'.format(max_num_vars), 
+                '-context', '{}'.format(context), '-config_fn', '{}'.format(config_fn) ,'-ckpt_fn', '{}'.format(ckpt_fn), 
+                '-min_len', '{}'.format(min_len), '-samples', '{}'.format(sample_num), '-eos_token', '{}'.format(-10000000), 
+                '-top_p', '{}'.format(top_p)] 
     if saveFlag:
         sys.argv += ['-saveOutput']
     if filters != '':

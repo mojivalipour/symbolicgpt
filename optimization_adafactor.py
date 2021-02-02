@@ -148,6 +148,7 @@ class AdaFactorOptimizer(tf.train.Optimizer):
         return tf.maximum(reduce_rms(var), self.epsilon2)
 
     def apply_gradients(self, grads_and_vars, global_step=None, name=None):
+        # Check https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/utils/adafactor.py to understand the algorithm
         """See base class."""
         assignments = []
         for (grad, param) in grads_and_vars:

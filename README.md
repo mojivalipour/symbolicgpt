@@ -34,7 +34,7 @@ python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbol
 
 # Train PT Model using GPU
 ``` 
-python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbolic Dataset/Processed/PT/data_1024/*.tfrecord" --output_dir="D:/experiments/base/" --max_seq_length=1024 --train_batch_size=2 --learning_rate=1e-4 --num_train_steps=1000000 --num_warmup_steps=10000 --save_checkpoints_steps=1000 --iterations_per_loop=1000 --init_checkpoint="" --gradient_accumulation=20 --numberofPoints=30 --numberofVars=5 --model_type='PT'
+python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbolic Dataset/Processed/PT/data_1024/*.tfrecord" --output_dir="D:/experiments/base/" --max_seq_length=1024 --train_batch_size=2 --learning_rate=1e-4 --num_train_steps=1000000 --num_warmup_steps=10000 --save_checkpoints_steps=1000 --iterations_per_loop=1000 --init_checkpoint="" --gradient_accumulation=20 --numberofPoints=30 --numberofVars=5 --model_type=PT
 ```
 
 # TODO: 
@@ -48,8 +48,8 @@ python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbol
 - [ ] Find Interesting Showcases
 - [ ] Compare with other methods (GPLearn: Python Package)
 - [ ] Graph showing running time (CPU/GPU)
-- [x] Maximum NumberVariables: 5
-- [x] decimals: 4
+- [x] Generate dataset with the following parameters: Maximum NumberVariables: 5, Decimals: 5, numberofPoints: 30
+- [ ] Just save the best models
 
 # REFERENCES: 
 - https://github.com/agermanidis/OpenGPT-2

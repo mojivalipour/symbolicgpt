@@ -48,7 +48,7 @@ def input_fn_builder(input_files,
         }
 
         if model_type == 'PT': # use pointNET
-            name_to_features['input_points'] = tf.FixedLenFeature([numberofPoints*(numberofVars+1) + 1], tf.float32)
+           name_to_features['input_points'] = tf.FixedLenFeature([(numberofPoints+1)*(numberofVars+1)], tf.float32) 
 
         #print('---> input files: ',input_files)
 

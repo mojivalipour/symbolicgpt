@@ -242,7 +242,7 @@ def attention_layer(x_flat, attention_mask, batch_size, seq_length, size_per_hea
 
     return context_layer_projected, cached_keys_and_values
 
-def pointNET(x, embedding_size=768):
+def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=0.1, numberofPoints=30, numberofVars=5):
     """
     :param x: a tensor of (x,y)s, it should be [batch_size, maximum_number_of_points, maximum_num_of_variables+1]
 
@@ -268,37 +268,61 @@ def pointNET(x, embedding_size=768):
         y = g( max((h(x1, y1), ...., h(xn, yn)) )
     """
 
+
+    # reshape [batch_size, number_of_points*(number_of_vars+1)] to the [batch_size, number_of_points, (number_of_vars+1)]
+    #x = tf.sparse_tensor_to_dense(x)
+    x = tf.reshape(x, (-1, numberofPoints+1, numberofVars+1)) # [:,:-1]
+
     batch_size, maxNumPoints, XYDim = get_shape_list(x, expected_rank=3)
     #x = tf.transpose(x, perm=[0, 2, 1]) # now the dimensionality is [batch_size, maximum_num_of_variables+1, maximum_number_of_points]
 
+    hList = []
+    for i in range(maxNumPoints):
+        hi = tf.layers.dense(
+            x[:,i,:],
+            embedding_size,
+            activation=gelu,
+            kernel_initializer=create_initializer(initializer_range),
+            name='h{}'.format(i),
+        )
+        hi = tf.expand_dims(hi, axis=1, name='expand_{}'.format(i))
+        hList.append(hi)
+    # concatenate all hi into h
+    h = tf.concat(hList, axis=1, name='concat')
+    
+    # using conv means I have to change the optimizer code, don't have time for now
     # we have to process each point independently and calculate a feature vector
     # valid means no padding
-    h = tf.layers.Conv1D(
-            filters=256, kernel_size=1, strides=1, padding='valid',
-            data_format=None, dilation_rate=1, groups=1, activation=None,
-            use_bias=True, kernel_initializer=create_initializer(initializer_range) #'glorot_uniform',
-        ) # the new shape is [batch_size, maximum_number_of_points, 256]
+    # h = tf.layers.conv1d(
+    #         x,
+    #         filters=256, kernel_size=1, strides=1, padding='valid',
+    #         kernel_initializer=create_initializer(initializer_range) #'glorot_uniform',
+    #     ) # the new shape is [batch_size, maximum_number_of_points, 256]
 
     # pass the concatenated feature vectors to an order invariant pooling function like max or sum or avg
-    
-    # u = tf.layers.MaxPool1D(
-    #         pool_size=2, strides=None, padding='valid'
+    # h = tf.reshape(h, [batch_size, 256, maxNumPoints])
+
+    # u = tf.layers.max_pooling1d(
+    #         h,
+    #         pool_size=maxNumPoints, 
+    #         strides=maxNumPoints, 
+    #         padding='valid'
     #     ) # maxPool need to reshape data
 
     u = tf.math.reduce_max(h, axis=1, keepdims=False, name='u_pointnet') # the new shape should be [batch_size, 256]
 
     g = tf.layers.dense(
         u,
-        hidden_size,
+        embedding_size,
         activation=gelu,
         kernel_initializer=create_initializer(initializer_range),
         name='g',
     )
 
     g = dropout(g, hidden_dropout_prob)
-    embedding = layer_norm(g, name='g_mlp_ln1_pointnet')
+    g = layer_norm(g, name='g_mlp_ln1_pointnet')
 
-    return embedding
+    return g
 
 def residual_mlp_layer(x_flat, intermediate_size, initializer_range=0.02, hidden_dropout_prob=0.1):
     """
@@ -338,7 +362,9 @@ def embed(input_ids,
           initializer_range=0.02,
           max_position_embeddings=512,
           use_one_hot_embeddings=True,
-          input_points=None):
+          input_points=None,
+          numberofPoints=30, 
+          numberofVars=5):
     """reur and position embeddings
     :param input_ids: int Tensor of shape [batch_size, seq_length].
     :param input_points: None or float Tensor of shape [batch_size, number_of_points, number_of_variables+1].
@@ -402,8 +428,8 @@ def embed(input_ids,
 
     if input_points is not None:
         # pass the input to the pointNET
-        point_embeds = pointNET(input_points, embedding_size=embedding_size) # [batch_size, dim]
-        embedded_input += point_embeds[:, None, :] # add PointNET embedding to other emebddings
+        point_embeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
+        embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
 
     return layer_norm(embedded_input, name='embed_norm'), embedding_table
 
@@ -529,8 +555,12 @@ class GroverModel(object):
         self.is_training = is_training
         self.pad_token_id = pad_token_id
 
+        self.model_type = model_type
+        self.numberofPoints = numberofPoints
+        self.numberofVars = numberofVars
+
         self.input_points = None
-        if input_points is not None:
+        if model_type == 'PT':
             self.input_points = input_points
 
         if not is_training:
@@ -569,7 +599,9 @@ class GroverModel(object):
                                                          initializer_range=config.initializer_range,
                                                          max_position_embeddings=config.max_position_embeddings,
                                                          use_one_hot_embeddings=True,
-                                                         input_points=self.input_points)
+                                                         input_points=self.input_points,
+                                                         numberofPoints=self.numberofPoints, 
+                                                         numberofVars=self.numberofVars)
 
             mask = get_attention_mask(self.seq_length, self.seq_length + self.cache_length, dtype=embeddings.dtype)
 
@@ -652,7 +684,6 @@ class GroverModel(object):
         pool_idx = tf.cast(tf.argmax(tf.cast(tf.equal(self.input_ids, clf_token), tf.float32), 1), tf.int32)
         return tf.gather(self.hidden_state, tf.range(self.batch_size, dtype=tf.int32) * self.seq_length + pool_idx)
 
-
 def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
                      num_train_steps, num_warmup_steps, use_tpu, gradient_accumulation=20,
                      model_type='GPT2', numberofPoints=30, numberofVars=5):
@@ -669,9 +700,9 @@ def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
         input_points = None
 
         if 'input_points' in features:
-            input_points = features["input_points"] 
-            # reshape [batch_size, number_of_points*(number_of_vars+1)] to the [batch_size, number_of_points, (number_of_vars+1)]
-            input_points = tf.reshape(input_points, (-1, number_of_points, number_of_vars+1))
+            input_points = features["input_points"]
+            # # reshape [batch_size, number_of_points*(number_of_vars+1)] to the [batch_size, number_of_points, (number_of_vars+1)]
+            # input_points = tf.reshape(input_points, (-1, numberofPoints, numberofVars+1))
 
         is_training = (mode == tf.estimator.ModeKeys.TRAIN)
 
@@ -792,7 +823,7 @@ def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
     return model_fn
 
 
-def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, cache=None, do_topk=False):
+def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, cache=None, do_topk=False, points=None):
     """
     Helper function that samples from grover for a single step
     :param tokens: [batch_size, n_ctx_b] tokens that we will predict from
@@ -812,6 +843,7 @@ def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, 
         config=news_config,
         is_training=False,
         input_ids=tokens,
+        input_points=points,
         reuse=tf.AUTO_REUSE,
         scope='newslm',
         chop_off_last_token=False,
@@ -837,12 +869,12 @@ def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, 
     }
 
 
-def initialize_from_context(initial_context, ignore_ids, news_config, p_for_topp=0.95, do_topk=False):
+def initialize_from_context(initial_context, ignore_ids, news_config, p_for_topp=0.95, do_topk=False, points=None):
     """ same signature as sample_step"""
     batch_size, _ = get_shape_list(initial_context, expected_rank=2)
 
     context_output = sample_step(tokens=initial_context, ignore_ids=ignore_ids, news_config=news_config,
-                                 batch_size=batch_size, p_for_topp=p_for_topp, cache=None, do_topk=do_topk)
+                                 batch_size=batch_size, p_for_topp=p_for_topp, cache=None, do_topk=do_topk, points=points)
     return {
         'tokens': tf.concat([initial_context, context_output['new_tokens'][:, None]], 1),
         'cache': context_output['new_cache'],
@@ -905,7 +937,7 @@ def initialize_from_context(initial_context, ignore_ids, news_config, p_for_topp
 #     return tokens, probs
 
 def sample(news_config: GroverConfig, initial_context, eos_token, min_len, ignore_ids=None, p_for_topp=0.95,
-           do_topk=False):
+           do_topk=False, points=None):
     """
     V1 version of: sample outputs from a model, and do it all at once
     :param news_config: Configuration used to construct the model
@@ -924,7 +956,8 @@ def sample(news_config: GroverConfig, initial_context, eos_token, min_len, ignor
         # Initial call to get cache
         context_output = initialize_from_context(initial_context, ignore_ids=ignore_ids, news_config=news_config,
                                                  p_for_topp=p_for_topp,
-                                                 do_topk=do_topk)
+                                                 do_topk=do_topk,
+                                                 points=points)
         ctx = context_output['tokens']
         cache = context_output['cache']
         probs = context_output['probs']
@@ -933,7 +966,7 @@ def sample(news_config: GroverConfig, initial_context, eos_token, min_len, ignor
             """ for whatever reason this didn't work when I ran it on more than one at once... ugh."""
             next_outputs = sample_step(ctx[:, -1][:, None], ignore_ids=ignore_ids, news_config=news_config,
                                        batch_size=batch_size, p_for_topp=p_for_topp, cache=cache,
-                                       do_topk=do_topk)
+                                       do_topk=do_topk, points=points)
 
             # Update everything
             new_cache = tf.concat([cache, next_outputs['new_cache']], axis=-2)
