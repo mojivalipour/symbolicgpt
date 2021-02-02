@@ -271,7 +271,14 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
 
     # reshape [batch_size, number_of_points*(number_of_vars+1)] to the [batch_size, number_of_points, (number_of_vars+1)]
     #x = tf.sparse_tensor_to_dense(x)
+    x = tf.math.log_sigmoid(x, name='x_log_sigmoid_pointnet')
+    x = tf.clip_by_value(x, clip_value_min=-10, clip_value_max=10, name='x_clipping_pointnet')
+    x = tf.stop_gradient(x, name='x_sg_pointnet')
+
+    x = layer_norm(x, name='x_ln1_pointnet')
+
     x = tf.reshape(x, (-1, numberofPoints+1, numberofVars+1)) # [:,:-1]
+    #x = layer_norm(x, name='x_ln1_pointnet')
 
     batch_size, maxNumPoints, XYDim = get_shape_list(x, expected_rank=3)
     #x = tf.transpose(x, perm=[0, 2, 1]) # now the dimensionality is [batch_size, maximum_num_of_variables+1, maximum_number_of_points]
@@ -283,9 +290,10 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
             embedding_size,
             activation=gelu,
             kernel_initializer=create_initializer(initializer_range),
-            name='h{}'.format(i),
+            name='h', reuse=tf.AUTO_REUSE
         )
         hi = tf.expand_dims(hi, axis=1, name='expand_{}'.format(i))
+        #hi = layer_norm(hi, name='h{}_ln1_pointnet'.format(i))
         hList.append(hi)
     # concatenate all hi into h
     h = tf.concat(hList, axis=1, name='concat')
@@ -310,6 +318,8 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
     #     ) # maxPool need to reshape data
 
     u = tf.math.reduce_max(h, axis=1, keepdims=False, name='u_pointnet') # the new shape should be [batch_size, 256]
+    #u = layer_norm(u, name='u_ln1_pointnet')
+    u = tf.keras.activations.relu(u, alpha=0.0, max_value=None, threshold=0)
 
     g = tf.layers.dense(
         u,

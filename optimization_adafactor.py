@@ -67,7 +67,7 @@ def create_optimizer(loss, init_lr, num_train_steps, num_warmup_steps, use_tpu, 
     grads = tf.gradients(loss, tvars)
 
     # You could do this, but instead we don't because a) it's slow and b) we already did the 'update clipping'
-    # (grads, _) = tf.clip_by_global_norm(grads, clip_norm=1.0)
+    #(grads, _) = tf.clip_by_global_norm(grads, clip_norm=1.0)
 
     global_steps_int = tf.cast(global_step, tf.int32)
     accum_grads = [tf.Variable(lambda: tf.zeros_like(t_var.initialized_value()), trainable=False) for t_var in tvars]
