@@ -315,11 +315,14 @@ def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
     return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars), digits=decimals)
 
 #@timeout(5) #, use_signals=False)
-def dataGen(nv, decimals, numberofPoints=[0,10], supportPoints=None, seed=2021):
+def dataGen(nv, decimals, numberofPoints=[0,10], supportPoints=None, seed=2021, xRange=[0.1,3.1], testPoints=False, testRange=[0.0,6.0]):
     nPoints = np.random.randint(*numberofPoints) if supportPoints is None else len(supportPoints)
     currEqn = generate_random_eqn_raw(n_vars=nv,n_levels=3)
     cleanEqn = eqn_to_str(currEqn, n_vars=nv, decimals=decimals)
-    data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints)
+    data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
+    if testPoints:
+        dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints, min_x=testRange[0], max_x=testRange[1])
+        return data[0], data[1], cleanEqn, dataTest[0], dataTest[1]
     return data[0], data[1], cleanEqn
 
 ######################################

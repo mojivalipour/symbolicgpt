@@ -14,7 +14,7 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
         # generate a formula
         # Create a new random equation
         try:
-            x,y,cleanEqn = dataGen(nv, decimals, numberofPoints=numberofPoints, supportPoints=supportPoints, seed=seed)
+            x,y,cleanEqn, xT, yT = dataGen(nv, decimals, numberofPoints=numberofPoints, supportPoints=supportPoints, seed=seed, xRange=[0.1,3.1], testPoints=True, testRange=[0.0,6.0])
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
@@ -25,6 +25,8 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
         structure['X'] = list(x)
         structure['Y'] = y
         structure['EQ'] = cleanEqn
+        structure['XT'] = list(xT)
+        structure['YT'] = yT
 
         outputPath = dataPath.format(fileID, nv, time)
         if os.path.exists(outputPath):
