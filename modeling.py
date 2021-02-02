@@ -833,7 +833,8 @@ def model_fn_builder(config: GroverConfig, init_checkpoint, learning_rate,
     return model_fn
 
 
-def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, cache=None, do_topk=False, points=None):
+def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, cache=None, 
+                do_topk=False, points=None, model_type='GPT2', numberofPoints=30, numberofVars=5):
     """
     Helper function that samples from grover for a single step
     :param tokens: [batch_size, n_ctx_b] tokens that we will predict from
@@ -859,6 +860,9 @@ def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, 
         chop_off_last_token=False,
         do_cache=True,
         cache=cache,
+        model_type=model_type, 
+        numberofPoints=numberofPoints, 
+        numberofVars=numberofVars
     )
 
     # Extract the FINAL SEQ LENGTH
@@ -879,12 +883,14 @@ def sample_step(tokens, ignore_ids, news_config, batch_size=1, p_for_topp=0.95, 
     }
 
 
-def initialize_from_context(initial_context, ignore_ids, news_config, p_for_topp=0.95, do_topk=False, points=None):
+def initialize_from_context(initial_context, ignore_ids, news_config, p_for_topp=0.95, 
+                            do_topk=False, points=None, model_type='GPT2', numberofPoints=30, numberofVars=5):
     """ same signature as sample_step"""
     batch_size, _ = get_shape_list(initial_context, expected_rank=2)
 
     context_output = sample_step(tokens=initial_context, ignore_ids=ignore_ids, news_config=news_config,
-                                 batch_size=batch_size, p_for_topp=p_for_topp, cache=None, do_topk=do_topk, points=points)
+                                 batch_size=batch_size, p_for_topp=p_for_topp, cache=None, do_topk=do_topk, points=points,
+                                 model_type=model_type, numberofPoints=numberofPoints, numberofVars=numberofVars)
     return {
         'tokens': tf.concat([initial_context, context_output['new_tokens'][:, None]], 1),
         'cache': context_output['new_cache'],
@@ -947,7 +953,7 @@ def initialize_from_context(initial_context, ignore_ids, news_config, p_for_topp
 #     return tokens, probs
 
 def sample(news_config: GroverConfig, initial_context, eos_token, min_len, ignore_ids=None, p_for_topp=0.95,
-           do_topk=False, points=None):
+           do_topk=False, points=None, model_type='GPT2', numberofPoints=30, numberofVars=5):
     """
     V1 version of: sample outputs from a model, and do it all at once
     :param news_config: Configuration used to construct the model
@@ -967,7 +973,10 @@ def sample(news_config: GroverConfig, initial_context, eos_token, min_len, ignor
         context_output = initialize_from_context(initial_context, ignore_ids=ignore_ids, news_config=news_config,
                                                  p_for_topp=p_for_topp,
                                                  do_topk=do_topk,
-                                                 points=points)
+                                                 points=points, 
+                                                 model_type=model_type, 
+                                                 numberofPoints=numberofPoints, 
+                                                 numberofVars=numberofVars)
         ctx = context_output['tokens']
         cache = context_output['cache']
         probs = context_output['probs']
@@ -976,7 +985,8 @@ def sample(news_config: GroverConfig, initial_context, eos_token, min_len, ignor
             """ for whatever reason this didn't work when I ran it on more than one at once... ugh."""
             next_outputs = sample_step(ctx[:, -1][:, None], ignore_ids=ignore_ids, news_config=news_config,
                                        batch_size=batch_size, p_for_topp=p_for_topp, cache=cache,
-                                       do_topk=do_topk, points=points)
+                                       do_topk=do_topk, points=points, model_type=model_type, 
+                                       numberofPoints=numberofPoints, numberofVars=numberofVars)
 
             # Update everything
             new_cache = tf.concat([cache, next_outputs['new_cache']], axis=-2)

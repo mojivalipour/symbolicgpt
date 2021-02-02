@@ -14,6 +14,8 @@ from wrapt_timeout_decorator import *
 # except ImportError:
 #     import _thread as thread
 
+np.random.seed(seed=2021) # we didn't use this line for the training data
+
 main_op_list = ["id", "add", "mul", "div", "sqrt", "sin", "exp", "log"]
 
 eps = 1e-4
@@ -313,7 +315,7 @@ def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
     return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars), digits=decimals)
 
 #@timeout(5) #, use_signals=False)
-def dataGen(nv, decimals, numberofPoints=[0,10], supportPoints=None):
+def dataGen(nv, decimals, numberofPoints=[0,10], supportPoints=None, seed=2021):
     nPoints = np.random.randint(*numberofPoints) if supportPoints is None else len(supportPoints)
     currEqn = generate_random_eqn_raw(n_vars=nv,n_levels=3)
     cleanEqn = eqn_to_str(currEqn, n_vars=nv, decimals=decimals)

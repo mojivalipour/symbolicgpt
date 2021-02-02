@@ -264,13 +264,14 @@ def main():
     with g.as_default() as graph: 
         with sess.as_default() as sess:
             initial_context = tf.placeholder(tf.int32, [batch_size_per_chunk, None])
-            input_points = tf.placeholder(tf.float32, [batch_size_per_chunk, None, None]) # [batch_size, number_of_points, (number_of_vars+1)]
+            input_points = tf.placeholder(tf.float32, [batch_size_per_chunk, args.max_num_points+1, args.max_num_vars+1]) # [batch_size, number_of_points+1, (number_of_vars+1)]
             p_for_topp = tf.placeholder(tf.float32, [batch_size_per_chunk])
             eos_token = tf.placeholder(tf.int32, [])
             min_len = tf.placeholder(tf.int32, [])
             tokens, probs = sample(news_config=news_config, initial_context=initial_context,
                                 eos_token=eos_token, min_len=min_len, ignore_ids=None, p_for_topp=p_for_topp,
-                                do_topk=False, points=input_points)
+                                do_topk=False, points=input_points, model_type=args.modelType, 
+                                numberofPoints=args.max_num_points, numberofVars=args.max_num_vars)
 
             saver = tf.train.Saver()
             saver.restore(sess, args.ckpt_fn)
@@ -309,7 +310,7 @@ def main():
                 x = eval(pointsX)
                 y = eval(pointsY)
 
-                points = list(map(lambda x,y:x+[y],x,y)) + [[0]*(args.max_num_vars+1)]*args.max_num_points 
+                points = list(map(lambda x,y:x+[y],x,y)) + [[0]*(args.max_num_vars+1)]*(args.max_num_points+1)
                 
                 if args.modelType == 'PT':
                     text = text[posSOS_EQ:]

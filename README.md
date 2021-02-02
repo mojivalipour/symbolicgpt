@@ -14,7 +14,7 @@ cd symbolicgpt2
 ```
 pu list
 cd symbolicgpt2
-export INSTANCE_NAME=tpu-persian
+export INSTANCE_NAME=tpu-persian-3
 export TPU_ZONE=us-central1-f
 export STORAGE_BUCKET=gs://persian-storage
 export TPU_NAME=tpu-persian3
@@ -22,9 +22,37 @@ export MODEL_DIR=gs://persian-storage/experimentsSymbolic/
 source ~/conda/bin/activate
 ```
 
+## Generate the test data
+```
+python datasetTest.py
+```
+
 ## Prepare the working environment
 ``` 
+curl -o ~/miniconda.sh -O  https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+chmod +x ~/miniconda.sh 
+~/miniconda.sh -b -p ~/conda 
+rm ~/miniconda.sh 
+~/conda/bin/conda install -y python=3.6
 
+source ~/conda/bin/activate
+
+sudo apt-get install parallel
+pip install tokenizers
+sudo apt install git
+sudo apt-get install tmux
+sudo pip3 install -U tpunicorn
+
+export PYTHONPATH="${PYTHONPATH}:/home/m5valipo/conda/bin/python"
+
+pip install -r requirements.txt
+pip install cloud-tpu-client
+
+pip install tensorflow-serving-api
+pip install cloud-tpu-client
+pip install --upgrade google-api-python-client
+pip install google-cloud-storage
+pip install --upgrade oauth2client
 ``` 
 
 ## How to generate the data
