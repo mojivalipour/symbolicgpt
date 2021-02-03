@@ -287,11 +287,30 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
     for i in range(maxNumPoints):
         hi = tf.layers.dense(
             x[:,i,:],
+            256,
+            activation=gelu,
+            kernel_initializer=create_initializer(initializer_range),
+            name='h1', reuse=tf.AUTO_REUSE
+        )
+
+        hi = tf.keras.activations.relu(hi, alpha=0.0, max_value=None, threshold=0)
+        hi = tf.layers.dense(
+            hi,
+            512,
+            activation=gelu,
+            kernel_initializer=create_initializer(initializer_range),
+            name='h2', reuse=tf.AUTO_REUSE
+        )
+
+        hi = tf.keras.activations.relu(hi, alpha=0.0, max_value=None, threshold=0)
+        hi = tf.layers.dense(
+            hi,
             embedding_size,
             activation=gelu,
             kernel_initializer=create_initializer(initializer_range),
-            name='h', reuse=tf.AUTO_REUSE
+            name='h3', reuse=tf.AUTO_REUSE
         )
+
         hi = tf.expand_dims(hi, axis=1, name='expand_{}'.format(i))
         #hi = layer_norm(hi, name='h{}_ln1_pointnet'.format(i))
         hList.append(hi)
