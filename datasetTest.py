@@ -42,15 +42,15 @@ def main():
     seed = 2021
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
-    numVars = [1,2,3,4,5] #list(range(31)) #[1,2,3,4,5]
+    numVars = [1] #[1,2,3,4,5] #list(range(31)) #[1,2,3,4,5]
     decimals = 5
     numberofPoints = [5,30] # upper bound 
-    numSamples = 200 # number of generated samples
+    numSamples = 1000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
-    #supportPoints = np.linspace(0.1,3.1,30)
-    #supportPoints = [[np.round(p,decimals)] for p in supportPoints]
-    supportPoints = None
+    supportPoints = np.linspace(0.1,3.1,30)
+    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    #supportPoints = None
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
