@@ -230,12 +230,17 @@ def main():
         gen_probs = []
 
         for chunk_i in range(num_chunks):
+            feedDict = {
+                            initial_context: [context_formatted] * batch_size_per_chunk,
+                            eos_token: args.eos_token, 
+                            min_len: args.min_len,
+                            p_for_topp: top_p[chunk_i]
+                        }
+            if points != None:
+                feedDict[input_points] = [points] * batch_size_per_chunk
+
             tokens_out, probs_out = sess.run([tokens, probs],
-                                            feed_dict={initial_context: [context_formatted] * batch_size_per_chunk,
-                                                        eos_token: args.eos_token, min_len: args.min_len,
-                                                        p_for_topp: top_p[chunk_i],
-                                                        input_points: [points] * batch_size_per_chunk
-                                                        })
+                                            feed_dict=feedDict)
 
             for t_i, p_i in zip(tokens_out, probs_out):
                 extraction = extract_generated_target(output_tokens=t_i, tokenizer=tokenizer)
