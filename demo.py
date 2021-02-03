@@ -234,7 +234,7 @@ def main():
                                             feed_dict={initial_context: [context_formatted] * batch_size_per_chunk,
                                                         eos_token: args.eos_token, min_len: args.min_len,
                                                         p_for_topp: top_p[chunk_i],
-                                                        input_points: points
+                                                        input_points: [points] * batch_size_per_chunk
                                                         })
 
             for t_i, p_i in zip(tokens_out, probs_out):
@@ -258,13 +258,47 @@ def main():
             l = lf  
         return l
 
+    def extractPoints(text):
+        # Filter points 
+        if '<SOS_EQ>' in text:
+            posSOS_EQ = text.find('<SOS_EQ>')
+        else:
+            posSOS_EQ = -1 # assume everything is points
+        points = text[:posSOS_EQ]
+
+        if '<SOS_Y>' in text:
+            posSOS_Y = text.find('<SOS_Y>')
+        else:
+            posSOS_Y = -1 # assume everything is x
+
+        pointsX = points[:posSOS_Y]
+        pointsY = points[posSOS_Y+len('<SOS_Y>'):] if posSOS_Y != -1 else ''
+        pointsY = pointsY.replace('<EOS_Y>','')
+
+        pointsX = pointsX.replace('<SOS_X>','')
+        pointsX = pointsX.replace('<EOS_X>','')
+
+        x = eval(pointsX)
+        y = eval(pointsY)
+
+        x = [i+[0]*(args.max_num_vars-len(i)) for i in x] # make xs with variable length to have the same size
+
+        points = list(map(lambda x,y:x+[y],x,y)) 
+        points = points + [[0]*(args.max_num_vars+1)]*(args.max_num_points-len(points)+1)
+
+        # flatten the input
+        points = [item for l in points for item in l]
+
+        return points, posSOS_EQ
+
     g = tf.Graph()
     sess = tf.Session(config=tf_config, graph=g)
     #with tf.Session(config=tf_config, graph=tf.Graph()) as sess:
+    points = None
     with g.as_default() as graph: 
         with sess.as_default() as sess:
             initial_context = tf.placeholder(tf.int32, [batch_size_per_chunk, None])
-            input_points = tf.placeholder(tf.float32, [batch_size_per_chunk, args.max_num_points+1, args.max_num_vars+1]) # [batch_size, number_of_points+1, (number_of_vars+1)]
+            input_points = tf.placeholder(tf.float32, [batch_size_per_chunk, (args.max_num_points+1)*(args.max_num_vars+1)]) # [batch_size, number_of_points+1, (number_of_vars+1)]
             p_for_topp = tf.placeholder(tf.float32, [batch_size_per_chunk])
             eos_token = tf.placeholder(tf.int32, [])
             min_len = tf.placeholder(tf.int32, [])
@@ -288,31 +322,8 @@ def main():
                 text = "\n".join(prompt)
                 text = text.replace('\\n', '\n')
 
-                # Filter points 
-                if '<SOS_EQ>' in text:
-                    posSOS_EQ = text.find('<SOS_EQ>')
-                else:
-                    posSOS_EQ = -1 # assume everything is points
-                points = text[:posSOS_EQ]
-
-                if '<SOS_Y>' in text:
-                    posSOS_Y = text.find('<SOS_Y>')
-                else:
-                    posSOS_Y = -1 # assume everything is x
-                
-                pointsX = points[:posSOS_Y]
-                pointsY = points[posSOS_Y+1:] if posSOS_Y != -1 else ''
-                pointsY = pointsY.replace('<EOS_Y>','')
-
-                pointsX = pointsY.replace('<SOS_X>','')
-                pointsX = pointsY.replace('<EOS_X>','')
-
-                x = eval(pointsX)
-                y = eval(pointsY)
-
-                points = list(map(lambda x,y:x+[y],x,y)) + [[0]*(args.max_num_vars+1)]*(args.max_num_points+1)
-                
                 if args.modelType == 'PT':
+                    points, posSOS_EQ = extractPoints(text)
                     text = text[posSOS_EQ:]
 
                 # ask if we want to save the output 
@@ -397,12 +408,19 @@ def main():
 
                         text = "\n".join(prompt)
                         text = text.replace('\\n', '\n')
+
+                        if args.modelType == 'PT':
+                            points, posSOS_EQ = extractPoints(text)
+                            text = text[posSOS_EQ:]
             else:
                 result = []
                 text = args.context
                 if text[0] == '[':
                     text = eval(text) # it should be a list now
                     for idx, t in enumerate(text):
+                        if args.modelType == 'PT':
+                            points, posSOS_EQ = extractPoints(t)
+                            t = t[posSOS_EQ:]
                         res = runSample(t, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                         result.append(res)
                         print('{}/{}->eq:{}\n'.format(idx, len(text), res))
