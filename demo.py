@@ -398,6 +398,11 @@ def main():
                     display(HBox([likeButton,disLikeButton]))
                 else:
                     while text != "":
+
+                        if args.modelType == 'PT':
+                            points, posSOS_EQ = extractPoints(text)
+                            text = text[posSOS_EQ:]
+
                         for i in range(args.samples):
                             print("Sample,", i + 1, " of ", args.samples)
                             lf = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
@@ -413,10 +418,6 @@ def main():
 
                         text = "\n".join(prompt)
                         text = text.replace('\\n', '\n')
-
-                        if args.modelType == 'PT':
-                            points, posSOS_EQ = extractPoints(text)
-                            text = text[posSOS_EQ:]
             else:
                 result = []
                 text = args.context
@@ -426,6 +427,8 @@ def main():
                         if args.modelType == 'PT':
                             points, posSOS_EQ = extractPoints(t)
                             t = t[posSOS_EQ:]
+                            #print('\nExtracted input text: {}\n Extracted input points:{}\n'.format(t, points))
+
                         res = runSample(t, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                         result.append(res)
                         print('{}/{}->eq:{}\n'.format(idx, len(text), res))
