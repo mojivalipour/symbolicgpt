@@ -287,6 +287,10 @@ def main():
         pointsX = pointsX.replace('inf','10000')
         pointsX = pointsX.replace('nan','0')
 
+        pointsY = pointsY.replace('infinity','10000')
+        pointsY = pointsY.replace('inf','10000')
+        pointsY = pointsY.replace('nan','0')
+
         x = eval(pointsX)
         y = eval(pointsY)
 
