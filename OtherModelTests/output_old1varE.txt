@@ -1,0 +1,43 @@
+Test case 1/200.
+0.18*exp(x1)+0.38/x1
+MLP: 0.002875190662658515
+(neural black box)
+GP: 0.0036598641529600327
+mul(add(exp(X0), 0.445), 0.201)
+
+Test case 2/200.
+-3.18*x1*log(x1-1.86)+x1/(-2.18*x1-3.76)+1.37+2.12/(-2.18*x1-3.76)
+MLP: 25.897538165611856
+(neural black box)
+GP: 0.1435982998296913
+mul(exp(add(-0.981, X0)), mul(sin(add(X0, log(mul(exp(-0.613), X0)))), sqrt(div(sin(add(add(X0, log(mul(log(-0.613), X0))), -0.202)), log(mul(exp(-0.613), X0))))))
+
+Test case 3/200.
+exp(sin(x1+3.1))
+MLP: 0.0001745503476602705
+(neural black box)
+GP: 0.0003050521871848589
+exp(sin(mul(-0.971, X0)))
+
+Test case 4/200.
+exp(2.9*x1/(x1+2.69))*exp(-3.33/(x1+2.69))+sin(1-2.05/x1)
+MLP: 0.004663870971176691
+(neural black box)
+GP: 0.0910493169508839
+sqrt(mul(mul(X0, X0), sin(log(X0))))
+
+Test case 5/200.
+3.45*x1*log(-0.31*x1-2.22)/(0.01*x1-2.24)-sin(sin(0.16*x1+2.97))+3.07/(0.01*x1-2.24)
+MLP: 0.0009895145903082879
+(neural black box)
+GP: 0.016594859303074517
+add(div(X0, -0.529), -0.866)
+
+Test case 6/200.
+0.07654*exp(sin(0.75*x1+0.3)/x1)
+MLP: 2.256489905873894e+50
+(neural black box)
+GP: 2.256489905873894e+50
+exp(0.094)
+
+Test case 7/200.

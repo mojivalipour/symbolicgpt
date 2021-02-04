@@ -9,7 +9,7 @@ import numpy as np
 
 show_found_eqns = True
 
-num_vars = 5
+num_vars = 1
 
 gpm = Genetic_Model()
 mlp = MLP_Model()
@@ -20,10 +20,10 @@ mlp_error_scores = []
 mlp_iter_times = []
 
 # open file
-input_file = open("data/{}var.txt".format(num_vars))
+input_file = open("data/old{}varE.txt".format(num_vars))
 lines = input_file.readlines()
 input_file.close()
-output_file = open("output_{}var.txt".format(num_vars), "w")
+output_file = open("output_old{}varE.txt".format(num_vars), "w")
 
 print("Starting test: {} variable(s).".format(num_vars))
 print()
