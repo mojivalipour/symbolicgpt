@@ -55,6 +55,12 @@ pip install google-cloud-storage
 pip install --upgrade oauth2client
 ``` 
 
+## Prepare the data
+```
+bash prepare_data.sh ./datapath ./outputpath
+bash prepare_data_pt.sh ./datapath ./outputpath
+```
+
 ## How to generate the data
 ``` 
 for P in {1..200} ; do sleep 1;  echo $P; python dataset.py ; done
@@ -67,7 +73,7 @@ python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbol
 
 # Train PT Model using GPU
 ``` 
-python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbolic Dataset/Processed/PT/data_1024/*.tfrecord" --output_dir="D:/experiments/base/" --max_seq_length=1024 --train_batch_size=2 --learning_rate=1e-4 --num_train_steps=1000000 --num_warmup_steps=10000 --save_checkpoints_steps=1000 --iterations_per_loop=1000 --init_checkpoint="" --gradient_accumulation=20 --numberofPoints=30 --numberofVars=5 --model_type=PT
+python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbolic Dataset/Processed/1VARPT/data_1024/*.tfrecord" --output_dir="D:/experiments/base/" --max_seq_length=1024 --train_batch_size=2 --learning_rate=1e-4 --num_train_steps=1000000 --num_warmup_steps=10000 --save_checkpoints_steps=1000 --iterations_per_loop=1000 --init_checkpoint="" --gradient_accumulation=20 --numberofPoints=30 --numberofVars=1 --model_type=PT
 ```
 
 # TODO:

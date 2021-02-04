@@ -283,6 +283,10 @@ def main():
         pointsX = pointsX.replace('<SOS_X>','')
         pointsX = pointsX.replace('<EOS_X>','')
 
+        pointsX = pointsX.replace('infinity','10000')
+        pointsX = pointsX.replace('inf','10000')
+        pointsX = pointsX.replace('nan','0')
+
         x = eval(pointsX)
         y = eval(pointsY)
 
