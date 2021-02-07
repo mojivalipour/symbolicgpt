@@ -18,6 +18,7 @@ for num_vars in range(1, num_to_plot+1):
     gp_errs = []
     mlp_errs = []
     gpt_errs= []
+    ptd_errs = []
     num_less_than_0_1 = [0, 0, 0]
     num_less_than_0_01 = [0, 0, 0]
     num_less_than_0_5= [0, 0, 0]
@@ -35,8 +36,8 @@ for num_vars in range(1, num_to_plot+1):
 
 
     for i in range(0, len(new_input_lines), 7):
-        # for line in new_input_lines[i:i+7]:
-        #     print(line)
+        for line in new_input_lines[i:i+7]:
+            print(line)
 
         eqn_index = int(new_input_lines[i].split("/")[0][10:].strip())
         eqn_str = new_input_lines[i+1].strip()
@@ -94,8 +95,28 @@ for num_vars in range(1, num_to_plot+1):
     print("Number less than 0.1: {}".format(num_less_than_0_1))
     print("Number less than 0.01: {}".format(num_less_than_0_01))
 
-    lists_of_error_scores = [gp_errs, mlp_errs, gpt_errs]
-    model_names = ["GP", "MLP", "GPT"]
+    if num_vars in [1, 3]:
+        input_file = open("ptdeep_output_old{}var.txt".format(num_vars), "r")
+        input_lines = input_file.readlines()
+        input_file.close()
+
+        for i in range(0, len(input_lines), 5):
+            eqn_index = int(input_lines[i].split("/")[0][10:].strip())
+            eqn_str = input_lines[i + 1].strip()
+            raw_err = input_lines[i + 2].split()[1]
+            if "Not" in raw_err:
+                continue
+            raw_err = float(raw_err)
+            ptdeep_err = min(np.exp(15), np.exp(raw_err))
+
+            ptd_errs.append(ptdeep_err)
+
+
+        lists_of_error_scores = [gp_errs, mlp_errs, gpt_errs, ptd_errs]
+        model_names = ["GP", "MLP", "GPT", "PT-Deep"]
+    else:
+        lists_of_error_scores = [gp_errs, mlp_errs, gpt_errs]
+        model_names = ["GP", "MLP", "GPT"]
 
     y[num_vars], x[num_vars], _ = plt.hist([np.log(errors_i) for errors_i in lists_of_error_scores],
                                   label=[model_name for model_name in model_names],
@@ -108,8 +129,10 @@ plt.figure(figsize=(15, 10))
 for num_vars in range(1, num_to_plot+1):
     plt.subplot(min(2, int((num_to_plot+1)/2)), int((num_to_plot+1)/2), num_vars)
     plt.plot(x[num_vars][:-1], y[num_vars][2] * 100, linestyle="-", label="GPT")
-    plt.plot(x[num_vars][:-1], y[num_vars][0]*100, linestyle="--", label="GP")
+    plt.plot(x[num_vars][:-1], y[num_vars][0]*100, linestyle="dashdot", label="GP")
     plt.plot(x[num_vars][:-1], y[num_vars][1]*100, linestyle="dotted", label="MLP")
+    if num_vars in [1, 3]:
+        plt.plot(x[num_vars][:-1], y[num_vars][3] * 100, linestyle="--", label="PT-Deep")
 
     plt.legend(loc="upper left")
     plt.title("{} equations of {} variables".format(num_eqns[num_vars], num_vars))

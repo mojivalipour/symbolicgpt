@@ -20,10 +20,10 @@ mlp_error_scores = []
 mlp_iter_times = []
 
 # open file
-input_file = open("data/old{}varE.txt".format(num_vars))
+input_file = open("data/old{}varC.txt".format(num_vars))
 lines = input_file.readlines()
 input_file.close()
-output_file = open("output_old{}varE.txt".format(num_vars), "w")
+output_file = open("output_old{}varC2.txt".format(num_vars), "w")
 
 print("Starting test: {} variable(s).".format(num_vars))
 print()
@@ -32,12 +32,13 @@ print()
 i = 1
 num_lines = len(lines)
 for line in lines:
+
     old_time = time.time()
     print("Test case {}/{}.".format(i, num_lines))
     output_file.write("Test case {}/{}.\n".format(i, num_lines))
     i+=1
     # TODO: don't skip infinities
-    if "Infinity" in line:
+    if "Infinity" in line or "NaN" in line or i < 134:
         continue
     dict_line = eval(line)
     # line.replace("{", "")
