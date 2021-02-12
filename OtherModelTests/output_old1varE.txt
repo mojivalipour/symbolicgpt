@@ -1,0 +1,1358 @@
+Test case 1/200.
+Test case 2/200.
+Test case 3/200.
+Test case 4/200.
+Test case 5/200.
+Test case 6/200.
+0.07654*exp(sin(0.75*x1+0.3)/x1)
+MLP: 2.256489905873894e+50
+(neural black box)
+GP: 2.256489905873894e+50
+exp(-0.704)
+
+Test case 7/200.
+Test case 8/200.
+log(sin(log(3.2*x1+1.2)))
+MLP: 0.0003269420118105249
+(neural black box)
+GP: 0.0010471891970651348
+log(sin(sqrt(add(X0, X0))))
+
+Test case 9/200.
+sin(x1*log(3.58*x1+0.11)/(2.15*x1+2.1)+3.49/(2.15*x1+2.1))
+MLP: 0.11563361019338816
+(neural black box)
+GP: 0.0006324138426645956
+sin(div(exp(0.419), sin(sqrt(X0))))
+
+Test case 10/200.
+0.9308*x1**2+1.25*sqrt(0.64*x1-1)+3.3
+MLP: 0.18626331496718124
+(neural black box)
+GP: 0.1247425738897307
+add(div(X0, 0.205), sin(exp(sin(X0))))
+
+Test case 11/200.
+-1.75*x1-1.44*sqrt(1-0.18*x1)*sin(3.52*x1+1.99)+1.85
+MLP: 0.1858224721951424
+(neural black box)
+GP: 0.10384901555747578
+add(sin(sin(add(sqrt(X0), mul(X0, X0)))), log(div(div(0.374, X0), log(div(-0.676, X0)))))
+
+Test case 12/200.
+log(log(exp(2.61*x1))+0.73)
+MLP: 0.0007841509707016757
+(neural black box)
+GP: 0.015867264175154307
+sqrt(div(X0, 0.639))
+
+Test case 13/200.
+-3.87*x1+0.04*exp(-3.62*x1)
+MLP: 0.0007501036347852823
+(neural black box)
+GP: 0.0009419873367732666
+mul(div(mul(sqrt(sqrt(mul(0.249, X0))), sin(log(div(X0, X0)))), mul(log(div(add(0.540, 0.342), add(X0, -0.747))), div(div(sin(X0), exp(0.927)), add(mul(0.206, X0), add(X0, X0))))), log(sin(mul(mul(div(-0.512, -0.504), add(X0, -0.555)), sqrt(log(-0.387))))))
+
+Test case 14/200.
+log(-4.11*x1**2+7.69*x1-3.09)
+MLP: 0.20708836310353734
+(neural black box)
+GP: 0.35354728243016437
+log(mul(exp(add(X0, -0.272)), sin(add(-0.973, add(X0, -0.316)))))
+
+Test case 15/200.
+sin(sin(3.2*x1**2))
+MLP: 0.19879558355323398
+(neural black box)
+GP: 0.02213800714216205
+sin(sin(mul(div(X0, 0.335), add(add(X0, 0.085), 0.085))))
+
+Test case 16/200.
+sin(4.84*x1-2.51)
+MLP: 0.49856022901730696
+(neural black box)
+GP: 0.004538289127070135
+sin(add(add(X0, -0.817), div(X0, -0.175)))
+
+Test case 17/200.
+exp(exp(sin(x1-2.57)))
+MLP: 0.012012993509987914
+(neural black box)
+GP: 0.012707128164499511
+exp(mul(0.327, sqrt(exp(mul(mul(sqrt(-0.116), X0), X0)))))
+
+Test case 18/200.
+2.73*sqrt(0.3*x1-1)*sqrt(x1-0.77)
+MLP: 0.011837417346860711
+(neural black box)
+GP: 0.0688773133538383
+add(sqrt(sin(X0)), sqrt(log(X0)))
+
+Test case 19/200.
+-sin(-3.98*x1**2+6.58*x1+80.1*exp(-1.08*x1))
+MLP: 0.32187679582557716
+(neural black box)
+GP: 0.316556882829666
+sin(sin(sin(div(add(X0, exp(X0)), log(-0.983)))))
+
+Test case 20/200.
+3.00417*exp(-1.9*x1)*exp(0.79*x1**2)*exp(1.77*sqrt(-x1-0.95))
+MLP: 106.82681331149028
+(neural black box)
+GP: 472.90133773794054
+mul(log(mul(add(div(exp(X0), mul(X0, 0.451)), sqrt(sin(-0.895))), log(div(exp(add(X0, X0)), mul(X0, -0.192))))), sqrt(add(add(exp(X0), exp(mul(X0, X0))), add(log(div(div(exp(X0), sqrt(-0.436)), div(X0, sqrt(add(X0, add(mul(X0, X0), sqrt(X0))))))), sqrt(sqrt(exp(add(div(exp(X0), mul(X0, 0.451)), sqrt(X0)))))))))
+
+Test case 21/200.
+exp(exp(-0.73*x1))+log(exp(x1))+3.16
+MLP: 0.021769802380766215
+(neural black box)
+GP: 0.02590677606264645
+add(mul(0.636, X0), exp(exp(sqrt(log(exp(0.251))))))
+
+Test case 22/200.
+-3.45561*x1/(-2.31*x1-3.87)
+MLP: 0.00021086088604938482
+(neural black box)
+GP: 0.0012882158337556603
+sqrt(mul(0.322, X0))
+
+Test case 23/200.
+-sin(3.0*x1-3.89)
+MLP: 0.4558386854691151
+(neural black box)
+GP: 0.015491504644241115
+sin(add(add(add(mul(X0, X0), sin(X0)), -0.545), sin(X0)))
+
+Test case 24/200.
+sin(2.98*x1-0.48)
+MLP: 0.3963509525199144
+(neural black box)
+GP: 0.42761472701723646
+sin(sin(div(X0, -0.161)))
+
+Test case 25/200.
+sin(2.92*sqrt(x1**2-0.74*x1-0.17))
+MLP: 0.004632349255356521
+(neural black box)
+GP: 0.02168301889867281
+sin(add(sin(div(X0, 0.457)), sin(sin(add(sin(div(X0, 0.420)), 0.798)))))
+
+Test case 26/200.
+sqrt(log(1.03*x1+0.82))
+MLP: 0.0007847902075537681
+(neural black box)
+GP: 5.6608039361070986e-05
+sqrt(log(add(0.823, X0)))
+
+Test case 27/200.
+log(exp(-3.86*x1/(3.52-1.6*x1))*exp(0.14/(3.52-1.6*x1)))
+MLP: 12.757212914766255
+(neural black box)
+GP: 112.3069342774771
+add(mul(sqrt(sqrt(div(mul(X0, -0.833), add(log(log(sin(X0))), add(log(log(X0)), sin(add(X0, -0.999))))))), log(exp(div(sin(sin(add(X0, add(exp(div(sin(add(X0, add(X0, -0.752))), div(div(-0.558, X0), sqrt(mul(X0, X0))))), -0.752)))), div(div(-0.558, X0), add(X0, X0)))))), mul(exp(log(0.107)), mul(sqrt(sqrt(div(mul(X0, X0), mul(sqrt(sqrt(div(add(X0, add(X0, -0.752)), add(log(log(sin(X0))), add(log(log(X0)), sqrt(X0)))))), log(exp(div(sin(add(X0, add(exp(div(sin(add(X0, add(X0, -0.752))), div(div(-0.558, X0), sqrt(mul(X0, X0))))), -0.752))), div(div(-0.558, X0), add(X0, log(div(sin(add(X0, add(sqrt(div(log(log(X0)), add(log(log(sin(X0))), add(log(log(X0)), add(exp(div(sin(add(X0, add(X0, -0.752))), div(div(-0.558, X0), sqrt(mul(X0, X0))))), -0.752))))), -0.752))), div(div(-0.558, X0), add(X0, X0))))))))))))), log(exp(div(sin(add(X0, add(X0, -0.752))), div(div(-0.558, X0), add(X0, X0))))))))
+
+Test case 28/200.
+exp(1.29*sqrt(x1+0.53))*exp(-sin(1.87*x1-1.15))
+MLP: 0.10487460178239903
+(neural black box)
+GP: 0.892759036619703
+add(mul(sin(add(add(X0, X0), exp(0.028))), add(div(0.725, X0), add(add(0.997, X0), sin(0.639)))), exp(div(add(-0.259, X0), sqrt(-0.682))))
+
+Test case 29/200.
+log(log(sin(0.3*x1+0.46)))
+MLP: 0.0004553809641479455
+(neural black box)
+GP: 0.0532950702800811
+div(X0, -0.996)
+
+Test case 30/200.
+7.81*x1**2-7.07*x1+1.18*exp(-1.28*x1)
+MLP: 0.0019429082664869349
+(neural black box)
+GP: 0.02609656989186484
+mul(sin(add(X0, -0.434)), sqrt(X0))
+
+Test case 31/200.
+log(x1)+1.09861
+MLP: 0.0036238126090645177
+(neural black box)
+GP: 4.5399929762484854e-05
+log(div(X0, -0.333))
+
+Test case 32/200.
+11.7*exp(7.62*x1)*exp(5.72*x1**2)
+MLP: 8.964246189209834e+68
+(neural black box)
+GP: 8.964246189209834e+68
+log(div(add(sqrt(mul(X0, X0)), mul(log(X0), mul(0.536, X0))), div(0.692, X0)))
+
+Test case 33/200.
+1.68*sqrt(1-0.97*x1)
+MLP: 0.019049830649697994
+(neural black box)
+GP: 0.0047872822120834
+sqrt(mul(add(-0.993, X0), exp(0.986)))
+
+Test case 34/200.
+8.94*exp(-2.38*x1)
+MLP: 0.006431424638787227
+(neural black box)
+GP: 0.03739197852866691
+exp(add(log(div(log(mul(X0, 0.451)), exp(X0))), exp(0.056)))
+
+Test case 35/200.
+0.75*x1**2+4.84*x1-0.1*x1/(-0.99*x1-0.61)+exp(1.59*sqrt(0.64*x1+1))-3.12
+MLP: 0.6064578634611469
+(neural black box)
+GP: 0.0007234426620724973
+add(div(X0, 0.157), add(add(add(add(0.678, -0.040), mul(X0, X0)), sqrt(X0)), log(add(mul(X0, -0.908), add(exp(X0), exp(0.363))))))
+
+Test case 36/200.
+-2.61*x1*log(2.89*x1-0.4)+1.04*sqrt(0.41-x1)+log(0.78*x1-2.63)-0.13
+MLP: 0.08746634197565321
+(neural black box)
+GP: 0.15503606157897595
+mul(div(X0, -0.162), div(X0, sqrt(exp(sqrt(sqrt(-0.765))))))
+
+Test case 37/200.
+log(exp(-1.46*x1))+0.85866
+MLP: 0.0001534967261188528
+(neural black box)
+GP: 0.002653157608578538
+add(sqrt(sqrt(add(0.146, X0))), div(X0, -0.614))
+
+Test case 38/200.
+1.31-1.29/x1
+MLP: 0.0195498026964524
+(neural black box)
+GP: 0.012492347682323535
+div(div(log(X0), sin(0.830)), sqrt(add(X0, -0.020)))
+
+Test case 39/200.
+log(exp(5.21*x1))+2.82019
+MLP: 0.00010546406688200232
+(neural black box)
+GP: 9.762464745322963e-05
+add(div(add(X0, X0), log(log(0.230))), exp(exp(0.031)))
+
+Test case 40/200.
+log(log(1-0.87*x1)/2+0.63)
+MLP: 1.3139770994246658
+(neural black box)
+GP: 1.3616703392136549
+sin(div(sqrt(X0), sin(-0.626)))
+
+Test case 41/200.
+3.53-3.78*x1
+MLP: 5.225646208145028e-05
+(neural black box)
+GP: 0.09835967473058821
+sqrt(mul(exp(X0), log(mul(X0, mul(X0, X0)))))
+
+Test case 42/200.
+exp(0.66*x1*sqrt(0.5*x1+1))
+MLP: 1.6619863009480584
+(neural black box)
+GP: 0.12465924269570673
+add(div(sqrt(log(sqrt(div(0.687, X0)))), X0), div(exp(div(0.687, X0)), exp(add(-0.668, 0.785))))
+
+Test case 43/200.
+-1.79*sqrt(1-0.95*x1)/sin(1.11*x1)+log(x1)-0.58
+MLP: 3.0995988666373417
+(neural black box)
+GP: 1.8622301661836835
+add(div(exp(log(sqrt(-0.929))), mul(X0, -0.683)), add(div(sin(0.240), mul(X0, -0.683)), div(sin(mul(mul(0.108, X0), X0)), log(mul(exp(log(sqrt(-0.929))), log(X0))))))
+
+Test case 44/200.
+sin(3.19*x1+2.98)
+MLP: 0.003260689390039673
+(neural black box)
+GP: 0.0035573633071372983
+sin(div(X0, -0.322))
+
+Test case 45/200.
+-sin(1.86-0.3*exp(-0.45*x1)/log(x1))
+MLP: 0.00016190079533793714
+(neural black box)
+GP: 6.70401847842173e-05
+mul(add(sin(-0.288), sin(-0.522)), add(sqrt(-0.076), mul(0.213, -0.694)))
+
+Test case 46/200.
+sin(9.06*exp(-2.2*x1))
+MLP: 0.015508897226176849
+(neural black box)
+GP: 0.024822707722790566
+sin(div(sqrt(exp(div(X0, -0.475))), mul(X0, 0.431)))
+
+Test case 47/200.
+exp(sqrt(log(-0.65*x1-3.41)))
+MLP: 0.00022510462649440326
+(neural black box)
+GP: 0.0013404266903975029
+exp(sqrt(sqrt(add(0.994, sqrt(X0)))))
+
+Test case 48/200.
+sin(3.43*x1/(3.63-1.3*x1))
+MLP: 0.2673165432984969
+(neural black box)
+GP: 0.20533545606786743
+sin(add(sin(mul(X0, 0.651)), mul(X0, X0)))
+
+Test case 49/200.
+log(5.07*x1**2+4.66*x1+1.02)
+MLP: 0.0012757883333800533
+(neural black box)
+GP: 0.013594297722523817
+div(0.567, sqrt(div(0.055, X0)))
+
+Test case 50/200.
+-3.4055*x1**2*(0.26*x1-1)**(1/4)+0.8*x1-2.43
+MLP: 0.002496397684941265
+(neural black box)
+GP: 0.12165223982022685
+add(add(add(exp(sqrt(X0)), exp(sqrt(X0))), sin(X0)), 0.828)
+
+Test case 51/200.
+exp(sin(log(-x1)+0.05))
+MLP: 0.00043345056791770396
+(neural black box)
+GP: 0.0029476328001060447
+exp(sin(log(X0)))
+
+Test case 52/200.
+exp(sin(x1-3.54))
+MLP: 0.03655419078036608
+(neural black box)
+GP: 0.017916436854007248
+sqrt(div(0.313, X0))
+
+Test case 53/200.
+exp(1.67*sqrt(-x1)/sin(2.21*x1+1.12))
+MLP: 1.564368197082721e+27
+(neural black box)
+GP: 1.564407295301507e+27
+exp(add(div(div(sqrt(log(exp(sqrt(0.929)))), exp(sqrt(X0))), div(mul(sin(div(X0, -0.755)), exp(sin(exp(mul(mul(mul(div(div(-0.251, sin(exp(X0))), sqrt(div(log(X0), log(0.953)))), mul(div(sqrt(-0.874), mul(mul(exp(sqrt(exp(X0))), sqrt(sqrt(0.835))), exp(sqrt(-0.874)))), add(sqrt(-0.611), sqrt(X0)))), sqrt(exp(add(add(-0.913, 0.366), sqrt(-0.282))))), log(exp(sqrt(0.929)))))))), X0)), X0))
+
+Test case 54/200.
+sin(5.76*x1*sqrt(0.97*x1-1)+0.21)
+MLP: 0.3488324558794144
+(neural black box)
+GP: 0.3629111186272308
+sin(sin(exp(add(X0, -0.064))))
+
+Test case 55/200.
+1.08167*(x1-0.52)**(1/8)
+MLP: 0.005653217985996014
+(neural black box)
+GP: 0.008841334473404823
+sqrt(sqrt(sqrt(X0)))
+
+Test case 56/200.
+Test case 57/200.
+-9.6052*x1*exp(1.23*x1)-1.1
+MLP: 79.05088690791031
+(neural black box)
+GP: 7.75947005017152
+add(add(div(div(div(exp(X0), mul(-0.155, 0.345)), mul(div(0.810, X0), sqrt(-0.137))), add(log(exp(X0)), sqrt(add(add(sin(X0), sqrt(0.020)), sqrt(0.020))))), add(add(log(X0), log(mul(X0, -0.201))), add(add(sin(X0), sqrt(0.020)), 0.467))), mul(exp(X0), div(add(X0, X0), div(-0.414, X0))))
+
+Test case 58/200.
+-sin(2.45*x1**2-11.61*x1+2.95)
+MLP: 0.3905145702080113
+(neural black box)
+GP: 0.23727311357899997
+sin(div(sqrt(sqrt(exp(sin(X0)))), log(sqrt(X0))))
+
+Test case 59/200.
+0.88*x1**(1/4)+sin(3.47*x1/(0.62-1.0*x1))
+MLP: 0.1181629934373815
+(neural black box)
+GP: 0.29836622492917986
+exp(sin(sin(log(X0))))
+
+Test case 60/200.
+exp(1.79*sqrt(1-0.61*x1))
+MLP: 1.5749896938891093
+(neural black box)
+GP: 0.08656556809585571
+exp(sqrt(exp(sin(add(add(sqrt(sqrt(exp(log(log(add(X0, -0.155)))))), X0), div(X0, 0.738))))))
+
+Test case 61/200.
+-0.25*x1*sin(3.94*x1-3.54)/(1.92-3.82*x1)+1.71*sqrt(1-0.58*x1)+0.25-2.58/(-3.82*x1**2+1.92*x1)
+MLP: 0.001419794361084844
+(neural black box)
+GP: 0.010662349672699828
+0.039
+
+Test case 62/200.
+sqrt(-sin(1.95*x1))*log(-sin(2.51*x1+1.33))
+MLP: 0.9561995445269421
+(neural black box)
+GP: 1.1820480102548423
+-0.146
+
+Test case 63/200.
+sqrt(sin(1.92*x1/(0.08*x1+2.57)+1.14/(0.08*x1+2.57)))
+MLP: 0.00013084215284706938
+(neural black box)
+GP: 0.0013756489759215182
+sqrt(sqrt(sqrt(sin(X0))))
+
+Test case 64/200.
+0.19*exp(0.09*x1)+0.02*exp(3.63*x1)
+MLP: 80469.77509050065
+(neural black box)
+GP: 8.913693568178624
+mul(sqrt(add(exp(mul(add(X0, X0), log(X0))), X0)), add(add(mul(mul(sqrt(X0), mul(div(X0, 0.467), log(X0))), mul(X0, log(X0))), sin(mul(add(X0, X0), log(X0)))), sqrt(X0)))
+
+Test case 65/200.
+-sin(1.51*x1/(x1-2.79)+1.56*sin(0.11*x1+1.15)/(x1-2.79))
+MLP: 0.37275671887417944
+(neural black box)
+GP: 0.2875073803454403
+sin(add(0.711, mul(X0, X0)))
+
+Test case 66/200.
+-2.81*x1+log(0.76-1.44*x1)-sin(0.42*x1/(1.78-0.04*x1)+3.89/(1.78-0.04*x1))+1.14
+MLP: 0.3853074647282085
+(neural black box)
+GP: 0.25488604717599517
+add(sin(div(-0.597, X0)), add(div(X0, -0.597), -0.612))
+
+Test case 67/200.
+x1/(x1+2.67)-0.29*x1*log(3.63*x1-0.98)/(2.56-1.11*x1)-1.42/(x1+2.67)-0.5/(2.56-1.11*x1)
+MLP: 0.22087702435578452
+(neural black box)
+GP: 0.2888436794726047
+sin(log(sqrt(log(mul(X0, X0)))))
+
+Test case 68/200.
+1.39*sqrt(exp(x1))+exp(-2.82*x1/(x1-0.24))*exp(1.29/(x1-0.24))
+MLP: 0.07505191080653174
+(neural black box)
+GP: 15713.487323693675
+sqrt(add(sqrt(sin(div(mul(add(X0, sin(X0)), sqrt(X0)), add(exp(X0), exp(mul(-0.259, -0.895)))))), exp(add(X0, div(sin(0.743), exp(0.044))))))
+
+Test case 69/200.
+2.03*x1**2*sin(0.55*x1)-1.42*x1-2.06/sin(0.1*x1**2+0.29*x1)
+MLP: 0.004192690131883166
+(neural black box)
+GP: 0.06463230691724527
+mul(add(log(mul(mul(X0, -0.804), -0.031)), exp(sqrt(X0))), add(0.931, X0))
+
+Test case 70/200.
+1.45*sqrt(x1+0.17)+log(1.07*x1-2.8)
+MLP: 0.04124486670550128
+(neural black box)
+GP: 0.2951788801930339
+exp(sin(sin(sin(add(X0, 0.592)))))
+
+Test case 71/200.
+log(sin(1.66*x1))
+MLP: 0.02500750055411244
+(neural black box)
+GP: 0.5966873443542661
+div(-0.187, X0)
+
+Test case 72/200.
+x1*exp(x1/(-2.45*x1-2.03))*exp(2.02/(-2.45*x1-2.03))-0.56*exp(x1/(-2.45*x1-2.03))*exp(2.02/(-2.45*x1-2.03))
+MLP: 0.00016145346532056226
+(neural black box)
+GP: 0.014415057640311932
+mul(exp(-0.568), add(-0.568, X0))
+
+Test case 73/200.
+-sin(14.83*x1**2+19.85*x1+5.15)/log(0.6-2.73*x1)
+MLP: 0.511230493558983
+(neural black box)
+GP: 4.762050680827152
+-0.070
+
+Test case 74/200.
+sin(0.62*exp(-3.21*x1))
+MLP: 0.0002473405908643189
+(neural black box)
+GP: 0.00022369344678440918
+mul(mul(exp(div(X0, -0.267)), exp(-0.255)), sqrt(sin(exp(X0))))
+
+Test case 75/200.
+-1.6625*sqrt(0.91*x1-1)*sqrt(-x1**2+0.14*x1)*sin(0.92*x1-0.66)
+MLP: 0.041453950898392794
+(neural black box)
+GP: 0.1743257229524972
+mul(log(-0.021), exp(div(div(log(log(sin(0.850))), X0), mul(X0, X0))))
+
+Test case 76/200.
+sin(log(exp(2.72*x1))+0.88)
+MLP: 0.001274429274436256
+(neural black box)
+GP: 0.006716335300874779
+sin(div(add(X0, 0.231), 0.350))
+
+Test case 77/200.
+1.17*x1-3.02604*sqrt(0.5*x1+1)*sin(3.83*x1+3.97)+0.02*exp(3.28*x1)
+MLP: 0.0019245269113457517
+(neural black box)
+GP: 0.1473124078445215
+log(sqrt(sqrt(exp(div(div(log(sqrt(exp(div(log(log(mul(X0, X0))), mul(mul(X0, 0.426), X0))))), X0), mul(X0, 0.426))))))
+
+Test case 78/200.
+log(-x1)+0.79299
+MLP: 0.002311107166492964
+(neural black box)
+GP: 8.080996247699099e-05
+log(div(X0, 0.458))
+
+Test case 79/200.
+sin(log(-3.13*x1-1.27))
+MLP: 0.017860458581303883
+(neural black box)
+GP: 0.0005392295797253084
+sin(sqrt(div(X0, 0.503)))
+
+Test case 80/200.
+log(sin(0.69*x1-0.34))
+MLP: 0.001596032825871742
+(neural black box)
+GP: 0.018842540409443064
+log(mul(sin(sqrt(sqrt(X0))), log(add(0.495, X0))))
+
+Test case 81/200.
+log(-sin(1.8*x1/(1.69*x1+1.71)+2.57/(1.69*x1+1.71)))
+MLP: 4.5399929762484854e-05
+(neural black box)
+GP: 0.0001280125867945349
+sin(mul(-0.035, X0))
+
+Test case 82/200.
+log(exp(4.37*x1)*exp(0.97*x1**2))
+MLP: 0.2776477214445786
+(neural black box)
+GP: 0.0018438258600511185
+add(add(exp(add(log(X0), exp(0.403))), mul(-0.161, X0)), mul(X0, X0))
+
+Test case 83/200.
+sqrt(log(x1-2.37))
+MLP: 0.181340460299362
+(neural black box)
+GP: 0.1103836055316154
+sqrt(sin(sin(exp(sqrt(X0)))))
+
+Test case 84/200.
+-0.62*x1**2-0.44*x1/sin(0.85*x1+2.92)+sin(1.88*sqrt(0.41*x1-1))
+MLP: 0.19150975568232134
+(neural black box)
+GP: 0.23140186713093494
+add(div(exp(add(-0.732, X0)), log(sin(-0.216))), sqrt(log(log(-0.877))))
+
+Test case 85/200.
+-1.8445*x1+60.75*exp(x1)
+MLP: 71.45479265294229
+(neural black box)
+GP: 2.0484053468955867
+add(mul(log(mul(exp(mul(X0, X0)), sin(mul(X0, 0.550)))), sqrt(sqrt(exp(mul(exp(X0), mul(exp(mul(exp(mul(X0, X0)), sin(mul(X0, 0.550)))), mul(X0, 0.550))))))), div(add(mul(div(sqrt(X0), div(add(mul(sin(X0), div(-0.202, X0)), add(log(0.840), sin(0.550))), log(mul(mul(X0, 0.550), log(div(-0.215, -0.706)))))), sin(sin(X0))), add(mul(-0.110, -0.255), div(div(-0.424, 0.176), mul(-0.110, -0.255)))), div(sqrt(-0.215), sqrt(-0.892))))
+
+Test case 86/200.
+sin(sin(log(-x1)+1.3))
+MLP: 0.00041723170020239943
+(neural black box)
+GP: 7.881384256523535e-05
+sin(sin(log(div(X0, -0.269))))
+
+Test case 87/200.
+log(3.03*x1/(x1+3.64)-2.65)
+MLP: 0.016618478218841597
+(neural black box)
+GP: 0.1869800861860402
+log(sin(sin(sin(div(-0.283, X0)))))
+
+Test case 88/200.
+1.51*sqrt(0.85*x1+1)*sqrt(0.89*x1+1)
+MLP: 4.5399929762484854e-05
+(neural black box)
+GP: 0.01591854325363125
+exp(sqrt(X0))
+
+Test case 89/200.
+1.11*x1**2+0.09*x1
+MLP: 0.04072986422510733
+(neural black box)
+GP: 0.004107197793044384
+div(mul(X0, X0), 0.864)
+
+Test case 90/200.
+1.53948*sqrt(0.42194*log(exp(x1))+1)
+MLP: 5.10734170231793e-05
+(neural black box)
+GP: 4.5399929762484854e-05
+sqrt(add(add(0.986, X0), exp(0.311)))
+
+Test case 91/200.
+1.15*x1+sin(0.15*exp(-2.6*x1))+0.21
+MLP: 0.00012422720163940884
+(neural black box)
+GP: 0.0034451833296216035
+add(add(-0.587, X0), sqrt(sqrt(sqrt(X0))))
+
+Test case 92/200.
+4.71*exp(-0.26*x1)*log(-0.86*x1**2-2.57*x1+5.99)
+MLP: 0.006656672619718562
+(neural black box)
+GP: 4.298217088596984
+sqrt(div(add(sin(sin(add(X0, X0))), add(X0, X0)), div(mul(div(mul(mul(-0.254, X0), sin(X0)), sin(add(X0, X0))), sin(X0)), sin(add(X0, X0)))))
+
+Test case 93/200.
+log(x1/(0.85-1.1*x1))+2.44-sin(1.91*x1+1.03)/x1
+MLP: 0.06759870496068458
+(neural black box)
+GP: 0.19718477166146522
+add(div(-0.284, X0), sqrt(log(sin(log(X0)))))
+
+Test case 94/200.
+log(exp(sin(1.13*x1+1.21)))
+MLP: 0.0004002794120119869
+(neural black box)
+GP: 0.001348197632638275
+sin(add(sqrt(sqrt(X0)), add(0.286, X0)))
+
+Test case 95/200.
+x1+1.01*sqrt(0.98*x1-1)-0.1
+MLP: 1.3800912912785712
+(neural black box)
+GP: 0.049107686710027104
+sqrt(exp(X0))
+
+Test case 96/200.
+exp(-1.47/x1)*exp(2.89*x1/(x1+3.89))*exp(1.03/(x1+3.89))
+MLP: 3.4921296513201954e+21
+(neural black box)
+GP: 3.513921381259541e+21
+0.106
+
+Test case 97/200.
+sin(log(-13.26*x1**2+5.35*x1+1.26))
+MLP: 0.0011698913955487031
+(neural black box)
+GP: 0.2079409947007642
+sin(add(sqrt(X0), div(X0, 0.853)))
+
+Test case 98/200.
+-3.02*x1+0.71*log(3.53-1.11*x1)
+MLP: 0.02083646618958609
+(neural black box)
+GP: 0.9665977208290119
+add(add(log(div(sqrt(-0.867), sin(X0))), log(X0)), mul(exp(add(div(sin(X0), log(0.337)), sqrt(add(X0, 0.546)))), mul(sqrt(add(X0, X0)), sin(div(X0, -0.773)))))
+
+Test case 99/200.
+exp(sqrt(sin(2.22*x1+1.42)))
+MLP: 0.1379875395396625
+(neural black box)
+GP: 0.2694972564902903
+exp(0.916)
+
+Test case 100/200.
+40.85381*exp(-0.99*x1)
+MLP: 0.1755836411816435
+(neural black box)
+GP: 0.11054199100266697
+add(add(exp(add(div(sin(exp(mul(sin(sqrt(sqrt(X0))), sqrt(log(sin(-0.224)))))), sqrt(mul(0.827, -0.479))), add(sqrt(add(add(0.313, 0.422), exp(-0.132))), sin(add(add(0.110, X0), exp(log(-0.901))))))), exp(-0.867)), log(X0))
+
+Test case 101/200.
+log(x1-2.11)-sin(3.97*x1-3.41)
+MLP: 0.0885859295871098
+(neural black box)
+GP: 0.10223443970079636
+div(sin(mul(sin(mul(log(div(-0.890, X0)), exp(sin(X0)))), exp(sin(X0)))), sin(0.844))
+
+Test case 102/200.
+log(log(x1**2)-0.14)
+MLP: 0.13536289143895228
+(neural black box)
+GP: 0.00012820767779055532
+log(add(log(mul(0.935, X0)), log(mul(0.925, X0))))
+
+Test case 103/200.
+-3.09+1.19*sqrt(exp(-3.75*x1))*log(0.67*x1+0.88)/x1
+MLP: 0.004008933875086812
+(neural black box)
+GP: 1.051872811878776
+div(-0.099, sqrt(exp(div(div(-0.905, X0), sqrt(0.203)))))
+
+Test case 104/200.
+3.25*x1+log(1.96*x1+0.41)+3.99*sqrt(sin(2.52*x1+0.31))
+MLP: 6.933212580248318
+(neural black box)
+GP: 1.3772626904029435
+add(sin(add(sin(X0), exp(X0))), sqrt(div(exp(add(sqrt(X0), sqrt(X0))), div(log(log(-0.413)), sin(sqrt(mul(log(X0), exp(X0))))))))
+
+Test case 105/200.
+-sin(0.93*x1/(0.35*x1-3.17)+3.41*sqrt(0.14*x1-1)/(0.35*x1-3.17))
+MLP: 0.00016196252138917506
+(neural black box)
+GP: 0.0002494854352658167
+sin(add(mul(mul(0.822, X0), exp(-0.473)), add(mul(0.146, X0), sqrt(-0.914))))
+
+Test case 106/200.
+-1.19*x1*log(0.2*x1+1.17)+2.75
+MLP: 0.0002234286277627091
+(neural black box)
+GP: 0.001784598699056348
+mul(sin(sqrt(exp(X0))), 0.491)
+
+Test case 107/200.
+exp(0.1*exp(x1))+3.8+log(1.05*x1-3.65)/x1
+MLP: 0.013050788683737631
+(neural black box)
+GP: 0.018992618016125656
+sqrt(sqrt(add(exp(X0), exp(add(-0.707, mul(sqrt(-0.181), exp(X0)))))))
+
+Test case 108/200.
+3.69188*sqrt(0.14747+exp(0.75*x1)/x1)
+MLP: 0.0014058088305166578
+(neural black box)
+GP: 0.003774189815449524
+exp(sqrt(sqrt(add(0.358, sqrt(mul(exp(X0), mul(X0, -0.656)))))))
+
+Test case 109/200.
+-12.5*x1*sin(3.49*x1-2.63)/(-3.25*x1-2.48)+log(sin(0.34*x1+0.93))
+MLP: 20.23891270509624
+(neural black box)
+GP: 174.51140935789562
+mul(div(add(div(log(mul(X0, X0)), log(exp(0.086))), sqrt(mul(div(add(div(log(add(mul(0.153, X0), log(-0.123))), log(exp(0.086))), sin(add(div(log(mul(X0, div(sin(X0), sqrt(div(0.381, X0))))), log(log(X0))), exp(mul(sin(exp(0.086)), mul(X0, X0)))))), mul(0.153, X0)), sin(mul(X0, X0))))), div(mul(-0.295, X0), sin(mul(X0, X0)))), add(mul(0.153, sin(mul(X0, X0))), add(log(X0), log(-0.123))))
+
+Test case 110/200.
+1.84*x1**2*log(1.09*x1-1.97)-8.1*x1+log(x1)+8.29
+MLP: 0.14931664544892165
+(neural black box)
+GP: 0.19384179550769637
+exp(log(log(X0)))
+
+Test case 111/200.
+log(22.2*x1**2*exp(-3.73*x1)+1.01*x1-0.13)
+MLP: 0.3957966073942319
+(neural black box)
+GP: 0.020558211937136733
+log(div(sin(add(log(add(div(X0, -0.739), -0.255)), add(-0.586, -0.996))), mul(mul(mul(-0.599, X0), mul(add(mul(-0.822, -0.299), X0), mul(X0, -0.760))), exp(add(X0, X0)))))
+
+Test case 112/200.
+-0.46275*x1*exp(-0.25*x1)+0.89
+MLP: 0.26821149280052775
+(neural black box)
+GP: 0.24159410537005144
+div(div(sin(log(-0.933)), X0), add(-0.356, X0))
+
+Test case 113/200.
+sqrt(sin(3.54*x1-1.58))
+MLP: 0.06023335680138831
+(neural black box)
+GP: 0.06991980036758842
+0.846
+
+Test case 114/200.
+0.37*exp(0.35*x1)+exp(3.16*x1)+log(x1**2)+1.09
+MLP: 12725.554943307721
+(neural black box)
+GP: 437403.46551193827
+mul(add(exp(add(sqrt(X0), add(X0, X0))), exp(mul(X0, X0))), sqrt(exp(sqrt(add(sin(X0), sqrt(mul(sqrt(sqrt(add(sin(X0), sqrt(mul(sqrt(sin(div(add(mul(sqrt(sin(log(exp(0.861)))), log(X0)), add(log(sqrt(div(mul(exp(add(-0.990, X0)), sqrt(div(exp(log(log(-0.571))), mul(0.525, X0)))), add(sqrt(exp(sin(X0))), log(div(sqrt(0.050), exp(0.994))))))), sqrt(log(log(add(exp(0.525), exp(0.089))))))), sin(0.668)))), sqrt(sin(X0))))))), sqrt(div(sin(X0), add(sin(log(sin(X0))), mul(exp(mul(X0, -0.233)), sqrt(mul(-0.561, X0)))))))))))))
+
+Test case 115/200.
+exp(sqrt(x1/(x1+3.07)))
+MLP: 0.00010519448242330082
+(neural black box)
+GP: 0.000232216215157064
+sqrt(add(sqrt(exp(sqrt(X0))), sqrt(X0)))
+
+Test case 116/200.
+log(-sin(1.67*x1-0.56))+sin(3.66*x1+2.98)/sin(0.25*x1+1.66)
+MLP: 0.030553974813287595
+(neural black box)
+GP: 0.21897830416922157
+add(sin(div(X0, -0.286)), log(mul(sin(add(X0, 0.899)), add(X0, -0.254))))
+
+Test case 117/200.
+641.82266*x1*exp(-2.65*x1)*exp(-11.92*x1**2)+646.29529*exp(-2.65*x1)*exp(-11.92*x1**2)
+MLP: 18.928580338781885
+(neural black box)
+GP: 124.00846610707666
+div(add(add(log(add(X0, -0.747)), div(log(X0), mul(X0, -0.160))), add(div(sqrt(0.343), X0), add(mul(0.630, X0), mul(-0.184, sqrt(exp(-0.886)))))), sqrt(add(sin(add(-0.222, X0)), mul(exp(-0.886), mul(0.630, X0)))))
+
+Test case 118/200.
+-0.9*x1*sin(0.4*x1)+log(x1/(2.58-1.84*x1))-3.39
+MLP: 0.1256843179346635
+(neural black box)
+GP: 0.30967564058425573
+add(add(log(X0), sin(exp(sin(add(X0, -0.812))))), sin(X0))
+
+Test case 119/200.
+log(log(-1.32*x1-0.67))/2
+MLP: 0.0031263398964895234
+(neural black box)
+GP: 0.027864319826965304
+log(sqrt(mul(0.594, X0)))
+
+Test case 120/200.
+sin(log(0.19-3.06*x1))
+MLP: 0.001472483259675333
+(neural black box)
+GP: 0.004879730471397818
+sin(log(div(X0, -0.336)))
+
+Test case 121/200.
+0.11377*x1*log(2.54*x1+0.66)+2.82
+MLP: 4.5399929762484854e-05
+(neural black box)
+GP: 0.00011556265305227282
+sin(add(-0.599, 0.626))
+
+Test case 122/200.
+-0.58824*sqrt(0.37*x1+1)*sin(1.47*sqrt(0.03-x1))/sin(2.53*x1+3.04)
+MLP: 0.0004839595140492855
+(neural black box)
+GP: 0.08585818879744943
+0.111
+
+Test case 123/200.
+exp(1.21*sqrt(x1+0.76))
+MLP: 0.0017878355925419192
+(neural black box)
+GP: 0.006844447910688383
+add(exp(sqrt(X0)), sqrt(add(sqrt(add(exp(sqrt(X0)), exp(X0))), exp(X0))))
+
+Test case 124/200.
+sqrt(-sin(0.74*x1-1.44))
+MLP: 0.004333137311252624
+(neural black box)
+GP: 0.006071699918034443
+sin(exp(sqrt(sin(add(-0.358, X0)))))
+
+Test case 125/200.
+0.58824*x1*sin(2.75*x1)+1.42*sqrt(0.5*x1-1)+3.83
+MLP: 9.985648125427007
+(neural black box)
+GP: 4.221224741114316
+div(div(-0.238, 0.964), sin(add(0.363, X0)))
+
+Test case 126/200.
+2.88*x1**2-1.33*x1+1.46793*x1/(0.61*x1-1.12)+3.88
+MLP: 0.0063784686050911464
+(neural black box)
+GP: 0.005694130297944455
+div(log(sin(sin(X0))), exp(X0))
+
+Test case 127/200.
+sqrt(x1)+1.2*exp(-1.59*x1)
+MLP: 0.004604546536104882
+(neural black box)
+GP: 0.002094401826322449
+sqrt(exp(mul(exp(mul(X0, 0.371)), 0.371)))
+
+Test case 128/200.
+-1.52*x1+0.91+0.21*sqrt(log(-1.66*x1-2.75))/x1
+MLP: 0.004274368941468021
+(neural black box)
+GP: 0.04764195381120922
+add(X0, div(-0.753, div(X0, 0.541)))
+
+Test case 129/200.
+0.22*x1**2*log(-3.05*x1-2.81)+5.02*x1-1.1*x1/(2.91-0.57*x1)-0.85/(2.91-0.57*x1)
+MLP: 0.004207699995714107
+(neural black box)
+GP: 0.05417475454381767
+log(mul(mul(0.077, X0), mul(exp(sqrt(X0)), log(sqrt(-0.603)))))
+
+Test case 130/200.
+1.04081*exp(3.78*x1)
+MLP: 705630.2601270899
+(neural black box)
+GP: 1370048.1799388072
+mul(exp(sqrt(add(sqrt(div(mul(sin(0.513), sqrt(log(log(-0.153)))), add(sin(X0), -0.006))), X0))), exp(add(exp(mul(0.681, X0)), sqrt(add(mul(add(log(0.811), add(exp(sin(add(exp(mul(0.681, X0)), sqrt(add(X0, X0))))), mul(add(X0, 0.062), sin(0.593)))), sin(X0)), add(-0.051, X0))))))
+
+Test case 131/200.
+3.35*x1-sin(0.52*x1+3.27)+3.64
+MLP: 0.006115162493161967
+(neural black box)
+GP: 0.008332736826687588
+add(sqrt(sin(sqrt(sin(X0)))), exp(add(0.919, sqrt(X0))))
+
+Test case 132/200.
+sin(0.51*sqrt(-0.28*x1-1)*log(-2.37*x1-2.68))
+MLP: 6.979190389515352e-05
+(neural black box)
+GP: 0.004850906344299819
+0.699
+
+Test case 133/200.
+exp(0.09*exp(-3.75*x1))*exp(-sin(3.98*x1-3.26))
+MLP: 0.5165346577220103
+(neural black box)
+GP: 0.12878316177889315
+sqrt(log(log(sin(exp(sin(div(X0, 0.725)))))))
+
+Test case 134/200.
+8.61261*(0.65*x1+1)**(1/4)*exp(1.06*x1)/x1
+MLP: 219.01418633765448
+(neural black box)
+GP: 0.26421739632834423
+div(mul(add(add(exp(X0), exp(mul(div(0.151, 0.676), add(X0, add(log(sqrt(0.516)), sqrt(add(mul(mul(div(sqrt(sqrt(X0)), log(div(X0, X0))), add(mul(exp(-0.196), exp(X0)), div(sqrt(-0.045), div(div(add(exp(X0), exp(mul(mul(div(0.151, X0), 0.390), sqrt(sqrt(sqrt(X0)))))), -0.418), mul(0.531, -0.247))))), X0), sin(mul(-0.434, X0))))))))), log(sqrt(0.383))), exp(add(sin(0.152), sin(0.923)))), mul(X0, 0.451))
+
+Test case 135/200.
+-9.08*x1**2-2.21*x1+1.83*sqrt(-0.6*x1-1)
+MLP: 0.29271451146977884
+(neural black box)
+GP: 0.42429048631338134
+mul(div(sqrt(exp(-0.775)), -0.072), mul(X0, X0))
+
+Test case 136/200.
+1.66132*sqrt(0.26449*x1*sqrt(1-0.85*x1)-1)
+MLP: 0.002250492527314418
+(neural black box)
+GP: 0.0195293203779135
+sqrt(div(sqrt(X0), X0))
+
+Test case 137/200.
+-sin(sin(3.99*x1-2.43))
+MLP: 0.014064200450551687
+(neural black box)
+GP: 0.04011329716545083
+sin(sin(div(mul(-0.691, X0), -0.160)))
+
+Test case 138/200.
+0.93*x1*sin(x1-0.17)/(-0.13*x1-2.54)-3.51/(-0.13*x1-2.54)
+MLP: 0.0021099150224075315
+(neural black box)
+GP: 0.006420550087316104
+mul(sin(add(sin(-0.462), add(X0, 0.562))), 0.745)
+
+Test case 139/200.
+exp(sin(x1-3.18))
+MLP: 0.0007125683368300994
+(neural black box)
+GP: 0.00017629759285293882
+exp(sin(mul(log(-0.376), X0)))
+
+Test case 140/200.
+log(exp(3.65*x1))/2
+MLP: 0.00011516695670946932
+(neural black box)
+GP: 4.5399929762484854e-05
+div(X0, 0.548)
+
+Test case 141/200.
+sqrt(exp(-2.4*x1))*exp(sqrt(x1-0.4))
+MLP: 0.012874651336423825
+(neural black box)
+GP: 0.017697066026517428
+exp(mul(-0.559, X0))
+
+Test case 142/200.
+exp(3.85*x1)*exp(-2.83*sin(x1+1.17))
+MLP: 1.7880116333079654
+(neural black box)
+GP: 0.23579220852760327
+mul(sin(log(div(-0.119, X0))), log(log(sqrt(sin(X0)))))
+
+Test case 143/200.
+1.39642*sqrt(sqrt(0.04*x1-1)+0.52821*exp(-2.65*x1))
+MLP: 0.00024130472661754976
+(neural black box)
+GP: 0.007438296977841561
+exp(0.314)
+
+Test case 144/200.
+1.05*x1**2*log(x1-2.26)*sin(3.14*x1-0.7)-0.27*x1+11.92
+MLP: 0.006203615058496827
+(neural black box)
+GP: 0.009672725561195049
+-0.019
+
+Test case 145/200.
+sqrt(x1)+x1+3.94
+MLP: 0.004643033435791925
+(neural black box)
+GP: 4.5399929762484854e-05
+add(add(sqrt(exp(exp(0.750))), add(add(0.301, X0), 0.750)), sqrt(X0))
+
+Test case 146/200.
+sqrt(-sin(2.03*x1))
+MLP: 0.00983431628715109
+(neural black box)
+GP: 0.0025428757345879885
+sqrt(sin(add(X0, X0)))
+
+Test case 147/200.
+1.68226*sqrt(x1-0.82332)
+MLP: 0.018934464512102813
+(neural black box)
+GP: 0.039590432869917376
+mul(sqrt(-0.412), add(X0, sqrt(log(X0))))
+
+Test case 148/200.
+exp(sin(1.69*x1-2.88))+sin(sqrt(x1+0.8))
+MLP: 0.10976250143287816
+(neural black box)
+GP: 0.12359603266684951
+add(X0, sqrt(log(X0)))
+
+Test case 149/200.
+log(3.98-3.1*x1)+sin(sqrt(x1+0.16))
+MLP: 0.6549880464583863
+(neural black box)
+GP: 0.14671179273083162
+sqrt(add(mul(X0, X0), log(mul(X0, 0.162))))
+
+Test case 150/200.
+log(-0.26*x1+1.52*exp(x1))
+MLP: 0.1801512094173708
+(neural black box)
+GP: 0.3218535606549116
+div(X0, 0.514)
+
+Test case 151/200.
+-9.53846*x1**2*sqrt(0.74*log(-x1)+1)+5.03
+MLP: 0.5440024597776525
+(neural black box)
+GP: 4.33685929081721
+add(div(sqrt(exp(sqrt(div(X0, X0)))), X0), div(add(sqrt(sqrt(mul(log(div(X0, -0.072)), exp(log(-0.780))))), X0), div(-0.169, X0)))
+
+Test case 152/200.
+log(exp(x1))-sin(2.36*x1-2.77)
+MLP: 0.05040681156485249
+(neural black box)
+GP: 4.5399929762484854e-05
+add(sin(add(X0, add(0.647, div(add(X0, -0.213), sqrt(-0.536))))), X0)
+
+Test case 153/200.
+0
+MLP: 4.5399929762484854e-05
+(neural black box)
+GP: 4.5399929762484854e-05
+exp(mul(mul(exp(exp(X0)), div(div(0.614, 0.013), add(0.742, X0))), div(sqrt(add(0.190, X0)), sin(add(-0.350, -0.456)))))
+
+Test case 154/200.
+1.64317*sqrt(x1/(x1+1.04))
+MLP: 0.0008622038752799833
+(neural black box)
+GP: 0.0018453717424357545
+sqrt(sqrt(div(X0, 0.634)))
+
+Test case 155/200.
+-sin(1.43*x1-0.67)+sin(2.41*x1+3.65)
+MLP: 0.0010203642525456408
+(neural black box)
+GP: 0.03688140204847714
+add(mul(sin(X0), mul(sin(X0), log(X0))), -0.682)
+
+Test case 156/200.
+log(-x1-0.39)/2+0.19885
+MLP: 0.0003380333100781974
+(neural black box)
+GP: 0.0028729845624897977
+sin(sin(mul(0.375, X0)))
+
+Test case 157/200.
+sin(sqrt(x1))
+MLP: 0.0008030731134734215
+(neural black box)
+GP: 4.5399929762484854e-05
+sin(sqrt(X0))
+
+Test case 158/200.
+0.46*x1/(-1.4*x1-0.32)+log(0.1*x1**2+0.44*x1-1.73)+0.93/(-1.4*x1-0.32)
+MLP: 0.4169146768249171
+(neural black box)
+GP: 0.6085388913171005
+mul(-0.641, X0)
+
+Test case 159/200.
+-3.84615*x1**2*log(x1+1.02)*sin(2.35*exp(0.1*x1))+0.6*x1
+MLP: 0.0007074915230531352
+(neural black box)
+GP: 0.044924630156020835
+mul(add(mul(0.697, sqrt(sin(X0))), sqrt(X0)), log(log(sin(sqrt(sin(X0))))))
+
+Test case 160/200.
+sqrt(log(log(2.33*x1+0.95)))
+MLP: 0.004604231260254446
+(neural black box)
+GP: 0.010517875886894571
+sin(sqrt(log(add(X0, 0.232))))
+
+Test case 161/200.
+sin(exp(x1))/sin(1.74*sqrt(0.44*x1+1))
+MLP: 0.731662015039116
+(neural black box)
+GP: 0.08258015431128043
+sin(mul(sin(exp(X0)), exp(0.484)))
+
+Test case 162/200.
+sin(3.34*x1-2.76)
+MLP: 0.4263334007378583
+(neural black box)
+GP: 0.25909006709824545
+sin(log(mul(log(sin(X0)), log(sin(div(-0.955, X0))))))
+
+Test case 163/200.
+1.38924*(-0.13*x1-1)**(1/4)
+MLP: 4.5399929762484854e-05
+(neural black box)
+GP: 0.0002346987493798353
+sqrt(add(sqrt(0.942), sqrt(sqrt(sqrt(add(X0, X0))))))
+
+Test case 164/200.
+-3.24*x1*log(2.03*x1+0.43)/(-3.78*x1-0.73)+sin(1.81*sqrt(-0.31*x1-1))
+MLP: 0.00046121814038721764
+(neural black box)
+GP: 0.003831940442457177
+add(sqrt(X0), 0.503)
+
+Test case 165/200.
+0.79*exp(1.36*x1)*exp(2.62*x1**2)*exp(-exp(2.48*x1))
+MLP: 4.5399929762484854e-05
+(neural black box)
+GP: 0.000359509015605431
+sin(exp(div(exp(X0), sin(-0.889))))
+
+Test case 166/200.
+sin(4.48*x1-3.04)
+MLP: 0.508074498071488
+(neural black box)
+GP: 0.0073637735664006864
+sin(div(mul(0.274, X0), mul(-0.658, 0.091)))
+
+Test case 167/200.
+log(sin(2.87*x1-3.23))
+MLP: 0.6614390840057774
+(neural black box)
+GP: 0.03658303063751245
+log(sin(div(X0, -0.355)))
+
+Test case 168/200.
+log(-x1/(-1.92*x1-3.83)+0.97/(-1.92*x1-3.83))/2+0.4947
+MLP: 0.018191557746413786
+(neural black box)
+GP: 0.014679746894095404
+log(sqrt(log(sqrt(X0))))
+
+Test case 169/200.
+0.5831*sqrt(exp(x1)/sin(x1-2.32))
+MLP: 0.15123330718271272
+(neural black box)
+GP: 2.3077705296386415
+div(X0, 0.811)
+
+Test case 170/200.
+0.50158*exp(0.65*x1*sqrt(0.14-x1))
+MLP: 3576.941561910688
+(neural black box)
+GP: 2191.031747486787
+sqrt(exp(div(sqrt(X0), mul(add(-0.276, X0), sqrt(sqrt(sqrt(add(div(0.404, add(sqrt(X0), 0.900)), sqrt(log(exp(-0.294)))))))))))
+
+Test case 171/200.
+-0.67*x1**2*exp(1.73*x1)+0.76*x1+3.56*exp(x1)*log(-x1)+1.2
+MLP: 2696.169446198234
+(neural black box)
+GP: 427.82294224353666
+add(add(add(sqrt(X0), mul(X0, -0.593)), mul(add(mul(div(X0, 0.147), mul(X0, X0)), div(sqrt(add(add(log(X0), mul(div(X0, 0.147), mul(X0, X0))), add(add(sqrt(-0.645), div(0.992, -0.779)), div(sqrt(log(add(mul(X0, -0.593), add(add(add(X0, -0.401), sqrt(X0)), mul(log(X0), exp(sin(mul(log(-0.954), div(-0.471, 0.900))))))))), add(sqrt(X0), mul(X0, -0.593)))))), add(sqrt(X0), mul(X0, -0.593)))), sqrt(0.528))), sqrt(X0))
+
+Test case 172/200.
+2.14*x1**2+5.31*x1+1.32*(-x1)**(1/4)+2.29
+MLP: 0.13524519460564424
+(neural black box)
+GP: 0.018958138725562533
+mul(add(mul(add(X0, 0.571), add(X0, 0.957)), sin(sqrt(add(mul(X0, X0), sin(add(X0, 0.957)))))), exp(div(X0, X0)))
+
+Test case 173/200.
+sin(x1+log(0.78*x1-0.96)+1.97)
+MLP: 0.13043751803951953
+(neural black box)
+GP: 0.1443247000417286
+sin(div(sin(div(add(0.526, X0), mul(0.903, 0.842))), 0.556))
+
+Test case 174/200.
+log(0.82*log(x1)+1)/2+0.09531
+MLP: 0.07700989494448529
+(neural black box)
+GP: 0.1279244893838854
+mul(0.144, X0)
+
+Test case 175/200.
+exp(-3.54*exp(-0.43*x1)*sin(2.02*x1-3.43))
+MLP: 0.014291671762385386
+(neural black box)
+GP: 0.08080563978288598
+exp(add(sin(add(mul(mul(log(-0.183), add(X0, X0)), sin(log(0.086))), exp(log(div(0.473, 0.081))))), sqrt(add(sin(exp(sin(add(X0, X0)))), mul(-0.924, exp(sin(add(X0, X0))))))))
+
+Test case 176/200.
+exp(exp(sin(x1+1.78)))
+MLP: 0.10699372883004266
+(neural black box)
+GP: 4.5399929762484854e-05
+exp(exp(sin(add(add(X0, sqrt(0.980)), sin(0.904)))))
+
+Test case 177/200.
+-0.89*x1/(-2.57*x1-2.42)-1.04/(-2.57*x1*sin(1.47*x1+3.6)-2.42*sin(1.47*x1+3.6))
+MLP: 0.05172336397136685
+(neural black box)
+GP: 0.12437622360819267
+-0.160
+
+Test case 178/200.
+sqrt(sin(0.05*exp(0.89*x1)))
+MLP: 9.450307120820974e-05
+(neural black box)
+GP: 4.842234413270679e-05
+sqrt(div(exp(log(exp(mul(0.825, X0)))), exp(exp(sqrt(div(-0.104, 0.097))))))
+
+Test case 179/200.
+3.99*x1+log(log(-0.32*x1-2.21))+0.11
+MLP: 0.0003615375566161294
+(neural black box)
+GP: 0.002062338917175935
+add(add(div(X0, 0.269), mul(0.184, X0)), mul(0.159, X0))
+
+Test case 180/200.
+sin(1.18*(x1-0.7)**(1/4))
+MLP: 0.007977749608360053
+(neural black box)
+GP: 0.0012162110854415796
+sqrt(sin(sqrt(add(X0, -0.733))))
+
+Test case 181/200.
+log(log(x1-2.9))
+MLP: 0.12363235715268736
+(neural black box)
+GP: 0.18085940705564266
+mul(X0, mul(sin(X0), sin(mul(X0, mul(X0, -0.515)))))
+
+Test case 182/200.
+-9.03*x1**2-7.11*x1+5.15
+MLP: 41.80664718112025
+(neural black box)
+GP: 0.4284348420669467
+add(add(mul(add(X0, X0), div(-0.509, div(0.091, X0))), sin(sqrt(mul(add(0.815, X0), div(X0, -0.179))))), sqrt(log(sin(X0))))
+
+Test case 183/200.
+3.83077*(0.96988*x1-1)**2.65*exp(-3.59*x1)
+MLP: 879.8721541668276
+(neural black box)
+GP: 1022.1715907891441
+sqrt(div(X0, mul(div(div(log(X0), sqrt(div(sin(X0), exp(X0)))), sin(sin(div(div(div(exp(-0.916), log(X0)), add(X0, X0)), div(log(X0), sqrt(add(log(X0), sin(exp(X0))))))))), log(mul(0.864, X0)))))
+
+Test case 184/200.
+2.3415*x1+log(-x1/(-1.89*x1-2.08))+12.02+0.83/x1
+MLP: 0.42725393645093124
+(neural black box)
+GP: 13.74825276594253
+add(div(add(mul(mul(mul(sqrt(-0.942), div(mul(add(0.357, X0), sqrt(X0)), sqrt(sqrt(X0)))), X0), mul(0.937, X0)), add(div(sqrt(sqrt(sqrt(sin(log(mul(sqrt(X0), 0.622)))))), X0), div(X0, -0.048))), X0), div(X0, -0.048))
+
+Test case 185/200.
+1.58*x1+1.13*sin(log(2.26*x1+1.54))
+MLP: 0.0010252542340246523
+(neural black box)
+GP: 0.008069357823567857
+add(exp(div(log(X0), X0)), add(0.658, X0))
+
+Test case 186/200.
+0.5814*sqrt(1-0.34*x1)*sin(0.31*x1-3.39)
+MLP: 0.0007502510157037639
+(neural black box)
+GP: 0.13261082311054131
+mul(mul(-0.056, X0), exp(add(X0, -0.763)))
+
+Test case 187/200.
+0.49*sqrt(x1)-0.61/x1
+MLP: 0.0011629509161580744
+(neural black box)
+GP: 1.8871735729269787
+0.815
+
+Test case 188/200.
+sin(8.94*exp(-1.36*x1))
+MLP: 0.0030611899666660664
+(neural black box)
+GP: 0.08078496251591237
+mul(sin(div(div(0.541, 0.499), add(X0, -0.409))), sin(X0))
+
+Test case 189/200.
+log(log(x1))/2
+MLP: 0.041360232085351785
+(neural black box)
+GP: 4.5399929762484854e-05
+log(sqrt(log(X0)))
+
+Test case 190/200.
+1.04881*(0.82*log(x1)+1)**(1/4)
+MLP: 0.001091039808395804
+(neural black box)
+GP: 0.00018117458572024513
+sqrt(sqrt(log(mul(add(X0, X0), log(-0.174)))))
+
+Test case 191/200.
+1.833*x1**2/(x1-0.44)+8.0*x1+0.81*x1/(x1-0.44)+0.66*exp(x1)+2.94
+MLP: 23746.830496531795
+(neural black box)
+GP: 288.59560904012136
+add(add(exp(add(div(mul(0.594, X0), div(-0.229, -0.434)), add(sqrt(X0), sqrt(X0)))), div(add(div(0.589, div(-0.229, -0.434)), add(sqrt(X0), add(sqrt(X0), log(sin(sqrt(log(X0))))))), log(add(0.589, X0)))), div(add(add(sqrt(0.190), div(mul(0.594, X0), div(-0.229, -0.434))), X0), add(0.312, -0.121)))
+
+Test case 192/200.
+3.53553*sqrt(-x1**2*sin(0.49*x1-2.58)-0.2304*x1-0.176)
+MLP: 0.00013958928056909424
+(neural black box)
+GP: 0.0028449412595368674
+0.381
+
+Test case 193/200.
+sin(0.88*exp(3.09*x1))
+MLP: 0.41568148286396844
+(neural black box)
+GP: 0.3462977724423158
+sin(sin(sin(exp(add(0.222, add(X0, X0))))))
+
+Test case 194/200.
+log(log(-3.09*x1-2.09))
+MLP: 0.003712866799340022
+(neural black box)
+GP: 0.002404646699770148
+exp(div(-0.668, X0))
+
+Test case 195/200.
+4.66*x1+x1/(2.35-3.09*x1)-3.34+0.3/(2.35-3.09*x1)
+MLP: 3.5914417025438414
+(neural black box)
+GP: 3.6889793384588883
+add(mul(X0, X0), log(div(X0, -0.769)))
+
+Test case 196/200.
+0.54772*sqrt(0.16667+1/x1)
+MLP: 0.0003068515808346958
+(neural black box)
+GP: 0.00010649782116499202
+sqrt(div(log(-0.793), sqrt(mul(0.491, X0))))
+
+Test case 197/200.
+1.48661*sqrt(-0.17195*x1*sqrt(-x1-0.5)-1)
+MLP: 0.00037385056649712716
+(neural black box)
+GP: 0.001990723754962691
+0.478
+
+Test case 198/200.
+1.08*sqrt(x1/(1.71-2.8*x1))
+MLP: 0.007684977896884232
+(neural black box)
+GP: 0.7831016506016248
+0.786
+
+Test case 199/200.
+0.84*(-0.47*x1-1)**(1/4)+log(x1/(3.84-0.67*x1))
+MLP: 0.0015611418900095772
+(neural black box)
+GP: 0.025477028609921
+div(log(mul(X0, -0.883)), 0.820)
+
+Test case 200/200.
+1.55*x1+1.03*x1*sqrt(-0.74*x1-1)/(-3.29*x1-2.58)-2.43/(-3.29*x1-2.58)+log(-1.25*x1-3.38)/x1**2
+MLP: 0.003788853676476573
+(neural black box)
+GP: 0.02119324993191907
+div(0.858, X0)
+
