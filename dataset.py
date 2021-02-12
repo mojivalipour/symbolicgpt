@@ -6,15 +6,39 @@ import json
 import numpy as np
 from tqdm import tqdm
 import multiprocessing as mp
+from datetime import datetime
 from GenerateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
 
-def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints=None, numberofPoints=30):
+def processData(numSamples, nv, decimals, 
+                template, dataPath, fileID, time, 
+                supportPoints=None, numberofPoints=30,
+                xRange=[0.1,3.1], testPoints=False,
+                testRange=[0.0,6.0], n_levels = 3,
+                allow_constants=True, 
+                const_range=[-0.4, 0.4],
+                const_ratio=0.8,
+                op_list=[
+                    "id", "add", "mul", "div", 
+                    "sqrt", "sin", "exp", "log"]
+                ):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
         # generate a formula
         # Create a new random equation
         try:
-            x,y,cleanEqn = dataGen(nv, decimals, numberofPoints=numberofPoints, supportPoints=supportPoints)
+            x,y,cleanEqn,skeletonEqn = dataGen( 
+                                                nv = nv, decimals = decimals, 
+                                                numberofPoints=numberofPoints, 
+                                                supportPoints=supportPoints,
+                                                xRange=xRange,
+                                                testPoints=testPoints,
+                                                testRange=testRange,
+                                                n_levels=n_levels,
+                                                op_list=op_list,
+                                                allow_constants=allow_constants, 
+                                                const_range=const_range,
+                                                const_ratio=const_ratio
+                                               )
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
@@ -24,6 +48,7 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
         # hold data in the structure
         structure['X'] = list(x)
         structure['Y'] = y
+        structure['Skeleton'] = skeletonEqn
         structure['EQ'] = cleanEqn
 
         outputPath = dataPath.format(fileID, nv, time)
@@ -38,15 +63,26 @@ def processData(numSamples, nv, decimals, template, dataPath, fileID, time, supp
 def main():
     # Config
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
-    numVars = [1,2,3,4,5] #list(range(31)) #[1,2,3,4,5]
-    decimals = 5
-    numberofPoints = [0,30] # upper bound 
+    numVars = [1] #list(range(31)) #[1,2,3,4,5]
+    decimals = 2
+    numberofPoints = [1,30] # upper bound 
     numSamples = 50000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
-    #supportPoints = np.linspace(0.1,3.1,30)
-    #supportPoints = [[np.round(p,decimals)] for p in supportPoints]
-    supportPoints = None
+    supportPoints = np.linspace(0.1,3.1,30)
+    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    #supportPoints = None # uncomment this line if you don't want to use support points
+    xRange = [0.0,3.0]
+    testPoints = False
+    testRange = [0.0,6.0]
+    n_levels = 2
+    allow_constants = True
+    const_range = [-1, 1]
+    const_ratio = 0.5
+    op_list=[
+                "id", "add", "mul",
+                "sqrt", "sin", 
+            ]
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
@@ -56,17 +92,24 @@ def main():
     #q = mp.Queue()
     processes = []
     for i, nv in enumerate(numVars):
-        from datetime import datetime
         now = datetime.now()
         time = '{}_'.format(i) + now.strftime("%d%m%Y_%H%M%S")
         print('Processing equations with {} variables!'.format(nv))
-        p = mp.Process(target=processData, args=(numSamples, nv, decimals, template, dataPath, fileID, time, supportPoints, numberofPoints,))
+
+        p = mp.Process(target=processData, 
+                       args=(
+                                numSamples, nv, decimals, template, 
+                                dataPath, fileID, time, supportPoints, numberofPoints,
+                                xRange, testPoints, testRange, n_levels, 
+                                allow_constants, const_range,
+                                const_ratio, op_list
+                            )
+                       )
         p.start()
         processes.append(p)
     
     for p in processes:
         p.join()
-
 
 if __name__ == '__main__':
     main()

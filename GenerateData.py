@@ -16,7 +16,7 @@ from wrapt_timeout_decorator import *
 
 np.random.seed(seed=2021) # we didn't use this line for the training data
 
-main_op_list = ["id", "add", "mul", "div", "sqrt", "sin", "exp", "log"]
+# main_op_list = ["id", "add", "mul", "div", "sqrt", "sin", "exp", "log"]
 
 eps = 1e-4
 big_eps = 1e-3
@@ -78,14 +78,14 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
     return [eqn_ops, eqn_vars]
 """
 
-
 # Function to generate random equation as operator/input list and weight/bias list
 # Variables are numbered 1 ... n, and 0 does not appear
 # Constants appear in weight and bias lists.
 # const_ratio determines how many weights are not 1, and how many biases are not 0
-def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
-                            allow_constants=True, const_min_val=-4.0, const_max_val=4.0,
+def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=['id','sin'],
+                            allow_constants=True, const_range=[-0.4, 0.4],
                             const_ratio=0.8):
+    const_min_val, const_max_val = const_range
     eqn_ops = list(np.random.choice(op_list, size=int(2**n_levels)-1, replace=True))
     eqn_vars = list(np.random.choice(range(1, (n_vars + 1)), size=int(2 ** n_levels), replace=True))
     max_bound = max(np.abs(const_min_val), np.abs(const_max_val))
@@ -410,9 +410,35 @@ def eqn_to_str_skeleton(raw_eqn, n_vars=2, decimals=2):
     return simplify_formula(raw_eqn_to_str_skeleton(raw_eqn, n_vars), digits=decimals)
 
 #@timeout(5) #, use_signals=False)
-def dataGen(nv, decimals, numberofPoints=[0,10], supportPoints=None, seed=2021, xRange=[0.1,3.1], testPoints=False, testRange=[0.0,6.0]):
+def dataGen(nv, decimals, numberofPoints=[0,10], 
+            supportPoints=None,
+            xRange=[0.1,3.1], testPoints=False, 
+            testRange=[0.0,6.0], 
+            n_levels = 3,
+            allow_constants=True, 
+            const_range=[-0.4, 0.4],
+            const_ratio=0.8,
+            op_list=[
+                "id", "add", "mul", "div", 
+                "sqrt", "sin", "exp", "log"]):
+    """
+    - nv: Number of Variables
+    - decimals: number of floating points
+    - numberofPoints: number of points for each instance
+    - seed: random generator seed (DEPRICATED)
+    - xRange: range of x
+    - testPoints: a flag to generate (XT) for testing range
+    - testRange: range of x for testing
+    - n_levels: complexity of formulas
+    - op_list: operator lists for using in the experiment
+    """
     nPoints = np.random.randint(*numberofPoints) if supportPoints is None else len(supportPoints)
-    currEqn = generate_random_eqn_raw(n_vars=nv,n_levels=3)
+    currEqn = generate_random_eqn_raw(n_vars=nv,
+                            n_levels=n_levels, 
+                            op_list=op_list,
+                            allow_constants=allow_constants, 
+                            const_range=const_range,
+                            const_ratio=const_ratio)
     cleanEqn = eqn_to_str(currEqn, n_vars=nv, decimals=decimals)
     skeletonEqn = eqn_to_str_skeleton(currEqn, n_vars=nv, decimals=decimals)
     data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
@@ -439,4 +465,4 @@ def dataGen(nv, decimals, numberofPoints=[0,10], supportPoints=None, seed=2021, 
 # data = create_dataset_from_raw_eqn(curr_eqn, n_vars=nv, n_points=numberofPoints)
 # print(data)
 
-#print(dataGen(4, 3))
+# print(dataGen(4, 3))
