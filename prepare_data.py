@@ -190,8 +190,10 @@ def _tokenize_article_pieces(tokenizer, item):
     }
     :return: dict
     """
-    article_pieces_ids = {'X':[]}
-    article_pieces_tokens = {'X':[]}
+    #article_pieces_ids = {'X':[]}
+    #article_pieces_tokens = {'X':[]}
+    article_pieces_ids = {}
+    article_pieces_tokens = {}
     for itm in item:
         if len(item[itm]) != 0:
             line = tokenizer.encode(str(item[itm]))
@@ -237,10 +239,16 @@ def tokenize_for_grover_training(tokenizer, item, desired_size=1024, uncondition
     # Get all the bits and pieces
     article_pieces_tokens, article_pieces_ids = _tokenize_article_pieces(tokenizer, item)
     #canonical_metadata_order = ['X', 'Y', 'EQ'] #list(article_pieces_ids) if article_pieces_ids is not None else []
-    canonical_metadata_order = ['Y', 'EQ']
+    canonical_metadata_order = ['Y', 'Skeleton']
 
-    chunk_a = [article_pieces_ids.pop('Y')]
-    chunk_b = [article_pieces_ids.pop('EQ')]
+    chunk_a = article_pieces_ids.pop('Y')
+    chunk_b = article_pieces_ids.pop('Skeleton')
+
+    # remove those keys that are not in our interest
+    keysList = list(article_pieces_tokens.keys())
+    for key in keysList:
+        if key not in canonical_metadata_order:
+            article_pieces_tokens.pop(key)
 
     # if stratified:
     #     #TODO: add a stratified strategy
@@ -295,8 +303,8 @@ def tokenize_for_grover_training(tokenizer, item, desired_size=1024, uncondition
     if (len(chunk_a) + len(chunk_b)) <= desired_size:
         return article_pieces_tokens,chunk_a + chunk_b
     
-    if (assignments.get('EQ', '') == 'a') and (len(chunk_b) > 0) and (random.random() < cut_prob):
-        return article_pieces_tokens,_cut_tokens_to_add_stuff(chunk_a, chunk_b, desired_size, tokenizer.token_to_id('<PAD>'))
+    if (len(chunk_b) > 0) and (random.random() < cut_prob): # (assignments.get('EQ', '') == 'a') and 
+       return article_pieces_tokens,_cut_tokens_to_add_stuff(chunk_a, chunk_b, desired_size, tokenizer.token_to_id('<PAD>'))
     
     tokens_ids = chunk_a + chunk_b
     return article_pieces_tokens, tokens_ids

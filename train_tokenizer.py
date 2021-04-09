@@ -12,7 +12,7 @@ assert os.path.exists(inputDIR)
 specialTokens = ['<PAD>','<SOS>','<EOS>','<BLANK>']
 
 fields = {
-    "X":"", "Y":"", "EQ":""
+    "X":"", "Y":"", "EQ":"", "Skeleton":""
 }
 
 for field in fields:
