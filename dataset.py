@@ -66,7 +66,7 @@ def main():
     numVars = [1] #list(range(31)) #[1,2,3,4,5]
     decimals = 2
     numberofPoints = [1,30] # upper bound 
-    numSamples = 50000 # number of generated samples
+    numSamples = 500000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
     supportPoints = np.linspace(0.1,3.1,30)

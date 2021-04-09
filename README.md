@@ -87,7 +87,9 @@ python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbol
 - [ ] Find Interesting Showcases
 - [ ] Compare with other methods (GPLearn: Python Package)
 - [ ] Graph showing running time (CPU/GPU)
-- [x] Generate dataset with the following parameters: Maximum NumberVariables: 5, Decimals: 5, numberofPoints: 30
+- [x] Generate dataset with the following parameters: Maximum NumberVariables: 5, Decimals: 5, 
+numberofPoints: 30
+- [ ] GPT2 with sorted Y experiment (Comparison to baselines), priority 1D
 - [ ] Just save the best models
 
 # REFERENCES: 

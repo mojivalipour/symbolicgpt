@@ -236,57 +236,61 @@ def tokenize_for_grover_training(tokenizer, item, desired_size=1024, uncondition
     """
     # Get all the bits and pieces
     article_pieces_tokens, article_pieces_ids = _tokenize_article_pieces(tokenizer, item)
-    canonical_metadata_order = ['X', 'Y', 'EQ'] #list(article_pieces_ids) if article_pieces_ids is not None else []
+    #canonical_metadata_order = ['X', 'Y', 'EQ'] #list(article_pieces_ids) if article_pieces_ids is not None else []
+    canonical_metadata_order = ['Y', 'EQ']
 
-    if stratified:
-        #TODO: add a stratified strategy
-        # keep the last 200 samples and sample one variation of that specific bucket
-        # if item['type'] in memory.keys():
-        #     if item['domain'] in memory[item['type']]['samples'].keys():
+    chunk_a = [article_pieces_ids.pop('Y')]
+    chunk_b = [article_pieces_ids.pop('EQ')]
 
-        #     else:
-        #         memory[item['type']]['samples'][item['domain']] = [(article_pieces_tokens, article_pieces_ids)]
+    # if stratified:
+    #     #TODO: add a stratified strategy
+    #     # keep the last 200 samples and sample one variation of that specific bucket
+    #     # if item['type'] in memory.keys():
+    #     #     if item['domain'] in memory[item['type']]['samples'].keys():
 
-        # else:
-        #     # this is the first item
-        #     memory[item['type']] = {'samples':{},'size':0}
-        #     memory[item['type']]['samples'][item['domain']] = [(article_pieces_tokens, article_pieces_ids)]
-        #     memory[item['type']]['size'] += 1
-        pass
+    #     #     else:
+    #     #         memory[item['type']]['samples'][item['domain']] = [(article_pieces_tokens, article_pieces_ids)]
+
+    #     # else:
+    #     #     # this is the first item
+    #     #     memory[item['type']] = {'samples':{},'size':0}
+    #     #     memory[item['type']]['samples'][item['domain']] = [(article_pieces_tokens, article_pieces_ids)]
+    #     #     memory[item['type']]['size'] += 1
+    #     pass
     
     # unconditional_prob is probability we only generate the text first, without any metadata
-    switch = random.random()
-    if switch < unconditional_prob:
-        assignments = {'EQ': 'a'}
-        canonical_metadata_order_copy = canonical_metadata_order.copy()
-        chunk_a = article_pieces_ids.pop('EQ')
-        chunk_b = []
-        for x in canonical_metadata_order_copy.pop(2): # 2 is the index for "EQ"
-            if random.random() > metadata_dropout_prob:
-                chunk_b.extend(article_pieces_ids.pop(x, []))
-                assignments[x] = 'b'
-    elif switch < 0.5:
-        # Put everything in chunk_a, without dropout
-        assignments = {}
-        chunk_a = []
-        chunk_b = []
-        for x in canonical_metadata_order:
-            chunk_a.extend(article_pieces_ids.pop(x, []))
-            assignments[x] = 'a'
-    else:
-        assignments = {}
-        chunk_a = []
-        chunk_b = []
-        for k in canonical_metadata_order:
-            if random.random() < metadata_dropout_prob and k not in ('EQ'):
-                pass
-            elif random.random() < 0.5:
-                # if k != 'summary':
-                chunk_a.extend(article_pieces_ids.pop(k, []))
-                assignments[k] = 'a'
-            else:
-                chunk_b.extend(article_pieces_ids.pop(k, []))
-                assignments[k] = 'b'
+    # switch = random.random()
+    # if switch < unconditional_prob:
+    #     assignments = {'EQ': 'a'}
+    #     canonical_metadata_order_copy = canonical_metadata_order.copy()
+    #     chunk_a = article_pieces_ids.pop('EQ')
+    #     chunk_b = []
+    #     for x in canonical_metadata_order_copy.pop(2): # 2 is the index for "EQ"
+    #         if random.random() > metadata_dropout_prob:
+    #             chunk_b.extend(article_pieces_ids.pop(x, []))
+    #             assignments[x] = 'b'
+    # elif switch < 0.5:
+    #     # Put everything in chunk_a, without dropout
+    #     assignments = {}
+    #     chunk_a = []
+    #     chunk_b = []
+    #     for x in canonical_metadata_order:
+    #         chunk_a.extend(article_pieces_ids.pop(x, []))
+    #         assignments[x] = 'a'
+    # else:
+    #     assignments = {}
+    #     chunk_a = []
+    #     chunk_b = []
+    #     for k in canonical_metadata_order:
+    #         if random.random() < metadata_dropout_prob and k not in ('EQ'):
+    #             pass
+    #         elif random.random() < 0.5:
+    #             # if k != 'summary':
+    #             chunk_a.extend(article_pieces_ids.pop(k, []))
+    #             assignments[k] = 'a'
+    #         else:
+    #             chunk_b.extend(article_pieces_ids.pop(k, []))
+    #             assignments[k] = 'b'
     
     if (len(chunk_a) + len(chunk_b)) <= desired_size:
         return article_pieces_tokens,chunk_a + chunk_b
