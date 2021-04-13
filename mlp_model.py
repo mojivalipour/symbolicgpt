@@ -7,8 +7,6 @@ from sklearn.utils.validation import column_or_1d
 hidden_layer_sizes = (5, 5)
 max_iter_mlp = 500000
 
-
-
 def make_y_multi_safe(old_y, n_dims_per_input_var=1, n_dims_in_output=1):
     if isinstance(old_y, list):
         new_y = np.array(old_y)
@@ -28,7 +26,6 @@ def make_y_multi_safe(old_y, n_dims_per_input_var=1, n_dims_in_output=1):
         new_y = [[y_value[0] for _ in range(n_dims_per_input_var)] for y_value in new_y]
         new_y = np.array(new_y)
     return new_y
-
 
 class MLP_Model:
     def __init__(self):
