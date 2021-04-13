@@ -65,7 +65,7 @@ def main():
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
     numVars = [1] #list(range(31)) #[1,2,3,4,5]
     decimals = 2
-    numberofPoints = [1,30] # upper bound 
+    numberofPoints = [1,30] # only usable if support points has not been provided
     numSamples = 500000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'

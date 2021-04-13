@@ -1,7 +1,7 @@
 ## Connect to the instance
 ```
 export PROJECT_ID=persiangpt2
-export INSTANCE_NAME=tpu-persian-3
+export INSTANCE_NAME=tpu-persian
 export TPU_ZONE=us-central1-f
 gcloud compute ssh $INSTANCE_NAME --zone=$TPU_ZONE
 ```
@@ -53,6 +53,19 @@ pip install cloud-tpu-client
 pip install --upgrade google-api-python-client
 pip install google-cloud-storage
 pip install --upgrade oauth2client
+``` 
+
+# Train the model using TPUs
+```
+pu list
+cd symbolicgpt2
+export INSTANCE_NAME=tpu-persian
+export TPU_ZONE=us-central1-f
+export STORAGE_BUCKET=gs://persian-storage
+export TPU_NAME=tpu-persian
+export MODEL_DIR=gs://persian-storage/experiments/
+source ~/conda/bin/activate
+bash train_tpu_adafactor.sh 
 ``` 
 
 ## Prepare the data
