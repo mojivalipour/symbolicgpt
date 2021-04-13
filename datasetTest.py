@@ -48,6 +48,7 @@ def processData(numSamples, nv, decimals,
         structure['X'] = list(x)
         structure['Y'] = y
         structure['EQ'] = cleanEqn
+        structure['Skeleton'] = skeletonEqn
         structure['XT'] = list(xT)
         structure['YT'] = yT
 
