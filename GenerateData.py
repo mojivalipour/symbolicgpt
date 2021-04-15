@@ -412,6 +412,7 @@ def eqn_to_str_skeleton(raw_eqn, n_vars=2, decimals=2):
 #@timeout(5) #, use_signals=False)
 def dataGen(nv, decimals, numberofPoints=[0,10], 
             supportPoints=None,
+            supportPointsTest=None,
             xRange=[0.1,3.1], testPoints=False, 
             testRange=[0.0,6.0], 
             n_levels = 3,
@@ -443,7 +444,7 @@ def dataGen(nv, decimals, numberofPoints=[0,10],
     skeletonEqn = eqn_to_str_skeleton(currEqn, n_vars=nv, decimals=decimals)
     data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
     if testPoints:
-        dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints, min_x=testRange[0], max_x=testRange[1])
+        dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1])
         return data[0], data[1], cleanEqn, skeletonEqn, dataTest[0], dataTest[1]
     return data[0], data[1], cleanEqn, skeletonEqn
 

@@ -11,7 +11,9 @@ from GenerateData import generate_random_eqn_raw, eqn_to_str, create_dataset_fro
 
 def processData(numSamples, nv, decimals, 
                 template, dataPath, fileID, time, 
-                supportPoints=None, numberofPoints=30,
+                supportPoints=None, 
+                supportPointsTest=None,
+                numberofPoints=30,
                 xRange=[0.1,3.1], testPoints=False,
                 testRange=[0.0,6.0], n_levels = 3,
                 allow_constants=True, 
@@ -30,6 +32,7 @@ def processData(numSamples, nv, decimals,
                                                 nv = nv, decimals = decimals, 
                                                 numberofPoints=numberofPoints, 
                                                 supportPoints=supportPoints,
+                                                supportPointsTest=supportPointsTest,
                                                 xRange=xRange,
                                                 testPoints=testPoints,
                                                 testRange=testRange,
@@ -69,12 +72,17 @@ def main():
     numSamples = 500000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
-    supportPoints = np.linspace(0.1,3.1,30)
-    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
-    #supportPoints = None # uncomment this line if you don't want to use support points
-    xRange = [0.0,3.0]
+
     testPoints = False
-    testRange = [0.0,6.0]
+    xRange = [0.0,3.0]
+    testRange = [3.1,6.0]
+
+    supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
+    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+
+    supportPointsTest = None
+    #supportPoints = None # uncomment this line if you don't want to use support points
+    
     n_levels = 2
     allow_constants = True
     const_range = [-1, 1]
@@ -99,7 +107,9 @@ def main():
         p = mp.Process(target=processData, 
                        args=(
                                 numSamples, nv, decimals, template, 
-                                dataPath, fileID, time, supportPoints, numberofPoints,
+                                dataPath, fileID, time, supportPoints, 
+                                supportPointsTest,
+                                numberofPoints,
                                 xRange, testPoints, testRange, n_levels, 
                                 allow_constants, const_range,
                                 const_ratio, op_list
