@@ -44,7 +44,7 @@ def make_y_multi_safe(old_y, n_dims_per_input_var=1, n_dims_in_output=1):
     return new_y
 
 class Genetic_Model:
-    def __init__(self):
+    def __init__(self, n_jobs=-1):
         self.name = "Genetic Model"
         self.short_name = "GP"
         self.function_set = ["add", "mul", "div", sqrt_fn, "sin", exp_fn, log_fn]
@@ -56,7 +56,8 @@ class Genetic_Model:
                                         warm_start=warm_start,
                                         max_samples=0.9, verbose=False,
                                         parsimony_coefficient=0.01,
-                                        function_set=self.function_set)
+                                        function_set=self.function_set,
+                                        n_jobs=n_jobs)
 
     def reset(self):
         del self.est_gp

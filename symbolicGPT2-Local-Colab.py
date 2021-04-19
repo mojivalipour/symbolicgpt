@@ -43,6 +43,10 @@ from glob import glob
 from tqdm.notebook import tqdm
 from sklearn.metrics import mean_squared_error
 
+# add a safe wrapper for python sqrt
+def sqrt(arr):
+  return np.sqrt(np.abs(arr)) 
+
 # config
 show_found_eqns = True
 min_len = 0 #@param {type:"number", min:5, max:1024, step:1}
@@ -104,7 +108,7 @@ for fName in glob('D:/Datasets/Symbolic Dataset/Datasets/Mesh_Simple_GPT2/TestDa
 
     show_found_eqns = True
     num_vars = 1
-    gpm = Genetic_Model()
+    gpm = Genetic_Model(n_jobs=-1)
     mlp = MLP_Model()
 
     for idx, line in tqdm(enumerate(lines)):

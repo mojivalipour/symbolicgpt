@@ -209,7 +209,12 @@ def main():
     # This controls the top p for each generation.
     top_p = np.ones((num_chunks, batch_size_per_chunk), dtype=np.float32) * args.top_p
 
-    tf_config = tf.ConfigProto(allow_soft_placement=True)
+    #tf_config = tf.ConfigProto(allow_soft_placement=True)
+
+    tf_config = tf.ConfigProto()
+    tf_config.gpu_options.allow_growth = True
+    tf_config.gpu_options.per_process_gpu_memory_fraction = 0.9
+    tf_config.allow_soft_placement = True
 
     filterList = args.filters.split(';') if args.filters != '' else None
     saveFlag = args.saveOutput
