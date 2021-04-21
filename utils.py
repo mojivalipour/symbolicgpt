@@ -21,7 +21,6 @@ import tensorflow as tf
 import numpy as np
 from tensorflow.python.lib.io import file_io
 
-
 def _save_np(absolute_fn, array):
     if absolute_fn.startswith('gs://'):
         with file_io.FileIO(absolute_fn, 'w') as f:

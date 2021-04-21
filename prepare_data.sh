@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 NUM_FOLDS=1024
-MAX_SEQ_LENGTH=256
+MAX_SEQ_LENGTH=512
 FN=${1}
 OUT_BUCKET=${2} # add gs:// for cloud 
 

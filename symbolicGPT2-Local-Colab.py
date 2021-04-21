@@ -88,7 +88,7 @@ for fName in glob('D:/Datasets/Symbolic Dataset/Datasets/Mesh_Simple_GPT2/TestDa
                          'MLP':[],
                          'GP':[]}
 
-    lines = f.readlines()
+    lines = f.readlines() #[:200]
     
     # <SOS_X>{}<EOS_X>
     context = ['<SOS_Y>{}<EOS_Y><SOS_EQ>'.format(
