@@ -83,8 +83,8 @@ def main():
     testRange = [3.1,6.0]
 
     supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
-    #supportPoints = [[np.round(p,decimals)] for p in supportPoints]
-    supportPoints = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPoints]
+    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    #supportPoints = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPoints]
 
     supportPointsTest = None
     #supportPoints = None # uncomment this line if you don't want to use support points

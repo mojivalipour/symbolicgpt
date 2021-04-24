@@ -239,10 +239,12 @@ def tokenize_for_grover_training(tokenizer, item, desired_size=1024, uncondition
     # Get all the bits and pieces
     article_pieces_tokens, article_pieces_ids = _tokenize_article_pieces(tokenizer, item)
     #canonical_metadata_order = ['X', 'Y', 'EQ'] #list(article_pieces_ids) if article_pieces_ids is not None else []
-    canonical_metadata_order = ['X', 'Y', 'EQ']
+    #canonical_metadata_order = ['X', 'Y', 'EQ']
+    canonical_metadata_order = ['Y', 'EQ']
 
-    chunk_a = article_pieces_ids.pop('X') 
-    chunk_a.extend(article_pieces_ids.pop('Y'))
+    chunk_a = article_pieces_ids.pop('Y') 
+    #chunk_a = article_pieces_ids.pop('X') 
+    #chunk_a.extend(article_pieces_ids.pop('Y'))
     chunk_b = article_pieces_ids.pop('EQ')
 
     # remove those keys that are not in our interest

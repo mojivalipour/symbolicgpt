@@ -48,6 +48,8 @@ def sqrt(arr):
   return np.sqrt(np.abs(arr)) 
 
 # config
+num_points = 30
+num_vars = 1
 show_found_eqns = True
 min_len = 0 #@param {type:"number", min:5, max:1024, step:1}
 sample_num = 1 #@param {type:"number", min:1, max:50, step:1}
@@ -59,14 +61,14 @@ extraName = '' #'-finetune'
 config_fn = 'configs/{}.json'.format(model_size) #@param {type:"string"}
 #ckpt_fn = './expSymbolic_{}_{}{}_model.ckpt-524000'.format(model_type, model_size, extraName) #@param {type:"string"}
 #ckpt_fn = './experimentsSymbolic_{}_model.ckpt-524000'.format(model_size) #@param {type:"string"}
-ckpt_fn = 'D:/experiments/symbolicGPT2/Mesh_Simple_GPT2_256/expSymbolic_Mesh_Simple_GPT2_256_base_model.ckpt-128000'
+ckpt_fn = 'C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simple_GPT2_512_Sorted_XY_2Var/expSymbolic_Mesh_Simple_GPT2_512_Sorted_base_model.ckpt-74000'
 filters = 'EQ' #@param {type:"string"} # text;
 saveFlag = False #@param {type:"boolean"}
 
 resultDict = {}
 threshold = 1e5 # to handle inf or very big points
 
-for fName in glob('D:/Datasets/Symbolic Dataset/Datasets/Mesh_Simple_GPT2/TestDataset/*.json'):
+for fName in glob('C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simple_GPT2_512_Sorted_XY_2Var/Test Dataset/*.json'):
   print('Processing {}'.format(fName))
   
   if 'little' in fName:# or '0_1_0_02022021_164747.json' in fName:# or '0_5_4_02022021_164747.json' in fName: # This one was only for the development testing
@@ -91,14 +93,14 @@ for fName in glob('D:/Datasets/Symbolic Dataset/Datasets/Mesh_Simple_GPT2/TestDa
     lines = f.readlines() #[:200]
     
     # <SOS_X>{}<EOS_X>
-    context = ['<SOS_Y>{}<EOS_Y><SOS_EQ>'.format(
+    context = ['<SOS_X>{}<EOS_X><SOS_Y>{}<EOS_Y><SOS_EQ>'.format(
         *(np.round(val,2).tolist() for key, val in json.loads(line).items(
-              ) if key == 'Y')) for line in lines]
+              ) if key == 'Y' or key == 'X')) for line in lines]
     print(context)
     equations = demo.wraper(top_p, config_fn, ckpt_fn, min_len, sample_num, 
                             saveFlag, filters, context=context, 
-                            modelType=model_type, max_num_points=30, 
-                            max_num_vars=5)
+                            modelType=model_type, max_num_points=num_points, 
+                            max_num_vars=num_vars)
     
     wrongEQCounter = 0
     yPred = []
@@ -107,7 +109,6 @@ for fName in glob('D:/Datasets/Symbolic Dataset/Datasets/Mesh_Simple_GPT2/TestDa
     from mlp_model import MLP_Model
 
     show_found_eqns = True
-    num_vars = 1
     gpm = Genetic_Model(n_jobs=-1)
     mlp = MLP_Model()
 
@@ -294,6 +295,6 @@ for idx, model in enumerate(models):
 plt.legend(loc="upper left")
 plt.title("{} equations of {} variables".format(num_eqns, num_vars))
 plt.xlabel("Log of error")
-plt.ylabel("Frequency Percentage")
+plt.ylabel("Normalized Cumulative Frequency")
 
 plt.savefig('comparison.png')

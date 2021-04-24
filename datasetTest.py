@@ -20,7 +20,8 @@ def processData(numSamples, nv, decimals,
                 const_ratio=0.8,
                 op_list=[
                     "id", "add", "mul", "div", 
-                    "sqrt", "sin", "exp", "log"]
+                    "sqrt", "sin", "exp", "log"],
+                sortY=False
                 ):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
@@ -46,6 +47,10 @@ def processData(numSamples, nv, decimals,
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
             i = i-1
             continue
+
+        # sort data based on Y
+        if sortY:
+            x,y = zip(*sorted(zip(x,y), key=lambda d: d[1]))
         
         # hold data in the structure
         structure['X'] = list(x)
@@ -83,8 +88,12 @@ def main():
 
     supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
     supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    #supportPoints = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPoints]
+    
     supportPointsTest = np.linspace(testRange[0],testRange[1],numberofPoints[1])
     supportPointsTest = [[np.round(p,decimals)] for p in supportPointsTest]
+    #supportPointsTest = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPointsTest]
+    
     #supportPointsTest=None
     #supportPoints = None # uncomment this line if you don't want to use support points
     
@@ -96,6 +105,8 @@ def main():
                 "id", "add", "mul",
                 "sqrt", "sin", 
             ]
+
+    sortY = True # if the data is sorted based on y
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
@@ -119,7 +130,7 @@ def main():
                                 numberofPoints,
                                 xRange, testPoints, testRange, n_levels, 
                                 allow_constants, const_range,
-                                const_ratio, op_list
+                                const_ratio, op_list, sortY
                             )
                        )
 
