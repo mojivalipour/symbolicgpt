@@ -71,19 +71,20 @@ def processData(numSamples, nv, decimals,
 def main():
     # Config
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
-    numVars = [1] #list(range(31)) #[1,2,3,4,5]
+    numVars = [3] #list(range(31)) #[1,2,3,4,5]
     decimals = 2
-    numberofPoints = [1,30] # only usable if support points has not been provided
+    numberofPoints = [1,100] # only usable if support points has not been provided
     numSamples = 500000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
 
     testPoints = False
-    xRange = [0.0,3.0]
-    testRange = [3.1,6.0]
+    xRange = [-3.0,3.0]
+    testRange = [3.1,10.0]
 
-    supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
-    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    supportPoints = None
+    #supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
+    #supportPoints = [[np.round(p,decimals)] for p in supportPoints]
     #supportPoints = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPoints]
 
     supportPointsTest = None
@@ -91,14 +92,14 @@ def main():
     
     n_levels = 2
     allow_constants = True
-    const_range = [-1, 1]
-    const_ratio = 0.5
+    const_range = [-5, 5]
+    const_ratio = 0.8
     op_list=[
                 "id", "add", "mul",
-                "sqrt", "sin", 
+                "sqrt", "sin", "exp", "log"
             ]
 
-    sortY = True # if the data is sorted based on y
+    sortY = False # if the data is sorted based on y
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 

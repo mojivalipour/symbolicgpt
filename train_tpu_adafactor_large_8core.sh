@@ -6,17 +6,20 @@ learning_rate=1e-4
 init_checkpoint=""
 max_seq_length=1024
 save_checkpoint_steps=1000
-gradient_accumulation=16
+gradient_accumulation=5 #8 #16
+numberofPoints=30 
+numberofVars=1
+model_type="PT" # GPT2
 
 # You can customize the training here
 # mega, medium, or base
-model_type="large"
-OUTPUT_DIR="gs://persian-storage/experimentsSymbolic/${model_type}/" # put your output directory here
-input_file="gs://persian-storage/symbolic/var1/data_1024/*.tfrecord" # put your input files here, it can also be something like "*.tfrecord"
+model_type="base"
+OUTPUT_DIR="gs://persian-storage/expSymbolic/Mesh_Simple_GPT2_1024_Sorted_PointNet/${model_type}/" # put your output directory here
+input_file="gs://persian-storage/symbolic/meshGPT1024SortedPT/*.tfrecord" # put your input files here, it can also be something like "*.tfrecord"
 
 if [ ${model_type} == "base" ]; then
-    num_tpu_cores=32
-    batch_size_per_core=16
+    num_tpu_cores=8 #32
+    batch_size_per_core=13 #16
 elif [ ${model_type} == "large" ]; then
     num_tpu_cores=8 #128
     batch_size_per_core=4 #16 #4
@@ -48,7 +51,10 @@ do
     --tpu_name=$TPU_NAME\
     --num_tpu_cores=$num_tpu_cores \
     --init_checkpoint=${init_checkpoint}\
-    --gradient_accumulation=${gradient_accumulation}
+    --gradient_accumulation=${gradient_accumulation}\
+    --numberofPoints=${numberofPoints}\
+    --numberofVars=${numberofVars}\
+    --model_type=${model_type}
     echo restarting
     sleep 30
 done
