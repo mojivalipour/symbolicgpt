@@ -47,13 +47,13 @@ do
     --num_warmup_steps=10000 \
     --save_checkpoints_steps=${save_checkpoint_steps} \
     --iterations_per_loop=${save_checkpoint_steps} \
-    --use_tpu=True \    
-    --tpu_name=$TPU_NAME\    
+    --use_tpu=True \
+    --tpu_name=$TPU_NAME \
     --num_tpu_cores=$num_tpu_cores \
     --init_checkpoint=${init_checkpoint}\
-    --gradient_accumulation=${gradient_accumulation}\    
-    --numberofPoints=${numberofPoints}\
-    --numberofVars=${numberofVars}\
+    --gradient_accumulation=${gradient_accumulation} \
+    --numberofPoints=${numberofPoints} \
+    --numberofVars=${numberofVars} \
     --model_type=${model_type}
     echo restarting   
     sleep 30
