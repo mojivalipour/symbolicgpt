@@ -293,7 +293,7 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
             name='h1', reuse=tf.AUTO_REUSE
         )
 
-        hi = tf.keras.activations.relu(hi, alpha=0.0, max_value=None, threshold=0)
+        #hi = tf.keras.activations.relu(hi, alpha=0.0, max_value=None, threshold=0)
         hi = tf.layers.dense(
             hi,
             512,
@@ -302,7 +302,7 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
             name='h2', reuse=tf.AUTO_REUSE
         )
 
-        hi = tf.keras.activations.relu(hi, alpha=0.0, max_value=None, threshold=0)
+        #hi = tf.keras.activations.relu(hi, alpha=0.0, max_value=None, threshold=0)
         hi = tf.layers.dense(
             hi,
             embedding_size,
@@ -338,7 +338,7 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
 
     u = tf.math.reduce_max(h, axis=1, keepdims=False, name='u_pointnet') # the new shape should be [batch_size, 256]
     #u = layer_norm(u, name='u_ln1_pointnet')
-    u = tf.keras.activations.relu(u, alpha=0.0, max_value=None, threshold=0)
+    #u = tf.keras.activations.relu(u, alpha=0.0, max_value=None, threshold=0)
 
     g = tf.layers.dense(
         u,
@@ -348,8 +348,8 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
         name='g',
     )
 
-    g = dropout(g, hidden_dropout_prob)
-    g = layer_norm(g, name='g_mlp_ln1_pointnet')
+    #g = dropout(g, hidden_dropout_prob)
+    #g = layer_norm(g, name='g_mlp_ln1_pointnet')
 
     return g
 
