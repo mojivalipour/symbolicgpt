@@ -2,9 +2,11 @@
 
 export PYTHONPATH=/home/m5valipo/symbolicGPT2
 
-learning_rate=1e-4init_checkpoint=""
+learning_rate=1e-4
+init_checkpoint=""
 max_seq_length=1024
-save_checkpoint_steps=1000gradient_accumulation=5 #8 #16
+save_checkpoint_steps=1000
+gradient_accumulation=5 #8 #16
 numberofPoints=30 
 numberofVars=1
 model_type="PT" # GPT2
