@@ -457,6 +457,7 @@ def embed(input_ids,
 
     if input_points is not None:
         # pass the input to the pointNET
+        print("PointNET succesfully has been called!")
         point_embeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
         embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
 
