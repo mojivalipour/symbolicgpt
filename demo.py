@@ -16,6 +16,8 @@ def main():
     #from tokenization import tokenization
     from tokenizers import Tokenizer, ByteLevelBPETokenizer
     from tensorflow.python.util import deprecation
+    from tensorflow.python.tools.inspect_checkpoint import print_tensors_in_checkpoint_file
+
     try:
         from tensorflow.python.util import module_wrapper as deprecation
     except ImportError:
@@ -326,6 +328,10 @@ def main():
                                 numberofPoints=args.max_num_points, numberofVars=args.max_num_vars)
 
             saver = tf.train.Saver()
+
+            print_tensors_in_checkpoint_file(args.ckpt_fn, all_tensors=False, tensor_name='')
+            print(tf.trainable_variables())
+
             saver.restore(sess, args.ckpt_fn)
             print('🍺Model loaded. \n')
             #text =  sys.stdin.readlines() #input()

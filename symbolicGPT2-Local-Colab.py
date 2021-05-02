@@ -55,20 +55,20 @@ min_len = 0 #@param {type:"number", min:5, max:1024, step:1}
 sample_num = 1 #@param {type:"number", min:1, max:50, step:1}
 top_p = 0.9 #@param {type:"slider", min:0, max:1, step:0.1}
 model_size = 'base' # @param ["large", "base", "mega"]
-model_type = 'GPT2' # @param ["GPT2", "PT"]
+model_type = 'PT' # @param ["GPT2", "PT"]
 extraName = '' #'-finetune' 
 #'lm/configs/{}.json'.format(model_type) 
 config_fn = 'configs/{}.json'.format(model_size) #@param {type:"string"}
 #ckpt_fn = './expSymbolic_{}_{}{}_model.ckpt-524000'.format(model_type, model_size, extraName) #@param {type:"string"}
 #ckpt_fn = './experimentsSymbolic_{}_model.ckpt-524000'.format(model_size) #@param {type:"string"}
-ckpt_fn = 'C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simple_GPT2_512_Sorted_XY_2Var/expSymbolic_Mesh_Simple_GPT2_512_Sorted_base_model.ckpt-74000'
+ckpt_fn = 'C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simple_GPT2_1024_Sorted_XY_1Var_PointNet/expSymbolic_Mesh_Simple_GPT2_1024_Sorted_PT_base_model.ckpt-108000'
 filters = 'EQ' #@param {type:"string"} # text;
 saveFlag = False #@param {type:"boolean"}
 
 resultDict = {}
 threshold = 1e5 # to handle inf or very big points
-
-for fName in glob('C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simple_GPT2_512_Sorted_XY_2Var/Test Dataset/*.json'):
+files = glob('C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simple_GPT2_1024_Sorted_XY_1Var_PointNet/Test Dataset/*.json')
+for fName in files:
   print('Processing {}'.format(fName))
   
   if 'little' in fName:# or '0_1_0_02022021_164747.json' in fName:# or '0_5_4_02022021_164747.json' in fName: # This one was only for the development testing
@@ -220,7 +220,7 @@ for fName in glob('C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simpl
       # train MLP model
       mlp.reset()
       model_eqn, _, best_err = mlp.repeat_train(train_data_x, train_data_y,
-                                                test_x=test_data_x, test_y=test_data_y,                                     verbose=False)
+                                                test_x=test_data_x, test_y=test_data_y,verbose=False)
       if show_found_eqns:
           print("{} function:  {}".format(mlp.name, model_eqn)[:550])
 
@@ -266,7 +266,7 @@ for fName in glob('C:/Users/vpcom/Dropbox/LanguageModels/SymbolicGPT2/Mesh_Simpl
   #files.download(outputName) 
 
   # save dictionary
-  with open('./data.json', 'a', encoding="utf-8") as h:
+  with open('./data_{}.json'.format(ckpt_fn.split('/')[-1]), 'a', encoding="utf-8") as h:
     print('saving resultDict to {}'.format('./data.json'))
     json.dump(resultDict, h, ensure_ascii=False)
 
@@ -294,7 +294,7 @@ for idx, model in enumerate(models):
 
 plt.legend(loc="upper left")
 plt.title("{} equations of {} variables".format(num_eqns, num_vars))
-plt.xlabel("Log of error")
+plt.xlabel("MSE")
 plt.ylabel("Normalized Cumulative Frequency")
 
-plt.savefig('comparison.png')
+plt.savefig('{}.png'.format(ckpt_fn.split('/')[-1]))
