@@ -461,7 +461,7 @@ def embed(input_ids,
         pointEmbeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
         print('Point Embedding Shape: ', pointEmbeds.shape)
         print('GPT2 Embedding Shape: ', embedded_input.shape)
-        pointEmbeds = tf.repeat(pointEmbeds, (1,seq_length)) # [batch_size, seq_length*dim]
+        pointEmbeds = tf.tile(pointEmbeds, (1,seq_length)) # [batch_size, seq_length*dim]
         pointEmbeds = tf.reshape(pointEmbeds, [batch_size*seq_length, embedding_size])
         #embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
         # concat both and pass that to a dense network
