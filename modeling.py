@@ -459,12 +459,12 @@ def embed(input_ids,
         # pass the input to the pointNET
         print("PointNET succesfully has been called!")
         pointEmbeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
-        pointEmbeds = pointEmbeds.repeat(1,seq_length) # [batch_size, seq_length, dim]
+        pointEmbeds = tf.repeat(pointEmbeds, (1,seq_length)) # [batch_size, seq_length*dim]
         pointEmbeds = tf.reshape(pointEmbeds, [batch_size*seq_length, embedding_size])
         #embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
         # concat both and pass that to a dense network
         embeddedInput = tf.reshape(embedded_input, [batch_size*seq_length, embedding_size])
-        concatInput = torch.cat((embeddedInput, pointEmbeds[:, None]), dim=-1)
+        concatInput = tf.concatenate((embeddedInput, pointEmbeds), dim=-1)
         concatOutput = tf.layers.dense(
             concatInput,
             embedding_size,
