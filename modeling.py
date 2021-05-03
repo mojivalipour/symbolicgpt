@@ -20,6 +20,7 @@ import math
 
 import six
 import tensorflow.compat.v1 as tf
+import tensorflow as tf2
 
 import optimization_adafactor
 from utils import get_assignment_map_from_checkpoint, get_shape_list, get_attention_mask, gelu, layer_norm, dropout, \
@@ -466,7 +467,7 @@ def embed(input_ids,
         #embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
         # concat both and pass that to a dense network
         embeddedInput = tf.reshape(embedded_input, [batch_size*seq_length, embedding_size])
-        concatInput = tf.layers.concatenate((embeddedInput, pointEmbeds), dim=-1)
+        concatInput = tf2.concat((embeddedInput, pointEmbeds), dim=-1)
         concatOutput = tf.layers.dense(
             concatInput,
             embedding_size,
