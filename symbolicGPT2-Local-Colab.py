@@ -294,7 +294,7 @@ for idx, model in enumerate(models):
 
 plt.legend(loc="upper left")
 plt.title("{} equations of {} variables".format(num_eqns, num_vars))
-plt.xlabel("MSE")
+plt.xlabel("Mean Square Error")
 plt.ylabel("Normalized Cumulative Frequency")
 
 plt.savefig('{}.png'.format(ckpt_fn.split('/')[-1]))

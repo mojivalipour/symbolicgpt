@@ -312,7 +312,7 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
         )
 
         hi = tf.expand_dims(hi, axis=1, name='expand_{}'.format(i))
-        #hi = layer_norm(hi, name='h{}_ln1_pointnet'.format(i))
+        hi = layer_norm(hi, name='h{}_ln1_pointnet'.format(i))
         hList.append(hi)
     # concatenate all hi into h
     h = tf.concat(hList, axis=1, name='concat')
@@ -349,7 +349,7 @@ def pointNET(x, embedding_size=768, initializer_range=0.02, hidden_dropout_prob=
     )
 
     #g = dropout(g, hidden_dropout_prob)
-    #g = layer_norm(g, name='g_mlp_ln1_pointnet')
+    g = layer_norm(g, name='g_mlp_ln1_pointnet')
 
     return g
 
@@ -458,8 +458,21 @@ def embed(input_ids,
     if input_points is not None:
         # pass the input to the pointNET
         print("PointNET succesfully has been called!")
-        point_embeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
-        embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
+        pointEmbeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
+        pointEmbeds = pointEmbeds.repeat(1,seq_length) # [batch_size, seq_length, dim]
+        pointEmbeds = tf.reshape(pointEmbeds, [batch_size*seq_length, embedding_size])
+        #embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
+        # concat both and pass that to a dense network
+        embeddedInput = tf.reshape(embedded_input, [batch_size*seq_length, embedding_size])
+        concatInput = torch.cat((embeddedInput, pointEmbeds[:, None]), dim=-1)
+        concatOutput = tf.layers.dense(
+            concatInput,
+            embedding_size,
+            activation=gelu,
+            kernel_initializer=create_initializer(initializer_range),
+            name='concatProcessor',
+        )
+        embedded_input = tf.reshape(concatOutput, [batch_size, seq_length, embedding_size])
 
     return layer_norm(embedded_input, name='embed_norm'), embedding_table
 
