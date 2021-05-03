@@ -467,7 +467,7 @@ def embed(input_ids,
         #embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
         # concat both and pass that to a dense network
         embeddedInput = tf.reshape(embedded_input, [batch_size*seq_length, embedding_size])
-        concatInput = tf2.concat((embeddedInput, pointEmbeds), dim=-1)
+        concatInput = tf2.concat((embeddedInput, pointEmbeds), -1)
         concatOutput = tf.layers.dense(
             concatInput,
             embedding_size,
