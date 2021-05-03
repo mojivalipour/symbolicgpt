@@ -462,20 +462,21 @@ def embed(input_ids,
         pointEmbeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
         print('Point Embedding Shape: ', pointEmbeds.shape)
         print('GPT2 Embedding Shape: ', embedded_input.shape)
-        pointEmbeds = tf.tile(pointEmbeds, (1,seq_length)) # [batch_size, seq_length*dim]
-        pointEmbeds = tf.reshape(pointEmbeds, [batch_size*seq_length, embedding_size])
-        #embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
+        #pointEmbeds = tf.tile(pointEmbeds, (1,seq_length)) # [batch_size, seq_length*dim]
+        #pointEmbeds = tf.reshape(pointEmbeds, [batch_size*seq_length, embedding_size])
+        embedded_input += point_embeds[:, None] # add PointNET embedding to other emebddings
         # concat both and pass that to a dense network
         embeddedInput = tf.reshape(embedded_input, [batch_size*seq_length, embedding_size])
-        concatInput = tf2.concat((embeddedInput, pointEmbeds), -1)
+        #concatInput = tf2.concat((embeddedInput, pointEmbeds), -1)
         concatOutput = tf.layers.dense(
-            concatInput,
+            embeddedInput,
             embedding_size,
             activation=gelu,
             kernel_initializer=create_initializer(initializer_range),
             name='concatProcessor',
         )
         embedded_input = tf.reshape(concatOutput, [batch_size, seq_length, embedding_size])
+        print('New GPT2 Embedding Shape: ', embedded_input.shape)
 
     return layer_norm(embedded_input, name='embed_norm'), embedding_table
 
