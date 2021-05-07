@@ -462,20 +462,20 @@ def embed(input_ids,
         pointEmbeds = pointNET(input_points, embedding_size=embedding_size, numberofPoints=numberofPoints, numberofVars=numberofVars) # [batch_size, dim]
         print('Point Embedding Shape: ', pointEmbeds.shape, pointEmbeds[:, None].shape)
         print('GPT2 Embedding Shape: ', embedded_input.shape)
-        #pointEmbeds = tf.tile(pointEmbeds, (1,seq_length)) # [batch_size, seq_length*dim]
-        #pointEmbeds = tf.reshape(pointEmbeds, [batch_size*seq_length, embedding_size])
-        embedded_input += pointEmbeds[:, None] # add PointNET embedding to other emebddings
+        # pointEmbeds = tf.tile(pointEmbeds, (1,seq_length)) # [batch_size, seq_length*dim] ## too slow on TPU
+        # pointEmbeds = tf.reshape(pointEmbeds, [batch_size*seq_length, embedding_size])
+        # embedded_input += pointEmbeds[:, None] # add PointNET embedding to other emebddings
         # concat both and pass that to a dense network
-        embeddedInput = tf.reshape(embedded_input, [batch_size*seq_length, embedding_size])
-        #concatInput = tf2.concat((embeddedInput, pointEmbeds), -1)
-        concatOutput = tf.layers.dense(
-            embeddedInput,
-            embedding_size,
-            activation=gelu,
-            kernel_initializer=create_initializer(initializer_range),
-            name='concatProcessor',
-        )
-        embedded_input = tf.reshape(concatOutput, [batch_size, seq_length, embedding_size])
+        # embeddedInput = tf.reshape(embedded_input, [batch_size*seq_length, embedding_size])
+        embedded_input = tf.concat((pointEmbeds[:, None], embedded_input), axis=1, name='concatPointRep') # [batch_size, 1, embedding_size], [batch_size, seq_length, embedding_size]
+        # concatOutput = tf.layers.dense(
+        #     embeddedInput,
+        #     embedding_size,
+        #     activation=gelu,
+        #     kernel_initializer=create_initializer(initializer_range),
+        #     name='concatProcessor',
+        # )
+        #embedded_input = tf.reshape(concatOutput, [batch_size, seq_length+1, embedding_size])
         print('New GPT2 Embedding Shape: ', embedded_input.shape)
 
     return layer_norm(embedded_input, name='embed_norm'), embedding_table
@@ -711,7 +711,12 @@ class GroverModel(object):
                                     dtype=self.logits_flat.dtype)
 
         # [batch_size * seq_length, vocab_size]
-        logprobs_flat = tf.nn.log_softmax(self.logits_flat, axis=-1)
+
+        if self.logits_flat.shape[1] == self.seq_length+1: 
+            ## ignore the pointNET additional input for the prediction
+            self.logits_flat = self.logits_flat[:,1:,:]
+
+        logprobs_flat = tf.nn.log_softmax(self.logits_flat, axis=-1) 
 
         per_example_loss = -tf.reduce_sum(logprobs_flat * one_hot_labels, axis=[-1])
 
