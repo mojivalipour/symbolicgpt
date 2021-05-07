@@ -607,7 +607,7 @@ class GroverModel(object):
         self.numberofVars = numberofVars
 
         self.input_points = None
-        if model_type == 'PT':
+        if self.model_type == 'PT':
             self.input_points = input_points
 
         if not is_training:
@@ -624,6 +624,7 @@ class GroverModel(object):
                                                      shape=[get_shape_list(self.input_ids, 2)[0], 1])), 1)
 
         self.batch_size, self.seq_length = get_shape_list(self.input_ids, 2)
+        defaultSeqLength = self.seq_length + 0 # just copy the seq_length
 
         if cache is None:
             caches = [None] * config.num_hidden_layers
@@ -649,6 +650,7 @@ class GroverModel(object):
                                                          input_points=self.input_points,
                                                          numberofPoints=self.numberofPoints, 
                                                          numberofVars=self.numberofVars)
+                self.seq_length = embeddings.shape[1]
 
             mask = get_attention_mask(self.seq_length, self.seq_length + self.cache_length, dtype=embeddings.dtype)
 
@@ -686,6 +688,7 @@ class GroverModel(object):
 
         # Note that the hidden state is still flat (batch_size*hidden_size)
         self.logits_flat = tf.matmul(self.hidden_state, self.embedding_table, transpose_b=True)
+        self.seq_length = defaultSeqLength # get back to the original shape (in the PointNET case we have one extra token)
 
         # THE OUTPUT BIAS DOES NOT SPARK JOY
         # output_bias = tf.get_variable('output_bias', shape=[config.vocab_size], initializer=tf.zeros_initializer())
