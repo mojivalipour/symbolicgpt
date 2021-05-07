@@ -719,7 +719,7 @@ class GroverModel(object):
             # self.logits_flat: self.batch_size * self.seq_length, self.config.hidden_size
             #self.logits_flat = tf.reshape(self.logits_flat, [self.batch_size, self.seq_length, self.config.hidden_size])
             ## ignore the pointNET additional input for the prediction
-            self.logits_flat = self.logits_flat[self.batch_size+1:,:]
+            self.logits_flat = self.logits_flat[self.batch_size:,:]
 
         logprobs_flat = tf.nn.log_softmax(self.logits_flat, axis=-1) 
 
