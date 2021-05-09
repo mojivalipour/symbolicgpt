@@ -624,7 +624,7 @@ class GroverModel(object):
                                                      shape=[get_shape_list(self.input_ids, 2)[0], 1])), 1)
 
         self.batch_size, self.seq_length = get_shape_list(self.input_ids, 2)
-        defaultSeqLength = self.seq_length + 0 # just copy the seq_length
+        defaultSeqLength = self.seq_length + 0 if self.seq_length != None else 0 # just copy the seq_length
 
         if cache is None:
             caches = [None] * config.num_hidden_layers
