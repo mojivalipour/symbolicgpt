@@ -650,7 +650,7 @@ class GroverModel(object):
                                                          input_points=self.input_points,
                                                          numberofPoints=self.numberofPoints, 
                                                          numberofVars=self.numberofVars)
-                self.seq_length = embeddings.shape[1]
+                self.seq_length = embeddings.shape[1] if embeddings.shape[1]!=None else self.seq_length
 
             mask = get_attention_mask(self.seq_length, self.seq_length + self.cache_length, dtype=embeddings.dtype)
 
