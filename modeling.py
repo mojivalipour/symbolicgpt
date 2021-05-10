@@ -688,7 +688,16 @@ class GroverModel(object):
 
         # Note that the hidden state is still flat (batch_size*hidden_size)
         self.logits_flat = tf.matmul(self.hidden_state, self.embedding_table, transpose_b=True)
+
         self.seq_length = defaultSeqLength # get back to the original shape (in the PointNET case we have one extra token)
+
+        if self.logits_flat.shape[0] != self.batch_size*self.seq_length: 
+            # self.logits_flat: self.batch_size * self.seq_length, self.config.hidden_size
+            self.logits_flat = tf.reshape(self.logits_flat, [self.batch_size, self.seq_length+1, self.config.vocab_size])
+            ## ignore the pointNET additional input for the prediction
+            #self.logits_flat = self.logits_flat[self.batch_size:,:]
+            self.logits_flat = self.logits_flat[:,1:,:]
+            self.logits_flat = tf.reshape(self.logits_flat, [self.batch_size * self.seq_length, self.config.vocab_size])
 
         # THE OUTPUT BIAS DOES NOT SPARK JOY
         # output_bias = tf.get_variable('output_bias', shape=[config.vocab_size], initializer=tf.zeros_initializer())
@@ -715,13 +724,13 @@ class GroverModel(object):
 
         # [batch_size * seq_length, vocab_size]
 
-        if self.logits_flat.shape[0] != self.batch_size*self.seq_length: 
-            # self.logits_flat: self.batch_size * self.seq_length, self.config.hidden_size
-            self.logits_flat = tf.reshape(self.logits_flat, [self.batch_size, self.seq_length+1, self.config.vocab_size])
-            ## ignore the pointNET additional input for the prediction
-            #self.logits_flat = self.logits_flat[self.batch_size:,:]
-            self.logits_flat = self.logits_flat[:,1:,:]
-            self.logits_flat = tf.reshape(self.logits_flat, [self.batch_size * self.seq_length, self.config.vocab_size])
+        # if self.logits_flat.shape[0] != self.batch_size*self.seq_length: 
+        #     # self.logits_flat: self.batch_size * self.seq_length, self.config.hidden_size
+        #     self.logits_flat = tf.reshape(self.logits_flat, [self.batch_size, self.seq_length+1, self.config.vocab_size])
+        #     ## ignore the pointNET additional input for the prediction
+        #     #self.logits_flat = self.logits_flat[self.batch_size:,:]
+        #     self.logits_flat = self.logits_flat[:,1:,:]
+        #     self.logits_flat = tf.reshape(self.logits_flat, [self.batch_size * self.seq_length, self.config.vocab_size])
 
         logprobs_flat = tf.nn.log_softmax(self.logits_flat, axis=-1) 
 
