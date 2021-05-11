@@ -452,6 +452,10 @@ def main():
                         result.append(res)
                         print('{}/{}->eq:{}\n'.format(idx, len(text), res))
                 else: # only single sample
+                    if args.modelType == 'PT':
+                        points, posSOS_EQ = extractPoints(text)
+                        text = text[posSOS_EQ:]
+                        #print('\nExtracted input text: {}\n Extracted input points:{}\n'.format(t, points))
                     res = runSample(text, num_chunks, sess, tokens, probs, batch_size_per_chunk, args, top_p, tokenizer, filterList, points=points)
                     result.append(res)
                 return result

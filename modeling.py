@@ -686,10 +686,10 @@ class GroverModel(object):
 
         self.new_kvs = tf.stack(new_kvs, axis=1) if do_cache else None
 
+        self.seq_length = defaultSeqLength # get back to the original shape (in the PointNET case we have one extra token)
+
         # Note that the hidden state is still flat (batch_size*hidden_size)
         self.logits_flat = tf.matmul(self.hidden_state, self.embedding_table, transpose_b=True)
-
-        self.seq_length = defaultSeqLength # get back to the original shape (in the PointNET case we have one extra token)
 
         if self.logits_flat.shape[0] != self.batch_size*self.seq_length: 
             # self.logits_flat: self.batch_size * self.seq_length, self.config.hidden_size

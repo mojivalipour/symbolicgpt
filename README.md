@@ -111,3 +111,4 @@ numberofPoints: 30
 - https://huggingface.co/blog/how-to-train
 - https://github.com/bhargaviparanjape/clickbait
 - https://github.com/hpandana/gradient-accumulation-tf-estimator
+- https://github.com/karpathy/minGPT
