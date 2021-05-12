@@ -71,15 +71,20 @@ class Trainer:
 
             losses = []
             pbar = tqdm(enumerate(loader), total=len(loader)) if is_train else enumerate(loader)
-            for it, (x, y, p) in pbar:
+            for it, (x, y, p, m) in pbar:
+                # x: inputs
+                # y: targets
+                # p: points
+                # m: masks
 
                 # place data on the correct device
                 x = x.to(self.device)
+                m = m.to(self.device)
                 y = y.to(self.device)
 
                 # forward the model
                 with torch.set_grad_enabled(is_train):
-                    logits, loss = model(x, y, p)
+                    logits, loss = model(x, y, p, m)
                     loss = loss.mean() # collapse all losses if they are scattered on multiple gpus
                     losses.append(loss.item())
 
