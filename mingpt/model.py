@@ -197,12 +197,22 @@ class GPT(nn.Module):
         super().__init__()
 
         self.unSqDim = 1
-        self.padToken = config.padToken
-        self.padId = config.padId
 
-        # input embedding stem
-        self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
-        self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size+1, config.n_embd))
+        self.padId = None
+        self.padToken = None
+        self.pointNetConfig = pointNetConfig
+        if self.pointNetConfig != None:
+            self.padToken = config.padToken
+            self.padId = config.padId
+            self.pointNet = PointNet(self.pointNetConfig)
+            #self.add_module('pointNet',self.pointNet)
+            # input embedding stem
+            self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
+            self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size+1, config.n_embd))
+        else:
+            self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd)
+            self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
+        
         self.drop = nn.Dropout(config.embd_pdrop)
         # transformer
         self.blocks = nn.Sequential(*[Block(config) for _ in range(config.n_layer)])
@@ -215,10 +225,7 @@ class GPT(nn.Module):
 
         logger.info("number of parameters: %e", sum(p.numel() for p in self.parameters()))
 
-        self.pointNetConfig = pointNetConfig
-        if self.pointNetConfig != None:
-            self.pointNet = PointNet(self.pointNetConfig)
-            #self.add_module('pointNet',self.pointNet)
+        
 
     def get_block_size(self):
         return self.block_size
@@ -311,6 +318,9 @@ class GPT(nn.Module):
         # if we are given some desired targets also calculate the loss
         loss = None
         if targets is not None:
-            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
+            if points_embeddings != None:
+                loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
+            else:
+                loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
 
         return logits, loss
