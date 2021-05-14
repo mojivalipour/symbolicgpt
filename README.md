@@ -98,11 +98,12 @@ python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbol
 - [x] Test cases, limited number (1000)
 - [x] MSE + Cumulative Implementation Plot (Moji)
 - [ ] Find Interesting Showcases
-- [ ] Compare with other methods (GPLearn: Python Package)
+- [x] Compare with other methods (GPLearn: Python Package)
 - [ ] Graph showing running time (CPU/GPU)
-- [x] Generate dataset with the following parameters: Maximum NumberVariables: 5, Decimals: 5, 
-numberofPoints: 30
-- [ ] GPT2 with sorted Y experiment (Comparison to baselines), priority 1D
+- [x] Generate dataset with the following parameters: Maximum NumberVariables: 5 Decimals: 5, numberofPoints: 30
+- [ ] Use PointNOVO t-net instead of our pointNet implementation
+- [ ] Use PointNovo normalization technique if there is any
+- [x] GPT2 with sorted Y experiment (Comparison to baselines), priority 1D
 - [ ] Just save the best models
 
 # REFERENCES: 
