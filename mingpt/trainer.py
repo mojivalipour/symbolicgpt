@@ -81,10 +81,11 @@ class Trainer:
                 # place data on the correct device
                 condition = model.pointNetConfig if self.device=='cpu' else model.module.pointNetConfig
                 if condition:
-                    x,y,m,p = batch
+                    x,y,p,m = batch
                     x = x.to(self.device)
                     m = m.to(self.device)
                     y = y.to(self.device)
+                    p = p.to(self.device)
                 else:
                     x,y = batch
                     x = x.to(self.device)

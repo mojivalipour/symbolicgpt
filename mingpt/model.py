@@ -189,6 +189,53 @@ class PointNet(nn.Module):
 
         return g
 
+# t-net
+
+
+class TNet(nn.Module):
+    """
+    the T-net structure in the Point Net paper
+    """
+    def __init__(self, config):
+        super(TNet, self).__init__()
+
+        self.activation_func = F.relu
+        self.num_units = config.embeddingSize
+
+        self.conv1 = nn.Conv1d(config.numberofVars+config.numberofYs, self.num_units, 1)
+        self.conv2 = nn.Conv1d(self.num_units, 2 * self.num_units, 1)
+        self.conv3 = nn.Conv1d(2 * self.num_units, 4 * self.num_units, 1)
+        self.fc1 = nn.Linear(4 * self.num_units, 2 * self.num_units)
+        self.fc2 = nn.Linear(2 * self.num_units, self.num_units)
+
+        #self.relu = nn.ReLU()
+
+        self.input_batch_norm = nn.BatchNorm1d(config.numberofVars+config.numberofYs)
+
+        self.bn1 = nn.BatchNorm1d(self.num_units)
+        self.bn2 = nn.BatchNorm1d(2 * self.num_units)
+        self.bn3 = nn.BatchNorm1d(4 * self.num_units)
+        self.bn4 = nn.BatchNorm1d(2 * self.num_units)
+        self.bn5 = nn.BatchNorm1d(self.num_units)
+
+    def forward(self, x):
+        """
+        :param x: [batch, #features, #points]
+        :return:
+            logit: [batch, #]
+        """
+        x = self.input_batch_norm(x)
+        x = self.activation_func(self.bn1(self.conv1(x)))
+        x = self.activation_func(self.bn2(self.conv2(x)))
+        x = self.activation_func(self.bn3(self.conv3(x)))
+        x, _ = torch.max(x, dim=2)  # global max pooling
+        assert x.size(1) == 4 * self.num_units
+
+        x = self.activation_func(self.bn4(self.fc1(x)))
+        x = self.activation_func(self.bn5(self.fc2(x)))
+
+        return x
+
 
 class GPT(nn.Module):
     """  the full GPT language model, with a context size of block_size """
@@ -204,7 +251,7 @@ class GPT(nn.Module):
         if self.pointNetConfig != None:
             self.padToken = config.padToken
             self.padId = config.padId
-            self.pointNet = PointNet(self.pointNetConfig)
+            self.pointNet = TNet(self.pointNetConfig)
             #self.add_module('pointNet',self.pointNet)
             # input embedding stem
             self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
@@ -250,8 +297,8 @@ class GPT(nn.Module):
         # separate out all parameters to those that will and won't experience regularizing weight decay
         decay = set()
         no_decay = set()
-        whitelist_weight_modules = (torch.nn.Linear, )
-        blacklist_weight_modules = (torch.nn.LayerNorm, torch.nn.Embedding)
+        whitelist_weight_modules = (torch.nn.Linear, torch.nn.Conv1d)
+        blacklist_weight_modules = (torch.nn.LayerNorm, torch.nn.Embedding, torch.nn.BatchNorm1d)
         for mn, m in self.named_modules():
             for pn, p in m.named_parameters():
                 fpn = '%s.%s' % (mn, pn) if mn else pn # full param name
