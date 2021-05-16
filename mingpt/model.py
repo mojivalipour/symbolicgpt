@@ -122,12 +122,12 @@ class Block(nn.Module):
 
 class PointNetConfig:
     """ base PointNet config """
-    def __init__(self, embeddingSize, numberofPoints, numberofVars, numberofYs, concatenation=False, **kwargs):
+    def __init__(self, embeddingSize, numberofPoints, numberofVars, numberofYs, method='GPT', **kwargs):
         self.embeddingSize = embeddingSize
         self.numberofPoints = numberofPoints # number of points
         self.numberofVars = numberofVars # input dimension (Xs)
         self.numberofYs = numberofYs # output dimension (Ys)
-        self.concatenation = concatenation
+        self.method = method
 
         for k,v in kwargs.items():
             setattr(self, k, v)
@@ -256,16 +256,19 @@ class GPT(nn.Module):
             self.padToken = config.padToken
             self.padId = config.padId
             self.pointNet = TNet(self.pointNetConfig)
-            self.concatenation = pointNetConfig.concatenation
+            self.method = pointNetConfig.method
             #self.add_module('pointNet',self.pointNet)
             # input embedding stem
-            if self.concatenation:
+            if self.method == 'Concat':
                 self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
                 self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
                 config.n_embd = 2*config.n_embd
-            else:
+            elif self.method == 'Summation':
                 self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
                 self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size+1, config.n_embd))
+            else:
+                self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd)
+                self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
         else:
             self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd)
             self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
@@ -275,7 +278,11 @@ class GPT(nn.Module):
         self.blocks = nn.Sequential(*[Block(config) for _ in range(config.n_layer)])
         # decoder head
         self.ln_f = nn.LayerNorm(config.n_embd)
-        self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+
+        if self.pointNetConfig != None and self.method == 'outputConcat': 
+            self.head = nn.Linear(2*config.n_embd, config.vocab_size, bias=False)
+        else:
+            self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 
         self.block_size = config.block_size
         self.apply(self._init_weights)
@@ -361,7 +368,7 @@ class GPT(nn.Module):
         token_embeddings = self.tok_emb(idx) # each index maps to a (learnable) vector
         
         if points_embeddings != None:
-            if self.concatenation:
+            if self.method == 'Concat':
                 position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
                 input_embedding = token_embeddings + position_embeddings
 
@@ -370,13 +377,28 @@ class GPT(nn.Module):
                 
                 #print('-->',input_embedding.shape, points_embeddings.shape)
                 input_embedding = torch.cat([points_embeddings, input_embedding], -1)
-            else:
+            elif self.method == 'ّFirstToken':
                 t = t + 1 # increase the positional embedding by one
                 points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
                 token_embeddings = torch.cat([points_embeddings, token_embeddings], self.unSqDim)
                 position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
                 input_embedding = token_embeddings + position_embeddings
+            elif self.method == 'Summation':
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                points_embeddings = torch.tile(points_embeddings, (1,token_embeddings.shape[self.unSqDim],1))
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings + points_embeddings
+            elif self.method == 'outputConcat': 
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings
+                points_embeddings = torch.tile(points_embeddings, (1,input_embedding.shape[self.unSqDim],1))
+            elif self.method == 'outputSummation':
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings
         else:
+            # GPT
             position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
             input_embedding = token_embeddings + position_embeddings
 
@@ -384,11 +406,17 @@ class GPT(nn.Module):
         #print('x shape:{}\natt shape:{}\n'.format(idx.shape, x.shape))
         x = self.blocks([x, masks])
         x = self.ln_f(x)
+
+        if points_embeddings != None and self.method=='outputConcat':
+            x = torch.cat([points_embeddings, x], -1)
+        elif points_embeddings != None and self.method=='outputSummation':
+            x += points_embeddings
+
         logits = self.head(x)
         #print('logits shape:{}\n'.format(logits.shape))
 
         # ignore the first token
-        if points_embeddings != None and not self.concatenation:
+        if points_embeddings != None and self.method=='ّFirstToken':
             logits = logits.contiguous()
             logits = logits[:,1:,:]
             #print('--> Logits Shape: ',logits.shape)
