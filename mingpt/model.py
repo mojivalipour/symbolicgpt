@@ -72,17 +72,19 @@ class CausalSelfAttention(nn.Module):
         att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
 
         if paddingMask != None:
+            # As it's a causal model (only attend to the left context), also means that the model will not attend to the padding tokens (which are on the right) for any real token anyway.
+
             #TODO: Solve the nan issue
-            # paddingMask = paddingMask.unsqueeze(1).type(att.dtype) # bx1xTxT
-            # paddingMask = paddingMask * self.mask[:,:,:T,:T] # 1x1xTxT   
+            #paddingMask = paddingMask.unsqueeze(1).type(att.dtype) # bx1xTxT
+            #paddingMask = paddingMask * self.mask[:,:,:T,:T] # 1x1xTxT   
             # print('Before:',paddingMask, paddingMask.dtype)
-            # #paddingMask = paddingMask.masked_fill(paddingMask==0, float('-inf'))
-            # paddingMask = paddingMask.detach().to(att.device)
+            #paddingMask = paddingMask.masked_fill(paddingMask==0, float('-inf'))
+            #paddingMask = paddingMask.detach().to(att.device)
             # print('After',paddingMask, paddingMask.dtype)
             # #print('Mask:{}\n Att Score:{}'.format(paddingMask.shape, att.shape))
             # #print('Mask:', paddingMask, paddingMask.dtype)
-            # att = att.masked_fill(paddingMask[:,:,:T,:T] == 0, float('-inf'))
-            # print('After After',att, att.dtype)
+            #att = att.masked_fill(paddingMask[:,:,:T,:T] == 0, float('-inf'))
+            #print('After After',att, att.dtype)
             att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
         else:
             att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
@@ -332,7 +334,14 @@ class GPT(nn.Module):
         optimizer = torch.optim.AdamW(optim_groups, lr=train_config.learning_rate, betas=train_config.betas)
         return optimizer
 
-    def forward(self, idx,  targets=None, points=None, masks=None):
+    def forward(self, idx,  targets=None, points=None, masks=None, firstTime=False):
+        '''
+        idx: input tokens indexes
+        targets: target tokens indexes
+        points: input points
+        masks: attention mask, DEPRECATED
+        firstTime: firstTime flag, DEPRECATED
+        '''
         b, t = idx.size()
         assert t <= self.block_size, "Cannot forward, model block size is exhausted."
 
@@ -351,20 +360,25 @@ class GPT(nn.Module):
 
         position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
         x = self.drop(token_embeddings + position_embeddings)
+        #print('x shape:{}\natt shape:{}\n'.format(idx.shape, x.shape))
         x = self.blocks([x, masks])
         x = self.ln_f(x)
         logits = self.head(x)
+        #print('logits shape:{}\n'.format(logits.shape))
 
         # ignore the first token
         if points_embeddings != None:
-            #print('--> Logits Shape: ',logits.shape)
             logits = logits.contiguous()
             logits = logits[:,1:,:]
+            #print('--> Logits Shape: ',logits.shape)
             logits = logits.contiguous()
 
         # if we are given some desired targets also calculate the loss
         loss = None
         if targets is not None:
+            
+            #print('-->X:',idx[0],'\nLogits:',logits.max(-1)[1][0],'\nTargets:', targets[0])
+
             if points_embeddings != None:
                 loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
             else:

@@ -93,7 +93,7 @@ class Trainer:
 
                 # forward the model
                 with torch.set_grad_enabled(is_train):
-                    logits, loss = model(x, y, p, m) if condition else model(x,y)
+                    logits, loss = model(x, y, p, m, True) if condition else model(x,y)
                     loss = loss.mean() # collapse all losses if they are scattered on multiple gpus
                     losses.append(loss.item())
 

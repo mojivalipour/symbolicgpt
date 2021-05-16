@@ -26,9 +26,11 @@ def sample(model, x, steps, points=None, temperature=1.0, sample=False, top_k=No
     """
     block_size = model.get_block_size()
     model.eval()
+    firstTime = True # just for the first time, add the first token
     for k in range(steps):
         x_cond = x if x.size(1) <= block_size else x[:, -block_size:] # crop context if needed
-        logits, _ = model(x_cond, points=points)
+        logits, _ = model(x_cond, points=points, firstTime=firstTime)
+        firstTime = False
         # pluck the logits at the final step and scale by temperature
         logits = logits[:, -1, :] / temperature
         # optionally crop probabilities to only the top k options
