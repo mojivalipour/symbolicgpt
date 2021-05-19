@@ -43,6 +43,7 @@ class Trainer:
         self.train_dataset = train_dataset
         self.test_dataset = test_dataset
         self.config = config
+        self.epoch = 0
 
         # take over whatever gpus are on the system
         self.device = 'cpu'
@@ -93,7 +94,7 @@ class Trainer:
 
                 # forward the model
                 with torch.set_grad_enabled(is_train):
-                    logits, loss = model(x, y, p, m) if condition else model(x,y)
+                    logits, loss = model(x, y, p, m, dataset=data) if condition else model(x,y)
                     loss = loss.mean() # collapse all losses if they are scattered on multiple gpus
                     losses.append(loss.item())
 
@@ -122,7 +123,7 @@ class Trainer:
                         lr = config.learning_rate
 
                     # report progress
-                    pbar.set_description(f"epoch {epoch+1} iter {it}: train loss {loss.item():.5f}. lr {lr:e}")
+                    pbar.set_description(f"epoch {self.epoch+1} iter {it}: train loss {loss.item():.5f}. lr {lr:e}")
 
             if not is_train:
                 test_loss = float(np.mean(losses))
@@ -131,7 +132,7 @@ class Trainer:
 
         best_loss = float('inf')
         self.tokens = 0 # counter used for learning rate decay
-        for epoch in range(config.max_epochs):
+        for self.epoch in range(config.max_epochs):
 
             run_epoch('train')
             if self.test_dataset is not None:

@@ -9,6 +9,7 @@ GPT model:
 
 import math
 import logging
+import random
 
 import torch
 import torch.nn as nn
@@ -56,8 +57,8 @@ class CausalSelfAttention(nn.Module):
         # output projection
         self.proj = nn.Linear(config.n_embd, config.n_embd)
         # causal mask to ensure that attention is only applied to the left in the input sequence
-        self.register_buffer("mask", torch.tril(torch.ones(config.block_size+1, config.block_size+1))
-                                     .view(1, 1, config.block_size+1, config.block_size+1))
+        self.register_buffer("mask", torch.tril(torch.ones(config.block_size, config.block_size))
+                                     .view(1, 1, config.block_size, config.block_size))
         self.n_head = config.n_head
 
     def forward(self, x, layer_past=None, paddingMask=None):
@@ -71,23 +72,23 @@ class CausalSelfAttention(nn.Module):
         # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
 
-        if paddingMask != None:
-            # As it's a causal model (only attend to the left context), also means that the model will not attend to the padding tokens (which are on the right) for any real token anyway.
+        # if paddingMask != None:
+        #     # As it's a causal model (only attend to the left context), also means that the model will not attend to the padding tokens (which are on the right) for any real token anyway.
 
-            #TODO: Solve the nan issue
-            #paddingMask = paddingMask.unsqueeze(1).type(att.dtype) # bx1xTxT
-            #paddingMask = paddingMask * self.mask[:,:,:T,:T] # 1x1xTxT   
-            # print('Before:',paddingMask, paddingMask.dtype)
-            #paddingMask = paddingMask.masked_fill(paddingMask==0, float('-inf'))
-            #paddingMask = paddingMask.detach().to(att.device)
-            # print('After',paddingMask, paddingMask.dtype)
-            # #print('Mask:{}\n Att Score:{}'.format(paddingMask.shape, att.shape))
-            # #print('Mask:', paddingMask, paddingMask.dtype)
-            #att = att.masked_fill(paddingMask[:,:,:T,:T] == 0, float('-inf'))
-            #print('After After',att, att.dtype)
-            att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
-        else:
-            att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
+        #     #TODO: Solve the nan issue
+        #     #paddingMask = paddingMask.unsqueeze(1).type(att.dtype) # bx1xTxT
+        #     #paddingMask = paddingMask * self.mask[:,:,:T,:T] # 1x1xTxT   
+        #     # print('Before:',paddingMask, paddingMask.dtype)
+        #     #paddingMask = paddingMask.masked_fill(paddingMask==0, float('-inf'))
+        #     #paddingMask = paddingMask.detach().to(att.device)
+        #     # print('After',paddingMask, paddingMask.dtype)
+        #     # #print('Mask:{}\n Att Score:{}'.format(paddingMask.shape, att.shape))
+        #     # #print('Mask:', paddingMask, paddingMask.dtype)
+        #     #att = att.masked_fill(paddingMask[:,:,:T,:T] == 0, float('-inf'))
+        #     #print('After After',att, att.dtype)
+        #     att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
+        # else:
+        att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
         #print('After After',att, att.dtype)
 
         att = F.softmax(att, dim=-1)
@@ -116,7 +117,7 @@ class Block(nn.Module):
 
     def forward(self, x):
         x, paddingMask = x if len(x)==2 else (x,None)
-        x = x + self.attn(self.ln1(x), paddingMask=paddingMask)
+        x = x + self.attn(self.ln1(x))
         x = x + self.mlp(self.ln2(x))
         return x
 
@@ -174,10 +175,10 @@ class PointNet(nn.Module):
 
     def forward(self, points, targets=None):
         hList = []
-        for point in points:
+        for pointIdx in range(points.shape[-1]):
             
             # normalize features
-            point = self.iNorm(point) #TODO: make sure this is correct
+            point = self.iNorm(points[:,:,pointIdx]) #TODO: make sure this is correct
             
             h = self.hDense(point)
             #hi = hi.unsqueeze(self.unSqDim)
@@ -235,7 +236,8 @@ class TNet(nn.Module):
         assert x.size(1) == 4 * self.num_units
 
         x = self.activation_func(self.bn4(self.fc1(x)))
-        x = self.activation_func(self.bn5(self.fc2(x)))
+        #x = self.activation_func(self.bn5(self.fc2(x)))
+        x = self.fc2(x)
 
         return x
 
@@ -251,11 +253,12 @@ class GPT(nn.Module):
         self.padId = None
         self.padToken = None
         self.pointNetConfig = pointNetConfig
+        self.activation_func = F.relu
         
         if self.pointNetConfig != None:
             self.padToken = config.padToken
             self.padId = config.padId
-            self.pointNet = TNet(self.pointNetConfig)
+            self.pointNet = TNet(self.pointNetConfig) #PointNet(self.pointNetConfig) #
             self.method = pointNetConfig.method
             #self.add_module('pointNet',self.pointNet)
             # input embedding stem
@@ -263,7 +266,7 @@ class GPT(nn.Module):
                 self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
                 self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
                 config.n_embd = 2*config.n_embd
-            elif self.method == 'Summation':
+            elif self.method == 'FirstToken':
                 self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
                 self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size+1, config.n_embd))
             else:
@@ -278,9 +281,14 @@ class GPT(nn.Module):
         self.blocks = nn.Sequential(*[Block(config) for _ in range(config.n_layer)])
         # decoder head
         self.ln_f = nn.LayerNorm(config.n_embd)
+        self.ln_fp = nn.LayerNorm(config.n_embd)
+
+        #self.bnx = nn.BatchNorm1d(config.block_size)
+        #self.bnp = nn.BatchNorm1d(config.block_size)
 
         if self.pointNetConfig != None and self.method == 'outputConcat': 
-            self.head = nn.Linear(2*config.n_embd, config.vocab_size, bias=False)
+            #self.head = nn.Linear(2*config.n_embd, config.vocab_size, bias=False)
+            self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
         else:
             self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 
@@ -349,7 +357,7 @@ class GPT(nn.Module):
         optimizer = torch.optim.AdamW(optim_groups, lr=train_config.learning_rate, betas=train_config.betas)
         return optimizer
 
-    def forward(self, idx,  targets=None, points=None, masks=None):
+    def forward(self, idx,  targets=None, points=None, masks=None, dataset=None):
         '''
         idx: input tokens indexes
         targets: target tokens indexes
@@ -392,7 +400,7 @@ class GPT(nn.Module):
                 points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
                 position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
                 input_embedding = token_embeddings + position_embeddings
-                points_embeddings = torch.tile(points_embeddings, (1,input_embedding.shape[self.unSqDim],1))
+                #points_embeddings = torch.tile(points_embeddings, (1,input_embedding.shape[self.unSqDim],1))
             elif self.method == 'outputSummation':
                 points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
                 position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
@@ -405,18 +413,35 @@ class GPT(nn.Module):
         x = self.drop(input_embedding)
         #print('x shape:{}\natt shape:{}\n'.format(idx.shape, x.shape))
         x = self.blocks([x, masks])
-        x = self.ln_f(x)
 
         if points_embeddings != None and self.method=='outputConcat':
-            x = torch.cat([points_embeddings, x], -1)
+            #print('points_embedding:{}\nGPT embeddings:{}'.format(points_embeddings, x))
+            #print(points_embeddings.shape, x.shape)
+            #x = torch.cat([self.ln_fp(points_embeddings), x], -1)
+            #x = torch.cat([x, x], -1)
+            x = torch.cat([points_embeddings, x], 1)
+            #x = F.relu(x)
+            #print(x.shape)
+            #x = self.drop(x)
         elif points_embeddings != None and self.method=='outputSummation':
             x += points_embeddings
 
+        x = self.ln_f(x)
         logits = self.head(x)
         #print('logits shape:{}\n'.format(logits.shape))
 
+        if targets is not None:
+            Inputs0, Logits0, Target0 = idx[0], logits.max(-1)[1][0], targets[0]
+            
+            if dataset != None and random.random()<0.001:
+                Inputs0c = ''.join([dataset.itos[int(i)] for i in Inputs0])
+                Logits0c = ''.join([dataset.itos[int(i)] for i in Logits0])
+                Target0c = ''.join([dataset.itos[int(i)] for i in Target0])
+                print('-->Inputs:',Inputs0,'\nLogits:',Logits0,'\nTargets:',Target0)
+                print('Inputs:{}\nLogits:{}\nTargets:{}'.format(Inputs0c, Logits0c, Target0c)) # dataset
+
         # ignore the first token
-        if points_embeddings != None and self.method=='ّFirstToken':
+        if points_embeddings != None and (self.method=='ّFirstToken' or self.method=='outputConcat'):
             logits = logits.contiguous()
             logits = logits[:,1:,:]
             #print('--> Logits Shape: ',logits.shape)
@@ -425,12 +450,12 @@ class GPT(nn.Module):
         # if we are given some desired targets also calculate the loss
         loss = None
         if targets is not None:
-            
-            #print('-->X:',idx[0],'\nLogits:',logits.max(-1)[1][0],'\nTargets:', targets[0])
 
-            if points_embeddings != None:
-                loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
-            else:
-                loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
+            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
+
+            # if points_embeddings != None:
+            #     loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
+            # else:
+            #     loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
 
         return logits, loss
