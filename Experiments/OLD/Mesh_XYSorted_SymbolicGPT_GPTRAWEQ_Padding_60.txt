@@ -1,0 +1,5000 @@
+Test Case 0/1001.
+-sin(1.1*x1+0.64)
+SymbolicGPT:0.10978908402445953
+-sin(1.04*x1+0.47)
+
+Test Case 1/1001.
+-1.42*x1+sqrt(x1+0.53)
+SymbolicGPT:3.153453190563285
+-0.15*x1**2-0.73*x1+0.73
+
+Test Case 2/1001.
+sqrt(-sin(0.2*x1))
+SymbolicGPT:0.006268254732657951
+0.3*sqrt(-0.14*x1**2-x1)
+
+Test Case 3/1001.
+sin(sqrt(x1))
+SymbolicGPT:0.1560543860047724
+0.82*x1**(1/4)
+
+Test Case 4/1001.
+0.86*x1**2-0.59*x1+1.36
+SymbolicGPT:28.11181479765922
+0.45*x1**2+0.1*x1+1.29*sqrt(0.91*x1-1)
+
+Test Case 5/1001.
+0.28*sqrt(-x1**2)
+SymbolicGPT:0.4247161470872675
+sin(0.06*x1**2+0.12*x1+0.06)
+
+Test Case 6/1001.
+sin(0.07*x1**2+0.28*x1)
+SymbolicGPT:0.08302047562860558
+sin(0.36*x1+0.4)*sin(0.55*x1+0.21)
+
+Test Case 7/1001.
+sin(x1)
+SymbolicGPT:0.0023373315411508735
+sin(x1+0.07)
+
+Test Case 8/1001.
+0.81*sqrt(-x1**2-0.95*x1+0.12)
+SymbolicGPT:0.12700334819590922
+1.05*sqrt(0.29-x1)*sqrt(x1-0.55)
+
+Test Case 9/1001.
+sin(x1+0.37)
+SymbolicGPT:2.3279041083490717
+sqrt(sin(x1+0.17))
+
+Test Case 10/1001.
+-0.68*x1**2+1.77*x1
+SymbolicGPT:2423.900784923467
+0.16*x1**3+x1**2
+
+Test Case 11/1001.
+sqrt(x1)+0.51*x1**2-0.17*x1
+SymbolicGPT:25.828471338666677
+sqrt(x1)+0.29*x1**2-0.2*x1+0.09
+
+Test Case 12/1001.
+1.25*x1+0.85*sqrt(-0.68*x1-1)
+SymbolicGPT:0.34508621338849976
+x1+sqrt(x1+0.99)-0.06
+
+Test Case 13/1001.
+sin(x1**2-0.11*x1)
+SymbolicGPT:0.149028400341694
+sin(x1**2-0.24*x1+0.06)
+
+Test Case 14/1001.
+0.7*sqrt(x1-0.51)
+SymbolicGPT:0.0004782251804000851
+0.71*sqrt(x1-0.5)
+
+Test Case 15/1001.
+sqrt(x1**2+0.31*x1)
+SymbolicGPT:0.9394892851898871
+0.91*sqrt(0.86-x1)*sqrt(x1+0.02)
+
+Test Case 16/1001.
+4*x1-0.25
+SymbolicGPT:0.0009000000000000322
+4*x1-0.22
+
+Test Case 17/1001.
+1.64*x1**2-0.31*x1-0.13
+SymbolicGPT:1100.0034050346665
+0.59*x1+0.11
+
+Test Case 18/1001.
+sqrt(-sin(0.37*x1-0.65))
+SymbolicGPT:0.016068515444093538
+sqrt(sin(0.57*x1-0.92))
+
+Test Case 19/1001.
+1.48*x1**2+0.55
+SymbolicGPT:984.7060689249998
+0.13*x1**2
+
+Test Case 20/1001.
+0.56*x1**2+0.69*x1+0.82
+SymbolicGPT:1.3022093712969809
+0.5*x1**2+0.71*x1+0.87*sqrt(0.47*x1-1)
+
+Test Case 21/1001.
+0.93*sqrt(0.62*x1+1)
+SymbolicGPT:0.016651450044779737
+0.09*x1+0.91*sqrt(-0.4*x1-1)
+
+Test Case 22/1001.
+2*x1+sin(x1)-0.89
+SymbolicGPT:0.07338056727960399
+2*x1+sin(x1+0.37)-0.99
+
+Test Case 23/1001.
+0.93*x1*sin(0.85*x1+0.49)
+SymbolicGPT:15.87200109174805
+sin(x1-0.07)*sin(0.68*x1+0.64)
+
+Test Case 24/1001.
+-sin(sin(0.4*x1+0.16))
+SymbolicGPT:1.352385729520134
+0.09*x1
+
+Test Case 25/1001.
+0.1*x1**3
+SymbolicGPT:129.53558237033337
+0.02*x1**2
+
+Test Case 26/1001.
+0.8*sqrt(x1)
+SymbolicGPT:0.28435987805791096
+0.91*(-x1)**(1/4)
+
+Test Case 27/1001.
+0.83*sqrt(x1)+x1
+SymbolicGPT:1.0289884947778303
+sqrt(x1)+0.68*x1+0.11
+
+Test Case 28/1001.
+1.83*x1-1.34
+SymbolicGPT:1.2394751666666677
+1.52*x1-1.01
+
+Test Case 29/1001.
+1.79*x1**2
+SymbolicGPT:175.41600975966676
+1.18*x1**2+0.75
+
+Test Case 30/1001.
+-0.53*x1-0.76*sin(x1-0.43)
+SymbolicGPT:39.79462864253591
+-1.78*x1+sin(x1-0.35)+0.63
+
+Test Case 31/1001.
+sqrt(sin(x1-0.76))
+SymbolicGPT:0.0038896911352167274
+sqrt(sin(x1-0.69))
+
+Test Case 32/1001.
+0.34*x1**2-0.05*x1-0.08
+SymbolicGPT:0.09494366366666628
+0.37*x1**2-0.15*x1
+
+Test Case 33/1001.
+sqrt(2)*sqrt(x1)
+SymbolicGPT:0.00010236842746424719
+sqrt(2)*sqrt(x1+0.03)
+
+Test Case 34/1001.
+x1**2+0.09*x1+0.69
+SymbolicGPT:3.3957190769187187
+x1**2-0.63*x1+sqrt(x1+0.21)
+
+Test Case 35/1001.
+0.97*sqrt(-x1)
+SymbolicGPT:0.32033092582961314
+0.93*(-x1)**(1/4)
+
+Test Case 36/1001.
+-sin(0.14*x1**2-0.53*x1)
+SymbolicGPT:0.6482311823374227
+0.91*sqrt(-0.46*x1-1)*sin(x1+0.06)
+
+Test Case 37/1001.
+0.85*sqrt(0.1*x1-1)
+SymbolicGPT:0.25469974689055686
+0.82*(0.08*x1-1)**(1/4)
+
+Test Case 38/1001.
+sin(0.56*sqrt(x1))
+SymbolicGPT:0.07943416725914515
+0.44*(x1)**(1/4)
+
+Test Case 39/1001.
+1.99*x1+0.57
+SymbolicGPT:0.3232251666666676
+1.88*x1+0.51
+
+Test Case 40/1001.
+sqrt(sin(0.06*x1+0.44))
+SymbolicGPT:0.00020300331318980115
+0.75*(0.08*x1+1)**(1/4)
+
+Test Case 41/1001.
+0.45*x1**2
+SymbolicGPT:2.8228692769999975
+0.58*x1**2-0.3*x1+0.07
+
+Test Case 42/1001.
+x1**2-0.65*x1-0.02
+SymbolicGPT:335062.4276262501
+0.94*x1**4+0.69*x1
+
+Test Case 43/1001.
+0.97*sqrt(x1**2-0.28*x1-0.35)
+SymbolicGPT:0.03824846609409664
+sqrt(x1-0.76)*sqrt(x1+0.63)
+
+Test Case 44/1001.
+(x1-0.15)**(1/4)
+SymbolicGPT:9.036699875247693e-05
+(x1-0.26)**(1/4)
+
+Test Case 45/1001.
+-sin(0.11*x1)
+SymbolicGPT:0.06818753063332737
+-sin(sin(0.06*x1-0.05))
+
+Test Case 46/1001.
+2*x1-1.48
+SymbolicGPT:0.28156516666666626
+1.81*x1-1.12
+
+Test Case 47/1001.
+0.73*sqrt(x1)
+SymbolicGPT:0.29967492353699693
+0.85*(-x1)**(1/4)
+
+Test Case 48/1001.
+0.14*x1
+SymbolicGPT:0.15399159551721017
+sqrt(-sin(0.69*x1-1.0))
+
+Test Case 49/1001.
+0.88*(-x1)**(1/4)
+SymbolicGPT:0.5191440434878681
+x1**(1/4)
+
+Test Case 50/1001.
+0.82*x1**2-0.84*x1+0.22
+SymbolicGPT:3.2812311453333396
+0.9*x1**2-0.85*x1+0.25
+
+Test Case 51/1001.
+sqrt(sin(0.03*x1))
+SymbolicGPT:0.03355440166658729
+0.01*x1+0.06*sqrt(-x1-0.86)
+
+Test Case 52/1001.
+(x1+0.54)**(1/4)
+SymbolicGPT:0.02031476084271848
+0.94*(0.74*x1+1)**(1/4)
+
+Test Case 53/1001.
+1.8*x1-0.56
+SymbolicGPT:4.022986647783703
+x1+0.92*sqrt(x1+0.86)-0.99
+
+Test Case 54/1001.
+sin(0.62*sqrt(0.63*x1+1))
+SymbolicGPT:3.466983113619163
+-sin(0.03*x1**2+0.11*x1+0.63)
+
+Test Case 55/1001.
+sqrt(x1-0.89)
+SymbolicGPT:7.24510039314893e-06
+sqrt(x1-0.88)
+
+Test Case 56/1001.
+sin(0.08*x1**2-0.04*x1)
+SymbolicGPT:0.7348794584733864
+0.08*x1**2-0.08*x1+0.09
+
+Test Case 57/1001.
+-0.70
+SymbolicGPT:0.6259806666666667
+0.02*x1
+
+Test Case 58/1001.
+sin(sin(x1))
+SymbolicGPT:0.0009183178933060554
+sin(sin(x1+0.05))
+
+Test Case 59/1001.
+x1**3+0.71*x1
+SymbolicGPT:10072.699046398668
+0.52*x1**2+2.13*x1
+
+Test Case 60/1001.
+sin(sqrt(x1+0.83))
+SymbolicGPT:0.10599846969848162
+sqrt(-sin(0.56*x1+0.81))
+
+Test Case 61/1001.
+0.92*x1+0.09*sin(0.37*x1-0.48)
+SymbolicGPT:25.51778833916903
+0.1*x1**2-0.64*x1-0.04*sin(x1-0.97)
+
+Test Case 62/1001.
+sqrt(sin(x1-0.86))
+SymbolicGPT:0.0
+sqrt(sin(x1-0.86))
+
+Test Case 63/1001.
+sqrt(-sin(0.11*x1))
+SymbolicGPT:0.17366717778890103
+sqrt(-sin(0.01*x1+0.03))
+
+Test Case 64/1001.
+2*x1-0.16
+SymbolicGPT:0.2840482523258055
+0.25*sqrt(x1)+1.75*x1-0.06
+
+Test Case 65/1001.
+(x1-0.76)**(1/4)
+SymbolicGPT:9.438271142546582e-07
+(x1-0.77)**(1/4)
+
+Test Case 66/1001.
+2.64*x1+0.2
+SymbolicGPT:1.0811366636666684
+0.03*x1**2+2.26*x1+0.25
+
+Test Case 67/1001.
+-0.93*x1+sqrt(x1-0.91)
+SymbolicGPT:0.04568801941912095
+-0.98*x1+sqrt(x1-0.84)
+
+Test Case 68/1001.
+0.91*sqrt(x1)+x1**2-0.86*x1
+SymbolicGPT:1.0507369888468663
+0.95*x1**2-0.83*x1+sqrt(x1-0.9)
+
+Test Case 69/1001.
+sin(sin(x1))
+SymbolicGPT:0.0017983527565040918
+sin(sin(x1+0.07))
+
+Test Case 70/1001.
+0.78*x1**2
+SymbolicGPT:11.236459171999998
+x1**2-0.38*x1+0.05
+
+Test Case 71/1001.
+sin(0.68*sqrt(-x1))
+SymbolicGPT:0.532187728106999
+0.74*(-x1)**(1/4)
+
+Test Case 72/1001.
+-sin(0.8*x1)*sin(x1-0.87)
+SymbolicGPT:0.7626005080520207
+-sin(0.95*x1**2-0.81*x1-0.03)
+
+Test Case 73/1001.
+x1**(1/4)
+SymbolicGPT:9711.040430768893
+0.55*(qrt(x1)**(1/4)
+
+Test Case 74/1001.
+0.41*sqrt(x1**2+0.94*x1)
+SymbolicGPT:0.5098806929506171
+0.28*x1+0.07
+
+Test Case 75/1001.
+0.5*x1**2-0.43*x1-0.57
+SymbolicGPT:335.1195532583333
+-0.35*x1**2-0.3*x1
+
+Test Case 76/1001.
+0.62*sqrt(0.87*x1+1)
+SymbolicGPT:0.20232018800899326
+sin(0.23*x1+0.76)
+
+Test Case 77/1001.
+0.97*x1**2+0.54*x1+1.11
+SymbolicGPT:1.6135133312200731
+x1**2-0.12*x1+0.96*sqrt(-0.9*x1-1)+0.05
+
+Test Case 78/1001.
+-0.33*x1**2-0.29*x1+0.89*sqrt(-x1)
+SymbolicGPT:34.47318816642482
+sqrt(x1)-0.6*x1**2-0.29*x1+0.08
+
+Test Case 79/1001.
+0.18*x1**2-0.27*x1
+SymbolicGPT:5.1291087058252085
+0.11*x1**2*sqrt(-x1-0.83)-0.23*x1+0.05
+
+Test Case 80/1001.
+0.88*x1-0.64
+SymbolicGPT:39.138349949241466
+0.13*x1**2*sqrt(-x1-0.71)+0.62*x1-0.37
+
+Test Case 81/1001.
+-0.04*x1*sin(0.74*x1+0.23)+0.42
+SymbolicGPT:0.01667106153133082
+0.25*sqrt(-0.11*x1**2+x1+0.69)
+
+Test Case 82/1001.
+0.95*x1**2*sqrt(-x1)-0.12*x1
+SymbolicGPT:2170.3340438542623
+-0.01*x1**2+0.55*x1-0.22
+
+Test Case 83/1001.
+-sin(0.87*x1-0.58)
+SymbolicGPT:33.14834827829011
+0.16*x1**2*sin(x1-0.51)-0.35*x1-0.92
+
+Test Case 84/1001.
+-sin(0.25*x1-0.4)
+SymbolicGPT:0.11769491691689393
+-sin(0.17*x1-0.45)
+
+Test Case 85/1001.
+sin(2*x1)
+SymbolicGPT:0.003886463555846737
+sin(2*x1+0.09)
+
+Test Case 86/1001.
+0.75*x1**2*sin(0.67*x1)-0.33*x1
+SymbolicGPT:155.03044902951933
+-0.89*x1**2+0.81*x1-0.17*sin(0.13*x1-0.69)
+
+Test Case 87/1001.
+x1-0.21
+SymbolicGPT:0.0024999999999999827
+x1-0.16
+
+Test Case 88/1001.
+0.33*x1-0.98
+SymbolicGPT:135.4085186386667
+0.78*x1**2-1.33*x1+0.47
+
+Test Case 89/1001.
+sqrt(x1-0.1)
+SymbolicGPT:0.006102893995438123
+1.05*sqrt(0.21-x1)
+
+Test Case 90/1001.
+1.42*x1+0.77
+SymbolicGPT:383.22217925716103
+x1**2+0.88*x1-sin(0.34*x1+0.94)+0.37
+
+Test Case 91/1001.
+sin(0.34*x1)
+SymbolicGPT:0.020186673994621727
+sin(0.21*x1+0.08)
+
+Test Case 92/1001.
+0.83*sqrt(-x1)
+SymbolicGPT:0.14528635839184018
+0.9*(-x1)**(1/4)
+
+Test Case 93/1001.
+sin(x1)+sin(x1-0.38)
+SymbolicGPT:0.0004406294990871802
+sin(x1)+sin(x1-0.41)
+
+Test Case 94/1001.
+0.94*sqrt(-0.65*x1-1)
+SymbolicGPT:0.1923031373858152
+0.98*sqrt(-0.25*x1-1)
+
+Test Case 95/1001.
+-2*x1*sin(0.58*x1)+1.0
+SymbolicGPT:21.429898442988602
+-2*x1*sin(0.46*x1)+1.0
+
+Test Case 96/1001.
+sin(sqrt(x1+0.02))
+SymbolicGPT:0.010131348757763203
+sqrt(x1)-0.31*x1+0.21
+
+Test Case 97/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 98/1001.
+
+SymbolicGPT:10000.0
+0
+
+Test Case 99/1001.
+2*x1*sin(0.88*x1)+0.35
+SymbolicGPT:253.71126437228793
+2*x1-0.11*sin(0.9*x1+0.32)
+
+Test Case 100/1001.
+sqrt(x1+0.22)
+SymbolicGPT:0.510832624530024
+(x1+0.21)**(1/4)
+
+Test Case 101/1001.
+sin(x1)
+SymbolicGPT:0.5160509286366547
+sin(x1-0.07)+sin(x1+0.09)
+
+Test Case 102/1001.
+sqrt(x1)+sin(x1+0.65)
+SymbolicGPT:0.00019486402832003368
+sqrt(x1)+sin(x1+0.67)
+
+Test Case 103/1001.
+-sin(0.83*x1**2+0.97*x1)
+SymbolicGPT:1.4348427813627003
+-sin(0.99*x1**2+0.87*x1-0.05)
+
+Test Case 104/1001.
+sqrt(x1**2+0.7*x1)
+SymbolicGPT:0.7036405669180549
+sqrt(x1-0.93)*sqrt(x1-0.02)
+
+Test Case 105/1001.
+0.94*sqrt(-x1**2-0.16*x1)
+SymbolicGPT:0.00048763704325145463
+0.92*sqrt(-x1**2-0.4*x1)
+
+Test Case 106/1001.
+sin(sin(x1))
+SymbolicGPT:2.0885496304049647
+sqrt(sin(x1-0.01))
+
+Test Case 107/1001.
+sin(x1)
+SymbolicGPT:0.0038617975530218884
+sin(x1+0.09)
+
+Test Case 108/1001.
+sin(sqrt(x1-0.19))
+SymbolicGPT:0.11748261140642982
+sqrt(-sin(0.83*x1-0.22))
+
+Test Case 109/1001.
+sqrt(x1)+0.05*x1**2-0.17*x1+0.12
+SymbolicGPT:1.3271775592959156
+x1**(1/4)
+
+Test Case 110/1001.
+x1+0.49
+SymbolicGPT:2.2020427500475157
+0.36*x1+sqrt(x1+0.84)-0.35
+
+Test Case 111/1001.
+0.03-0.78*x1**2
+SymbolicGPT:27.527662643388787
+-0.57*x1**2+sin(0.53*x1)
+
+Test Case 112/1001.
+-0.07*x1**2-0.46*x1*sqrt(1-0.6*x1)
+SymbolicGPT:138.59085308897025
+0.14*x1**2+0.96*x1-0.41
+
+Test Case 113/1001.
+0.55*x1
+SymbolicGPT:0.07722600000000011
+0.49*sqrt(x1**2)
+
+Test Case 114/1001.
+0.42*sqrt(1-0.89*x1)
+SymbolicGPT:0.08692006004436313
+0.41*sqrt(1-0.79*x1)+sin(0.09*x1-0.04)
+
+Test Case 115/1001.
+-1.65*x1+0.68*sqrt(-0.21*x1-1)-0.62
+SymbolicGPT:0.44970332899464666
+0.08-1.74*x1
+
+Test Case 116/1001.
+0.55*sqrt(x1)-0.61*x1
+SymbolicGPT:17.80365370299921
+-0.26*x1**2-0.43*x1+sqrt(x1-0.04)
+
+Test Case 117/1001.
+0.58*sqrt(x1**2+0.53*x1)
+SymbolicGPT:0.19619333488854904
+0.71*sqrt(0.65-x1)*sqrt(0.94*x1+1)
+
+Test Case 118/1001.
+sin(sin(x1))
+SymbolicGPT:2.0893488347622458
+sqrt(sin(x1))
+
+Test Case 119/1001.
+2*x1+1.23*sin(x1+0.72)
+SymbolicGPT:174.66008082491314
+2*x1*sin(0.92*x1+0.93)+0.89
+
+Test Case 120/1001.
+0.75*sqrt(-x1**2-0.25*x1)
+SymbolicGPT:0.0008921582216345273
+0.72*sqrt(x1**2+0.61*x1)
+
+Test Case 121/1001.
+0.12*x1**2+0.13
+SymbolicGPT:8.212495952
+0
+
+Test Case 122/1001.
+0.92*x1+0.98
+SymbolicGPT:0.2980840000000001
+0.8*x1+0.99
+
+Test Case 123/1001.
+sin(sin(0.47*x1))
+SymbolicGPT:0.061885975270301485
+sin(0.38*x1+0.08)
+
+Test Case 124/1001.
+-0.12*x1**2+0.63*x1+0.29
+SymbolicGPT:0.9035860232801729
+0.38*sqrt(0.75*x1**2-x1-0.57)
+
+Test Case 125/1001.
+0.82*sqrt(x1+0.77)
+SymbolicGPT:0.044730391619536534
+0.84*sqrt(0.66*x1+1)
+
+Test Case 126/1001.
+-0.14*x1**3-0.76
+SymbolicGPT:301.9309324311334
+-0.02*x1**2+0.08*x1+0.26
+
+Test Case 127/1001.
+sin(0.79*x1-0.22)
+SymbolicGPT:0.042971476588540204
+sin(0.83*x1-0.12)
+
+Test Case 128/1001.
+sin(sin(x1-0.53))
+SymbolicGPT:0.6299672864809669
+sin(x1)+sin(0.38*x1-0.37)
+
+Test Case 129/1001.
+sin(0.44*x1**2+0.2*x1)
+SymbolicGPT:1.2845504407149457
+sin(0.58*x1**2-0.07)
+
+Test Case 130/1001.
+-sin(sin(0.04*x1+0.33))
+SymbolicGPT:0.022443779298513284
+-sin(sin(0.02*x1+0.64))
+
+Test Case 131/1001.
+sin(2*x1-0.33)
+SymbolicGPT:0.011018485463026478
+sin(2*x1-0.18)
+
+Test Case 132/1001.
+0.41-0.16*x1
+SymbolicGPT:0.16780819477643305
+-sin(0.08*x1-0.45)
+
+Test Case 133/1001.
+0.86*sqrt(1-0.52*x1)
+SymbolicGPT:0.004917600000000006
+0.92*sqrt(0.52*x1-1)
+
+Test Case 134/1001.
+-sin(0.31*x1**2+0.11*x1)
+SymbolicGPT:1.0618321633904297
+-sin(0.54*x1**2-0.01)
+
+Test Case 135/1001.
+0.91*sqrt(-x1)
+SymbolicGPT:0.13199563870912626
+0.91*(-x1)**(1/4)
+
+Test Case 136/1001.
+0.33*x1+1.22
+SymbolicGPT:0.27506893755511697
+0.25*x1+0.85*sqrt(1-0.09*x1)+0.42
+
+Test Case 137/1001.
+0.13*x1
+SymbolicGPT:0.1704782110770765
+sin(0.02*x1+0.1)
+
+Test Case 138/1001.
+-0.68*x1**(5/2)
+SymbolicGPT:262.17485287899655
+0.1-0.84*x1**2
+
+Test Case 139/1001.
+2*x1+0.84*sqrt(0.81*x1+1)-0.3
+SymbolicGPT:1.00498674584916
+2*x1+0.52
+
+Test Case 140/1001.
+1.04*x1**2+0.83*x1
+SymbolicGPT:0.19319192462244175
+x1**2+0.9*x1+sin(0.38*x1+0.24)-0.12
+
+Test Case 141/1001.
+-0.44*x1**2
+SymbolicGPT:101.18697535466669
+0
+
+Test Case 142/1001.
+0.95*x1**2-0.37*x1
+SymbolicGPT:0.04164061605780753
+x1**2-0.82*x1+sin(0.44*x1+0.01)
+
+Test Case 143/1001.
+x1**2+0.65*x1
+SymbolicGPT:14.353463230919212
+x1**2-sin(0.24*x1-0.19)
+
+Test Case 144/1001.
+0.38*x1**2-0.54*x1+0.07
+SymbolicGPT:54.883929518666676
+-0.2*x1-0.22
+
+Test Case 145/1001.
+0.41*sqrt(-x1**2)
+SymbolicGPT:5.018272274803819
+sin(0.11*x1**2+0.21*x1+0.07)
+
+Test Case 146/1001.
+x1
+SymbolicGPT:0.0009000000000000072
+x1+0.03
+
+Test Case 147/1001.
+0.39*sqrt(-x1)
+SymbolicGPT:0.029266289691707206
+sin(0.34*sqrt(-x1))
+
+Test Case 148/1001.
+0.33*x1-0.73
+SymbolicGPT:0.07070120661681845
+sin(0.33*x1-0.94)
+
+Test Case 149/1001.
+-0.2*x1**2+2.13*x1-0.72
+SymbolicGPT:207.41721863466665
+-0.84*x1**2+2.17*x1-0.67
+
+Test Case 150/1001.
+x1**2+sin(x1)
+SymbolicGPT:19.368794079834124
+0.79*x1**2+0.15*x1+sin(x1+0.47)-0.43
+
+Test Case 151/1001.
+sqrt(x1)*sin(x1-0.13)
+SymbolicGPT:0.7508501736959717
+sin(x1-0.22)
+
+Test Case 152/1001.
+1.28*x1-0.32
+SymbolicGPT:108.52357649999999
+0.25-1.09*x1
+
+Test Case 153/1001.
+0.58*sqrt(x1-0.21)
+SymbolicGPT:0.006166192783775937
+0.55*sqrt(x1-0.33)
+
+Test Case 154/1001.
+sin(0.72*x1)
+SymbolicGPT:0.02412571731716263
+sin(0.75*x1+0.06)
+
+Test Case 155/1001.
+0.83*(x1-0.81)**(1/4)
+SymbolicGPT:0.008275657129824894
+0.9*(x1-0.88)**(1/4)
+
+Test Case 156/1001.
+0.59*sqrt(x1-0.39)
+SymbolicGPT:0.07408346606426514
+sqrt(-sin(0.28*x1-0.15))
+
+Test Case 157/1001.
+sin(x1)
+SymbolicGPT:0.0023373315411508735
+sin(x1+0.07)
+
+Test Case 158/1001.
+sqrt(sin(0.12*x1+0.81))
+SymbolicGPT:0.0005211864455852367
+0.87*sqrt(0.05*x1+1)
+
+Test Case 159/1001.
+-0.16*x1**3-0.08*x1
+SymbolicGPT:7.041177097799996
+0.07-0.81*x1**2
+
+Test Case 160/1001.
+0.14*x1*sqrt(x1+0.75)
+SymbolicGPT:0.6648960555500021
+sin(0.07*x1**2+0.02*x1+0.09)
+
+Test Case 161/1001.
+1.62-0.78*x1**2
+SymbolicGPT:13.720477610333331
+0.85-0.91*x1**2
+
+Test Case 162/1001.
+sqrt(x1**2-0.9*x1)
+SymbolicGPT:0.1144605364141175
+0.92*sqrt(x1**2-0.91*x1)
+
+Test Case 163/1001.
+0.79*(0.16*x1-1)**(1/4)
+SymbolicGPT:0.0
+0.82*(1-0.41*x1)**(1/4)
+
+Test Case 164/1001.
+-sin(0.13*x1)
+SymbolicGPT:0.6568777409789714
+0.05*x1**2-0.2*x1+0.03
+
+Test Case 165/1001.
+sin(0.16*x1-0.74)
+SymbolicGPT:0.02391449834362947
+sin(0.12*x1-0.71)
+
+Test Case 166/1001.
+0.39*sqrt(x1**2+0.6*x1)
+SymbolicGPT:0.012661134738982928
+0.48*sqrt(0.89-x1)*sqrt(x1+0.04)
+
+Test Case 167/1001.
+-0.6*x1+0.03*sin(x1)
+SymbolicGPT:0.44936788521968973
+-0.71*x1+0.27*sin(x1+0.16)
+
+Test Case 168/1001.
+0.77*sqrt(-x1)
+SymbolicGPT:0.17595546729244865
+0.85*(-x1)**(1/4)
+
+Test Case 169/1001.
+-0.65*x1*sin(0.58*x1+0.22)+0.81
+SymbolicGPT:24.388205763642347
+-0.78*x1*sin(0.35*x1-0.29)-0.82
+
+Test Case 170/1001.
+sin(0.85*x1+0.1)
+SymbolicGPT:2.184438105420807
+sqrt(sin(x1-0.06))
+
+Test Case 171/1001.
+1.43*x1*sqrt(x1-0.07)+0.68
+SymbolicGPT:12.327389194412108
+1.09*x1*sqrt(x1-0.14)+0.7
+
+Test Case 172/1001.
+sin(sqrt(x1))
+SymbolicGPT:0.9311730976152865
+0.96*(-x1)**(1/4)
+
+Test Case 173/1001.
+sin(0.6*sqrt(x1))
+SymbolicGPT:0.4874332496767895
+0.71*(-x1)**(1/4)
+
+Test Case 174/1001.
+sin(0.76*x1-0.31)
+SymbolicGPT:0.021229338599699363
+sin(0.72*x1-0.3)
+
+Test Case 175/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 176/1001.
+1.02*x1+1.36
+SymbolicGPT:0.19543215759393875
+0.95*x1+1.38*sqrt(0.15*x1-1)+0.54
+
+Test Case 177/1001.
+sin(x1)
+SymbolicGPT:29.631793421334926
+1.03*x1
+
+Test Case 178/1001.
+-sin(0.65*x1**2-0.13*x1)
+SymbolicGPT:1.3371864240951143
+-sin(0.68*x1**2-0.7*x1+0.03)
+
+Test Case 179/1001.
+-sin(0.4*x1)
+SymbolicGPT:0.6795033778014028
+0.06*x1**2-0.68*x1+0.04*sqrt(x1+0.89)
+
+Test Case 180/1001.
+x1**2+1.17*x1-0.12
+SymbolicGPT:3.877662666666665
+x1**2+0.73*x1-0.05
+
+Test Case 181/1001.
+2.25*x1-0.82
+SymbolicGPT:11.75660954633334
+0.19*x1**2+2*x1-0.58
+
+Test Case 182/1001.
+0.77*sqrt(0.35*x1+1)+sin(x1-0.89)
+SymbolicGPT:19.156652829731364
+-0.06*x1**2*sin(0.58*x1+0.91)+0.91*x1
+
+Test Case 183/1001.
+0.29*x1**2-0.24*x1
+SymbolicGPT:68.85395822586916
+0.23*x1**2*sqrt(x1+0.81)+0.2*x1+0.13
+
+Test Case 184/1001.
+sin(0.41*x1+0.67)
+SymbolicGPT:0.05730503486131697
+sin(sin(0.3*x1+0.83))
+
+Test Case 185/1001.
+0.08*x1**2-0.53
+SymbolicGPT:0.430541197151344
+sin(0.07*x1**2-0.05*x1+0.07)
+
+Test Case 186/1001.
+2*x1-0.44
+SymbolicGPT:4.149401883956554
+0.07*x1**2+0.92*x1+0.62*sqrt(0.03-x1)-0.36
+
+Test Case 187/1001.
+0.72*x1**2-0.06*x1-sin(0.71*x1)
+SymbolicGPT:6.7972478834038945
+x1**2-0.85*x1+0.07
+
+Test Case 188/1001.
+-0.81*x1
+SymbolicGPT:2.401215658333334
+0.05*x1**2-0.74*x1+0.09
+
+Test Case 189/1001.
+0.33*sqrt(-x1**2)
+SymbolicGPT:0.5699874054949706
+sin(0.07*x1**2+0.02*x1+0.05)
+
+Test Case 190/1001.
+-0.34*x1**3+0.02*x1
+SymbolicGPT:1063.6657893900867
+-0.35*x1**2+0.04*x1*sqrt(0.66-x1)
+
+Test Case 191/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0006361905998519207
+sqrt(sin(x1+0.03))
+
+Test Case 192/1001.
+sin(0.95*sqrt(-x1))
+SymbolicGPT:0.7695876847436294
+0.86*(-x1)**(1/4)
+
+Test Case 193/1001.
+0.22*sqrt(x1)
+SymbolicGPT:0.20376899256708556
+0.24*sqrt(0.68*x1**2)
+
+Test Case 194/1001.
+sqrt(x1**2)
+SymbolicGPT:0.056892831565805484
+sqrt(x1**2+0.49*x1)
+
+Test Case 195/1001.
+sqrt(x1)
+SymbolicGPT:0.4639675690553821
+x1**(1/4)
+
+Test Case 196/1001.
+-0.3*x1**(3/2)-0.33
+SymbolicGPT:0.3418478658439985
+-0.8*x1+sin(0.37*x1+0.05)
+
+Test Case 197/1001.
+1.1*x1
+SymbolicGPT:158.56416986042277
+0.92*x1**2-0.87*x1+sin(0.5*x1+0.06)
+
+Test Case 198/1001.
+0.15*x1+0.84*sqrt(0.65*x1+1)
+SymbolicGPT:0.2400380757460763
+0.88*sqrt(0.78*x1+1)
+
+Test Case 199/1001.
+-0.14*x1**(3/2)
+SymbolicGPT:1.146079391856018
+-0.98*x1*sin(0.01*x1+0.19)+0.73
+
+Test Case 200/1001.
+2*x1+0.48*sin(x1+0.03)
+SymbolicGPT:65.84898508305639
+0.33*x1**2*sin(x1+0.05)+1.13*x1+0.88
+
+Test Case 201/1001.
+sqrt(x1)+1.77*x1+0.44
+SymbolicGPT:2.9118353871043157
+0.94*sqrt(x1)+1.41*x1+0.53
+
+Test Case 202/1001.
+0.87*sqrt(-x1**2)
+SymbolicGPT:0.09601464977310584
+0.85*sqrt(x1-0.56)*sqrt(x1+0.07)
+
+Test Case 203/1001.
+2*sin(x1)
+SymbolicGPT:0.0030314787299753412
+sin(0.96*x1)+sin(x1+0.1)
+
+Test Case 204/1001.
+-sqrt(x1+0.08)*sin(0.04*x1)
+SymbolicGPT:0.16751398445497595
+0
+
+Test Case 205/1001.
+sin(sin(x1+0.45))
+SymbolicGPT:2.060160133842154
+sqrt(sin(x1+0.47))
+
+Test Case 206/1001.
+0.18*x1**2-0.09*x1
+SymbolicGPT:17.3476228869473
+0.04*x1**2*sin(x1-0.99)+0.05*x1-0.05
+
+Test Case 207/1001.
+sin(1.33*x1)
+SymbolicGPT:0.08450144036709634
+sin(1.22*x1+0.09)
+
+Test Case 208/1001.
+1.02*sqrt(x1)
+SymbolicGPT:0.5236025281275056
+x1**(1/4)
+
+Test Case 209/1001.
+(x1-0.05)**(1/4)
+SymbolicGPT:5.613822529529641e-05
+(x1+0.04)**(1/4)
+
+Test Case 210/1001.
+-0.25*x1**2-0.85
+SymbolicGPT:81.94921027109353
+-0.35*x1**2*sqrt(x1-0.49)+0.41*x1-0.05
+
+Test Case 211/1001.
+sin(sqrt(x1))
+SymbolicGPT:0.9141224262448707
+0.95*(-x1)**(1/4)
+
+Test Case 212/1001.
+sin(sin(x1+0.78))
+SymbolicGPT:1.6065033439308845
+sin(0.88*sqrt(0.44*x1-1))
+
+Test Case 213/1001.
+0.89-0.83*x1
+SymbolicGPT:0.3780239999999999
+0.95-0.71*x1
+
+Test Case 214/1001.
+0.65*sqrt(-x1)+sqrt(x1+0.8)
+SymbolicGPT:0.24008989508168732
+sqrt(x1)+0.91*sqrt(0.09*x1+1)
+
+Test Case 215/1001.
+2*x1
+SymbolicGPT:2.498447267643619
+1.33*x1+sqrt(x1+0.95)-0.82
+
+Test Case 216/1001.
+sin(2*x1-0.41)
+SymbolicGPT:0.012618059155954452
+sin(2*x1-0.25)
+
+Test Case 217/1001.
+0.03*x1**(3/2)
+SymbolicGPT:0.32420918708778884
+-0.04*x1-0.08
+
+Test Case 218/1001.
+0.87*sqrt(0.91*x1**2+x1-0.34)
+SymbolicGPT:0.18221002099039485
+0.96*sqrt(-x1**2-0.54*x1+0.31)
+
+Test Case 219/1001.
+sin(2*x1-0.59)
+SymbolicGPT:0.00983834913563342
+sin(2*x1-0.45)
+
+Test Case 220/1001.
+-0.36*x1**2+0.5*x1
+SymbolicGPT:105.77937468929942
+-0.13*x1**2*sin(0.96*x1+0.91)+0.54*x1+0.88
+
+Test Case 221/1001.
+0.76*x1**2+0.57*x1
+SymbolicGPT:5.114488763278946
+x1**2-0.23*x1+0.44*sqrt(0.41*x1+1)-0.37
+
+Test Case 222/1001.
+2*x1+0.82
+SymbolicGPT:0.16866066533333296
+0.02*x1**2+2*x1+0.77
+
+Test Case 223/1001.
+sin(sin(x1))
+SymbolicGPT:0.013343506548081184
+sin(x1+0.11)
+
+Test Case 224/1001.
+-0.3*x1
+SymbolicGPT:0.382002787655581
+-sin(sin(0.28*x1-0.08))
+
+Test Case 225/1001.
+0.78*sqrt(-0.77*x1**2+x1+0.69)
+SymbolicGPT:0.10818315003900822
+0.66*sqrt(0.78*x1**2-0.81*x1-1)
+
+Test Case 226/1001.
+0.85*x1+0.3
+SymbolicGPT:0.04334670662724873
+0.93*sqrt(0.84*x1**2+x1+0.2)
+
+Test Case 227/1001.
+sin(x1**2)
+SymbolicGPT:0.0014004564097159426
+sin(x1**2+0.02*x1-0.04)
+
+Test Case 228/1001.
+sqrt(-sin(0.97*x1))
+SymbolicGPT:0.005500343812134253
+sqrt(sin(x1))
+
+Test Case 229/1001.
+0.93*sqrt(x1**2-0.19*x1)
+SymbolicGPT:0.0050802963907552075
+sqrt(x1**2-0.72*x1)
+
+Test Case 230/1001.
+-0.33*x1**2+1.08*x1-0.11
+SymbolicGPT:34.333679823666664
+-0.1*x1**2+1.23*x1-0.2
+
+Test Case 231/1001.
+0.66*sqrt(x1**2)
+SymbolicGPT:0.025587600115592975
+0.69*sqrt(x1**2-0.81*x1)
+
+Test Case 232/1001.
+0.36*x1**(3/2)
+SymbolicGPT:3.5032117795376507
+0.23*x1**2-0.02*x1+sin(0.09*x1-0.05)
+
+Test Case 233/1001.
+0.64*sqrt(x1)
+SymbolicGPT:0.33185643135375203
+0.69*sqrt(0.3*x1**2-x1)
+
+Test Case 234/1001.
+-sin(sin(0.52*x1))
+SymbolicGPT:0.026039332809605586
+-sin(0.57*x1-0.03)
+
+Test Case 235/1001.
+sin(sin(0.76*x1))
+SymbolicGPT:0.04848174148723543
+sin(0.81*x1+0.05)
+
+Test Case 236/1001.
+sqrt(x1-0.17)
+SymbolicGPT:0.010431252884273245
+1.05*sqrt(0.18-x1)
+
+Test Case 237/1001.
+0.57*x1**2-0.95
+SymbolicGPT:9.96025518402783
+0.47*x1**2-0.3*x1-sin(0.1*x1)+0.05
+
+Test Case 238/1001.
+0.91*(-x1)**(1/4)
+SymbolicGPT:0.6092246227698143
+x1**(1/4)
+
+Test Case 239/1001.
+0.75*sqrt(x1**2)
+SymbolicGPT:0.09649507720204148
+0.73*sqrt(x1**2-0.58*x1)
+
+Test Case 240/1001.
+sin(x1+0.28)
+SymbolicGPT:2.342480732307369
+sqrt(sin(x1+0.14))
+
+Test Case 241/1001.
+sin(0.94*sqrt(0.72*x1-1))
+SymbolicGPT:0.12636715132279652
+sqrt(-sin(0.86*x1-0.86))
+
+Test Case 242/1001.
+x1*sqrt(x1+0.8)+0.51
+SymbolicGPT:1.832799945754523
+2*x1-sin(0.96*x1)+0.46
+
+Test Case 243/1001.
+sin(x1**2+0.11*x1)
+SymbolicGPT:0.03820832042903844
+sin(x1**2+0.03*x1+0.09)
+
+Test Case 244/1001.
+sin(0.27*x1**2)
+SymbolicGPT:1.1355155078160664
+-sin(-0.43*x1**2+0.31*x1+0.02)
+
+Test Case 245/1001.
+-0.04*x1*sin(0.82*x1)
+SymbolicGPT:0.007790205307817008
+sin(0.02*x1+0.02)
+
+Test Case 246/1001.
+-0.94*x1**2+0.32*x1*sqrt(x1+0.31)
+SymbolicGPT:1694.727823155035
+x1**2+0.03*x1+0.46*sin(0.58*x1+0.21)
+
+Test Case 247/1001.
+0.15*x1**3+0.71
+SymbolicGPT:1262.8647061645831
+-0.7*x1**2-0.28*x1+0.05
+
+Test Case 248/1001.
+0.14*x1-0.04
+SymbolicGPT:0.462143611899024
+0.05*x1*sin(x1+0.59)+0.05
+
+Test Case 249/1001.
+1.7*x1+0.73
+SymbolicGPT:0.4029974023413939
+2*x1-sin(0.72*x1-0.99)
+
+Test Case 250/1001.
+0.25*x1+0.99
+SymbolicGPT:442.0711751666666
+x1**2+0.14*x1-0.44
+
+Test Case 251/1001.
+0.12*x1-0.59
+SymbolicGPT:0.006245244063831915
+sin(0.12*x1-0.67)
+
+Test Case 252/1001.
+0.03*x1-sin(0.89*x1)
+SymbolicGPT:5.277036959666666
+0.11*x1**2-0.03*x1-sin(0.89*x1)+0.06
+
+Test Case 253/1001.
+0.06*x1**2-sin(0.17*x1-0.2)
+SymbolicGPT:0.05288555553566135
+0.18*sqrt(0.84*x1**2-x1+1)
+
+Test Case 254/1001.
+-0.58*x1**3+0.22*x1+0.68
+SymbolicGPT:3141.7669378828655
+-0.44*x1**2-0.25*x1
+
+Test Case 255/1001.
+sin(x1**2+0.51*x1)
+SymbolicGPT:0.915958993773957
+sin(0.91*x1**2+0.6*x1+0.08)
+
+Test Case 256/1001.
+-0.3*x1**2-0.8*x1
+SymbolicGPT:984.3911316720745
+0.39*x1**2*sqrt(x1+0.95)-0.25*x1+0.06
+
+Test Case 257/1001.
+0.14*x1**(5/2)-0.01*x1
+SymbolicGPT:28.197890969976854
+0.23*x1**2-0.78*x1+0.09*sqrt(0.51-x1)
+
+Test Case 258/1001.
+sin(0.71*sqrt(-x1))
+SymbolicGPT:57.83996678517044
+0.93*sqrt(-x1)**2+0.97*x1-0.23
+
+Test Case 259/1001.
+0.57-0.57*x1**(3/2)
+SymbolicGPT:3.889352691859642
+sqrt(x1)-0.31*x1**2-0.49*x1+0.08
+
+Test Case 260/1001.
+0.33*sqrt(x1)*sqrt(-x1)
+SymbolicGPT:0.7714925354461937
+0.03*x1**2*sqrt(x1+0.75)+0.14*x1+0.06
+
+Test Case 261/1001.
+2*x1**(3/2)-0.61
+SymbolicGPT:433.5372469062323
+-0.15*x1-0.29
+
+Test Case 262/1001.
+sin(x1)
+SymbolicGPT:0.0017208717510636797
+sin(x1-0.06)
+
+Test Case 263/1001.
+sin(0.33*x1**2-0.35*x1)
+SymbolicGPT:15.955540928693798
+0.27*x1**2*sin(0.91*x1-0.58)+0.46*x1-0.07
+
+Test Case 264/1001.
+sqrt(x1**2+0.27*x1)
+SymbolicGPT:0.6557306343903785
+0.92*sqrt(0.65*x1**2+x1)
+
+Test Case 265/1001.
+0.33*x1**2-0.86*x1
+SymbolicGPT:5.933585008395256
+0.3*x1**2-0.31*x1-sin(0.82*x1)+0.03
+
+Test Case 266/1001.
+x1+0.78*sin(x1+0.73)
+SymbolicGPT:166.1562033588329
+-0.74*x1**2+1.73*x1+0.47
+
+Test Case 267/1001.
+-sin(sin(0.49*x1))
+SymbolicGPT:0.010000362616119533
+-sin(0.51*x1-0.09)
+
+Test Case 268/1001.
+sqrt(x1)+x1**2-0.31*x1
+SymbolicGPT:9.704618768000001
+sqrt(x1)+0.86*x1**2-0.32*x1+0.14
+
+Test Case 269/1001.
+sin(0.12*x1**2)
+SymbolicGPT:2.5235225865371333
+2*x1*sin(0.04*x1+0.05)-0.97
+
+Test Case 270/1001.
+sqrt(x1)
+SymbolicGPT:0.5545501524276112
+0.91*(-x1)**(1/4)
+
+Test Case 271/1001.
+sin(0.51*x1+0.34)
+SymbolicGPT:0.1519867609034929
+sin(0.14*x1+0.51)*sin(0.51*x1+0.76)
+
+Test Case 272/1001.
+0.65*sqrt(-x1**2)
+SymbolicGPT:0.038372751892006035
+0.66*sqrt(-x1**2+0.7*x1)
+
+Test Case 273/1001.
+-0.04*x1**2-0.18*x1-0.16
+SymbolicGPT:0.020417800755577076
+-0.02*x1**2*sqrt(0.62*x1+1)-0.22*x1-0.09
+
+Test Case 274/1001.
+0.38*x1-0.26*sqrt(-x1)
+SymbolicGPT:1.718910796264144
+sin(0.31*x1**2-0.39*x1+0.06)
+
+Test Case 275/1001.
+x1-sin(0.8*x1)
+SymbolicGPT:0.31128634160363616
+0.19*x1**2+0.24*x1-0.22*sin(0.78*x1-0.32)
+
+Test Case 276/1001.
+0.06*x1**(5/2)+0.06*x1-0.05
+SymbolicGPT:16.23659116490684
+1.62*x1-0.72*sin(0.11*x1-0.08)
+
+Test Case 277/1001.
+sin(x1)
+SymbolicGPT:2.337940843278385
+sqrt(sin(x1-0.02))
+
+Test Case 278/1001.
+-0.45*x1-0.27
+SymbolicGPT:2.736199411074286
+-0.82*x1-0.22*sqrt(0.02*x1-1)
+
+Test Case 279/1001.
+sin(x1)
+SymbolicGPT:0.0017176270190798594
+sin(x1+0.06)
+
+Test Case 280/1001.
+0.87*(-x1)**(1/4)
+SymbolicGPT:0.4891171837272194
+x1**(1/4)
+
+Test Case 281/1001.
+sin(sin(x1+0.92))
+SymbolicGPT:0.0009972304335636368
+sin(sin(x1+0.97))
+
+Test Case 282/1001.
+0.91*x1**(1/4)
+SymbolicGPT:0.017198078885138624
+x1**(1/4)
+
+Test Case 283/1001.
+0.73*sqrt(-x1)
+SymbolicGPT:0.49198338872784386
+0.91*(-x1)**(1/4)
+
+Test Case 284/1001.
+0.75*sqrt(0.09*x1+1)
+SymbolicGPT:0.020354555258423234
+0.79*(1-0.04*x1)**(1/4)
+
+Test Case 285/1001.
+-0.04*x1**2*sqrt(x1-0.54)-0.01*x1
+SymbolicGPT:1.5785925733646953
+-sin(0.04*x1**2+0.02*x1-0.04)
+
+Test Case 286/1001.
+-0.13*x1**2+0.32*x1+sin(0.05*x1)+0.48
+SymbolicGPT:1.2123867553658119
+0.88*sqrt(1-0.43*x1)+sin(x1-0.26)
+
+Test Case 287/1001.
+sin(0.16*x1**2+0.08*x1)
+SymbolicGPT:0.5164522756391234
+sin(0.12*x1**2+0.05)
+
+Test Case 288/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 289/1001.
+0.52*sqrt(x1)+0.88*x1**2-0.02*x1
+SymbolicGPT:0.6617698128332615
+x1**2-0.85*x1+sqrt(x1-0.35)-0.47
+
+Test Case 290/1001.
+-sin(0.02*x1)
+SymbolicGPT:0.08577198318597318
+-sin(0.09*x1-0.02)
+
+Test Case 291/1001.
+sin(1.79*x1-0.66)
+SymbolicGPT:0.25266349625679035
+sin(1.91*x1-0.53)
+
+Test Case 292/1001.
+-0.35*x1+0.7*sqrt(0.11*x1-1)
+SymbolicGPT:5.77683374316245
+0.75*sqrt(0.28-x1)*sqrt(0.07*x1-1)
+
+Test Case 293/1001.
+sin(x1+0.04)
+SymbolicGPT:2.334743694250838
+sqrt(sin(x1-0.05))
+
+Test Case 294/1001.
+sin(sin(x1+0.36))
+SymbolicGPT:2.0869883062878434
+sqrt(sin(x1+0.24))
+
+Test Case 295/1001.
+sqrt(x1)+sin(x1)
+SymbolicGPT:0.001717627019079858
+sqrt(x1)+sin(x1+0.06)
+
+Test Case 296/1001.
+-0.93*x1**2-1.28*x1-sin(0.36*x1+0.8)-0.44
+SymbolicGPT:42.65522636179777
+-0.81*x1**2-1.14*x1+2.21
+
+Test Case 297/1001.
+1.48*x1-0.1
+SymbolicGPT:4.588673442349216
+0.97*sqrt(x1**2+0.26*x1)
+
+Test Case 298/1001.
+0.89*sqrt(-x1**2+0.95*x1)
+SymbolicGPT:0.011492243241948523
+0.94*sqrt(0.97*x1**2-x1)
+
+Test Case 299/1001.
+0.72*sqrt(0.95*x1+1)
+SymbolicGPT:0.025907380682233895
+0.1*x1+0.83*sqrt(0.37*x1+1)
+
+Test Case 300/1001.
+0.88*sqrt(-x1)
+SymbolicGPT:0.06975050027828902
+0.93*(-x1)**(1/4)
+
+Test Case 301/1001.
+sin(sin(x1))
+SymbolicGPT:2.086492728931185
+sqrt(sin(x1-0.03))
+
+Test Case 302/1001.
+sin(sin(x1-0.39))
+SymbolicGPT:0.6165341263720742
+sin(0.54*x1-0.59)+sin(x1+0.39)
+
+Test Case 303/1001.
+sin(sin(x1))
+SymbolicGPT:0.01803240717348014
+sin(0.95*x1+0.08)
+
+Test Case 304/1001.
+
+SymbolicGPT:10000.0
+0
+
+Test Case 305/1001.
+1.77*x1
+SymbolicGPT:0.00710865343054749
+0.27*sqrt(x1)+1.62*x1+0.07
+
+Test Case 306/1001.
+-0.5*x1**2-0.58*x1
+SymbolicGPT:917.7626057626774
+0.69*x1**2+0.07*x1+0.06*sqrt(x1-0.61)
+
+Test Case 307/1001.
+0.74*x1**2*sqrt(0.74*x1-1)-0.07*x1
+SymbolicGPT:194.78871266110778
+0.79*x1**2-0.87*x1-0.06
+
+Test Case 308/1001.
+-0.69*x1**(3/2)
+SymbolicGPT:5.451782265234173
+-0.91*x1-0.27*sqrt(x1-0.05)
+
+Test Case 309/1001.
+1.02*x1*sin(0.11*x1+0.61)
+SymbolicGPT:1.5177556368203804
+0.65*x1+0.06
+
+Test Case 310/1001.
+x1
+SymbolicGPT:0.07260885190664142
+sqrt(x1**2+0.56*x1-0.02)
+
+Test Case 311/1001.
+x1**2-0.55*x1
+SymbolicGPT:7.775043276999999
+0.87*x1**2-0.52*x1+0.05
+
+Test Case 312/1001.
+1.9*x1+sqrt(x1-0.27)+0.64
+SymbolicGPT:0.11839422789739988
+2*x1+sqrt(x1-0.32)+0.53
+
+Test Case 313/1001.
+sin(0.64*x1)
+SymbolicGPT:0.008358574656821575
+sin(0.65*x1+0.06)
+
+Test Case 314/1001.
+-0.42*x1+sqrt(x1-0.48)
+SymbolicGPT:0.017356263365579765
+-0.46*x1+sqrt(x1-0.46)+0.05
+
+Test Case 315/1001.
+sqrt(x1+0.51)
+SymbolicGPT:3.42839044351983
+-0.09*x1**2+0.05*x1+sqrt(x1+0.82)-0.09
+
+Test Case 316/1001.
+(x1+0.82)**(1/4)
+SymbolicGPT:0.03789348036110406
+0.08*x1+0.96
+
+Test Case 317/1001.
+-0.19*x1**2+x1
+SymbolicGPT:14.387427966666671
+0.21*x1**2-0.21*x1+0.07
+
+Test Case 318/1001.
+sin(0.85*sqrt(0.43*x1+1))
+SymbolicGPT:0.3998778599211332
+0.82*(-0.24*x1-1)**(1/4)
+
+Test Case 319/1001.
+x1-0.49
+SymbolicGPT:0.14640909497382254
+1.14*x1-sin(0.21*x1+0.6)+0.22
+
+Test Case 320/1001.
+0.2*x1
+SymbolicGPT:0.017875998666666688
+0.02*x1**2+0.06*x1+0.08
+
+Test Case 321/1001.
+sin(0.91*x1)
+SymbolicGPT:0.0018623960341218396
+sin(0.88*x1+0.06)
+
+Test Case 322/1001.
+0.94*(-x1)**(1/4)
+SymbolicGPT:0.6993052020517598
+x1**(1/4)
+
+Test Case 323/1001.
+0.86*x1*sqrt(x1+0.86)
+SymbolicGPT:1.5709978673971072
+0.29*x1**2+0.96*x1-sin(0.12*x1+0.45)+0.55
+
+Test Case 324/1001.
+-sin(0.31*x1)
+SymbolicGPT:0.3064342732609402
+-sin(sin(0.54*x1))
+
+Test Case 325/1001.
+-1.0*x1**2+0.93*sqrt(-x1)
+SymbolicGPT:15.636810846605828
+sqrt(x1)-0.85*x1**2+0.05*x1+0.16
+
+Test Case 326/1001.
+0.98*sqrt(-x1)
+SymbolicGPT:0.45427914937905883
+0.91*(-x1)**(1/4)
+
+Test Case 327/1001.
+sin(0.08*x1+0.27)
+SymbolicGPT:1.2498928199934245
+0.91*sqrt(0.61*x1+1)+sin(0.17*x1-0.85)
+
+Test Case 328/1001.
+sin(0.74*x1-0.85)
+SymbolicGPT:0.061350174213653186
+sin(0.84*x1-1.03)
+
+Test Case 329/1001.
+2*x1-0.61
+SymbolicGPT:2.0605224811634177
+0.44*sqrt(x1)+1.47*x1-0.52
+
+Test Case 330/1001.
+-sin(0.71*x1)
+SymbolicGPT:0.1798254625290335
+-sin(0.62*x1-0.08)
+
+Test Case 331/1001.
+2*x1-0.88*sin(x1)
+SymbolicGPT:305.39139411301636
+2*x1*sin(x1-0.02)-1.03
+
+Test Case 332/1001.
+0.11*x1+0.13
+SymbolicGPT:0.0028365000000000013
+0.08*x1+0.22
+
+Test Case 333/1001.
+sqrt(x1**2)
+SymbolicGPT:0.08247100018094605
+0.89*sqrt(-x1**2-0.53*x1)
+
+Test Case 334/1001.
+2*sin(x1)
+SymbolicGPT:0.1186623795270069
+sin(0.84*x1+0.07)+sin(x1+0.08)
+
+Test Case 335/1001.
+sin(x1-0.08)
+SymbolicGPT:0.0030597729036243655
+sin(x1)
+
+Test Case 336/1001.
+sqrt(x1)
+SymbolicGPT:1.1855208118536698
+0.87*sqrt(x1)**(1/4)
+
+Test Case 337/1001.
+0.78*x1**2+0.76*x1+0.28
+SymbolicGPT:5.118782023878158
+x1**2-0.24*x1+sqrt(x1-0.11)
+
+Test Case 338/1001.
+-0.09*sqrt(x1)+x1
+SymbolicGPT:28.69538474462572
+x1*sqrt(x1-0.45)+0.03
+
+Test Case 339/1001.
+sin(0.79*sqrt(x1))
+SymbolicGPT:0.6714358750245035
+0.81*(-x1)**(1/4)
+
+Test Case 340/1001.
+0.54*sqrt(-x1)+sin(x1)
+SymbolicGPT:0.004979140119319585
+0.52*sqrt(x1)+sin(x1+0.08)
+
+Test Case 341/1001.
+-sin(0.79*x1)
+SymbolicGPT:3.945178134729728
+-0.75*x1*sin(0.69*x1+0.66)-0.08
+
+Test Case 342/1001.
+-sin(0.3*x1**2)
+SymbolicGPT:0.48817258673206587
+-sin(0.35*x1**2-0.02)
+
+Test Case 343/1001.
+sin(0.49*sqrt(-x1))
+SymbolicGPT:0.06195262533951095
+0.37*sqrt(0.58*x1**2-x1-0.07)
+
+Test Case 344/1001.
+0.88*sqrt(-0.06*x1-1)
+SymbolicGPT:0.000365045695670166
+0.93*sqrt(0.04*x1+1)
+
+Test Case 345/1001.
+sin(sin(x1+0.52))
+SymbolicGPT:2.0530873804770335
+sqrt(sin(x1+0.35))
+
+Test Case 346/1001.
+x1
+SymbolicGPT:0.4522424482136797
+0.91*sqrt(x1)*sqrt(x1-0.55)
+
+Test Case 347/1001.
+-0.77*x1**2+0.69*x1
+SymbolicGPT:19.360479597000012
+-0.3*x1**2-0.58*x1-0.77
+
+Test Case 348/1001.
+1.64*x1+sqrt(x1+0.71)
+SymbolicGPT:4.288682959140616
+1.3*x1+0.76*sqrt(-x1-0.91)+0.02
+
+Test Case 349/1001.
+0.2*sqrt(-x1**2)
+SymbolicGPT:0.13061256144600766
+sin(0.01*x1**2+0.07*x1+0.06)
+
+Test Case 350/1001.
+-0.15*x1**2+0.1*x1
+SymbolicGPT:2.0669955703333325
+0.02*x1**2-0.45*x1
+
+Test Case 351/1001.
+0.21*x1**2-0.52*x1+0.29
+SymbolicGPT:0.22344955030797184
+sqrt(x1-0.05)-sin(0.85*x1-0.39)
+
+Test Case 352/1001.
+sin(x1)*sin(x1-0.98)
+SymbolicGPT:0.0019593143250199
+sin(x1-0.92)*sin(x1-0.05)
+
+Test Case 353/1001.
+0.78*x1**2
+SymbolicGPT:11.54914354633332
+0.97*x1**2-0.22*x1+0.06
+
+Test Case 354/1001.
+0.82*(x1-0.13)**(1/4)
+SymbolicGPT:0.026642230163738324
+0.72*(x1-0.43)**(1/4)
+
+Test Case 355/1001.
+0.68*sqrt(x1)*sqrt(0.31*x1-1)
+SymbolicGPT:7.424294867878334
+0.93*sqrt(x1+0.01)*sqrt(0.94*x1-1)
+
+Test Case 356/1001.
+0.43-0.06*x1
+SymbolicGPT:0.41534491143664726
+sin(0.84*sqrt(1-0.49*x1))
+
+Test Case 357/1001.
+0.84*x1-0.37
+SymbolicGPT:11.964035573847411
+0.76*x1*sqrt(0.42-x1)-0.49
+
+Test Case 358/1001.
+sin(0.86*x1+0.57)
+SymbolicGPT:2.477228882812416
+sqrt(sin(x1+0.22))
+
+Test Case 359/1001.
+0.76*x1**2+0.49*x1+sin(x1)
+SymbolicGPT:47.622544765380084
+0.33*x1**2+0.95*x1+1.52*sin(0.89*x1-0.83)+0.86
+
+Test Case 360/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 361/1001.
+0.87*sqrt(-x1)+sin(x1)
+SymbolicGPT:0.02502984143477561
+0.8*sqrt(-x1)+sin(x1+0.07)
+
+Test Case 362/1001.
+sin(x1**2)
+SymbolicGPT:1.0231333513915974
+sin(x1**2+0.36*x1-0.03)
+
+Test Case 363/1001.
+1.06-0.75*x1
+SymbolicGPT:19.589491055146564
+1.06*sqrt(1-1.0*x1)
+
+Test Case 364/1001.
+-sin(0.1*x1-0.72)
+SymbolicGPT:0.06610381656155642
+sqrt(-sin(0.08*x1-0.64))
+
+Test Case 365/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0
+sqrt(sin(x1))
+
+Test Case 366/1001.
+sqrt(x1)-sin(0.83*x1)
+SymbolicGPT:0.0070529309356829085
+sqrt(x1)-sin(0.91*x1-0.21)
+
+Test Case 367/1001.
+x1-0.08
+SymbolicGPT:0.17877375537105636
+0.86*sqrt(-x1**2-0.36*x1)
+
+Test Case 368/1001.
+2*x1-0.87
+SymbolicGPT:0.2241527808611395
+0.15*sqrt(x1)+1.8*x1-0.73
+
+Test Case 369/1001.
+-0.1*x1**2+0.02*x1
+SymbolicGPT:2.106624449146422
+-sin(0.07*x1**2+0.02*x1-0.05)
+
+Test Case 370/1001.
+-0.94*x1-sin(0.76*x1)
+SymbolicGPT:5.825138794740015
+0.22-1.42*x1
+
+Test Case 371/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 372/1001.
+-sin(sin(0.11*x1+0.98))
+SymbolicGPT:0.04727945468433839
+sin(0.02*x1-0.76)
+
+Test Case 373/1001.
+-0.41*x1*sin(0.5*x1)
+SymbolicGPT:2.2269376914418175
+-sin(0.19*x1**2-0.05)
+
+Test Case 374/1001.
+-0.99*x1-0.52*sin(0.25*x1)
+SymbolicGPT:26.464570558132525
+-0.31*x1**2-0.67*x1+0.05
+
+Test Case 375/1001.
+1.0*x1**(3/2)-0.53
+SymbolicGPT:96.05067518994629
+0.99*x1**2-0.78*x1+sin(0.13*x1+0.82)-0.61
+
+Test Case 376/1001.
+-0.76*x1**2-1.2*x1-0.73
+SymbolicGPT:0.09499299966666665
+-0.77*x1**2-1.24*x1-0.62
+
+Test Case 377/1001.
+-0.45*x1**2+2.14*x1+0.77
+SymbolicGPT:4.620544983867762
+0.88*sqrt(-x1-0.28)+sin(x1+0.4)
+
+Test Case 378/1001.
+sin(x1**2+0.43*x1-0.12)
+SymbolicGPT:0.009404555477151449
+sin(x1**2+0.39*x1-0.07)
+
+Test Case 379/1001.
+-sin(0.12*x1**2+0.63*x1-0.55)
+SymbolicGPT:3.5794437752054495
+0.05*x1**2+0.04*x1-sin(0.95*x1-0.59)
+
+Test Case 380/1001.
+-sin(sin(0.61*x1+0.59))
+SymbolicGPT:0.0016158531052818494
+-sin(sin(0.64*x1+0.51))
+
+Test Case 381/1001.
+sin(0.2*x1)+sin(x1)
+SymbolicGPT:0.304199384164278
+0.19*sqrt(0.27*x1**2+0.91*x1)
+
+Test Case 382/1001.
+0.5*sqrt(x1)
+SymbolicGPT:0.4581307338647875
+0.51*sqrt(0.33*x1**2+x1)
+
+Test Case 383/1001.
+-sin(sin(0.57*x1))
+SymbolicGPT:0.1402878836890617
+-sin(sin(0.68*x1-0.05))
+
+Test Case 384/1001.
+sin(x1+0.08)
+SymbolicGPT:0.003048136148772975
+sin(x1+0.16)
+
+Test Case 385/1001.
+sqrt(sin(0.83*x1))
+SymbolicGPT:0.0074550976631887565
+sqrt(-sin(0.86*x1))
+
+Test Case 386/1001.
+x1
+SymbolicGPT:0.10251978269996755
+0.91*sqrt(-x1**2-0.22*x1)
+
+Test Case 387/1001.
+0.9*sqrt(x1)
+SymbolicGPT:0.22652836723845957
+0.99*(-x1)**(1/4)
+
+Test Case 388/1001.
+x1+0.05
+SymbolicGPT:0.04848152001558329
+0.91*sqrt(x1**2+0.58*x1-0.03)
+
+Test Case 389/1001.
+sqrt(x1)+sin(x1)
+SymbolicGPT:0.002337331541150874
+sqrt(x1)+sin(x1+0.07)
+
+Test Case 390/1001.
+x1**2+0.92*sqrt(x1-0.56)
+SymbolicGPT:0.16543021551597398
+x1**2+0.72*sqrt(x1-0.6)
+
+Test Case 391/1001.
+sin(1.27*x1)
+SymbolicGPT:0.7197978734005875
+sin(1.0*x1+0.07)
+
+Test Case 392/1001.
+-sin(sin(0.5*x1))
+SymbolicGPT:0.8772772988485298
+0.14*x1**2*sqrt(0.01*x1-1)-0.58*x1-0.04
+
+Test Case 393/1001.
+1.42*x1*sin(0.85*x1)
+SymbolicGPT:85.81058887299471
+x1+0.23*sin(x1-0.15)
+
+Test Case 394/1001.
+sqrt(x1)+1.09*x1-0.25
+SymbolicGPT:4.973785166666669
+sqrt(x1)+0.6*x1-0.21
+
+Test Case 395/1001.
+sqrt(x1)
+SymbolicGPT:0.24720785646050458
+0.98*(-x1)**(1/4)
+
+Test Case 396/1001.
+sqrt(x1-0.73)
+SymbolicGPT:2.7742764217148886e-05
+sqrt(x1-0.75)
+
+Test Case 397/1001.
+-0.23*x1**2+0.25*x1+1.15
+SymbolicGPT:6.435616267080956
+0.99*sqrt(1-0.41*x1)*sin(0.92*x1+0.54)
+
+Test Case 398/1001.
+-0.93*x1**2+0.07*x1+0.51
+SymbolicGPT:510.7924392553002
+0.87*x1-0.93*sqrt(x1-0.4)
+
+Test Case 399/1001.
+1.78*x1
+SymbolicGPT:10.151283563372912
+0.6*x1**2-0.38*x1+sin(0.82*x1+0.71)-0.71
+
+Test Case 400/1001.
+-0.48*x1-0.76
+SymbolicGPT:0.11577916666666667
+-0.43*x1-0.65
+
+Test Case 401/1001.
+sin(x1-0.85)
+SymbolicGPT:0.009926385063805988
+sin(x1-0.71)
+
+Test Case 402/1001.
+sin(0.05*x1)
+SymbolicGPT:0.05254996721112966
+0
+
+Test Case 403/1001.
+0.4*x1-0.77
+SymbolicGPT:0.06670600000000006
+0.46*x1-0.79
+
+Test Case 404/1001.
+1.62*x1*sin(x1+0.23)+0.66
+SymbolicGPT:29.290200893151887
+0.43*x1+1.55*sin(x1+0.16)
+
+Test Case 405/1001.
+sin(0.21*x1)
+SymbolicGPT:0.017333924998842058
+0.01*x1**2+0.09*x1+0.06
+
+Test Case 406/1001.
+1.06*x1-0.4
+SymbolicGPT:282.74062399999997
+x1**2-0.36*x1+0.04
+
+Test Case 407/1001.
+0.86*x1
+SymbolicGPT:0.2781393040986779
+0.8*sqrt(x1-0.65)*sqrt(x1+0.05)
+
+Test Case 408/1001.
+-0.72*x1+sin(x1+0.4)
+SymbolicGPT:10.939847392899859
+-0.35*x1**2+0.5*sqrt(-x1-0.98)
+
+Test Case 409/1001.
+0.87*x1**2+0.43
+SymbolicGPT:5.453956721274299
+x1**2-0.22*x1+0.49*sqrt(x1-0.43)-0.21
+
+Test Case 410/1001.
+0.87*sqrt(-x1)
+SymbolicGPT:0.2613359080948777
+0.97*(-x1)**(1/4)
+
+Test Case 411/1001.
+0.06*x1**3-0.38*x1
+SymbolicGPT:42.938500498037016
+-0.02*x1**2*sin(0.76*x1-0.29)-0.28*x1-0.12
+
+Test Case 412/1001.
+x1**2+0.24*x1
+SymbolicGPT:0.5025931666666684
+x1**2+0.07*x1+0.08
+
+Test Case 413/1001.
+0.97*x1**2+0.74*x1-sin(0.01*x1)+0.02
+SymbolicGPT:5.015343833531925
+x1**2+sin(0.52*x1+0.08)
+
+Test Case 414/1001.
+0.86*sqrt(x1)
+SymbolicGPT:0.18418445799727348
+0.94*(-x1)**(1/4)
+
+Test Case 415/1001.
+sin(x1)
+SymbolicGPT:0.003052087070383432
+sin(x1+0.08)
+
+Test Case 416/1001.
+sqrt(sin(x1-0.12))
+SymbolicGPT:0.0019760564527681675
+sqrt(sin(x1-0.19))
+
+Test Case 417/1001.
+-sin(0.49*x1+1.04)
+SymbolicGPT:0.02460144688381666
+-sin(sin(0.5*x1+0.82))
+
+Test Case 418/1001.
+0.95*x1
+SymbolicGPT:1.8738698096070923
+0.62*sqrt(-x1**2-0.54*x1)
+
+Test Case 419/1001.
+0.76*(0.53-x1)**(1/4)
+SymbolicGPT:0.46627509697842023
+-0.07*x1+0.64*sqrt(x1-0.66)+0.15
+
+Test Case 420/1001.
+1.66*x1-sin(0.71*x1)+0.1
+SymbolicGPT:7.6830108001307975
+0.6*x1**2-1.14*x1+sqrt(x1-0.21)-0.12
+
+Test Case 421/1001.
+sin(0.22*x1-0.42)
+SymbolicGPT:0.06833506341413416
+sin(0.14*x1-0.35)
+
+Test Case 422/1001.
+sin(sqrt(x1+0.94))
+SymbolicGPT:0.006927831961084623
+sqrt(sin(0.34*x1+0.86))
+
+Test Case 423/1001.
+sqrt(x1**2-0.36*x1)
+SymbolicGPT:0.0010656873752588865
+sqrt(x1**2-0.42*x1-0.01)
+
+Test Case 424/1001.
+sin(0.69*sqrt(x1-0.37))
+SymbolicGPT:0.02210592620301095
+0.55*sqrt(0.58-x1)
+
+Test Case 425/1001.
+sin(sin(x1+0.09))
+SymbolicGPT:2.0983944626564432
+sqrt(sin(x1+0.07))
+
+Test Case 426/1001.
+sin(sin(x1))
+SymbolicGPT:2.0875995839730623
+sqrt(sin(x1-0.02))
+
+Test Case 427/1001.
+0.83*sqrt(x1)
+SymbolicGPT:0.13149500000000003
+sqrt(x1)
+
+Test Case 428/1001.
+0.63*x1-0.48
+SymbolicGPT:9.303518953518932
+x1-sin(0.87*x1+0.72)+0.12
+
+Test Case 429/1001.
+-0.4*x1-0.83*sin(0.32*x1)
+SymbolicGPT:26.249972078275793
+0.56*x1-0.11
+
+Test Case 430/1001.
+0.37*x1+sin(x1+0.35)-0.56
+SymbolicGPT:0.3571241497558351
+0.43*sqrt(-x1)+sin(x1-0.14)
+
+Test Case 431/1001.
+-0.58*x1**(5/2)+0.34*x1
+SymbolicGPT:211.55433294491766
+-0.37*x1**3+0.18*x1+0.13
+
+Test Case 432/1001.
+x1
+SymbolicGPT:0.13861022676893556
+0.97*sqrt(0.48-x1)*sqrt(x1+0.01)
+
+Test Case 433/1001.
+sin(0.42*x1**2+0.11*x1)
+SymbolicGPT:0.20490248008058115
+sin(0.55*x1**2-0.44*x1+0.04)
+
+Test Case 434/1001.
+sin(x1)
+SymbolicGPT:0.0038617975530218884
+sin(x1+0.09)
+
+Test Case 435/1001.
+2*x1-1.34
+SymbolicGPT:0.02560000000000006
+2*x1-1.18
+
+Test Case 436/1001.
+x1*sin(x1)-0.36
+SymbolicGPT:5.096962277005576
+0.29*x1**2*sin(x1-0.22)+0.67*x1-0.17
+
+Test Case 437/1001.
+sin(0.63*x1**2+0.48*x1+0.09)
+SymbolicGPT:1.1056979449341136
+sin(0.84*x1**2+0.62*x1+0.12)
+
+Test Case 438/1001.
+sqrt(x1-0.7)-sin(0.45*x1)
+SymbolicGPT:0.08405475159884025
+0.99*sqrt(x1-0.7)-sin(0.54*x1)
+
+Test Case 439/1001.
+0.96*x1**2-1.2*x1+sin(0.3*x1+0.38)+0.28
+SymbolicGPT:1.4422125191657633
+0.88*x1**2-0.94*x1+0.62
+
+Test Case 440/1001.
+x1**2+0.3*x1
+SymbolicGPT:2.4578064999999985
+x1**2-0.37*x1+x1+0.04
+
+Test Case 441/1001.
+-0.04*x1+sin(x1)+0.17
+SymbolicGPT:2.383631539305887
+sqrt(sin(x1-0.07))
+
+Test Case 442/1001.
+sin(sin(0.58*x1+0.49))
+SymbolicGPT:0.7458351276420022
+sin(0.04*x1**2+0.13*x1+0.55)
+
+Test Case 443/1001.
+0.44*x1+0.74
+SymbolicGPT:0.49521693679244205
+0.11*x1+0.82*sqrt(0.58*x1+1)
+
+Test Case 444/1001.
+(x1+0.39)**(1/4)
+SymbolicGPT:0.9405343835924105
+0.98*(-x1-0.96)**(1/4)
+
+Test Case 445/1001.
+0.66*sqrt(-0.43*x1**2-x1+0.8)
+SymbolicGPT:0.4809514764230197
+0.08*x1*sqrt(0.81-x1)+0.96
+
+Test Case 446/1001.
+0.96*x1*sqrt(-0.89*x1-1)
+SymbolicGPT:0.054029947197218806
+0.24*x1**2+x1+0.06
+
+Test Case 447/1001.
+x1**2-1.26*x1
+SymbolicGPT:113344.99399607332
+-0.51*x1**4+0.72*x1+0.05
+
+Test Case 448/1001.
+2*x1
+SymbolicGPT:0.000803579403049346
+2*x1+0.51*sqrt(1-0.01*x1)-0.47
+
+Test Case 449/1001.
+sin(sin(x1))
+SymbolicGPT:2.0875995839730623
+sqrt(sin(x1-0.02))
+
+Test Case 450/1001.
+sqrt(x1-0.03)
+SymbolicGPT:0.0009566579757851011
+sqrt(x1+0.1)
+
+Test Case 451/1001.
+x1-sin(0.29*x1)-0.91
+SymbolicGPT:0.03293799534040137
+0.85*x1-1.0
+
+Test Case 452/1001.
+-sin(sin(0.83*x1+0.6))
+SymbolicGPT:0.06161802852753007
+-sin(0.93*x1+0.56)
+
+Test Case 453/1001.
+sin(2*x1)
+SymbolicGPT:0.003072023366136966
+sin(2*x1+0.08)
+
+Test Case 454/1001.
+1.92*x1+0.89*sqrt(x1+0.48)
+SymbolicGPT:52.12071514476365
+0.36*x1**2+2.0*x1+0.58
+
+Test Case 455/1001.
+0.88*sqrt(0.73-x1)
+SymbolicGPT:0.02005218486255185
+0.96*sqrt(0.79-x1)
+
+Test Case 456/1001.
+0.74*sqrt(1-0.45*x1)
+SymbolicGPT:0.02457779340691114
+sin(0.98*sqrt(1-0.52*x1))
+
+Test Case 457/1001.
+x1+0.96
+SymbolicGPT:16.773703127530034
+0.41*x1**2+sin(x1+0.27)+0.62
+
+Test Case 458/1001.
+-sin(0.92*x1+0.53)
+SymbolicGPT:3.5189255394707732
+0.13*x1**2-0.18*x1-sin(0.8*x1)-0.4
+
+Test Case 459/1001.
+1.0*sqrt(-0.15*x1-1)
+SymbolicGPT:0.004683194458831429
+0.88*(0.62*x1+1)**(1/4)
+
+Test Case 460/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0
+sqrt(sin(x1))
+
+Test Case 461/1001.
+sin(sin(0.29*x1))
+SymbolicGPT:0.07582049093251628
+sin(0.46*x1+0.12)
+
+Test Case 462/1001.
+-sin(sin(0.35*x1-0.84))
+SymbolicGPT:1.6113441872405816
+0.74*sqrt(0.39*x1-1)
+
+Test Case 463/1001.
+0.95*x1+sin(x1)-0.22
+SymbolicGPT:2.8343271523988403
+sqrt(x1-0.02)+sin(0.72*x1-0.2)
+
+Test Case 464/1001.
+x1-0.41*sin(0.11*x1+0.63)
+SymbolicGPT:3.891452688261167
+-0.01*x1**2*sqrt(-x1-0.46)+0.65*x1-0.19
+
+Test Case 465/1001.
+0.56*x1*sin(x1+0.17)+0.68
+SymbolicGPT:0.17861093495240093
+sin(x1)+sin(0.91*x1+0.2)
+
+Test Case 466/1001.
+-sqrt(x1-0.06)*sin(0.35*x1)
+SymbolicGPT:16.28873431233516
+-0.26*x1**2+0.03*x1-0.15
+
+Test Case 467/1001.
+-0.05*x1+0.99*sqrt(0.19*x1-1)-0.71
+SymbolicGPT:0.15844732323170882
+-sin(0.09*x1-0.23)
+
+Test Case 468/1001.
+-0.47*x1**2+0.48*x1
+SymbolicGPT:87.19038880626765
+-0.34*x1**2*sqrt(x1+0.53)+0.11*x1+0.11
+
+Test Case 469/1001.
+x1**2-0.29*x1+sin(x1+0.52)+0.01
+SymbolicGPT:1.1287939307893398
+x1**2-0.51*x1+sin(x1+0.42)
+
+Test Case 470/1001.
+0.21*x1*sqrt(x1-0.95)+0.87
+SymbolicGPT:0.2466764735442083
+0.1*x1+0.97*sqrt(x1-0.94)
+
+Test Case 471/1001.
+-0.75*x1-0.18
+SymbolicGPT:270.4259840383226
+-0.84*x1**2-sin(0.41*x1-0.08)
+
+Test Case 472/1001.
+sqrt(x1)
+SymbolicGPT:0.0004550000000000018
+1.01*sqrt(x1)
+
+Test Case 473/1001.
+-sin(0.11*x1)
+SymbolicGPT:0.04550125450836981
+0.71-0.29*x1
+
+Test Case 474/1001.
+sqrt(sin(0.44*x1))
+SymbolicGPT:0.033910515340593465
+0.71*x1**(1/4)
+
+Test Case 475/1001.
+sin(0.06*x1)
+SymbolicGPT:0.0002883233963438349
+0.04*x1+0.08
+
+Test Case 476/1001.
+x1**2*sqrt(x1+0.73)
+SymbolicGPT:2028.739218131554
+0.39*x1**2+0.3*x1+0.04
+
+Test Case 477/1001.
+sin(0.4*x1-0.1)
+SymbolicGPT:0.21533964297662092
+0.91-0.02*x1**2
+
+Test Case 478/1001.
+0.98*sqrt(x1-0.18)
+SymbolicGPT:0.0006368432150725027
+sqrt(x1-0.25)
+
+Test Case 479/1001.
+0.69*sqrt(-0.5*x1-1)
+SymbolicGPT:0.0009786127113312585
+0.75*sqrt(0.42*x1+1)
+
+Test Case 480/1001.
+0.97*(-0.18*x1-1)**(1/4)
+SymbolicGPT:0.4238105754508165
+0.97*(1-0.19*x1)**(1/4)
+
+Test Case 481/1001.
+0.95*sqrt(-x1-1)
+SymbolicGPT:0.40160464168378823
+0.93*sqrt(0.02*x1**2+0.34*x1+1)
+
+Test Case 482/1001.
+0.87*x1
+SymbolicGPT:0.07722599999999984
+0.81*sqrt(-x1**2)
+
+Test Case 483/1001.
+0.87*sqrt(x1-0.93)
+SymbolicGPT:0.011411754514866888
+0.93*sqrt(x1-0.96)
+
+Test Case 484/1001.
+x1-0.54
+SymbolicGPT:0.0004000000000000026
+x1-0.52
+
+Test Case 485/1001.
+sin(sin(0.71*x1))
+SymbolicGPT:0.20166924310319956
+-0.22*x1**2+0.98*x1+0.04
+
+Test Case 486/1001.
+0.9*sqrt(-0.79*x1-1)
+SymbolicGPT:0.13273493515323878
+0.89*sqrt(0.46*x1+1)
+
+Test Case 487/1001.
+0.36*x1**2*sin(x1)
+SymbolicGPT:40.84150980176955
+0.56*x1**2*sin(0.97*x1+0.13)-0.68*x1+0.22
+
+Test Case 488/1001.
+-0.06*x1**2-0.16*x1+0.91
+SymbolicGPT:3.8976262040141965
+0.94*sqrt(1-0.35*x1)
+
+Test Case 489/1001.
+2*x1+sqrt(x1+0.1)-0.35
+SymbolicGPT:7.635203605741086
+sqrt(x1)+1.33*x1+0.02
+
+Test Case 490/1001.
+-sin(0.83*x1-0.08)
+SymbolicGPT:0.019237309043898792
+-sin(0.81*x1-0.18)
+
+Test Case 491/1001.
+sin(x1)
+SymbolicGPT:0.0017176270190798594
+sin(x1+0.06)
+
+Test Case 492/1001.
+2*x1+0.65
+SymbolicGPT:0.26047954990040406
+1.85*x1+0.74*sqrt(0.06*x1+1)
+
+Test Case 493/1001.
+0.58*x1-0.13
+SymbolicGPT:1.9349591300408457
+0.45*x1-0.43*sqrt(-x1-0.02)
+
+Test Case 494/1001.
+0.25*sqrt(-x1)
+SymbolicGPT:0.0073702977350794075
+sqrt(-sin(0.08*x1+0.03))
+
+Test Case 495/1001.
+-0.96*x1**2-0.18*x1+sin(x1)+0.57
+SymbolicGPT:870.4041415967921
+1.33*x1+0.55
+
+Test Case 496/1001.
+-sin(0.33*x1)*sin(x1)
+SymbolicGPT:0.0073309501944633735
+-sin(sin(x1-0.0))
+
+Test Case 497/1001.
+-0.07*x1**2+0.08*x1+sin(x1+0.4)
+SymbolicGPT:4.345835459833913
+sin(x1)+sin(0.3*x1+0.39)
+
+Test Case 498/1001.
+sqrt(x1)
+SymbolicGPT:0.46673806786558053
+0.93*(-x1)**(1/4)
+
+Test Case 499/1001.
+sin(sin(x1))
+SymbolicGPT:0.0036652122525724995
+sin(sin(x1+0.1))
+
+Test Case 500/1001.
+sin(0.84*sqrt(-x1))
+SymbolicGPT:0.06877284933266746
+0.83*x1**(1/4)
+
+Test Case 501/1001.
+sqrt(sin(0.37*x1-0.97))
+SymbolicGPT:0.0017142721284046714
+0.94*sqrt(0.37*x1-1)
+
+Test Case 502/1001.
+1.99*x1+0.55*sqrt(-x1)+0.92
+SymbolicGPT:0.09551100177083109
+2*x1+0.95*sqrt(-x1-0.81)+0.15
+
+Test Case 503/1001.
+sin(x1-0.76)
+SymbolicGPT:0.003227343505336949
+sin(x1-0.68)
+
+Test Case 504/1001.
+
+SymbolicGPT:9954.096611900173
+sin(0.04*x1+0.05)
+
+Test Case 505/1001.
+2*x1+0.34*sin(0.94*x1-0.61)
+SymbolicGPT:103.64150922865244
+2*x1*sin(0.74*x1-0.48)+0.12
+
+Test Case 506/1001.
+sin(1.88*x1+0.15)
+SymbolicGPT:0.13538266888123515
+sin(2*x1+0.16)
+
+Test Case 507/1001.
+sin(0.62*x1)*sin(x1+0.22)
+SymbolicGPT:0.7265805010374818
+sin(0.92*x1+0.26)*sin(x1+0.14)
+
+Test Case 508/1001.
+-0.58*x1**2
+SymbolicGPT:0.17619066666666708
+-0.58*x1**2+0.08*x1+0.05
+
+Test Case 509/1001.
+sqrt(x1)-0.2*x1**2+0.84*x1+0.05
+SymbolicGPT:0.3025712535468485
+sqrt(x1)+sin(0.84*x1+0.17)
+
+Test Case 510/1001.
+x1
+SymbolicGPT:0.005402943284662929
+0.95*sqrt(x1**2+0.36*x1)
+
+Test Case 511/1001.
+sin(0.88*sqrt(0.49*x1-1))
+SymbolicGPT:0.015659821724417634
+0.81*sqrt(0.51*x1-1)
+
+Test Case 512/1001.
+0.89
+SymbolicGPT:0.08192738996498483
+0.95*(0.73*x1-1)**(1/4)
+
+Test Case 513/1001.
+0.35*x1**(3/2)+0.11
+SymbolicGPT:0.06890749914354172
+0.34*x1*sqrt(0.46-x1)+0.12
+
+Test Case 514/1001.
+0.6*sqrt(-x1)
+SymbolicGPT:0.254986442875306
+0.65*sqrt(-0.14*x1**2+x1)
+
+Test Case 515/1001.
+sqrt(sin(x1+0.28))
+SymbolicGPT:0.0
+sqrt(sin(x1+0.28))
+
+Test Case 516/1001.
+-0.26*x1**2+0.15*x1+0.88*sqrt(-x1)
+SymbolicGPT:5.718130808497606
+sqrt(x1)-0.36*x1**2+0.04*x1+0.16
+
+Test Case 517/1001.
+0.65*sqrt(x1)
+SymbolicGPT:0.123268630309349
+-0.23*x1+0.93*sqrt(x1+0.64)
+
+Test Case 518/1001.
+0.72*sqrt(x1+0.08)+sin(0.86*x1+0.37)
+SymbolicGPT:0.04759765168177531
+0.62*sqrt(x1+0.05)+sin(0.82*x1+0.47)
+
+Test Case 519/1001.
+0.98*sqrt(x1+0.03)
+SymbolicGPT:0.30453339902233906
+0.99*(0.71-x1)**(1/4)
+
+Test Case 520/1001.
+sin(0.8*x1-0.2)
+SymbolicGPT:0.016032673400694548
+sin(0.82*x1-0.12)
+
+Test Case 521/1001.
+sin(0.69*x1)
+SymbolicGPT:0.034852870271840204
+sin(0.74*x1)
+
+Test Case 522/1001.
+sqrt(x1+0.22)
+SymbolicGPT:0.42000316869354126
+0.71*sqrt(-x1-0.13)
+
+Test Case 523/1001.
+-0.15*x1**2+0.02*x1
+SymbolicGPT:12.085053621681102
+sin(-0.13*x1**2-0.02*x1+0.08)
+
+Test Case 524/1001.
+0.52*x1**2+0.82*x1
+SymbolicGPT:257.131831325
+-0.03*x1**2+0.05*x1+0.07
+
+Test Case 525/1001.
+-0.53*x1
+SymbolicGPT:0.01592649999999997
+0.26-0.56*x1
+
+Test Case 526/1001.
+sqrt(x1)
+SymbolicGPT:0.0
+sqrt(x1)
+
+Test Case 527/1001.
+-sin(0.12*x1-0.3)
+SymbolicGPT:0.3963977350924595
+0.26*sqrt(0.67*x1-1)
+
+Test Case 528/1001.
+0.66*x1**2-0.29*x1+sin(x1+0.17)
+SymbolicGPT:7.630871053502964
+0.53*x1**2-0.25*x1+sin(x1+0.27)
+
+Test Case 529/1001.
+0.6*sqrt(x1)
+SymbolicGPT:0.003200033629075633
+0.64*sqrt(-0.04*x1**2+x1)
+
+Test Case 530/1001.
+sqrt(-sin(0.4*x1-0.6))
+SymbolicGPT:0.014332760467497726
+sqrt(sin(0.57*x1-0.82))
+
+Test Case 531/1001.
+0.54*x1**2+0.6*x1
+SymbolicGPT:7.267394546333332
+0.73*x1**2+0.23*x1+0.03
+
+Test Case 532/1001.
+-0.45*x1+0.77*sqrt(-x1)
+SymbolicGPT:57.952359794784485
+-0.67*x1**2+1.59*x1+0.07
+
+Test Case 533/1001.
+0.96*sqrt(0.09-x1)
+SymbolicGPT:0.002879752036833751
+0.99*sqrt(0.15-x1)*sqrt(0.02*x1-1)
+
+Test Case 534/1001.
+sin(1.7*x1-0.01)
+SymbolicGPT:0.2657957327456443
+sin(1.84*x1+0.05)
+
+Test Case 535/1001.
+0.48-0.64*x1
+SymbolicGPT:0.23311666666666656
+0.5-0.54*x1
+
+Test Case 536/1001.
+sin(sin(0.7*x1))
+SymbolicGPT:0.8440194183706
+-sin(0.27*x1-0.77)+sin(x1-0.61)
+
+Test Case 537/1001.
+-0.5*x1+sin(0.46*x1+0.45)-0.22
+SymbolicGPT:8.361071625310826
+sin(0.14*x1**2-0.56*x1+0.93)
+
+Test Case 538/1001.
+-0.86*x1**2+1.8*x1+0.05
+SymbolicGPT:7.646164959666665
+-0.75*x1**2+1.83*x1+0.17
+
+Test Case 539/1001.
+0.2*x1**2+1.89*x1
+SymbolicGPT:0.6575401546666663
+0.14*x1**2+2*x1+0.07
+
+Test Case 540/1001.
+sin(0.92*x1)
+SymbolicGPT:0.0005362257357710003
+sin(0.9*x1+0.05)
+
+Test Case 541/1001.
+0.44*sqrt(x1**2+0.37*x1)
+SymbolicGPT:0.038310668540640976
+0.47*sqrt(-x1**2+x1)
+
+Test Case 542/1001.
+0.68*x1+0.75*sqrt(0.57-x1)+0.48
+SymbolicGPT:0.00470021746907347
+0.58*x1+sqrt(x1-0.57)+0.5
+
+Test Case 543/1001.
+0.7*x1**2+0.82*x1+0.31
+SymbolicGPT:66.4687055916667
+0.85*x1**2+1.85*x1+0.29
+
+Test Case 544/1001.
+sqrt(x1)*sqrt(x1+0.65)
+SymbolicGPT:0.2271903156984762
+1.17*sqrt(x1)+0.61*x1+0.07
+
+Test Case 545/1001.
+0.91*x1+sin(x1)
+SymbolicGPT:12.651982065161873
+-0.4*x1**2+2.02*x1+0.04
+
+Test Case 546/1001.
+0.89*(1-0.89*x1)**(1/4)
+SymbolicGPT:0.5828389682712147
+0.87*(0.9*x1-1)**(1/4)
+
+Test Case 547/1001.
+0.80
+SymbolicGPT:0.0021336711596080193
+0.87*(1-0.09*x1)**(1/4)
+
+Test Case 548/1001.
+sqrt(x1)
+SymbolicGPT:0.4639675690553821
+x1**(1/4)
+
+Test Case 549/1001.
+sqrt(x1)+x1
+SymbolicGPT:0.01690000000000001
+sqrt(x1)+x1+0.13
+
+Test Case 550/1001.
+-0.21*x1+sqrt(x1+0.55)
+SymbolicGPT:0.5538065340866722
+0.81*(-x1-0.61)**(1/4)
+
+Test Case 551/1001.
+0.67*x1**2+0.47*x1*sin(x1)
+SymbolicGPT:912.0518865754628
+x1**2*sin(x1+0.13)-0.26*x1-0.1
+
+Test Case 552/1001.
+2*sqrt(x1)
+SymbolicGPT:0.0
+2*sqrt(x1)
+
+Test Case 553/1001.
+-sin(0.65*x1)
+SymbolicGPT:0.10114058265547202
+-sin(sin(0.75*x1-0.05))
+
+Test Case 554/1001.
+x1**2-0.82*x1+0.16
+SymbolicGPT:0.019306499999999806
+x1**2-0.79*x1+0.16
+
+Test Case 555/1001.
+sin(sin(x1-0.2))
+SymbolicGPT:0.16423858540182198
+sin(x1)+sin(0.13*x1-0.12)
+
+Test Case 556/1001.
+sqrt(x1)
+SymbolicGPT:0.0
+sqrt(x1)
+
+Test Case 557/1001.
+0.16*x1**2+1.51*x1+0.45
+SymbolicGPT:14.550976363392133
+1.44*x1+0.41*sqrt(0.69*x1-1)
+
+Test Case 558/1001.
+2*x1+0.75
+SymbolicGPT:0.20703704498118292
+2*x1-sin(0.11*x1-0.79)+0.02
+
+Test Case 559/1001.
+0.72*sqrt(x1)
+SymbolicGPT:0.23546181257988646
+sqrt(x1)*sqrt(0.15*x1-1)
+
+Test Case 560/1001.
+sin(sqrt(x1-0.36))
+SymbolicGPT:0.5127432966754703
+0.91*sqrt(0.3*x1**2-x1+0.43)
+
+Test Case 561/1001.
+2*x1*sin(x1)-1.03
+SymbolicGPT:294.9436163958289
+1.89*x1-1.2*sin(x1-0.04)
+
+Test Case 562/1001.
+0.78*sqrt(0.21*x1**2-x1-0.84)
+SymbolicGPT:0.044569676226877235
+0.69*sqrt(1-0.19*x1)*sqrt(x1+0.58)
+
+Test Case 563/1001.
+sin(sqrt(x1-0.29))
+SymbolicGPT:0.11736609573981595
+sqrt(-sin(0.89*x1-0.38))
+
+Test Case 564/1001.
+sin(0.79*x1**2)
+SymbolicGPT:1.2804803738238522
+sin(x1**2-0.3*x1+0.03)
+
+Test Case 565/1001.
+sin(1.17*x1+0.99)
+SymbolicGPT:0.39983281853357516
+0.88*sqrt(0.3*x1-1)*sin(x1+0.94)
+
+Test Case 566/1001.
+x1**2-0.81*x1+0.74*sqrt(-x1)
+SymbolicGPT:0.921844362392091
+x1**2-0.83*x1+sqrt(x1-0.81)+0.7
+
+Test Case 567/1001.
+-0.13*x1**2+0.85*x1+0.27
+SymbolicGPT:335.81401488533334
+-0.75*x1**2
+
+Test Case 568/1001.
+sqrt(sin(0.39*x1+0.67))
+SymbolicGPT:0.09566737170308276
+0.83*(0.23*x1+1)**(1/4)
+
+Test Case 569/1001.
+0.9*(x1+0.67)**(1/4)
+SymbolicGPT:0.045615073937070025
+0.86*(-0.09*x1-1)**(1/4)
+
+Test Case 570/1001.
+0.61*sqrt(-x1-1.0)+sqrt(x1-0.25)
+SymbolicGPT:0.29590714815422614
+0.5*sqrt(0.56*x1+1)+0.98*sqrt(x1-0.28)
+
+Test Case 571/1001.
+sin(x1)
+SymbolicGPT:0.001193062831680089
+sin(x1+0.05)
+
+Test Case 572/1001.
+sqrt(2)*sqrt(x1-0.44)
+SymbolicGPT:1.2769643657460485e-05
+sqrt(2)*sqrt(x1-0.45)
+
+Test Case 573/1001.
+sqrt(sin(x1-0.94))
+SymbolicGPT:0.013281793149818678
+sqrt(sin(0.94*x1-0.86))
+
+Test Case 574/1001.
+sqrt(x1+0.72)
+SymbolicGPT:0.0003916199379838378
+sqrt(x1+0.81)
+
+Test Case 575/1001.
+0.41*sqrt(x1**2-0.94*x1)
+SymbolicGPT:37.23012427306695
+-0.02*x1**2-0.82*x1+0.22*sin(0.93*x1+0.45)
+
+Test Case 576/1001.
+0.78*sqrt(x1)-0.57*x1**2+0.09*x1
+SymbolicGPT:13.413265181089132
+sqrt(x1)-0.75*x1**2+0.08*x1+0.05
+
+Test Case 577/1001.
+0.3*sqrt(x1)+0.23*x1**2+0.55*x1
+SymbolicGPT:31.65517584222957
+0.5*sqrt(x1)+0.07*x1**2+0.02*x1+0.05
+
+Test Case 578/1001.
+sqrt(2)*sqrt(x1)
+SymbolicGPT:0.3980777559122677
+0.26*sqrt(x1)+1.45*sqrt(-x1)
+
+Test Case 579/1001.
+3.71*x1-1.59
+SymbolicGPT:6.647860666666672
+3.13*x1-1.48
+
+Test Case 580/1001.
+-0.29*x1**2-0.44*x1-0.49
+SymbolicGPT:9.072070084025174
+-0.46*x1**2-0.23*x1-sin(0.05*x1+0.37)
+
+Test Case 581/1001.
+0.72*sqrt(-x1**2)
+SymbolicGPT:0.015826951813867115
+0.74*sqrt(x1-0.58)*sqrt(x1+0.02)
+
+Test Case 582/1001.
+-0.4*x1**(3/2)-0.68
+SymbolicGPT:3.2780957452925867
+-1.36*x1+sin(x1-0.56)+0.36
+
+Test Case 583/1001.
+sqrt(x1+0.39)
+SymbolicGPT:0.2615619354396221
+0.5*sqrt(x1)+sin(0.01*x1+0.66)
+
+Test Case 584/1001.
+sin(0.65*x1-0.2)
+SymbolicGPT:0.11250663866484242
+sin(0.72*x1-0.13)
+
+Test Case 585/1001.
+0.19*x1**2-0.25*x1+0.04
+SymbolicGPT:10.126360086098611
+-sin(0.94*x1)+sin(x1+0.11)
+
+Test Case 586/1001.
+sin(2*x1-0.71)
+SymbolicGPT:0.02020847880519287
+sin(2*x1-0.51)
+
+Test Case 587/1001.
+sqrt(-sin(0.09*x1-0.8))
+SymbolicGPT:0.0851188313512137
+0.97*(0.36*x1-1)**(1/4)
+
+Test Case 588/1001.
+1.41*sqrt(x1-0.03)
+SymbolicGPT:0.23139693232529254
+sqrt(x1)+0.01*x1+0.34
+
+Test Case 589/1001.
+-0.63*x1**2+sin(x1-0.96)
+SymbolicGPT:1.2964106708534011
+-0.58*x1**2+sin(x1-0.95)
+
+Test Case 590/1001.
+-0.6*x1**2*sin(x1+0.45)-0.1*x1+0.54
+SymbolicGPT:71.86458154764001
+sin(-0.74*x1**2+0.26*x1+0.29)
+
+Test Case 591/1001.
+0.39*sqrt(-x1)+0.63*sqrt(0.61-x1)
+SymbolicGPT:0.0062822868301520745
+0.18*x1+0.64*sqrt(x1-0.66)
+
+Test Case 592/1001.
+-sin(sin(0.55*x1))
+SymbolicGPT:0.07046875406309981
+-sin(0.63*x1-0.05)
+
+Test Case 593/1001.
+sin(0.92*sqrt(x1))
+SymbolicGPT:0.9215650672806237
+0.94*(-x1)**(1/4)
+
+Test Case 594/1001.
+0.8*sqrt(-x1**2-0.61*x1+0.59)
+SymbolicGPT:1.0165743136608383
+0.21*x1*sqrt(x1-0.52)+0.88
+
+Test Case 595/1001.
+sin(sqrt(x1+0.36))
+SymbolicGPT:0.5656990903006027
+0.65*sqrt(-x1-0.83)
+
+Test Case 596/1001.
+-sin(0.54*x1)-sin(0.86*x1)
+SymbolicGPT:31.818598089658916
+0.03-1.19*x1
+
+Test Case 597/1001.
+sin(0.79*x1-0.74)
+SymbolicGPT:0.032444054460107896
+sin(0.84*x1-0.75)
+
+Test Case 598/1001.
+0.99*(x1-0.77)**(1/4)
+SymbolicGPT:0.00019310806131953245
+(x1-0.77)**(1/4)
+
+Test Case 599/1001.
+0.55-0.56*x1**2
+SymbolicGPT:0.41578266366666716
+-0.53*x1**2+0.07*x1+0.16
+
+Test Case 600/1001.
+sin(x1-0.91)
+SymbolicGPT:0.0002049507642672323
+sin(x1-0.89)
+
+Test Case 601/1001.
+sin(2*x1+0.42)
+SymbolicGPT:0.00019082426195393543
+sin(2*x1+0.44)
+
+Test Case 602/1001.
+-0.59*x1+0.03*sqrt(-x1)
+SymbolicGPT:3.3032441345355514
+0.02*x1**2-0.29*x1+0.04
+
+Test Case 603/1001.
+-0.32*x1+sin(x1+0.32)-0.74
+SymbolicGPT:0.48838249675862583
+-0.51*x1+sin(x1)-0.46
+
+Test Case 604/1001.
+sin(x1)
+SymbolicGPT:0.01610748154247029
+sin(0.94*x1+0.08)
+
+Test Case 605/1001.
+sqrt(x1-0.3)*sin(x1)
+SymbolicGPT:5.712892812579506
+x1*sin(x1-0.2)-0.37
+
+Test Case 606/1001.
+0.37*x1**2-0.05*x1-0.13*sin(x1)
+SymbolicGPT:540.8342345457785
+0.67*x1**2*sin(x1-0.18)-0.82*x1+0.39
+
+Test Case 607/1001.
+sqrt(sin(0.3*x1-0.13))
+SymbolicGPT:0.009884780907882569
+0.44*sqrt(x1-0.59)
+
+Test Case 608/1001.
+0.36*x1-0.86
+SymbolicGPT:86.93633435430918
+0.03*x1**2+2.19*x1-0.37*sqrt(0.95*x1-1)
+
+Test Case 609/1001.
+2.19*x1-0.08
+SymbolicGPT:0.056551626545057916
+0.27*sqrt(x1)+2*x1
+
+Test Case 610/1001.
+0.11*x1**2+0.54*x1+sqrt(x1-0.33)
+SymbolicGPT:0.28293626048656606
+1.03*x1+1.23*sqrt(x1-0.3)
+
+Test Case 611/1001.
+sqrt(sin(x1+0.98))
+SymbolicGPT:0.09842218622134143
+sqrt(sin(0.81*x1+0.99))
+
+Test Case 612/1001.
+2.9*x1+0.07
+SymbolicGPT:1.1863791666666659
+2.65*x1+0.14
+
+Test Case 613/1001.
+0.9*x1
+SymbolicGPT:0.03698785171316323
+sqrt(x1**2-0.55*x1)
+
+Test Case 614/1001.
+1.55*x1-0.34
+SymbolicGPT:3.12016312597882
+x1+sin(0.29*x1+0.32)-0.5
+
+Test Case 615/1001.
+-0.8*x1**2-0.51*x1+sqrt(x1-0.76)-0.02
+SymbolicGPT:4.246061448397946
+-0.8*x1**2+0.84*sqrt(x1-0.81)
+
+Test Case 616/1001.
+1.83*x1
+SymbolicGPT:5.654186016844927
+0.66*sqrt(x1)+x1+0.07
+
+Test Case 617/1001.
+-sin(0.9*x1)
+SymbolicGPT:0.0006617816084768072
+-sin(0.93*x1-0.09)
+
+Test Case 618/1001.
+0.49*sqrt(-x1**2)
+SymbolicGPT:16.007849711217748
+0.11*x1**2+0.91*x1+0.69*sin(x1+0.05)
+
+Test Case 619/1001.
+0.51*x1**2-0.35*x1
+SymbolicGPT:46.42555779966668
+0.78*x1-0.29
+
+Test Case 620/1001.
+sqrt(x1-0.72)
+SymbolicGPT:0.001010706960037735
+sqrt(x1-0.84)
+
+Test Case 621/1001.
+sqrt(x1-0.67)
+SymbolicGPT:0.0005577206072095313
+sqrt(x1-0.76)
+
+Test Case 622/1001.
+2.62*x1-0.6
+SymbolicGPT:330.91172369588884
+0.71*sqrt(x1)+x1**2+1.26*x1-0.53
+
+Test Case 623/1001.
+0.37*x1**3+0.49*x1
+SymbolicGPT:1700.3486820085466
+sqrt(x1**2-0.08*x1-0.05)+0.12*x1-0.21
+
+Test Case 624/1001.
+-0.29*x1
+SymbolicGPT:0.2187040579874065
+-sin(0.26*x1-0.06)
+
+Test Case 625/1001.
+0.23*x1**2+0.85*x1
+SymbolicGPT:0.3980056100770214
+0.39*x1**2-0.18*x1+0.95*sqrt(x1+0.58)-0.6
+
+Test Case 626/1001.
+-0.57*x1**3
+SymbolicGPT:147.90019360071685
+-0.66*x1**3-0.34*x1
+
+Test Case 627/1001.
+-0.1*x1*sqrt(1-0.93*x1)-0.7
+SymbolicGPT:0.010652529059384198
+-sin(0.06*x1+0.52)*sqrt(0.49-x1)
+
+Test Case 628/1001.
+sqrt(x1)+0.61*x1**2+0.08*x1-0.49
+SymbolicGPT:10.541976533333346
+sqrt(x1)+0.81*x1**2-0.22*x1-0.45
+
+Test Case 629/1001.
+0.58*x1+sin(x1+0.54)-0.25
+SymbolicGPT:3.0175107232488623
+0.46*sqrt(x1)+sin(0.82*x1+0.25)
+
+Test Case 630/1001.
+sqrt(x1**2+0.27*x1)
+SymbolicGPT:0.6295538832234793
+0.78*sqrt(-x1**2-0.98*x1)
+
+Test Case 631/1001.
+0.94*sqrt(x1)+1.18*x1-0.4
+SymbolicGPT:2.9489339854419696
+sqrt(x1)+0.75*x1-0.25
+
+Test Case 632/1001.
+0.86*sqrt(-0.92*x1-1)
+SymbolicGPT:0.12388400573461518
+0.87*sqrt(0.53*x1+1)
+
+Test Case 633/1001.
+sin(x1**2+0.15*x1-0.73)
+SymbolicGPT:1.822989408906544
+sin(x1**2+0.81*x1-0.75)
+
+Test Case 634/1001.
+sqrt(x1**2-0.82*x1)
+SymbolicGPT:0.032222870453853907
+0.97*sqrt(-x1**2+0.92*x1)
+
+Test Case 635/1001.
+0.87*sqrt(x1**2)
+SymbolicGPT:0.001787564385496426
+0.82*sqrt(-x1**2-0.56*x1)
+
+Test Case 636/1001.
+sin(sin(x1))
+SymbolicGPT:2.0909027566755416
+sqrt(sin(x1+0.03))
+
+Test Case 637/1001.
+sin(sin(0.76*x1-0.51))
+SymbolicGPT:0.03205744963135763
+sin(0.69*x1-0.38)
+
+Test Case 638/1001.
+0.46*x1*sin(0.17*x1)+0.6
+SymbolicGPT:3.2929971362078163
+1.07-0.03*x1**2
+
+Test Case 639/1001.
+0.24*sqrt(-x1)
+SymbolicGPT:0.02991683118688887
+sin(sin(0.04*x1+0.17))
+
+Test Case 640/1001.
+x1
+SymbolicGPT:0.7222234134436524
+0.77*sqrt(-x1**2-0.59*x1)
+
+Test Case 641/1001.
+0.48*sqrt(-x1-0.78)
+SymbolicGPT:0.02803414036865889
+0.86*sqrt(-0.25*x1-1)*sin(0.04*x1+0.66)
+
+Test Case 642/1001.
+x1+0.78*sqrt(-0.99*x1-1)
+SymbolicGPT:0.09278073659130458
+x1+0.73*sqrt(-0.74*x1-1)
+
+Test Case 643/1001.
+sin(1.75*x1-0.12)
+SymbolicGPT:0.16131692883944287
+sin(1.85*x1-0.03)
+
+Test Case 644/1001.
+-sin(1.0*x1+0.86)
+SymbolicGPT:0.046929769183301065
+-sin(1.08*x1+0.76)
+
+Test Case 645/1001.
+0.68*sqrt(x1)
+SymbolicGPT:1.068546503228562
+sqrt(x1)-0.38*x1+0.05
+
+Test Case 646/1001.
+0.83*sqrt(0.26-x1)+sin(0.24*x1+0.12)
+SymbolicGPT:0.3556615935536737
+0.64*sqrt(0.53*x1+1)+sin(0.41*x1-0.04)
+
+Test Case 647/1001.
+(x1-0.37)**(1/4)
+SymbolicGPT:3.1744550093593732e-06
+(x1-0.35)**(1/4)
+
+Test Case 648/1001.
+1.06*x1+0.09
+SymbolicGPT:2.2947104853001026
+0.85*sqrt(0.99-x1)*sqrt(x1-0.03)
+
+Test Case 649/1001.
+0.95*(-x1)**(1/4)
+SymbolicGPT:0.0
+0.99*(-x1)**(1/4)
+
+Test Case 650/1001.
+0.7*x1*sqrt(0.52-x1)
+SymbolicGPT:11.158175079829965
+0.8*x1-0.13*sqrt(x1-0.65)
+
+Test Case 651/1001.
+0.8*x1*sin(0.6*x1+0.78)-0.31
+SymbolicGPT:2.263169556811618
+0.77*sqrt(-x1-0.54)*sin(x1-0.3)
+
+Test Case 652/1001.
+sqrt(x1)+2*x1
+SymbolicGPT:20.819566666666667
+sqrt(x1)+x1+0.07
+
+Test Case 653/1001.
+0.96*(-x1-0.71)**(1/4)
+SymbolicGPT:0.9606396772281091
+0.98*(0.53*x1+1)**(1/4)
+
+Test Case 654/1001.
+0.05*x1**(3/2)+0.39*x1**2
+SymbolicGPT:27.108033621355457
+0.59*x1**2*sin(0.48*x1+0.1)-0.31*x1-0.3
+
+Test Case 655/1001.
+x1+sin(x1)
+SymbolicGPT:3.6015941793418964
+0.59*x1+sin(x1+0.04)
+
+Test Case 656/1001.
+1.37*x1+0.49
+SymbolicGPT:1.4265726666666674
+1.11*x1+0.5
+
+Test Case 657/1001.
+1.37*sqrt(x1-0.27)
+SymbolicGPT:0.009003787640496152
+sqrt(2)*sqrt(x1-0.26)
+
+Test Case 658/1001.
+sin(0.18*x1)
+SymbolicGPT:0.018324009371744204
+sin(0.21*x1+0.1)
+
+Test Case 659/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0
+sqrt(sin(x1))
+
+Test Case 660/1001.
+x1**2+0.27*x1+sin(x1-0.26)
+SymbolicGPT:277.5998845901924
+1.52*x1-0.15
+
+Test Case 661/1001.
+(x1+0.03)**(1/4)
+SymbolicGPT:1.0870686137865831e-05
+(x1+0.07)**(1/4)
+
+Test Case 662/1001.
+sin(sqrt(x1))
+SymbolicGPT:0.14555919697255887
+0.81*x1**(1/4)
+
+Test Case 663/1001.
+-0.53*x1**2+0.42*x1
+SymbolicGPT:1385.7600540107362
+x1**2+0.89*x1+0.22*sin(0.02*x1+0.4)
+
+Test Case 664/1001.
+-1.33*x1
+SymbolicGPT:2.2189840000000007
+0.94-1.21*x1
+
+Test Case 665/1001.
+sin(0.74*sqrt(-x1))
+SymbolicGPT:0.6708871286768834
+0.81*(-x1)**(1/4)
+
+Test Case 666/1001.
+-1.0*x1+0.1*sqrt(-x1)
+SymbolicGPT:0.27224468824920905
+-0.85*x1+0.04
+
+Test Case 667/1001.
+sin(sqrt(x1))
+SymbolicGPT:0.9141224262448707
+0.95*(-x1)**(1/4)
+
+Test Case 668/1001.
+sqrt(sin(x1+0.7))
+SymbolicGPT:0.004902079006970752
+sqrt(sin(x1+0.78))
+
+Test Case 669/1001.
+sqrt(2)*sqrt(x1+0.26)
+SymbolicGPT:4.403547550308457
+0.08*x1**2+sin(x1+0.63)
+
+Test Case 670/1001.
+0.27*x1+0.75*sqrt(0.64*x1+1)
+SymbolicGPT:0.499513043340173
+0.88*sqrt(x1+0.77)
+
+Test Case 671/1001.
+x1**2+0.95*x1-0.83
+SymbolicGPT:0.0392864999999991
+x1**2+0.98*x1-0.77
+
+Test Case 672/1001.
+2*x1**2-0.39
+SymbolicGPT:1483.527184
+1.48*x1+0.11
+
+Test Case 673/1001.
+-0.16*x1**2*sqrt(x1+0.95)
+SymbolicGPT:44.52678301608609
+-0.13*x1**2+0.13*x1+0.04
+
+Test Case 674/1001.
+sqrt(x1+0.45)
+SymbolicGPT:0.22889742583242403
+0.79*sqrt(x1+0.4)
+
+Test Case 675/1001.
+sin(0.06*x1)
+SymbolicGPT:0.003359652021411407
+0.03*x1+0.08
+
+Test Case 676/1001.
+sqrt(sin(x1-0.87))
+SymbolicGPT:0.00033795542608432
+sqrt(sin(x1-0.89))
+
+Test Case 677/1001.
+-0.91*x1**2-0.43*x1+sin(x1)+0.43
+SymbolicGPT:18.953919278523223
+-0.94*x1**2+0.8*x1-sin(0.41*x1-0.48)
+
+Test Case 678/1001.
+0.12*x1**2+1.17*x1-0.38
+SymbolicGPT:8556.815476451999
+0.59*sqrt(2-x1.17)-sin(0.55*x1-0.1)
+
+Test Case 679/1001.
+2*x1*sin(x1)
+SymbolicGPT:0.3514343666455117
+1.89*x1*sin(x1+0.08)-0.56
+
+Test Case 680/1001.
+0.24*x1**2-0.66
+SymbolicGPT:1.1538889746666667
+0.97*x1-0.08
+
+Test Case 681/1001.
+x1-sin(0.81*x1+0.99)
+SymbolicGPT:6.952233754496017
+x1-0.88*sqrt(0.76*x1+1)
+
+Test Case 682/1001.
+-0.25*x1
+SymbolicGPT:1.3407291666666665
+0
+
+Test Case 683/1001.
+sin(0.87*sqrt(x1-0.85))
+SymbolicGPT:0.1377747897201807
+sqrt(sin(0.78*x1-0.67))
+
+Test Case 684/1001.
+sin(sin(x1+0.24))
+SymbolicGPT:2.098105494706301
+sqrt(sin(x1+0.14))
+
+Test Case 685/1001.
+0.73*x1+0.16*sin(x1-0.16)
+SymbolicGPT:19.868305274097573
+0.25*x1**2*sin(x1)+0.68*x1-0.2
+
+Test Case 686/1001.
+0.64*x1**2+0.66*x1+0.55
+SymbolicGPT:11.066051366352353
+x1**2-0.27*x1+sin(x1+0.59)
+
+Test Case 687/1001.
+0.13*x1**2+1.02*x1
+SymbolicGPT:283.442538325
+-0.32*x1**2-0.36*x1-0.22
+
+Test Case 688/1001.
+-0.74*x1**2-0.85*x1-0.19
+SymbolicGPT:37.155544904080934
+-0.52*x1**2-0.45*x1-sin(0.13*x1+0.18)-0.28
+
+Test Case 689/1001.
+0.45*sqrt(-x1**2)
+SymbolicGPT:1.3190053311885497
+0.66*sqrt(0.25-x1)*sin(0.44*x1+0.13)
+
+Test Case 690/1001.
+sin(1.62*x1+0.08)
+SymbolicGPT:0.3009336754551348
+sin(1.76*x1+0.16)
+
+Test Case 691/1001.
+2*sqrt(x1)
+SymbolicGPT:0.0
+2*sqrt(x1)
+
+Test Case 692/1001.
+0.56*sqrt(x1)
+SymbolicGPT:0.2759757563651417
+0.26*sqrt(-x1)+0.06*sqrt(0.9-x1)
+
+Test Case 693/1001.
+0.03*x1+0.68
+SymbolicGPT:1.1734024861513201
+0.76*x1**2*sin(0.02*x1+0.07)-0.31*x1
+
+Test Case 694/1001.
+0.73*sqrt(x1+0.22)
+SymbolicGPT:0.03344627394419944
+0.65*sqrt(-x1)+0.39
+
+Test Case 695/1001.
+x1**2+x1-0.37
+SymbolicGPT:4.022762499999997
+x1**2+0.55*x1-0.29
+
+Test Case 696/1001.
+sin(sin(x1-0.59))
+SymbolicGPT:0.35357533156513715
+sin(x1)+sin(0.26*x1-0.55)
+
+Test Case 697/1001.
+-0.53*x1**3-0.82*x1**2+0.74*x1
+SymbolicGPT:30002.063608316457
+2*15110.63650-0.26312-0.0.0.1*0.0.22*11130.1242660011.21-2-1
+
+Test Case 698/1001.
+sqrt(x1)+0.38*x1**2+0.26*x1+0.02
+SymbolicGPT:5.949977268000002
+sqrt(x1)+0.52*x1**2+0.06*x1+0.18
+
+Test Case 699/1001.
+0.54*x1
+SymbolicGPT:329.0277091666667
+x1**2-0.51*x1+0.06
+
+Test Case 700/1001.
+sqrt(x1+0.13)+sin(x1)
+SymbolicGPT:0.030641305597554923
+sqrt(x1+0.06)+sin(x1+0.25)
+
+Test Case 701/1001.
+-0.75*x1**2-0.38*x1+0.13*sqrt(1-0.88*x1)
+SymbolicGPT:278.9684536293518
+-0.75*x1**2*sqrt(1-0.96*x1)-0.32*x1+0.23
+
+Test Case 702/1001.
+(x1+0.59)**(1/4)
+SymbolicGPT:0.007522813487396213
+0.9*sqrt(-0.46*x1-1)
+
+Test Case 703/1001.
+sin(sqrt(x1+0.54))
+SymbolicGPT:0.4380834223696389
+0.63*sqrt(x1+0.29)
+
+Test Case 704/1001.
+sqrt(x1+0.64)
+SymbolicGPT:0.009242819453894612
+0.75*sqrt(x1)+0.77*sqrt(0.08*x1-1)
+
+Test Case 705/1001.
+0.32*x1**2+x1
+SymbolicGPT:1.8520788924992455
+0.39*x1**2+0.85*sqrt(0.53-x1)
+
+Test Case 706/1001.
+sin(0.8*x1+0.63)
+SymbolicGPT:2.3776528470175426
+sqrt(sin(x1+0.29))
+
+Test Case 707/1001.
+sin(0.39*x1**2-0.09*x1)
+SymbolicGPT:165.84042474653805
+0.13*x1**2+2.14*x1-0.12
+
+Test Case 708/1001.
+sqrt(x1+0.28)
+SymbolicGPT:0.036738131003892296
+0.75*sqrt(-x1)+0.41
+
+Test Case 709/1001.
+-sin(1.93*x1-0.16)
+SymbolicGPT:0.1493756524808926
+-sin(1.82*x1-0.21)
+
+Test Case 710/1001.
+(x1-0.76)**(1/4)
+SymbolicGPT:3.783968357779536e-06
+(x1-0.78)**(1/4)
+
+Test Case 711/1001.
+sin(0.59*sqrt(x1))
+SymbolicGPT:1.2054469482636196
+0.13*x1+0.67*sqrt(x1+0.04)
+
+Test Case 712/1001.
+1.04*x1
+SymbolicGPT:0.4007923485524566
+0.86*sqrt(-x1**2-0.49*x1)
+
+Test Case 713/1001.
+0.5*x1**2-0.61*x1*sin(0.38*x1)
+SymbolicGPT:77.98336693391447
+0.03*x1**2-0.05*x1-0.39
+
+Test Case 714/1001.
+sin(x1-0.78)
+SymbolicGPT:0.0008100909354521444
+sin(x1-0.74)
+
+Test Case 715/1001.
+sqrt(x1-0.36)-sin(0.27*x1)
+SymbolicGPT:8.142314067150258
+0.94*sqrt(0.35-x1)*sqrt(0.47-x1)
+
+Test Case 716/1001.
+0.76*x1**2*sqrt(x1-0.81)
+SymbolicGPT:236.94795252211648
+x1**2-0.47*x1+0.06*sqrt(x1-0.96)
+
+Test Case 717/1001.
+-sin(sin(0.92*x1))
+SymbolicGPT:0.026779247667881974
+-sin(0.98*x1-0.03)
+
+Test Case 718/1001.
+sin(x1)**2
+SymbolicGPT:0.020616583932648307
+sin(0.92*x1+0.23)*sin(x1-0.24)
+
+Test Case 719/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0006361905998519207
+sqrt(sin(x1+0.03))
+
+Test Case 720/1001.
+0.14*x1**2*sin(0.78*x1)
+SymbolicGPT:9.903607457614923
+sin(0.01*x1**2-0.91*x1+0.07)
+
+Test Case 721/1001.
+sin(x1-0.3)
+SymbolicGPT:0.005848534730557148
+sin(x1-0.19)
+
+Test Case 722/1001.
+1.84*x1+0.53
+SymbolicGPT:3.871102166873767
+0.03*x1**2+0.99*x1+0.59*sqrt(0.14-x1)+0.59
+
+Test Case 723/1001.
+-0.3*x1**4+0.22*x1
+SymbolicGPT:28545.132723985436
+-0.24*x1**3+0.25*x1**2+0.61*x1
+
+Test Case 724/1001.
+-0.51*x1**2*sin(0.5*x1)-0.46*x1
+SymbolicGPT:137.48664706128793
+-0.89*x1**2+0.24*x1+0.08
+
+Test Case 725/1001.
+-0.67*x1**2-1.39*x1-0.47
+SymbolicGPT:10.974635844750708
+-0.26*x1**2*sqrt(x1+0.95)-0.87*x1-0.49
+
+Test Case 726/1001.
+0.81*x1**2*sqrt(-x1)
+SymbolicGPT:525.476264582401
+0.88*x1**2-0.25*x1+0.05*sqrt(x1-0.66)
+
+Test Case 727/1001.
+sqrt(sin(0.08*x1-0.26))
+SymbolicGPT:0.0005447557576302695
+sqrt(-sin(0.08*x1-0.25))
+
+Test Case 728/1001.
+-sin(0.29*x1)
+SymbolicGPT:8.716885412712607
+0.48*x1-sin(0.75*x1-0.36)-0.29
+
+Test Case 729/1001.
+1.02*x1
+SymbolicGPT:0.03877161897214459
+0.94*sqrt(x1**2+0.39*x1)
+
+Test Case 730/1001.
+0.84*sqrt(0.53-x1)
+SymbolicGPT:0.010499878033220273
+0.89*sqrt(x1-0.52)
+
+Test Case 731/1001.
+sqrt(sin(x1+0.22))
+SymbolicGPT:0.002821204099108909
+sqrt(sin(x1+0.31))
+
+Test Case 732/1001.
+x1
+SymbolicGPT:0.22052647760948235
+0.95*sqrt(x1-0.5)*sqrt(x1+0.01)
+
+Test Case 733/1001.
+0.26*sqrt(-x1-0.96)*sqrt(-0.95*x1-1)
+SymbolicGPT:0.11037450398227606
+0.26*x1+0.77*sqrt(0.54*x1-1)-0.4
+
+Test Case 734/1001.
+0.5*x1+0.36
+SymbolicGPT:0.03570625424472459
+0.62*sqrt(-0.8*x1**2-x1+0.47)
+
+Test Case 735/1001.
+0.56*sqrt(0.86-x1)
+SymbolicGPT:0.011398050024755524
+0.51*sqrt(x1-0.94)
+
+Test Case 736/1001.
+1.4*x1*sqrt(-x1)+0.78
+SymbolicGPT:0.9237102559008021
+0.37*x1**2+1.62*x1+0.09
+
+Test Case 737/1001.
+0.94*x1
+SymbolicGPT:0.5892599596666668
+0.11*x1**2+0.54*x1+0.02
+
+Test Case 738/1001.
+sqrt(x1+0.35)-sin(0.04*x1+0.64)
+SymbolicGPT:0.4794241883197888
+-0.06*x1**2+0.45*x1+0.07
+
+Test Case 739/1001.
+0.19*x1**3-0.77*x1**2-0.43*x1
+SymbolicGPT:14632.652649828524
+-0.96*x1**3-0.78**3*2*x1
+
+Test Case 740/1001.
+-sin(0.06*x1)
+SymbolicGPT:3.607205034275059
+0.71*sqrt(x1+1.0)-sin(0.48*x1+0.82)
+
+Test Case 741/1001.
+sin(0.84*x1)
+SymbolicGPT:1.149105279924622
+sqrt(x1-0.05)*sin(0.75*x1+0.75)
+
+Test Case 742/1001.
+-0.27*x1**2
+SymbolicGPT:0.5189482723632965
+-0.25*x1**2-0.27*x1+sqrt(x1+0.92)-0.82
+
+Test Case 743/1001.
+sin(0.74*x1+0.64)
+SymbolicGPT:2.099219630345252
+sqrt(sin(x1+0.38))
+
+Test Case 744/1001.
+x1-0.8
+SymbolicGPT:0.0008999999999999946
+x1-0.77
+
+Test Case 745/1001.
+0.94*x1**2+0.32*x1-1.01
+SymbolicGPT:0.2310778191772916
+x1**2-0.7*x1+sqrt(x1-0.81)-0.02
+
+Test Case 746/1001.
+x1**2
+SymbolicGPT:0.6156339999999992
+x1**2-0.18*x1+0.05
+
+Test Case 747/1001.
+sin(0.26*sqrt(1-0.34*x1))
+SymbolicGPT:0.012405864807273626
+0.28*sqrt(0.21*x1-1)
+
+Test Case 748/1001.
+sqrt(x1)+sin(0.57*x1-0.85)
+SymbolicGPT:0.8123144220747307
+sqrt(x1)+0.55*x1-0.93
+
+Test Case 749/1001.
+sin(0.48*x1**2)
+SymbolicGPT:1.127744975623212
+sin(0.69*x1**2-0.59*x1+0.07)
+
+Test Case 750/1001.
+-sin(0.03*x1)
+SymbolicGPT:0.0037803711882860224
+0.01*x1-sin(0.04*x1+0.04)+0.1
+
+Test Case 751/1001.
+sin(sin(0.29*x1))
+SymbolicGPT:0.03130953549914432
+sin(0.14*x1+0.06)
+
+Test Case 752/1001.
+sin(2*x1+0.18)
+SymbolicGPT:0.0038612918491267726
+sin(2*x1+0.27)
+
+Test Case 753/1001.
+0.97*sqrt(1-0.37*x1)
+SymbolicGPT:0.001966809913690473
+0.99*sqrt(0.38*x1-1)
+
+Test Case 754/1001.
+0.47*sqrt(1-0.07*x1)*sqrt(-x1-0.38)
+SymbolicGPT:0.08529994725230784
+0.16*x1+0.4
+
+Test Case 755/1001.
+-0.31*x1**2+0.47*x1
+SymbolicGPT:164.54418030366668
+0.02*x1**2+1.62*x1
+
+Test Case 756/1001.
+sqrt(x1-0.44)
+SymbolicGPT:6.384821828730322e-06
+sqrt(x1-0.45)
+
+Test Case 757/1001.
+sqrt(2)*sqrt(x1-0.4)
+SymbolicGPT:0.00011401053824942805
+sqrt(2)*sqrt(x1-0.43)
+
+Test Case 758/1001.
+sin(0.12*x1**2)
+SymbolicGPT:0.6145332176284153
+-sin(0.08*x1-0.21)*sin(x1-0.56)
+
+Test Case 759/1001.
+0.89*sqrt(x1+0.78)
+SymbolicGPT:0.32299794820240396
+(x1+0.42)**(1/4)
+
+Test Case 760/1001.
+sqrt(x1**2+0.53*x1)
+SymbolicGPT:0.17064347713285388
+0.97*sqrt(0.78*x1**2+x1)
+
+Test Case 761/1001.
+sin(0.87*sqrt(x1-0.85))
+SymbolicGPT:0.005957843779419529
+sin(sqrt(x1-0.89))
+
+Test Case 762/1001.
+sin(sqrt(x1+0.02))
+SymbolicGPT:0.4130623259317802
+sqrt(x1)-sin(0.49*x1-0.28)
+
+Test Case 763/1001.
+-0.53*x1**4-0.01*x1+0.15
+SymbolicGPT:61909.343062784785
+-0.65*x1**3-0.48*x1**2
+
+Test Case 764/1001.
+sqrt(x1-0.41)+sin(x1)
+SymbolicGPT:11.813430039414532
+-0.03*x1**2+0.74*x1+sqrt(x1-0.39)
+
+Test Case 765/1001.
+x1*sin(x1-0.73)
+SymbolicGPT:26.763112654806683
+0.2*x1**2+0.82*x1*sin(x1-0.76)
+
+Test Case 766/1001.
+0.26*x1**2+0.99*x1-0.2
+SymbolicGPT:3.724543853096908
+0.34*x1**2-0.15*x1+0.78*sqrt(0.03+x1)-0.31
+
+Test Case 767/1001.
+0.32*x1**4-0.28*x1+0.03
+SymbolicGPT:51211.048033620966
+-0.26*x1**3+0.26*x1**2
+
+Test Case 768/1001.
+0.92*sqrt(-0.18*x1**2+0.95*x1+1)
+SymbolicGPT:0.18849590687708587
+0.95*(0.77*x1+1)**(1/4)
+
+Test Case 769/1001.
+x1**(3/2)-0.76
+SymbolicGPT:111.5736545552723
+x1**2-0.63*x1
+
+Test Case 770/1001.
+0.73*sqrt(x1)
+SymbolicGPT:0.2451990611704022
+0.68*(-x1)**(1/4)
+
+Test Case 771/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 772/1001.
+0.28*sqrt(-x1**2+0.5*x1)
+SymbolicGPT:0.20015467875377485
+sqrt(x1)*sin(0.14*x1-0.28)
+
+Test Case 773/1001.
+2.28*x1-0.98
+SymbolicGPT:2.9984592986722873
+0.43*sqrt(x1)+1.68*x1-0.84
+
+Test Case 774/1001.
+2*x1
+SymbolicGPT:0.01439999999999987
+2*x1+0.12
+
+Test Case 775/1001.
+2*x1
+SymbolicGPT:0.09037916666666636
+2.05*x1+0.07
+
+Test Case 776/1001.
+0.74*x1**3
+SymbolicGPT:4640.36502701496
+x1**2-0.73*x1+0.04*sqrt(x1-0.45)
+
+Test Case 777/1001.
+sin(sin(x1))
+SymbolicGPT:0.0009183178933060554
+sin(sin(x1+0.05))
+
+Test Case 778/1001.
+1.84*x1*sqrt(x1-0.8)+1.14
+SymbolicGPT:43.294559727494644
+x1**2+sqrt(x1-0.88)
+
+Test Case 779/1001.
+-0.25*x1**2+1.87*x1+0.04
+SymbolicGPT:0.41883356787125575
+sqrt(1.0*x1-0.06)+sin(0.57*x1)
+
+Test Case 780/1001.
+sqrt(x1)
+SymbolicGPT:0.4639675690553821
+x1**(1/4)
+
+Test Case 781/1001.
+0.09*x1-0.21*sin(0.85*x1)
+SymbolicGPT:0.1112580665738179
+sin(0.25*x1+0.83)-sin(0.77*x1-0.68)
+
+Test Case 782/1001.
+x1**2+x1+0.76
+SymbolicGPT:0.9003351666666659
+x1**2+0.81*x1+0.69
+
+Test Case 783/1001.
+-0.08*x1**2+0.93*x1-0.58
+SymbolicGPT:1.3011653320000003
+-0.06*x1**2+1.07*x1-0.54
+
+Test Case 784/1001.
+sin(x1-0.89)*sin(x1+0.95)
+SymbolicGPT:0.016125019396284405
+sin(x1-0.69)*sin(x1+0.93)
+
+Test Case 785/1001.
+-0.81*x1**2-0.08
+SymbolicGPT:3.3105026326033564
+-0.34*x1**2*sqrt(x1+0.37)-0.44*x1+0.05
+
+Test Case 786/1001.
+0.04*x1+0.41
+SymbolicGPT:0.08533517128030141
+sin(0.72*sqrt(1-0.26*x1))
+
+Test Case 787/1001.
+sin(0.43*x1-0.1)
+SymbolicGPT:1.7522018641834252
+sin(0.14*x1**2+0.43*x1)
+
+Test Case 788/1001.
+0.67*sqrt(0.67*x1+1)
+SymbolicGPT:0.0024189947819903595
+0.12*x1+0.75
+
+Test Case 789/1001.
+0.37*x1*sqrt(-x1)+0.47
+SymbolicGPT:0.5857139738468473
+0.65*x1+0.24*sqrt(0.03-x1)
+
+Test Case 790/1001.
+sin(x1)
+SymbolicGPT:0.010956487468224085
+sin(0.95*x1+0.07)
+
+Test Case 791/1001.
+0.57*x1**3-0.86*x1-0.25
+SymbolicGPT:4224.9192683717565
+-0.23*x1**2*sin(x1+0.45)-0.87*x1+0.16
+
+Test Case 792/1001.
+1.19*x1**2+1.61*x1
+SymbolicGPT:48.82284827297261
+x1**2+0.97*x1+sin(0.56*x1+0.07)
+
+Test Case 793/1001.
+-0.61*x1
+SymbolicGPT:0.017977364508721748
+-0.6*x1-sin(0.05*x1)+0.05
+
+Test Case 794/1001.
+sqrt(x1)-0.07*x1
+SymbolicGPT:0.0036957073334501563
+0.88*(-x1)**(1/4)
+
+Test Case 795/1001.
+2*x1-0.92
+SymbolicGPT:0.00809999999999997
+2*x1-0.83
+
+Test Case 796/1001.
+2.87*x1+0.22
+SymbolicGPT:5.52021066666667
+2.35*x1+0.28
+
+Test Case 797/1001.
+x1**(3/2)
+SymbolicGPT:31.840920145197078
+1.08*x1-0.19*sqrt(0.07-x1)
+
+Test Case 798/1001.
+-sin(0.96*x1**2-0.08*x1)
+SymbolicGPT:0.6160006546331808
+-sin(0.89*x1**2-0.02)
+
+Test Case 799/1001.
+0.58*x1**2+0.04*x1+sin(x1-0.54)
+SymbolicGPT:5.5042693509400955
+x1*sqrt(x1+0.87)-0.49
+
+Test Case 800/1001.
+sin(0.76*x1)
+SymbolicGPT:0.02154487097431752
+sin(0.71*x1+0.04)
+
+Test Case 801/1001.
+0.58*sqrt(0.03*x1**2-x1)
+SymbolicGPT:0.25791058028225516
+0.71*sqrt(-x1)-sin(0.26*x1-0.08)
+
+Test Case 802/1001.
+sin(x1-0.89)*sin(x1+0.74)
+SymbolicGPT:0.003620670953954739
+sin(x1-0.84)*sin(x1+0.67)
+
+Test Case 803/1001.
+0.95*sqrt(x1-0.12)
+SymbolicGPT:0.006640057564735082
+sqrt(x1-0.22)
+
+Test Case 804/1001.
+x1**(3/2)
+SymbolicGPT:0.1693951417720981
+x1*sqrt(x1-0.44)+0.07
+
+Test Case 805/1001.
+sqrt(-sin(0.24*x1-0.59))
+SymbolicGPT:0.0005081449429968028
+sqrt(-sin(0.28*x1-0.75))
+
+Test Case 806/1001.
+1.26*sqrt(x1-0.44)
+SymbolicGPT:0.09342704340732515
+sqrt(2)*sqrt(x1-0.46)
+
+Test Case 807/1001.
+x1
+SymbolicGPT:0.006686251917727088
+0.99*sqrt(-x1**2-0.26*x1)
+
+Test Case 808/1001.
+-sin(0.22*x1)
+SymbolicGPT:0.7048144725517779
+sin(0.18*x1-0.82)*sin(0.44*x1-0.09)
+
+Test Case 809/1001.
+-1.25*x1*sin(0.6*x1-0.56)
+SymbolicGPT:67.35732428188395
+-0.51*x1**2+0.26*x1+sin(0.76*x1+0.11)
+
+Test Case 810/1001.
+sin(0.42*sqrt(x1))
+SymbolicGPT:0.0006269946633059149
+0.02*x1+0.43*sqrt(0.63*x1+1)-0.15
+
+Test Case 811/1001.
+sin(sin(x1+0.16))
+SymbolicGPT:2.1032004700408664
+sqrt(sin(x1+0.15))
+
+Test Case 812/1001.
+1.73*x1-1.23
+SymbolicGPT:1.3106499999999999
+1.43*x1-0.98
+
+Test Case 813/1001.
+0.5*x1+0.51*sin(0.08*x1)
+SymbolicGPT:1.3318190162487689
+0.26*x1*sin(0.29*x1+0.11)+0.18
+
+Test Case 814/1001.
+0.94*(-x1)**(1/4)
+SymbolicGPT:0.6993052020517598
+x1**(1/4)
+
+Test Case 815/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0
+sqrt(sin(x1))
+
+Test Case 816/1001.
+sqrt(x1)+sqrt(x1-0.21)
+SymbolicGPT:6.014941932720078e-06
+sqrt(x1)+sqrt(x1-0.22)
+
+Test Case 817/1001.
+1.36*sqrt(x1)
+SymbolicGPT:0.01337295207057568
+sqrt(2)*sqrt(x1)
+
+Test Case 818/1001.
+x1**2+0.41*x1
+SymbolicGPT:454.91162631466665
+0.16*x1**2+0.03*x1-0.41
+
+Test Case 819/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0021350663690145755
+sqrt(sin(x1+0.08))
+
+Test Case 820/1001.
+x1**2-0.21*x1+sqrt(x1+0.3)-0.62
+SymbolicGPT:0.06844745162837947
+x1**2+0.41*sqrt(-x1)
+
+Test Case 821/1001.
+0.84*sqrt(0.09*x1-1)
+SymbolicGPT:0.009722055679114628
+0.87*sqrt(0.06*x1-1)
+
+Test Case 822/1001.
+sin(x1-0.76)
+SymbolicGPT:0.0060903916552321625
+sin(x1-0.65)
+
+Test Case 823/1001.
+0.68
+SymbolicGPT:0.00040786808573232345
+sin(0.87*sqrt(0.06*x1-1))
+
+Test Case 824/1001.
+0.96*sqrt(-x1)
+SymbolicGPT:0.1468991433816336
+0.96*(-x1)**(1/4)
+
+Test Case 825/1001.
+1.31*x1-0.8
+SymbolicGPT:2.889245668587414
+0.77*x1+sin(0.45*x1)-0.74
+
+Test Case 826/1001.
+-sin(0.93*x1**2)
+SymbolicGPT:0.0023066756602017464
+-sin(0.91*x1**2+0.12*x1-0.08)
+
+Test Case 827/1001.
+sqrt(x1**2+0.81*x1)
+SymbolicGPT:1.6455666346235938
+0.42*x1+0.81*sqrt(-x1)+0.07
+
+Test Case 828/1001.
+0.38*x1+sin(0.35*x1)
+SymbolicGPT:0.24089837724416682
+0.68*sqrt(-x1**2)
+
+Test Case 829/1001.
+sin(0.37*x1)
+SymbolicGPT:0.0395487711471277
+0.53*sqrt(-x1-0.11)*sin(0.1*x1+0.41)
+
+Test Case 830/1001.
+sqrt(x1+0.05)
+SymbolicGPT:4.961797197974614
+0.08*x1**2+0.08*x1+sqrt(x1+0.2)
+
+Test Case 831/1001.
+sqrt(sin(x1))
+SymbolicGPT:0.0006361905998519207
+sqrt(sin(x1+0.03))
+
+Test Case 832/1001.
+sqrt(x1+0.8)
+SymbolicGPT:0.21336419381666918
+0.91*sqrt(-0.69*x1-1)
+
+Test Case 833/1001.
+2*x1+0.98*sqrt(-x1)
+SymbolicGPT:2.989417052028132
+sqrt(x1)+1.59*x1+0.13
+
+Test Case 834/1001.
+1.92*x1+sin(0.36*x1-0.46)-0.35
+SymbolicGPT:2.925585941866696
+2*x1-sin(0.4*x1)-0.63
+
+Test Case 835/1001.
+0.29*x1
+SymbolicGPT:0.2741391429189949
+sin(0.04*x1**2+0.02*x1+0.07)
+
+Test Case 836/1001.
+0.07*x1*sin(x1)-1.17
+SymbolicGPT:20.410051909016865
+0.42*x1**2-1.43*x1+0.09
+
+Test Case 837/1001.
+x1+0.18*sqrt(-x1)
+SymbolicGPT:6.515960014626616
+0.77*x1*sqrt(0.57-x1)+0.1
+
+Test Case 838/1001.
+0.74*sqrt(0.19*x1+1)+sin(0.68*x1+0.59)
+SymbolicGPT:3.5630965062668603
+0.25*x1+1.22
+
+Test Case 839/1001.
+-0.29*x1**2-0.5*x1*sqrt(x1-0.51)
+SymbolicGPT:286.34562154075957
+0.07*x1**2+x1-0.82*sin(0.38*x1-0.08)
+
+Test Case 840/1001.
+sin(sqrt(x1))
+SymbolicGPT:0.9482237689857023
+0.97*(-x1)**(1/4)
+
+Test Case 841/1001.
+sin(x1**2+0.12*x1)
+SymbolicGPT:0.0006169880900433369
+sin(x1**2+0.13*x1-0.08)
+
+Test Case 842/1001.
+2*sqrt(x1)
+SymbolicGPT:6.621009990999602
+sqrt(x1)+x1+0.06
+
+Test Case 843/1001.
+x1+0.08*sqrt(-x1)
+SymbolicGPT:23.35212933240739
+0.44*x1**2-0.12*x1-0.04*sin(0.41*x1-0.87)
+
+Test Case 844/1001.
+0.07*x1**2-1.28*x1+0.24
+SymbolicGPT:0.22602865033333386
+0.27-1.03*x1
+
+Test Case 845/1001.
+0.25*sqrt(x1)+2*x1
+SymbolicGPT:176.65624358040768
+x1**2+0.18*x1+sin(0.9*x1+0.28)-0.15
+
+Test Case 846/1001.
+-0.24*x1**4+0.8*x1
+SymbolicGPT:21333.669373417513
+-0.23*x1**2+0.6*x1
+
+Test Case 847/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 848/1001.
+sin(0.18*x1-0.38)
+SymbolicGPT:0.0005653908166516875
+sin(0.15*x1-0.24)
+
+Test Case 849/1001.
+1.36*x1**2-0.35*x1
+SymbolicGPT:9.274016626333351
+1.25*x1**2-0.47*x1+0.02
+
+Test Case 850/1001.
+-0.08*x1-sin(0.75*x1)
+SymbolicGPT:11.112829958526273
+0.1*x1**(5/2)-0.3*x1-0.48
+
+Test Case 851/1001.
+sqrt(-sin(0.68*x1-1.0))
+SymbolicGPT:0.16686560063126205
+0.93*(0.7*x1-1)**(1/4)
+
+Test Case 852/1001.
+sin(sqrt(x1+0.34))
+SymbolicGPT:3.2342743037659543
+0.7*sqrt(0.75*x1-1)*sqrt(-x1-0.61)
+
+Test Case 853/1001.
+1.0*x1+0.51
+SymbolicGPT:2.0204380856944497
+0.37*x1+0.82*sqrt(x1+0.08)+0.25
+
+Test Case 854/1001.
+0.53*sqrt(-0.14*x1-1)
+SymbolicGPT:0.0867206424316464
+0.64*(0.08*x1-1)**(1/4)
+
+Test Case 855/1001.
+-sin(0.51*x1**2)
+SymbolicGPT:0.883200845694772
+-sin(0.71*x1**2+0.75*x1)
+
+Test Case 856/1001.
+sqrt(x1-0.25)
+SymbolicGPT:1.6901869721397111
+-0.04*x1**2+0.82*sqrt(x1-0.36)
+
+Test Case 857/1001.
+0.29*x1**2-0.92*x1*sin(x1+0.46)
+SymbolicGPT:91.51494219737303
+-sin(0.87*x1+0.49)*sin(x1-0.16)
+
+Test Case 858/1001.
+sqrt(-sin(0.72*x1+0.93))
+SymbolicGPT:0.015276330699210972
+0.94*(0.36*x1-1)**(1/4)
+
+Test Case 859/1001.
+sin(x1)+sin(x1+0.75)
+SymbolicGPT:1.4605034650690574
+0.3*sqrt(-x1)+sin(0.95*x1+0.66)
+
+Test Case 860/1001.
+x1+sin(x1+0.36)
+SymbolicGPT:6.7634956994115605
+sqrt(x1+0.07)+sin(0.79*x1+0.28)
+
+Test Case 861/1001.
+sin(sqrt(x1-0.2))
+SymbolicGPT:0.102922995789702
+sqrt(sin(x1-0.24))
+
+Test Case 862/1001.
+-0.25*x1**2+0.43*x1+0.53
+SymbolicGPT:16.427706110793867
+sqrt(sin(x1-0.55))
+
+Test Case 863/1001.
+sin(sin(0.62*x1))
+SymbolicGPT:0.017989259427215677
+sin(0.64*x1+0.07)
+
+Test Case 864/1001.
+sqrt(2)*sqrt(x1+0.34)
+SymbolicGPT:0.3687692181047318
+0.46*sqrt(x1)+0.91*sqrt(0.41*x1+1)
+
+Test Case 865/1001.
+0.42-0.93*x1
+SymbolicGPT:5.723566666666668
+-0.13*x1-0.93
+
+Test Case 866/1001.
+0.27*x1+0.38
+SymbolicGPT:23.87197411493405
+-0.51*x1-0.92*sin(0.17*x1+0.8)
+
+Test Case 867/1001.
+-sin(sin(0.63*x1))
+SymbolicGPT:14.046285874197277
+0.93*x1-0.71
+
+Test Case 868/1001.
+0.59*x1+sin(x1)-0.6
+SymbolicGPT:1.8660509748558696
+0.38*sqrt(x1)+sin(x1-0.54)
+
+Test Case 869/1001.
+-sin(0.4*x1-0.71)
+SymbolicGPT:0.09526761254607992
+0.64-0.38*x1
+
+Test Case 870/1001.
+sin(0.27*sqrt(-x1))
+SymbolicGPT:0.0029211836635949645
+0.28*sqrt(-x1)
+
+Test Case 871/1001.
+-0.4*x1**2*sin(0.45*x1)
+SymbolicGPT:4.952140039137268
+0.07-0.22*x1**2
+
+Test Case 872/1001.
+0.09*x1-0.81
+SymbolicGPT:0.1313018755021821
+-sin(sin(0.24*x1+0.95))
+
+Test Case 873/1001.
+1.16*x1**2+0.29
+SymbolicGPT:177.27074663866657
+0.38*x1**2+x1+0.26
+
+Test Case 874/1001.
+0.32*x1+0.2*sqrt(1-0.16*x1)
+SymbolicGPT:0.5898192374095699
+sin(0.15*x1+0.27)
+
+Test Case 875/1001.
+0.02*x1+0.72*sqrt(-x1)-0.84
+SymbolicGPT:0.44189394667642207
+sqrt(x1)-0.22*x1-0.99
+
+Test Case 876/1001.
+x1**2-0.59*x1+sqrt(x1+0.34)
+SymbolicGPT:0.010640759274945955
+x1**2-0.31*x1+0.71*sqrt(0.25*x1+1)-0.14
+
+Test Case 877/1001.
+2*x1+0.48*sqrt(0.44-x1)
+SymbolicGPT:8.326871275171364
+0.45*x1**2+0.29*x1+0.65*sqrt(0.51-x1)-0.25
+
+Test Case 878/1001.
+1.52*sqrt(x1)
+SymbolicGPT:0.14967435194069537
+sqrt(x1)+0.71*sqrt(0.11-x1)
+
+Test Case 879/1001.
+x1+sqrt(x1+0.33)
+SymbolicGPT:0.720536265204731
+x1+0.4*sqrt(-x1)+0.51
+
+Test Case 880/1001.
+0.98*(-0.56*x1-1)**(1/4)
+SymbolicGPT:0.0
+0.99*(-0.7*x1-1)**(1/4)
+
+Test Case 881/1001.
+sqrt(sin(0.24*x1+0.5))
+SymbolicGPT:0.0078541365955116
+0.75*sqrt(-0.22*x1-1)
+
+Test Case 882/1001.
+sin(x1)
+SymbolicGPT:0.004766360228501168
+sin(x1+0.1)
+
+Test Case 883/1001.
+x1
+SymbolicGPT:0.14674656925272453
+0.06*x1**2+0.39*x1+0.62*sqrt(0.28-x1)-0.16
+
+Test Case 884/1001.
+x1**2+0.18*x1+0.94*sqrt(-x1)
+SymbolicGPT:3.3924452949405715
+sqrt(x1)+x1**2-0.26*x1+0.07
+
+Test Case 885/1001.
+sqrt(x1)
+SymbolicGPT:0.4639675690553821
+x1**(1/4)
+
+Test Case 886/1001.
+sin(0.43*x1-0.83)
+SymbolicGPT:0.004335261457788226
+sin(0.43*x1-0.95)
+
+Test Case 887/1001.
+sin(sin(0.22*x1))
+SymbolicGPT:0.05426871985923049
+0.09*x1+0.09
+
+Test Case 888/1001.
+sin(x1**2+0.84*x1)
+SymbolicGPT:1.0979683410979026
+sin(0.89*x1**2+0.94*x1+0.13)
+
+Test Case 889/1001.
+0.32*sqrt(0.5*x1**2-x1)
+SymbolicGPT:0.0004295052391968743
+0.26*sqrt(-0.65*x1**2+x1)
+
+Test Case 890/1001.
+1.2*x1+0.41
+SymbolicGPT:2.558278121049149
+0.02*x1**2+0.39*x1+0.94*sqrt(0.09-x1)+0.13
+
+Test Case 891/1001.
+sin(sin(x1+0.55))
+SymbolicGPT:2.033523085813831
+sqrt(sin(x1+0.53))
+
+Test Case 892/1001.
+3*x1+1.23
+SymbolicGPT:7.981929488811326
+2*x1+sqrt(x1+0.13)+0.88
+
+Test Case 893/1001.
+-0.43*x1**2-sin(0.25*x1-0.67)
+SymbolicGPT:1.6730124426788529
+-0.41*x1**2-0.03*x1+0.52
+
+Test Case 894/1001.
+sqrt(x1)+x1
+SymbolicGPT:0.1250051666666665
+sqrt(x1)+0.89*x1+0.16
+
+Test Case 895/1001.
+sin(0.18*x1**2+0.58*x1+0.08)
+SymbolicGPT:1.0122727183263802
+sin(x1+0.19)
+
+Test Case 896/1001.
+-0.25*x1**2+0.67*x1+0.47
+SymbolicGPT:8.649797645643003
+sqrt(sin(x1+0.27))
+
+Test Case 897/1001.
+x1+0.59
+SymbolicGPT:0.6105423420091151
+1.03*sqrt(0.64*x1**2+x1+0.23)
+
+Test Case 898/1001.
+2*x1+0.84
+SymbolicGPT:3.039103474606607
+2*x1-sin(0.51*x1-0.85)
+
+Test Case 899/1001.
+sin(x1)
+SymbolicGPT:2.2660010217852737
+0.97*sqrt(sin(x1))
+
+Test Case 900/1001.
+sin(2*x1+0.72)
+SymbolicGPT:0.0023627170816558547
+sin(2*x1+0.65)
+
+Test Case 901/1001.
+-sin(sin(0.05*x1+0.64))
+SymbolicGPT:0.00037812954239456004
+-sin(sin(0.05*x1+0.6))
+
+Test Case 902/1001.
+0.86*sqrt(0.88*x1+1)
+SymbolicGPT:0.030700009104837382
+0.91*(-x1-0.66)**(1/4)
+
+Test Case 903/1001.
+x1**2-0.68*x1
+SymbolicGPT:322.64355916666676
+0.57*x1-0.85
+
+Test Case 904/1001.
+0.05*x1**2
+SymbolicGPT:0.3147046012128731
+sin(0.03*x1**2-0.04)
+
+Test Case 905/1001.
+-sin(0.26*x1**2)
+SymbolicGPT:2.916092645164287
+-0.43*x1*sin(x1-0.41)-0.09
+
+Test Case 906/1001.
+sqrt(sin(x1+0.47))
+SymbolicGPT:0.0007177386203547827
+sqrt(sin(x1+0.51))
+
+Test Case 907/1001.
+0.43-0.13*x1
+SymbolicGPT:0.32822048253989505
+0.35*sqrt(0.49*x1-1)
+
+Test Case 908/1001.
+x1**2-0.16*x1-0.1
+SymbolicGPT:0.13351666666666615
+x1**2-0.26*x1
+
+Test Case 909/1001.
+0.49*x1+sin(0.82*x1)
+SymbolicGPT:7.512958306924186
+-0.36*x1**2+1.57*x1+0.05
+
+Test Case 910/1001.
+0.8*x1**2
+SymbolicGPT:0.5773286186666661
+0.92*x1**2-0.46*x1+0.04
+
+Test Case 911/1001.
+sin(0.56*x1+0.45)
+SymbolicGPT:0.5310275355387257
+sqrt(sin(0.63*x1+0.34))
+
+Test Case 912/1001.
+0.87*x1+0.72
+SymbolicGPT:0.29821452182718905
+0.52*x1+0.77*sqrt(-x1-0.89)
+
+Test Case 913/1001.
+sqrt(x1)
+SymbolicGPT:0.37892598330355043
+0.95*(-x1)**(1/4)
+
+Test Case 914/1001.
+sin(2*x1-0.59)
+SymbolicGPT:0.0180537290708098
+sin(2*x1-0.4)
+
+Test Case 915/1001.
+x1+sin(x1+0.23)
+SymbolicGPT:0.0030510716860113972
+x1+sin(x1+0.31)
+
+Test Case 916/1001.
+-0.07*x1**(3/2)-0.95
+SymbolicGPT:1.0076999050278788
+-sin(sin(0.47*x1-0.03))
+
+Test Case 917/1001.
+sin(x1)
+SymbolicGPT:0.001193062831680089
+sin(x1+0.05)
+
+Test Case 918/1001.
+0.91*sqrt(0.91*x1**2+x1+0.04)
+SymbolicGPT:0.635366700877185
+0.06*x1**2+0.04*x1+sqrt(x1+0.07)
+
+Test Case 919/1001.
+0.38*x1**2+0.29*x1
+SymbolicGPT:6.912415866666664
+0.58*x1**2-0.15*x1+0.05
+
+Test Case 920/1001.
+0.93*sqrt(x1-0.11)
+SymbolicGPT:0.2316864366835906
+0.92*sqrt(0.21-x1)*sqrt(0.38*x1-1)
+
+Test Case 921/1001.
+sqrt(x1)
+SymbolicGPT:0.4639675690553821
+x1**(1/4)
+
+Test Case 922/1001.
+0.74*sqrt(-x1)
+SymbolicGPT:0.1555047537150816
+sqrt(x1)-sin(0.4*x1-0.08)
+
+Test Case 923/1001.
+-sin(0.24*x1-0.14)
+SymbolicGPT:0.1724000632141665
+0.72*x1**2*sin(0.04*x1-0.28)+0.26*x1-0.45
+
+Test Case 924/1001.
+0.95*x1+sin(x1)-0.58
+SymbolicGPT:5.128442743768199
+0.74*sqrt(x1)+sin(x1-0.5)
+
+Test Case 925/1001.
+0.32*x1**2*sin(0.54*x1)-0.12*x1
+SymbolicGPT:25.034340136173903
+0.31*x1**2-0.62*x1+sqrt(x1+0.71)-0.09
+
+Test Case 926/1001.
+1.2*x1-0.31
+SymbolicGPT:0.6590087646043333
+0.28*sqrt(x1)+0.88*x1-0.23
+
+Test Case 927/1001.
+sin(2*x1)
+SymbolicGPT:0.0023529358948817533
+sin(2*x1+0.07)
+
+Test Case 928/1001.
+0.82*sqrt(-0.44*x1-1)
+SymbolicGPT:0.029581877972576092
+0.9*(0.61*x1+1)**(1/4)
+
+Test Case 929/1001.
+-sin(0.89*x1)
+SymbolicGPT:0.07399018870167087
+-sin(x1-0.06)
+
+Test Case 930/1001.
+-sin(sin(0.44*x1-0.6))
+SymbolicGPT:1.9030782223503204
+0.65*sqrt(-0.22*x1**2+x1-0.65)
+
+Test Case 931/1001.
+1.3*sqrt(x1+0.07)
+SymbolicGPT:0.014727356020098465
+sqrt(x1)+sin(0.04*x1+0.39)
+
+Test Case 932/1001.
+0.2*x1+sqrt(x1-0.14)+0.34
+SymbolicGPT:0.18240129397943983
+sqrt(2)*sqrt(x1-0.24)
+
+Test Case 933/1001.
+0.56*(-0.12*x1-1)**(1/4)
+SymbolicGPT:0.010997406088183125
+0.73*(0.67*x1-1)**(1/4)
+
+Test Case 934/1001.
+x1+sin(x1-0.76)
+SymbolicGPT:0.1404068444219764
+x1+sin(0.74*x1)-0.57
+
+Test Case 935/1001.
+sin(0.08*x1)
+SymbolicGPT:0.03664682072264385
+0.76*sqrt(-0.28*x1-1)*sin(0.03*x1+0.36)
+
+Test Case 936/1001.
+1.46*x1*sqrt(-x1)
+SymbolicGPT:73.72879389592393
+1.32*x1+0.13*sqrt(x1-0.4)
+
+Test Case 937/1001.
+0.95*(x1-0.81)**(1/4)
+SymbolicGPT:0.004161741592775912
+(x1-0.86)**(1/4)
+
+Test Case 938/1001.
+sin(sin(x1+0.58))
+SymbolicGPT:2.030083368572398
+sqrt(sin(x1+0.49))
+
+Test Case 939/1001.
+sqrt(x1)*sqrt(x1-0.11)
+SymbolicGPT:0.015574955640188263
+sqrt(x1**2+0.14*x1)
+
+Test Case 940/1001.
+sin(x1)
+SymbolicGPT:0.0017176270190798594
+sin(x1+0.06)
+
+Test Case 941/1001.
+1.08*sqrt(x1)
+SymbolicGPT:0.7243474053438758
+x1**(1/4)
+
+Test Case 942/1001.
+sqrt(x1)
+SymbolicGPT:0.33501994102253513
+0.96*(-x1)**(1/4)
+
+Test Case 943/1001.
+0.21*x1**2+0.34*x1+0.13
+SymbolicGPT:2.1511991784409017
+0.23*x1**2-0.12*x1+0.18*sqrt(x1-0.91)
+
+Test Case 944/1001.
+sin(x1)
+SymbolicGPT:0.028012951857070388
+sin(0.93*x1+0.06)
+
+Test Case 945/1001.
+0.95*sqrt(0.63*x1**2+x1-0.01)
+SymbolicGPT:1.3044317173848086
+0.47*sqrt(x1)+0.35*x1+0.28
+
+Test Case 946/1001.
+0.96*sqrt(x1**2)
+SymbolicGPT:0.03938995802024536
+0.85*sqrt(x1**2+0.8*x1-0.01)
+
+Test Case 947/1001.
+sin(0.89*x1)*sin(x1)
+SymbolicGPT:0.002426142256880239
+sin(x1-0.28)*sin(x1-0.15)
+
+Test Case 948/1001.
+-0.97*x1**2-0.78*x1+sqrt(x1+0.86)
+SymbolicGPT:34.973931422971944
+-0.84*x1**2+0.19*x1+0.91*sqrt(1-0.37*x1)
+
+Test Case 949/1001.
+0.69*x1**2-0.66*x1
+SymbolicGPT:63.002820679666684
+x1**2-0.47*x1-0.02
+
+Test Case 950/1001.
+0.95*sqrt(x1)+0.43*x1-0.75
+SymbolicGPT:1.7773937466916514
+1.21*sqrt(-x1)-0.64
+
+Test Case 951/1001.
+x1-0.65
+SymbolicGPT:0.01439999999999998
+x1-0.53
+
+Test Case 952/1001.
+x1
+SymbolicGPT:0.003428819721945578
+0.93*sqrt(0.01-x1)*sqrt(x1+0.71)
+
+Test Case 953/1001.
+sin(sin(x1))
+SymbolicGPT:2.0900023006314483
+sqrt(sin(x1+0.01))
+
+Test Case 954/1001.
+2*x1-1.72
+SymbolicGPT:0.6038332387012609
+0.21*sqrt(x1)+2*x1-1.39
+
+Test Case 955/1001.
+sqrt(2)*sqrt(x1)
+SymbolicGPT:0.0
+sqrt(2)*sqrt(x1)
+
+Test Case 956/1001.
+1.3*x1+0.26*sqrt(-x1)-0.24
+SymbolicGPT:5.394234964030521
+0.36*sqrt(x1)+0.74*x1-0.18
+
+Test Case 957/1001.
+sin(x1)
+SymbolicGPT:2.337940843278385
+sqrt(sin(x1-0.02))
+
+Test Case 958/1001.
+2*x1-0.27
+SymbolicGPT:5.304969466444062
+0.57*x1*sqrt(x1-0.04)+0.95
+
+Test Case 959/1001.
+sin(x1)
+SymbolicGPT:0.003052087070383432
+sin(x1+0.08)
+
+Test Case 960/1001.
+0.33*sqrt(0.36*x1**2-x1)
+SymbolicGPT:0.06736579889524136
+sin(0.44*sqrt(0.4-x1))
+
+Test Case 961/1001.
+0.23-2.32*x1
+SymbolicGPT:236.02577459200003
+-0.82*x1**2-1.53*x1
+
+Test Case 962/1001.
+sin(1.6*x1)
+SymbolicGPT:0.07382122117058407
+sin(1.66*x1+0.08)
+
+Test Case 963/1001.
+1.85*x1+0.33*sqrt(1-0.88*x1)
+SymbolicGPT:27.181440045669188
+sqrt(x1**2-1.23*x1-0.39)
+
+Test Case 964/1001.
+0.33*x1
+SymbolicGPT:3.185889238725298
+sin(0.13*x1**2+0.06*x1+0.05)
+
+Test Case 965/1001.
+0.95*sqrt(0.55*x1+1)+sin(x1)
+SymbolicGPT:0.32760239278491515
+0.25*x1+sin(x1+0.62)+0.32
+
+Test Case 966/1001.
+sin(2*x1+0.09)
+SymbolicGPT:0.0023432310803543194
+sin(2*x1+0.16)
+
+Test Case 967/1001.
+1.32*x1
+SymbolicGPT:1.5352745879888177
+sqrt(x1**2+0.51*x1)
+
+Test Case 968/1001.
+-0.85*x1**3
+SymbolicGPT:8.470251322050023
+-0.86*x1**3-0.38*x1
+
+Test Case 969/1001.
+1.25*sqrt(x1+0.5)
+SymbolicGPT:1.0356009155616528
+0.77*sqrt(0.97*x1+1)
+
+Test Case 970/1001.
+0.06*x1**2+0.77*x1+0.16
+SymbolicGPT:174.84020102308577
+0.85*x1**2-0.71*x1+sqrt(x1-0.03)
+
+Test Case 971/1001.
+0.88*x1*sqrt(x1+0.22)
+SymbolicGPT:19.15548692602231
+x1+0.11*sqrt(x1-0.4)
+
+Test Case 972/1001.
+sqrt(sin(x1+0.94))
+SymbolicGPT:0.13087764114534345
+0.91*(0.5*x1-1)**(1/4)
+
+Test Case 973/1001.
+sin(0.55*x1**2+0.36*x1)
+SymbolicGPT:0.9358469855145201
+sin(0.61*x1**2+0.4*x1+0.04)
+
+Test Case 974/1001.
+1.46*x1-0.4
+SymbolicGPT:1.4145255704776025
+x1+0.48*sqrt(-x1-0.68)-0.55
+
+Test Case 975/1001.
+sin(0.77*x1+0.53)
+SymbolicGPT:2.169533063419834
+sqrt(sin(x1+0.27))
+
+Test Case 976/1001.
+sin(0.62*sqrt(-x1))
+SymbolicGPT:0.1658179634338508
+0.55*(-x1)**(1/4)
+
+Test Case 977/1001.
+sin(sqrt(x1-0.2))
+SymbolicGPT:0.1227935789444019
+sqrt(-sin(0.94*x1-0.24))
+
+Test Case 978/1001.
+-sin(0.27*x1**2+0.37*x1+0.08)
+SymbolicGPT:0.7995569135800048
+-sin(0.26*x1**2+0.73*x1)
+
+Test Case 979/1001.
+x1
+SymbolicGPT:0.0054210128804582
+0.94*sqrt(x1**2+0.48*x1)
+
+Test Case 980/1001.
+0.22*sqrt(-x1)
+SymbolicGPT:0.005589753657063491
+sqrt(sin(0.03*x1+0.02))
+
+Test Case 981/1001.
+0.11*x1**3-0.1
+SymbolicGPT:2.199123026965031
+0.56*x1**2*sin(0.2*x1+0.22)+0.37*x1-0.3
+
+Test Case 982/1001.
+sin(x1)
+SymbolicGPT:0.003052087070383432
+sin(x1+0.08)
+
+Test Case 983/1001.
+0.93*x1-1.15
+SymbolicGPT:0.04878083199999999
+-0.02*x1**2+1.04*x1-1.01
+
+Test Case 984/1001.
+0.36*x1-0.51
+SymbolicGPT:0.115075565656983
+sin(0.46*x1-0.68)
+
+Test Case 985/1001.
+sqrt(x1)
+SymbolicGPT:0.37892598330355043
+0.95*(-x1)**(1/4)
+
+Test Case 986/1001.
+1.04*x1-0.58
+SymbolicGPT:0.38177516666666617
+1.15*x1-0.47
+
+Test Case 987/1001.
+0.15*x1**2-sin(0.31*x1+0.83)
+SymbolicGPT:27.423758089073925
+0.22*x1**2*sin(0.77*x1+0.98)+0.55*x1-0.73
+
+Test Case 988/1001.
+0.69*sqrt(0.26*x1-1)+0.83*sqrt(0.83*x1-1)
+SymbolicGPT:0.03632383535526318
+-0.11*x1+0.94*sqrt(0.97*x1-1)+0.52
+
+Test Case 989/1001.
+1.0*sqrt(0.99*x1**2+x1+0.14)
+SymbolicGPT:0.18392357655677066
+0.13*x1**2+0.05*x1+sqrt(x1-0.12)
+
+Test Case 990/1001.
+0.96*sqrt(0.43*x1+1)
+SymbolicGPT:0.032118040069797675
+0.03*x1**2+0.9*sqrt(0.03*x1+1)+0.15
+
+Test Case 991/1001.
+sin(0.4*x1-0.59)
+SymbolicGPT:0.0004409154058510085
+sin(0.47*x1-0.84)
+
+Test Case 992/1001.
+sin(x1+0.24)
+SymbolicGPT:2.34810391246856
+sqrt(sin(x1+0.14))
+
+Test Case 993/1001.
+sin(0.25*x1+0.16)
+SymbolicGPT:0.617834023296152
+sin(0.08*x1**2+0.12*x1+0.28)
+
+Test Case 994/1001.
+(x1+0.8)**(1/4)
+SymbolicGPT:0.055150823476590734
+0.94*sqrt(0.19*x1+1)
+
+Test Case 995/1001.
+x1**(1/4)
+SymbolicGPT:0.0
+x1**(1/4)
+
+Test Case 996/1001.
+(x1+0.46)**(1/4)
+SymbolicGPT:1.0132099701351671
+1.01*(-x1-0.83)**(1/4)
+
+Test Case 997/1001.
+sin(0.97*sqrt(1-0.05*x1))
+SymbolicGPT:0.012324286229268911
+0.88*sqrt(0.1*x1-1)
+
+Test Case 998/1001.
+sqrt(sin(0.3*x1+0.87))
+SymbolicGPT:0.8741594257437734
+0.05*x1**2-0.06*x1+0.97*sqrt(0.03*x1-1)
+
+Test Case 999/1001.
+sin(0.02*x1**2+0.93*x1)
+SymbolicGPT:2.1973476930196627
+sqrt(sin(x1-0.02))
+
