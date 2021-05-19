@@ -43,6 +43,7 @@ class Trainer:
         self.train_dataset = train_dataset
         self.test_dataset = test_dataset
         self.config = config
+        self.epoch = 0
 
         # take over whatever gpus are on the system
         self.device = 'cpu'
@@ -71,16 +72,29 @@ class Trainer:
 
             losses = []
             pbar = tqdm(enumerate(loader), total=len(loader)) if is_train else enumerate(loader)
-            for it, (x, y, p) in pbar:
+
+            for it, batch in pbar:
+                # x: inputs
+                # y: targets
+                # p: points
+                # m: masks
 
                 # place data on the correct device
-                x = x.to(self.device)
-                y = y.to(self.device)
-                p = p.to(self.device)
+                condition = model.pointNetConfig if self.device=='cpu' else model.module.pointNetConfig
+                if condition:
+                    x,y,p,m = batch
+                    x = x.to(self.device)
+                    m = m.to(self.device)
+                    y = y.to(self.device)
+                    p = p.to(self.device)
+                else:
+                    x,y = batch
+                    x = x.to(self.device)
+                    y = y.to(self.device)
 
                 # forward the model
                 with torch.set_grad_enabled(is_train):
-                    logits, loss = model(x, y, p, tokenizer=self.train_dataset.itos)
+                    logits, loss = model(x, y, p, m, dataset=data) if condition else model(x,y)
                     loss = loss.mean() # collapse all losses if they are scattered on multiple gpus
                     losses.append(loss.item())
 
@@ -109,7 +123,7 @@ class Trainer:
                         lr = config.learning_rate
 
                     # report progress
-                    pbar.set_description(f"epoch {epoch+1} iter {it}: train loss {loss.item():.5f}. lr {lr:e}")
+                    pbar.set_description(f"epoch {self.epoch+1} iter {it}: train loss {loss.item():.5f}. lr {lr:e}")
 
             if not is_train:
                 test_loss = float(np.mean(losses))
@@ -118,7 +132,7 @@ class Trainer:
 
         best_loss = float('inf')
         self.tokens = 0 # counter used for learning rate decay
-        for epoch in range(config.max_epochs):
+        for self.epoch in range(config.max_epochs):
 
             run_epoch('train')
             if self.test_dataset is not None:

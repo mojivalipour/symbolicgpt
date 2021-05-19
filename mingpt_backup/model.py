@@ -9,8 +9,8 @@ GPT model:
 
 import math
 import logging
-
 import random
+
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
@@ -34,6 +34,8 @@ class GPT1Config(GPTConfig):
     n_layer = 12
     n_head = 12
     n_embd = 768
+    padToken = -100
+    padId = 0
 
 class CausalSelfAttention(nn.Module):
     """
@@ -59,7 +61,7 @@ class CausalSelfAttention(nn.Module):
                                      .view(1, 1, config.block_size, config.block_size))
         self.n_head = config.n_head
 
-    def forward(self, x, layer_past=None):
+    def forward(self, x, layer_past=None, paddingMask=None):
         B, T, C = x.size()
 
         # calculate query, key, values for all heads in batch and move head forward to be the batch dim
@@ -69,7 +71,26 @@ class CausalSelfAttention(nn.Module):
 
         # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
+
+        # if paddingMask != None:
+        #     # As it's a causal model (only attend to the left context), also means that the model will not attend to the padding tokens (which are on the right) for any real token anyway.
+
+        #     #TODO: Solve the nan issue
+        #     #paddingMask = paddingMask.unsqueeze(1).type(att.dtype) # bx1xTxT
+        #     #paddingMask = paddingMask * self.mask[:,:,:T,:T] # 1x1xTxT   
+        #     # print('Before:',paddingMask, paddingMask.dtype)
+        #     #paddingMask = paddingMask.masked_fill(paddingMask==0, float('-inf'))
+        #     #paddingMask = paddingMask.detach().to(att.device)
+        #     # print('After',paddingMask, paddingMask.dtype)
+        #     # #print('Mask:{}\n Att Score:{}'.format(paddingMask.shape, att.shape))
+        #     # #print('Mask:', paddingMask, paddingMask.dtype)
+        #     #att = att.masked_fill(paddingMask[:,:,:T,:T] == 0, float('-inf'))
+        #     #print('After After',att, att.dtype)
+        #     att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
+        # else:
         att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
+        #print('After After',att, att.dtype)
+
         att = F.softmax(att, dim=-1)
         att = self.attn_drop(att)
         y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
@@ -95,6 +116,7 @@ class Block(nn.Module):
         )
 
     def forward(self, x):
+        x, paddingMask = x if len(x)==2 else (x,None)
         x = x + self.attn(self.ln1(x))
         x = x + self.mlp(self.ln2(x))
         return x
@@ -172,6 +194,8 @@ class PointNet(nn.Module):
         return g
 
 # t-net
+
+
 class TNet(nn.Module):
     """
     the T-net structure in the Point Net paper
@@ -212,10 +236,11 @@ class TNet(nn.Module):
         assert x.size(1) == 4 * self.num_units
 
         x = self.activation_func(self.bn4(self.fc1(x)))
-        x = self.activation_func(self.bn5(self.fc2(x)))
-        #x = self.fc2(x)
+        #x = self.activation_func(self.bn5(self.fc2(x)))
+        x = self.fc2(x)
 
         return x
+
 
 class GPT(nn.Module):
     """  the full GPT language model, with a context size of block_size """
@@ -223,29 +248,56 @@ class GPT(nn.Module):
     def __init__(self, config, pointNetConfig=None):
         super().__init__()
 
-        self.config = config
+        self.unSqDim = 1
 
-        # input embedding stem
-        self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.config.padding_idx)
-        self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
-        self.drop = nn.Dropout(config.embd_pdrop)
-
-        self.pointNet = None
+        self.padId = None
+        self.padToken = None
         self.pointNetConfig = pointNetConfig
-        if self.pointNetConfig is not None:
-            self.pointNet = TNet(self.pointNetConfig)
-            #self.pointNet = PointNet(self.pointNetConfig)
-
+        self.activation_func = F.relu
+        
+        if self.pointNetConfig != None:
+            self.padToken = config.padToken
+            self.padId = config.padId
+            self.pointNet = TNet(self.pointNetConfig) #PointNet(self.pointNetConfig) #
+            self.method = pointNetConfig.method
+            #self.add_module('pointNet',self.pointNet)
+            # input embedding stem
+            if self.method == 'Concat':
+                self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
+                self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
+                config.n_embd = 2*config.n_embd
+            elif self.method == 'FirstToken':
+                self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.padId)
+                self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size+1, config.n_embd))
+            else:
+                self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd)
+                self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
+        else:
+            self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd)
+            self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
+        
+        self.drop = nn.Dropout(config.embd_pdrop)
         # transformer
         self.blocks = nn.Sequential(*[Block(config) for _ in range(config.n_layer)])
         # decoder head
         self.ln_f = nn.LayerNorm(config.n_embd)
-        self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+        self.ln_fp = nn.LayerNorm(config.n_embd)
+
+        #self.bnx = nn.BatchNorm1d(config.block_size)
+        #self.bnp = nn.BatchNorm1d(config.block_size)
+
+        if self.pointNetConfig != None and self.method == 'outputConcat': 
+            #self.head = nn.Linear(2*config.n_embd, config.vocab_size, bias=False)
+            self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+        else:
+            self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 
         self.block_size = config.block_size
         self.apply(self._init_weights)
 
         logger.info("number of parameters: %e", sum(p.numel() for p in self.parameters()))
+
+        
 
     def get_block_size(self):
         return self.block_size
@@ -270,7 +322,7 @@ class GPT(nn.Module):
         # separate out all parameters to those that will and won't experience regularizing weight decay
         decay = set()
         no_decay = set()
-        whitelist_weight_modules = (torch.nn.Linear, torch.nn.Conv1d,)
+        whitelist_weight_modules = (torch.nn.Linear, torch.nn.Conv1d)
         blacklist_weight_modules = (torch.nn.LayerNorm, torch.nn.Embedding, torch.nn.BatchNorm1d)
         for mn, m in self.named_modules():
             for pn, p in m.named_parameters():
@@ -305,47 +357,105 @@ class GPT(nn.Module):
         optimizer = torch.optim.AdamW(optim_groups, lr=train_config.learning_rate, betas=train_config.betas)
         return optimizer
 
-    def forward(self, idx, targets=None, points=None, tokenizer=None):
+    def forward(self, idx,  targets=None, points=None, masks=None, dataset=None):
+        '''
+        idx: input tokens indexes
+        targets: target tokens indexes
+        points: input points
+        masks: attention mask, DEPRECATED
+        '''
         b, t = idx.size()
         assert t <= self.block_size, "Cannot forward, model block size is exhausted."
 
+        points_embeddings = None
+        if points != None:
+            assert self.pointNet != None, "PointNet has not been initialized correctly, if you want to pass points!"
+            points_embeddings = self.pointNet(points)
+
         # forward the GPT model
         token_embeddings = self.tok_emb(idx) # each index maps to a (learnable) vector
-        position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+        
+        if points_embeddings != None:
+            if self.method == 'Concat':
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings
 
-        if points != None and self.pointNet !=None:
-            points_embeddings = self.pointNet(points)
-            points_embeddings = points_embeddings.unsqueeze(1)
-            points_embeddings = torch.tile(points_embeddings, (1,token_embeddings.shape[1],1))
-            input_embedding = token_embeddings + position_embeddings + points_embeddings
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                points_embeddings = torch.tile(points_embeddings, (1,input_embedding.shape[self.unSqDim],1))
+                
+                #print('-->',input_embedding.shape, points_embeddings.shape)
+                input_embedding = torch.cat([points_embeddings, input_embedding], -1)
+            elif self.method == 'ّFirstToken':
+                t = t + 1 # increase the positional embedding by one
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                token_embeddings = torch.cat([points_embeddings, token_embeddings], self.unSqDim)
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings
+            elif self.method == 'Summation':
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                points_embeddings = torch.tile(points_embeddings, (1,token_embeddings.shape[self.unSqDim],1))
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings + points_embeddings
+            elif self.method == 'outputConcat': 
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings
+                #points_embeddings = torch.tile(points_embeddings, (1,input_embedding.shape[self.unSqDim],1))
+            elif self.method == 'outputSummation':
+                points_embeddings = points_embeddings.unsqueeze(self.unSqDim)
+                position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+                input_embedding = token_embeddings + position_embeddings
         else:
+            # GPT
+            position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
             input_embedding = token_embeddings + position_embeddings
 
         x = self.drop(input_embedding)
-        x = self.blocks(x)
+        #print('x shape:{}\natt shape:{}\n'.format(idx.shape, x.shape))
+        x = self.blocks([x, masks])
+
+        if points_embeddings != None and self.method=='outputConcat':
+            #print('points_embedding:{}\nGPT embeddings:{}'.format(points_embeddings, x))
+            #print(points_embeddings.shape, x.shape)
+            #x = torch.cat([self.ln_fp(points_embeddings), x], -1)
+            #x = torch.cat([x, x], -1)
+            x = torch.cat([points_embeddings, x], 1)
+            #x = F.relu(x)
+            #print(x.shape)
+            #x = self.drop(x)
+        elif points_embeddings != None and self.method=='outputSummation':
+            x += points_embeddings
+
         x = self.ln_f(x)
         logits = self.head(x)
+        #print('logits shape:{}\n'.format(logits.shape))
 
-        printCondition = random.random() < 0.001 and tokenizer is not None
-        if printCondition:
-            Input, Logit = idx[0], logits.max(-1)[1][0]
+        if targets is not None:
+            Inputs0, Logits0, Target0 = idx[0], logits.max(-1)[1][0], targets[0]
             
-            InputChr = ''.join([tokenizer[int(i)] for i in Input])
-            LogitChr = ''.join([tokenizer[int(i)] for i in Logit])
-            
-            print('Input:{}\nLogit:{}'.format(Input, Logit))
-            print('Input:{}\nLogit:{}'.format(InputChr, LogitChr)) 
+            if dataset != None and random.random()<0.001:
+                Inputs0c = ''.join([dataset.itos[int(i)] for i in Inputs0])
+                Logits0c = ''.join([dataset.itos[int(i)] for i in Logits0])
+                Target0c = ''.join([dataset.itos[int(i)] for i in Target0])
+                print('-->Inputs:',Inputs0,'\nLogits:',Logits0,'\nTargets:',Target0)
+                print('Inputs:{}\nLogits:{}\nTargets:{}'.format(Inputs0c, Logits0c, Target0c)) # dataset
+
+        # ignore the first token
+        if points_embeddings != None and (self.method=='ّFirstToken' or self.method=='outputConcat'):
+            logits = logits.contiguous()
+            logits = logits[:,1:,:]
+            #print('--> Logits Shape: ',logits.shape)
+            logits = logits.contiguous()
 
         # if we are given some desired targets also calculate the loss
         loss = None
         if targets is not None:
-            if printCondition:
-                Target = targets[0]
-                TargetChr = ''.join([tokenizer[int(i)] for i in Target])
-                print('Target:{}'.format(Target))
-                print('Target:{}'.format(TargetChr)) 
 
-            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), 
-                                   ignore_index=self.config.padding_idx)
+            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
+
+            # if points_embeddings != None:
+            #     loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=self.padId)
+            # else:
+            #     loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
 
         return logits, loss
