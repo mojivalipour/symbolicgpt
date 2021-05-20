@@ -191,12 +191,15 @@ class TNet(nn.Module):
         #self.relu = nn.ReLU()
 
         self.input_batch_norm = nn.BatchNorm1d(config.numberofVars+config.numberofYs)
+        #self.input_layer_norm = nn.LayerNorm(config.numberofPoints)
 
         self.bn1 = nn.BatchNorm1d(self.num_units)
         self.bn2 = nn.BatchNorm1d(2 * self.num_units)
         self.bn3 = nn.BatchNorm1d(4 * self.num_units)
         self.bn4 = nn.BatchNorm1d(2 * self.num_units)
         self.bn5 = nn.BatchNorm1d(self.num_units)
+
+        
 
     def forward(self, x):
         """
