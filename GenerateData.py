@@ -234,7 +234,7 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
     if current_op == 'sqrt':
         if left_is_float:
             return "{:.3f}".format(np.sqrt(np.abs(left_value)))
-        return "sqrt({})".format(left_side)
+        return "sqrt(abs({}))".format(left_side)
 
     if current_op == 'log':
         if left_is_float:
@@ -273,6 +273,95 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
 
     return None
 
+# return not only skeleton but also the placeholder of constant as fixed
+def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2):
+    eqn_ops = raw_eqn[0]
+    eqn_vars = raw_eqn[1]
+    eqn_weights = raw_eqn[2]
+    eqn_biases = raw_eqn[3]
+    current_op = eqn_ops[0]
+
+    if len(eqn_ops) == 1:
+        if n_vars > 1:
+            left_side = "(C*x{}+C)".format(eqn_vars[0])
+            right_side = "(C*x{}+C)".format(eqn_vars[1])
+        else:
+            left_side = "(C*x+C)".format(eqn_weights[0], eqn_biases[0])
+            right_side = "(C*x+C)".format(eqn_weights[1], eqn_biases[1])
+
+    else:
+        split_point = int((len(eqn_ops) + 1) / 2)
+        left_ops = eqn_ops[1:split_point]
+        right_ops = eqn_ops[split_point:]
+
+        left_vars = eqn_vars[:split_point]
+        right_vars = eqn_vars[split_point:]
+
+        left_weights = eqn_weights[:split_point]
+        left_biases = eqn_biases[:split_point]
+
+        right_weights = eqn_weights[split_point:]
+        right_biases = eqn_biases[split_point:]
+
+        left_side = raw_eqn_to_skeleton_structure([left_ops, left_vars, left_weights, left_biases])
+        right_side = raw_eqn_to_skeleton_structure([right_ops, right_vars, right_weights, right_biases])
+
+    left_is_float = False
+    right_is_float = False
+    left_value = np.nan
+    right_value = np.nan
+
+    if is_float(left_side):
+        left_value = float(left_side)
+        left_is_float = True
+    if is_float(right_side):
+        right_value = float(right_side)
+        right_is_float = True
+
+    if current_op == 'id':
+        return left_side
+
+    if current_op == 'sqrt':
+        if left_is_float:
+            return "{:.3f}".format(np.sqrt(np.abs(left_value)))
+        return "sqrt(abs({}))".format(left_side)
+
+    if current_op == 'log':
+        if left_is_float:
+            return "{:.3f}".format(np.math.log(safe_abs(left_value)))
+        return "log({})".format(left_side)
+
+    if current_op == 'sin':
+        if left_is_float:
+            return "{:.3f}".format(np.sin(left_value))
+        return "sin({})".format(left_side)
+
+    if current_op == 'exp':
+        if left_is_float:
+            return "{:.3f}".format(np.exp(left_value))
+        return "exp({})".format(left_side)
+
+    if current_op == 'add':
+        if left_is_float and right_is_float:
+            return "{:.3f}".format(left_value + right_value)
+        return "({}+{})".format(left_side, right_side)
+
+    if current_op == 'mul':
+        if left_is_float and right_is_float:
+            return "{:.3f}".format(left_value * right_value)
+        return "({}*{})".format(left_side, right_side)
+
+    if current_op == 'sub':
+        if left_is_float and right_is_float:
+            return "{:.3f}".format(left_value - right_value)
+        return "({}-{})".format(left_side, right_side)
+
+    if current_op == 'div':
+        if left_is_float and right_is_float:
+            return "{:.3f}".format(safe_div(left_value, right_value))
+        return "({}/{})".format(left_side, right_side)
+
+    return None
 
 def raw_eqn_to_str_skeleton(raw_eqn, n_vars=2):
     eqn_ops = raw_eqn[0]
@@ -409,6 +498,9 @@ def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
 def eqn_to_str_skeleton(raw_eqn, n_vars=2, decimals=2):
     return simplify_formula(raw_eqn_to_str_skeleton(raw_eqn, n_vars), digits=decimals)
 
+def eqn_to_str_skeleton_structure(raw_eqn, n_vars=2, decimals=2):
+    return simplify_formula(raw_eqn_to_skeleton_structure(raw_eqn, n_vars), digits=decimals)
+
 #@timeout(5) #, use_signals=False)
 def dataGen(nv, decimals, numberofPoints=[0,10], 
             supportPoints=None,
@@ -441,7 +533,7 @@ def dataGen(nv, decimals, numberofPoints=[0,10],
                             const_range=const_range,
                             const_ratio=const_ratio)
     cleanEqn = eqn_to_str(currEqn, n_vars=nv, decimals=decimals)
-    skeletonEqn = eqn_to_str_skeleton(currEqn, n_vars=nv, decimals=decimals)
+    skeletonEqn = eqn_to_str_skeleton_structure(currEqn, n_vars=nv, decimals=decimals)
     data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
     if testPoints:
         dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1])

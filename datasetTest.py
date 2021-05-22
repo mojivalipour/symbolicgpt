@@ -74,9 +74,9 @@ def main():
     seed = 2021
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
-    numVars = [1] #list(range(31)) #[1,2,3,4,5]
+    numVars = [2] #list(range(31)) #[1,2,3,4,5]
     decimals = 2
-    numberofPoints = [1,30] # only usable if support points has not been provided
+    numberofPoints = [1,200] # only usable if support points has not been provided
     numSamples = 1000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
@@ -86,16 +86,16 @@ def main():
     xRange = [0.0,3.0]
     testRange = [3.1,6.0]
 
+    supportPoints = None
     supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
-    supportPoints = [[np.round(p,decimals)] for p in supportPoints]
+    #supportPoints = [[np.round(p,decimals)] for p in supportPoints]
     #supportPoints = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPoints]
-    
-    supportPointsTest = np.linspace(testRange[0],testRange[1],numberofPoints[1])
-    supportPointsTest = [[np.round(p,decimals)] for p in supportPointsTest]
-    #supportPointsTest = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPointsTest]
-    
-    #supportPointsTest=None
+    supportPoints = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPoints]
+
+    supportPointsTest = None
     #supportPoints = None # uncomment this line if you don't want to use support points
+    supportPointsTest = np.linspace(xRange[0],xRange[1],numberofPoints[1])
+    supportPointsTest = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPointsTest]
     
     n_levels = 2
     allow_constants = True
@@ -103,10 +103,10 @@ def main():
     const_ratio = 0.5
     op_list=[
                 "id", "add", "mul",
-                "sqrt", "sin", 
+                "sqrt", "sin"#, "exp", "log"
             ]
-
-    sortY = True # if the data is sorted based on y
+            
+    sortY = False # if the data is sorted based on y
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
