@@ -76,7 +76,7 @@ def main():
 
     numVars = [2] #list(range(31)) #[1,2,3,4,5]
     decimals = 2
-    numberofPoints = [1,200] # only usable if support points has not been provided
+    numberofPoints = [200,201] # only usable if support points has not been provided
     numSamples = 1000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
@@ -87,15 +87,15 @@ def main():
     testRange = [3.1,6.0]
 
     supportPoints = None
-    supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
+    #supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
     #supportPoints = [[np.round(p,decimals)] for p in supportPoints]
     #supportPoints = [[np.round(p,decimals), np.round(p,decimals)] for p in supportPoints]
-    supportPoints = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPoints]
+    #supportPoints = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPoints]
 
     supportPointsTest = None
     #supportPoints = None # uncomment this line if you don't want to use support points
-    supportPointsTest = np.linspace(xRange[0],xRange[1],numberofPoints[1])
-    supportPointsTest = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPointsTest]
+    #supportPointsTest = np.linspace(xRange[0],xRange[1],numberofPoints[1])
+    #supportPointsTest = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPointsTest]
     
     n_levels = 2
     allow_constants = True
@@ -105,7 +105,7 @@ def main():
                 "id", "add", "mul",
                 "sqrt", "sin"#, "exp", "log"
             ]
-            
+
     sortY = False # if the data is sorted based on y
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
