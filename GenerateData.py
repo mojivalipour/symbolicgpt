@@ -14,7 +14,10 @@ from wrapt_timeout_decorator import *
 # except ImportError:
 #     import _thread as thread
 
-np.random.seed(seed=2021) # we didn't use this line for the training data
+seed = 2023 # 2021 Train, 2022 Val, 2023 Test
+import random
+random.seed(seed)
+np.random.seed(seed=seed) # we didn't use this line for the training data
 
 # main_op_list = ["id", "add", "mul", "div", "sqrt", "sin", "exp", "log"]
 
@@ -161,11 +164,17 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
     if current_op == 'sqrt':
         return np.sqrt(np.abs(left_side))
 
+    if current_op == 'pow':
+        return np.power(left_side, right_side)
+
     if current_op == 'log':
         return np.log(np.sqrt(left_side * left_side + 1e-10))
 
     if current_op == 'sin':
         return np.sin(left_side)
+
+    if current_op == 'cos':
+        return np.cos(left_side)
 
     if current_op == 'exp':
         return np.exp(left_side)
@@ -184,7 +193,7 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
 
     return None
 
-def raw_eqn_to_str(raw_eqn, n_vars=2):
+def raw_eqn_to_str(raw_eqn, n_vars=2, exponents=[3,4,5,6]):
     eqn_ops = raw_eqn[0]
     eqn_vars = raw_eqn[1]
     eqn_weights = raw_eqn[2]
@@ -193,11 +202,11 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
 
     if len(eqn_ops) == 1:
         if n_vars > 1:
-            left_side = "({}*x{}+{})".format(eqn_weights[0], eqn_vars[0], eqn_biases[0])
-            right_side = "({}*x{}+{})".format(eqn_weights[1], eqn_vars[1], eqn_biases[1])
+            left_side = "({}*x{}+{})".format(float(eqn_weights[0]), eqn_vars[0], float(eqn_biases[0]))
+            right_side = "({}*x{}+{})".format(float(eqn_weights[1]), eqn_vars[1], float(eqn_biases[1]))
         else:
-            left_side = "({}*x+{})".format(eqn_weights[0], eqn_biases[0])
-            right_side = "({}*x+{})".format(eqn_weights[1], eqn_biases[1])
+            left_side = "({}*x+{})".format(float(eqn_weights[0]), float(eqn_biases[0]))
+            right_side = "({}*x+{})".format(float(eqn_weights[1]), float(eqn_biases[1]))
 
     else:
         split_point = int((len(eqn_ops) + 1) / 2)
@@ -246,6 +255,17 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
             return "{:.3f}".format(np.sin(left_value))
         return "sin({})".format(left_side)
 
+    if current_op == 'pow':
+        exponent = exponents[np.random.randint(len(exponents))]
+        if left_is_float:
+            return "{:.3f}".format(np.power(left_value,exponent))
+        return "pow({},{})".format(left_side,exponent)
+
+    if current_op == 'cos':
+        if left_is_float:
+            return "{:.3f}".format(np.cos(left_value))
+        return "cos({})".format(left_side)
+
     if current_op == 'exp':
         if left_is_float:
             return "{:.3f}".format(np.exp(left_value))
@@ -274,7 +294,7 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
     return None
 
 # return not only skeleton but also the placeholder of constant as fixed
-def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2):
+def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2, exponents=[3,4,5,6]):
     eqn_ops = raw_eqn[0]
     eqn_vars = raw_eqn[1]
     eqn_weights = raw_eqn[2]
@@ -303,8 +323,8 @@ def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2):
         right_weights = eqn_weights[split_point:]
         right_biases = eqn_biases[split_point:]
 
-        left_side = raw_eqn_to_skeleton_structure([left_ops, left_vars, left_weights, left_biases])
-        right_side = raw_eqn_to_skeleton_structure([right_ops, right_vars, right_weights, right_biases])
+        left_side = eqn_to_str_skeleton_structure([left_ops, left_vars, left_weights, left_biases])
+        right_side = eqn_to_str_skeleton_structure([right_ops, right_vars, right_weights, right_biases])
 
     left_is_float = False
     right_is_float = False
@@ -319,140 +339,78 @@ def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2):
         right_is_float = True
 
     if current_op == 'id':
+        if left_is_float:
+            return "C"
         return left_side
 
     if current_op == 'sqrt':
         if left_is_float:
-            return "{:.3f}".format(np.sqrt(np.abs(left_value)))
-        return "sqrt(abs({}))".format(left_side)
-
-    if current_op == 'log':
-        if left_is_float:
-            return "{:.3f}".format(np.math.log(safe_abs(left_value)))
-        return "log({})".format(left_side)
-
-    if current_op == 'sin':
-        if left_is_float:
-            return "{:.3f}".format(np.sin(left_value))
-        return "sin({})".format(left_side)
-
-    if current_op == 'exp':
-        if left_is_float:
-            return "{:.3f}".format(np.exp(left_value))
-        return "exp({})".format(left_side)
-
-    if current_op == 'add':
-        if left_is_float and right_is_float:
-            return "{:.3f}".format(left_value + right_value)
-        return "({}+{})".format(left_side, right_side)
-
-    if current_op == 'mul':
-        if left_is_float and right_is_float:
-            return "{:.3f}".format(left_value * right_value)
-        return "({}*{})".format(left_side, right_side)
-
-    if current_op == 'sub':
-        if left_is_float and right_is_float:
-            return "{:.3f}".format(left_value - right_value)
-        return "({}-{})".format(left_side, right_side)
-
-    if current_op == 'div':
-        if left_is_float and right_is_float:
-            return "{:.3f}".format(safe_div(left_value, right_value))
-        return "({}/{})".format(left_side, right_side)
-
-    return None
-
-def raw_eqn_to_str_skeleton(raw_eqn, n_vars=2):
-    eqn_ops = raw_eqn[0]
-    eqn_vars = raw_eqn[1]
-    eqn_weights = raw_eqn[2]
-    eqn_biases = raw_eqn[3]
-    current_op = eqn_ops[0]
-
-    if len(eqn_ops) == 1:
-        if n_vars > 1:
-
-            left_side = "x{}".format(eqn_vars[0])
-            right_side = "x{}".format(eqn_vars[1])
-        else:
-            left_side = "x"
-            right_side = "x"
-
-    else:
-        split_point = int((len(eqn_ops) + 1) / 2)
-        left_ops = eqn_ops[1:split_point]
-        right_ops = eqn_ops[split_point:]
-
-        left_vars = eqn_vars[:split_point]
-        right_vars = eqn_vars[split_point:]
-
-        left_weights = eqn_weights[:split_point]
-        left_biases = eqn_biases[:split_point]
-
-        right_weights = eqn_weights[split_point:]
-        right_biases = eqn_biases[split_point:]
-
-        left_side = eqn_to_str_skeleton([left_ops, left_vars, left_weights, left_biases])
-        right_side = eqn_to_str_skeleton([right_ops, right_vars, right_weights, right_biases])
-
-    left_is_float = False
-    right_is_float = False
-    left_value = np.nan
-    right_value = np.nan
-
-    if is_float(left_side):
-        left_value = float(left_side)
-        left_is_float = True
-    if is_float(right_side):
-        right_value = float(right_side)
-        right_is_float = True
-
-    if current_op == 'id':
-        return left_side
-
-    if current_op == 'sqrt':
-        if left_is_float:
-            return "{:.3f}".format(np.sqrt(np.abs(left_value)))
+            return "C*sqrt(C)"
         return "sqrt({})".format(left_side)
 
     if current_op == 'log':
         if left_is_float:
-            return "{:.3f}".format(np.math.log(safe_abs(left_value)))
+            return "C*log(C)"
         return "log({})".format(left_side)
 
     if current_op == 'sin':
         if left_is_float:
-            return "{:.3f}".format(np.sin(left_value))
+            return "C*sin(C)"
         return "sin({})".format(left_side)
+
+    if current_op == 'pow':
+        exponent = exponents[np.random.randint(len(exponents))]
+        if left_is_float:
+            return "C*pow(C,{})".format(exponent)
+        return "pow({},{})".format(left_side,exponent)
+
+    if current_op == 'cos':
+        if left_is_float:
+            return "C*cos(C)"
+        return "cos({})".format(left_side)
 
     if current_op == 'exp':
         if left_is_float:
-            return "{:.3f}".format(np.exp(left_value))
+            return "C*exp(C)"
         return "exp({})".format(left_side)
 
     if current_op == 'add':
         if left_is_float and right_is_float:
-            return "{:.3f}".format(left_value + right_value)
+            return "(C+C)"
+        elif left_is_float:
+            return "(C+{})".format(right_side)
+        elif right_is_float:
+            return "({}+C)".format(left_side)
         return "({}+{})".format(left_side, right_side)
 
     if current_op == 'mul':
         if left_is_float and right_is_float:
-            return "{:.3f}".format(left_value * right_value)
+            return "(C*C)"
+        elif left_is_float:
+            return "(C*{})".format(right_side)
+        elif right_is_float:
+            return "({}*C)".format(left_side)
         return "({}*{})".format(left_side, right_side)
 
     if current_op == 'sub':
         if left_is_float and right_is_float:
-            return "{:.3f}".format(left_value - right_value)
+            return "(C-C)"
+        elif left_is_float:
+            return "(C-{})".format(right_side)
+        elif right_is_float:
+            return "({}-C)".format(left_side)
         return "({}-{})".format(left_side, right_side)
 
     if current_op == 'div':
         if left_is_float and right_is_float:
-            return "{:.3f}".format(safe_div(left_value, right_value))
+            return "(C/C)"
+        elif left_is_float:
+            return "(C/{})".format(right_side)
+        elif right_is_float:
+            return "({}/C)".format(left_side)
         return "({}/{})".format(left_side, right_side)
 
     return None
-
 
 # @func_set_timeout(5)
 # def timing(x):
@@ -492,14 +450,52 @@ def simplify_formula(formula_to_simplify, digits=4):
 
     return "{}".format(rounded).replace(' ','')
 
-def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
-    return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars), digits=decimals)
+def eqn_to_str(raw_eqn, n_vars=2, decimals=2, exponents=[3,4,5,6]):
+    return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars, exponents=exponents), digits=decimals)
 
-def eqn_to_str_skeleton(raw_eqn, n_vars=2, decimals=2):
-    return simplify_formula(raw_eqn_to_str_skeleton(raw_eqn, n_vars), digits=decimals)
+def eqn_to_str_skeleton_structure(raw_eqn, n_vars=2, decimals=2, exponents=[3,4,5,6]):
+    return raw_eqn_to_skeleton_structure(raw_eqn, n_vars, exponents=exponents)
 
-def eqn_to_str_skeleton_structure(raw_eqn, n_vars=2, decimals=2):
-    return simplify_formula(raw_eqn_to_skeleton_structure(raw_eqn, n_vars), digits=decimals)
+# receive an string equation and convert any number to a specific constant token
+import re
+def eqn_to_str_skeleton(eq):
+    constants = re.findall("\d+\.\d+", eq) # replace float number first
+    for c in constants:
+        eq = eq.replace(c, 'C')
+
+    # TODO: find a way to resolve standalone numbers, not x1 etc. The easiest way is to make sure every constant is float.
+
+    eq = eq + '+C' # add a bias
+    dic = {
+        'sin(':'sin(C*',
+        'cos(':'cos(C*',
+        'log(':'log(C*',
+        'exp(':'exp(C*',
+        'sqrt(':'sqrt(C*',
+        'sin':'C*sin',
+        'cos':'C*cos',
+        'log':'C*log',
+        'exp':'C*exp',
+        'abs':'C*abs',
+        'sqrt':'C*sqrt',
+        #'+':'*C+C*',
+        #'-':'*C-C*',
+        #'*':'*C*',
+        #'/':'*C/',        
+        'C**2':'C',
+        'C**3':'C',
+        'C**4':'C',
+        'C**5':'C',
+        'C**6':'C',
+        'C**7':'C',
+        'C**8':'C',
+        'C**9':'C',
+        'C*C*C':'C',
+        'C*C':'C', # remove the duplicates
+    }
+    for k in dic:
+        eq = eq.replace(k, dic[k])
+    return eq
 
 #@timeout(5) #, use_signals=False)
 def dataGen(nv, decimals, numberofPoints=[0,10], 
@@ -513,7 +509,8 @@ def dataGen(nv, decimals, numberofPoints=[0,10],
             const_ratio=0.8,
             op_list=[
                 "id", "add", "mul", "div", 
-                "sqrt", "sin", "exp", "log"]):
+                "sqrt", "sin", "exp", "log"],
+            exponents=[3,4,5,6]):
     """
     - nv: Number of Variables
     - decimals: number of floating points
@@ -532,8 +529,10 @@ def dataGen(nv, decimals, numberofPoints=[0,10],
                             allow_constants=allow_constants, 
                             const_range=const_range,
                             const_ratio=const_ratio)
-    cleanEqn = eqn_to_str(currEqn, n_vars=nv, decimals=decimals)
-    skeletonEqn = eqn_to_str_skeleton_structure(currEqn, n_vars=nv, decimals=decimals)
+
+    cleanEqn = eqn_to_str(currEqn, n_vars=nv, decimals=decimals, exponents=exponents)
+    #skeletonEqn = eqn_to_str_skeleton_structure(currEqn, n_vars=nv, decimals=decimals, exponents=exponents)
+    skeletonEqn = eqn_to_str_skeleton(cleanEqn)
     data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
     if testPoints:
         dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals, supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1])
@@ -546,9 +545,13 @@ def dataGen(nv, decimals, numberofPoints=[0,10],
 
 # # Create a new random equation
 # for i in range(10):
-#     nv = 4
+#     nv = 2
+#     op_list= [
+#                 "id", "add", "sub", "mul", "div",
+#                 "sin", "cos", "exp", "log", "pow"
+#             ]
 #     numberofPoints = np.random.randint(30)
-#     curr_eqn = generate_random_eqn_raw(n_vars=nv)
+#     curr_eqn = generate_random_eqn_raw(n_vars=nv, op_list=op_list)
 #     clean_eqn = eqn_to_str(curr_eqn, n_vars=nv)
 #     print(clean_eqn)
 #     print(eqn_to_str_skeleton(curr_eqn, n_vars=nv))
