@@ -113,4 +113,5 @@ python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbol
 - https://github.com/bhargaviparanjape/clickbait
 - https://github.com/hpandana/gradient-accumulation-tf-estimator
 - https://github.com/karpathy/minGPT
+- https://github.com/charlesq34/pointnet
 - https://github.com/volpato30/PointNovo

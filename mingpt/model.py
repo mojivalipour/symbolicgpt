@@ -171,13 +171,14 @@ class PointNet(nn.Module):
 
         return g
 
-# t-net
-class TNet(nn.Module):
+# pointNet based on Convolution, T-NET naming is not accurate
+class PointNetConv(nn.Module):
     """
-    the T-net structure in the Point Net paper
+    The PointNet structure in the orginal PointNet paper: 
+    PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation by Qi et. al. 2017
     """
     def __init__(self, config):
-        super(TNet, self).__init__()
+        super(PointNetConv, self).__init__()
 
         self.activation_func = F.relu
         self.num_units = config.embeddingSize
@@ -205,7 +206,7 @@ class TNet(nn.Module):
         """
         :param x: [batch, #features, #points]
         :return:
-            logit: [batch, #]
+            logit: [batch, embedding_size]
         """
         x = self.input_batch_norm(x)
         x = self.activation_func(self.bn1(self.conv1(x)))
@@ -236,7 +237,7 @@ class GPT(nn.Module):
         self.pointNet = None
         self.pointNetConfig = pointNetConfig
         if self.pointNetConfig is not None:
-            self.pointNet = TNet(self.pointNetConfig)
+            self.pointNet = PointNetConv(self.pointNetConfig)
             #self.pointNet = PointNet(self.pointNetConfig)
 
         # transformer

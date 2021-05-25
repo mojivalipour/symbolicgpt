@@ -38,7 +38,7 @@ class TrainerConfig:
 
 class Trainer:
 
-    def __init__(self, model, train_dataset, test_dataset, config):
+    def __init__(self, model, train_dataset, test_dataset, config, best=None):
         self.model = model
         self.train_dataset = train_dataset
         self.test_dataset = test_dataset
@@ -49,6 +49,8 @@ class Trainer:
         if torch.cuda.is_available():
             self.device = torch.cuda.current_device()
             self.model = torch.nn.DataParallel(self.model).to(self.device)
+
+        self.best_loss = best
 
     def save_checkpoint(self):
         # DataParallel wrappers keep raw model object in .module attribute
@@ -116,7 +118,7 @@ class Trainer:
                 logger.info("test loss: %f", test_loss)
                 return test_loss
 
-        best_loss = float('inf')
+        self.best_loss = float('inf') if self.best_loss is None else self.best_loss
         self.tokens = 0 # counter used for learning rate decay
         for epoch in range(config.max_epochs):
 
@@ -125,7 +127,7 @@ class Trainer:
                 test_loss = run_epoch('test')
 
             # supports early stopping based on the test loss, or just save always if no test set is provided
-            good_model = self.test_dataset is None or test_loss < best_loss
+            good_model = self.test_dataset is None or test_loss < self.best_loss
             if self.config.ckpt_path is not None and good_model:
-                best_loss = test_loss
+                self.best_loss = test_loss
                 self.save_checkpoint()
