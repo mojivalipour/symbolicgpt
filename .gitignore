@@ -3,3 +3,6 @@
 */.pyc
 **/Dataset/*
 **/SavedModels/*
+**/OtherModelTests/*
+**/dsr/*
+**/benchmark/log/*
