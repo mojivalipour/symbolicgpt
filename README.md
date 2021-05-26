@@ -53,6 +53,9 @@ pip install cloud-tpu-client
 pip install --upgrade google-api-python-client
 pip install google-cloud-storage
 pip install --upgrade oauth2client
+
+pip install git+https://github.com/brencej/ProGED
+pip install sympy==1.7.1
 ``` 
 
 # Train the model using TPUs
@@ -115,3 +118,4 @@ python train.py --config_file=configs/base.json --input_file="D:/Datasets/Symbol
 - https://github.com/karpathy/minGPT
 - https://github.com/charlesq34/pointnet
 - https://github.com/volpato30/PointNovo
+- https://github.com/brencej/ProGED

@@ -1,0 +1,42 @@
+Output will be logged in: outputs/log_oeis_hp_randint_works_44555781192973853.txt
+ModelBox: 4 models
+-> C0*exp(C1*an_1**3*an_2**3), p = 9.216000000000003e-06, parse trees = 1, valid = False
+-> C0*exp(C1*an_1*an_2**2) + C2, p = 1.5925248000000003e-05, parse trees = 1, valid = False
+-> C0*exp(C1*an_2) + C2, p = 0.004147199999999999, parse trees = 1, valid = False
+-> C0*an_1 + C1*an_2, p = 0.0012441599999999998, parse trees = 1, valid = False
+Estimating model C0*exp(C1*an_1**3*an_2**3)
+This is *hp.randint* version of Hyperopt running.
+  0%|                                                                                          | 0/50 [00:00<?, ?trial/s, best loss=?] 84%|#################################################5         | 42/50 [00:00<00:00, 418.94trial/s, best loss: 2.039694584667994e+18]100%|###########################################################| 50/50 [00:00<00:00, 498.73trial/s, best loss: 2.039694584667994e+18]
+{'x': [1, 0], 'fun': 2.039694584667994e+18}
+model: 1                                                                     ; p: 9.216000000000003e-06  ; error: 2.039694584667994e+18
+Estimating model C0*exp(C1*an_1*an_2**2) + C2
+This is *hp.randint* version of Hyperopt running.
+  0%|                                                                                          | 0/50 [00:00<?, ?trial/s, best loss=?] 68%|########################################1                  | 34/50 [00:00<00:00, 339.12trial/s, best loss: 2.039694584667994e+18]100%|##########################################################| 50/50 [00:00<00:00, 362.26trial/s, best loss: 2.0396945838194516e+18]
+{'x': [1, 0, 1], 'fun': 2.0396945838194516e+18}
+model: 2                                                                     ; p: 1.5925248000000003e-05 ; error: 2.0396945838194516e+18
+Estimating model C0*exp(C1*an_2) + C2
+This is *hp.randint* version of Hyperopt running.
+  0%|                                                                                          | 0/50 [00:00<?, ?trial/s, best loss=?] 80%|###############################################2           | 40/50 [00:00<00:00, 398.97trial/s, best loss: 2.039694584667994e+18]100%|###########################################################| 50/50 [00:00<00:00, 431.47trial/s, best loss: 2.039694584667994e+18]
+{'x': [-1, -2, 1], 'fun': 2.039694584667994e+18}
+model: 1 - exp(-2*an_2)                                                      ; p: 0.004147199999999999   ; error: 2.039694584667994e+18
+Estimating model C0*an_1 + C1*an_2
+This is *hp.randint* version of Hyperopt running.
+  0%|                                                                                          | 0/50 [00:00<?, ?trial/s, best loss=?] 98%|###########################################################################4 | 49/50 [00:00<00:00, 488.75trial/s, best loss: 0.0]100%|#############################################################################| 50/50 [00:00<00:00, 498.72trial/s, best loss: 0.0]
+{'x': [1, 1], 'fun': 0.0}
+model: an_1 + an_2                                                           ; p: 0.0012441599999999998  ; error: 0.0
+
+Parameter fitting for sequence A000045 took 0.4968431 secconds.
+
+Final score:
+model: 1                             ; error: 2.039694584667994e+18
+model: 2                             ; error: 2.0396945838194516e+18
+model: 1 - exp(-2*an_2)              ; error: 2.039694584667994e+18
+model: an_1 + an_2                   ; error: 0.0            
+Running equation discovery for all oeis sequences, with these settings:
+=>> is_direct = False
+=>> order of equation recursion = 2
+=>> sample_size = 4
+=>> grammar_template_name = polynomial
+
+
+Equation discovery for all (chosen) OEIS sequences took 0.0009448000000000789 secconds.

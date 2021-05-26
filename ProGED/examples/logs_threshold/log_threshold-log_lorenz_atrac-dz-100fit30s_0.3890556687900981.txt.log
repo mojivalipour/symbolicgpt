@@ -1,0 +1,18 @@
+41 Number of fitted models
+Key line, i.e. line of most interest in output of Eq Disco: 
+% model: 1.00033849472896*x*y - 2.67305013976617*z                             
+% ; p: 0.00020473896960000005; error: 1.1976285788575919e-08
+
+This was the best eq. found. Therefore lets print 3 (other) equations with very small error.
+model: 0.43825325703011*x*y + 0.220340893120264*y**2 - 1.06697017591849      ; p: 3.965866802675714e-07; error: 5.7531262794848215e-05
+model: 1.00033849472896*x*y - 2.67305013976617*z                             ; p: 0.00020473896960000005; error: 1.1976285788575919e-08
+model: 0.875737812360528*x*y + 0.163147472020922*y - 1.23932776165802        ; p: 1.2150327214080005e-05; error: 5.835469372408123e-06
+
+Filtered lines: 
+model: 1.00033849472896*x*y - 2.67305013976617*z                             ; p: 0.00020473896960000005; error: 1.1976285788575919e-08
+
+ 41 regexed lines
+1 filtered lines
+41 Number of fitted models
+2.4390243902439024
+The original equation was found in the top 2.44% of estimated models.

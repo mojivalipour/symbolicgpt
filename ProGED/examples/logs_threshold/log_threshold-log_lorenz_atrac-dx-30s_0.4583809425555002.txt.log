@@ -1,0 +1,15 @@
+28 Number of fitted models
+Key line, i.e. line of most interest in output of Eq Disco: 
+% model: -9.92174242687289*x + 9.96421639351077*y
+%; p: 0.0015054336000000002; error: 1.641181498418429e-08
+
+
+Filtered lines: 
+model: -9.92174242687289*x + 9.96421639351077*y                              ; p: 0.0015054336000000002; error: 1.641181498418429e-08
+model: -9.94285929705922*x + 9.97436360452384*y - 0.00144336701771275        ; p: 1.5823106262171657e-07; error: 1.4994885826842523e-08
+
+ 28 regexed lines
+2 filtered lines
+28 Number of fitted models
+7.142857142857142
+The original equation was found in the top 7.14% of estimated models.

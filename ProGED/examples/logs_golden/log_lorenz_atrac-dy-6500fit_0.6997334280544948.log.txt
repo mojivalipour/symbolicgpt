@@ -1,0 +1,1697 @@
+["'y'", "'x'", "'z'"]
+Grammar with 9 productions (start state = S)
+    S -> S '+' R [0.4]
+    S -> R [0.6]
+    R -> T [1.0]
+    R -> 'C' '*' F '(' T ')' [0]
+    T -> T '*' V [0.4]
+    T -> 'C' [0.6]
+    V -> 'y' [0.33]
+    V -> 'x' [0.33]
+    V -> 'z' [0.34]
+6500 =samples cardinality
+Estimating model C0*z**3 + C1
+model: 1.04981056240618*z**3 + 26.6629120221729                              ; p: 0.0005941567281954819; error: 4.7642610122813185
+Estimating model C0*x
+model: 23.752326624138*x                                                     ; p: 0.049073125736448; error: 0.09397703899979207
+Estimating model C0*z
+model: 30.0*z                                                                ; p: 0.050610214895616006; error: 7.293153358380995
+Estimating model C0*x*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z
+model: -3.38690482115004*x*y**2*z                                            ; p: 0.0012386707660800003; error: 100000000
+Estimating model C0*y*z + C1
+model: 2.57366004138503*y*z + 20.1192041363834                               ; p: 0.008844354370897185; error: 2.2471526740182055
+Estimating model C0*y + C1
+model: 10.7227473730428*y + 0.282789863397982                                ; p: 0.03571110332596223; error: 0.03290746794809734
+Estimating model C0*x + C1
+model: 22.382943535093*x + 2.32846205879935                                  ; p: 0.035453365119552056; error: 0.04596499634986852
+Estimating model C0*x*y
+model: 4.65979034999358*x*y                                                  ; p: 0.012545280000000002; error: 18.605973444506287
+Estimating model C0*z + C1
+model: 30.0*z + 10.5849287730878                                             ; p: 0.03736403312954575; error: 2.1688249675900435
+Estimating model C0*y
+model: 10.9098184686577*y                                                    ; p: 0.0490254336; error: 0.03593886309840235
+Estimating model C0*x + C1*z + C2
+model: 26.8531406668469*x - 9.60810292180462*z + 3.35200550926892            ; p: 0.003170149020676915; error: 0.0018866131762272996
+Estimating model C0*x**2*z + C1*y*z + C2*y + C3
+model: 0.029339869862358*x**2*z - 0.539763376988408*y*z + 12.2223527211849*y - 1.15056467533132; p: 2.794536378191317e-08; error: 0.0004159903662763011
+Estimating model C0*y + C1*z
+model: 11.1550960393611*y - 0.68986699045357*z                               ; p: 0.003255751967181373; error: 0.03472403322845172
+Estimating model C0*y*z**2
+model: 1.78718081708542*y*z**2                                               ; p: 0.0026367897600000005; error: 42.78940922513267
+Estimating model C0*x**3 + C1*y
+model: -0.029779247409699*x**3 + 11.0311403662449*y                          ; p: 2.6230675046400015e-05; error: 0.015205442585766745
+Estimating model C0*x*y + C1*y*z + C2
+model: 4.64885990765369*x*y - 4.99758088942283*y*z + 12.9747673386332        ; p: 2.415635103555408e-05; error: 0.16217850930117467
+Estimating model C0*y*z + C1*y + C2
+model: -0.39846542174838*y*z + 12.0782963315766*y - 1.06603282714521         ; p: 0.0003735110458301765; error: 0.0005158693072128595
+Estimating model C0*x*y*z
+model: 1.27706294104714*x*y*z                                                ; p: 0.005118474240000001; error: 38.754215683298376
+Estimating model C0*x + C1*y
+model: 27.2685373001286*x - 1.70386241462308*y                               ; p: 0.0030585593364480003; error: 0.08975940499698223
+Estimating model C0*y**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z
+model: -0.712042775017622*y**2 - 4.3192592602528*z                           ; p: 0.00040947793920000016; error: 100000000
+Estimating model C0*x + C1*y + C2
+model: -29.9100219772971*x + 24.9451845982721*y - 2.19447836607618           ; p: 0.003095864070790441; error: 0.016929479027262523
+Estimating model C0*x*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1
+model: -2.62258173984361*x*y**2 + 0.0238945748926145                         ; p: 0.0013468259332915205; error: 100000000
+Estimating model C0*x*z + C1
+model: 5.14433784620695*x*z + 20.5156602465258                               ; p: 0.009017039509860544; error: 2.111189097020603
+Estimating model C0*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2
+model: 3.8630466608656*y**2                                                  ; p: 0.006298870675046401; error: 100000000
+Estimating model C0*x + C1*z**3
+model: 24.7399715588235*x - 0.169350991995604*z**3                           ; p: 2.868827258880001e-05; error: 0.009292471305396458
+Estimating model C0*x**2
+model: 5.42549089051319*x**2                                                 ; p: 0.006272640000000001; error: 7.083023289037484
+Estimating model C0*x*z + C1*z**2 + C2
+model: 22.7582269671422*x*z - 26.6778838930598*z**2 + 15.6977455413785       ; p: 1.4166957522891577e-05; error: 0.36049368182446606
+Estimating model C0*x*y + C1
+model: 1.64620978396781*x*y + 17.0042682114586                               ; p: 0.008711362784526343; error: 1.0294212781293617
+Estimating model C0*x**2*y**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*z + C2
+model: -3.82474357096362*x**2*y**2 + 4.75883868418533*z + 4.3256120385734    ; p: 2.054806160434792e-07; error: 100000000
+Estimating model C0*x*z + C1*y
+model: -0.364915734122567*x*z + 11.0834721111641*y                           ; p: 0.0008254420089569282; error: 0.014796094602904908
+Estimating model C0*x*y + C1*z + C2
+model: 2.78240665931486*x*y - 30.0*z + 27.9511039293432                      ; p: 0.00035924679305129897; error: 0.7477640605462954
+Estimating model C0*x**2 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*y**2
+model: -1.02081385165062*x**2 + 2.74500954884202*y**2                        ; p: 5.2461350092800024e-05; error: 100000000
+Estimating model C0*y*z
+model: 7.93795111331646*y*z                                                  ; p: 0.012953284499865601; error: 25.60886961913067
+Estimating model C0*x*z + C1*z + C2
+model: 1.37488697729405*x*z + 30.0*z + 7.29294498294939                      ; p: 0.00012450359294086355; error: 1.5804940076057838
+Estimating model C0*x*z
+model: 9.109281033054*x*z                                                    ; p: 0.013008973499596801; error: 12.308274871037145
+Estimating model C0*x**2*z**2 + C1
+model: 0.0911667980578726*x**2*z**2 + 26.828070633135                        ; p: 2.9448343057858572e-05; error: 4.8164426048692075
+Estimating model C0*x*y*z + C1*x + C2
+model: -0.0476004597850582*x*y*z + 24.8849598908458*x + 0.308031841934388    ; p: 3.967582126521022e-05; error: 0.0008980809287296234
+Estimating model C0*z**2 + C1
+model: 7.20959604193407*z**2 + 22.6732863369057                              ; p: 0.0043908909760512005; error: 3.2281191934212856
+Estimating model C0*z**2
+model: 13.6583939864723*z**2                                                 ; p: 0.006658560000000002; error: 17.34817100108797
+Estimating model C0*x + C1*z**3 + C2
+model: 24.1755531242192*x - 0.148678066048861*z**3 + 0.759111350529782       ; p: 3.304889002229762e-06; error: 0.005303793105048055
+Estimating model C0*x + C1*y**5 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**5 + C2
+model: 4.98022787758101*x + 0.339779236287958*y**5 + 4.44202717913942        ; p: 1.0969038768203372e-07; error: 100000000
+Estimating model C0*x*z**2
+model: 1.64309416170302*x*z**2                                               ; p: 0.0026367897600000005; error: 25.404743100085547
+Estimating model C0*x*y**2*z + C1*x*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x*z
+model: 2.68919436214822*x*y**2*z + 3.56567467669301*x*z                      ; p: 9.703251313164293e-07; error: 100000000
+Estimating model C0*x**2*z + C1
+model: 0.633693987535935*x**2*z + 23.7615042709802                           ; p: 0.0014119040444226603; error: 3.2534442858521744
+Estimating model C0*y + C1*z + C2
+model: 12.4350738805334*y - 8.09482348144236*z + 2.05804805292645            ; p: 0.003069950275218309; error: 0.0007633475611518063
+Estimating model C0*y**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z + C2
+model: 1.07180640130192*y**2 + 4.57488543447849*z + 2.08882899260841         ; p: 0.00018439479525113865; error: 100000000
+Estimating model C0*y**2*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*z + C2
+model: 4.44404121469556*y**2*z - 3.39740079863405*z + 2.29611383035353       ; p: 1.7343803188963076e-05; error: 100000000
+Estimating model C0*y*z + C1*z
+model: 1.53092358199529*y*z + 29.872618016431*z                              ; p: 0.0006328295424000001; error: 3.170111873028924
+Estimating model C0*x*y*z**2 + C1*x
+model: -0.00714657483230099*x*y*z**2 + 24.7358554181211*x                    ; p: 7.350947964518404e-06; error: 0.008059919822961765
+Estimating model C0*x**2*z
+model: 1.20029386246493*x**2*z                                               ; p: 0.00255923712; error: 20.71198099489157
+Estimating model C0*x + C1*z**2
+model: 25.3460175697917*x - 1.26642472084654*z**2                            ; p: 0.00042188636160000017; error: 0.0024757673383084817
+Estimating model C0*x*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2
+model: 2.08360267036597*x*y**2*z**2                                          ; p: 7.657237463040004e-05; error: 100000000
+Estimating model C0*x**3
+model: 0.819399581484198*x**3                                                ; p: 0.0008279884800000003; error: 15.40425828223602
+Estimating model C0*x*z**2 + C1*x + C2*y*z + C3
+model: -0.0161183375846303*x*z**2 + 25.6836413684835*x - 0.411843811904111*y*z + 0.0367398785948844; p: 6.910126316982166e-09; error: 0.0001310837776019802
+Estimating model C0*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z
+model: 0.816798431478618*y**2*z                                              ; p: 0.0025592371200000006; error: 100000000
+Estimating model C0*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1
+model: -2.73508722058978*y**2 - 0.188980359841883                            ; p: 0.003953518174273536; error: 100000000
+Estimating model C0*x**2*y*z**3 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**3 + C1*x + C2
+model: -3.81763871264134*x**2*y*z**3 - 2.6638185498042*x - 3.58132740259741  ; p: 1.583570614308413e-08; error: 100000000
+Estimating model C0*x*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1
+model: -0.372387705306587*x*y**2*z**2 - 4.94489559764474                     ; p: 1.8230350952005636e-05; error: 100000000
+Estimating model C0*y*z**2 + C1
+model: 0.419364023913844*y*z**2 + 26.4655838789395                           ; p: 0.0015973338569590712; error: 4.381137518581083
+Estimating model C0*x + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2
+model: 4.76273396739118*x + 4.44259820102837*y**2                            ; p: 0.0003974344704000001; error: 100000000
+Estimating model C0*x*z + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2
+model: -3.65795052523695*x*z - 4.08863593870693*y**2                         ; p: 2.7025543987200012e-05; error: 100000000
+Estimating model C0*x*y**2 + C1*x + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x + C2*y
+model: 1.3250897428825*x*y**2 + 0.146255360086313*x - 3.62275154222024*y     ; p: 8.309877854699524e-07; error: 100000000
+Estimating model C0*z**2 + C1*z
+model: 4.03250668717409*z**2 + 30.0*z                                        ; p: 0.0004488584516075522; error: 3.6174078865887886
+Estimating model C0*x*y*z + C1*x
+model: -0.0507943497992539*x*y*z + 25.1549191784682*x                        ; p: 5.576342644142901e-05; error: 0.0013619585096077936
+Estimating model C0*y**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1
+model: 3.33478875843376 - 1.69275034505364*y**3                              ; p: 0.00024640937164800014; error: 100000000
+Estimating model C0*x + C1*z
+model: 25.9016145257171*x - 4.07115676708774*z                               ; p: 0.0032526105119922584; error: 0.08359597590425458
+Estimating model C0*x*y*z + C1*z**4
+model: -30.0*x*y*z + 11.3444624255004*z**4                                   ; p: 7.004161425392276e-08; error: 28.312823533961605
+Estimating model C0*x*y + C1*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2*z
+model: 4.58601289146908*x*y + 0.927912915489684*y**2*z                       ; p: 3.5673718063104015e-06; error: 100000000
+Estimating model C0*x**2*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2
+model: 3.14158700037487*x**2*y**2*z**2                                       ; p: 8.086042760970244e-06; error: 100000000
+Estimating model C0*y + C1*z**2 + C2
+model: 11.6465863175446*y - 0.923899157696277*z**2 - 0.621075399802639       ; p: 0.0002268061079961601; error: 0.0018642178662934663
+Estimating model C0*x*y*z + C1*z + C2
+model: 0.072668387900319*x*y*z + 30.0*z + 8.65842376011336                   ; p: 2.043296226937406e-05; error: 1.7969590158537398
+Estimating model C0*x**2 + C1*z
+model: 1.72713216456632*x**2 + 30.0*z                                        ; p: 0.00040947793920000016; error: 1.9731070916694013
+Estimating model C0*x**2 + C1*x + C2*y**2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x + C2*y**2*z + C3
+model: 4.13150573313712*x**2 + 1.12835970228432*x - 3.94881770537193*y**2*z + 0.415846607086229; p: 6.509625916257422e-09; error: 100000000
+Estimating model C0*x*y*z**2
+model: 0.209842352598675*x*y*z**2                                            ; p: 0.0013922249932800006; error: 46.24176546635724
+Estimating model C0*x**4*y**5*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**5*z**2 + C1
+model: -4.67326828293067*x**4*y**5*z**2 - 1.06211756627689                   ; p: 1.9442716340144685e-11; error: 100000000
+Estimating model C0*x**2 + C1*x*z**2
+model: 9.10808867558426*x**2 - 1.50553893833522*x*z**2                       ; p: 3.675473982259202e-06; error: 2.6475319052809705
+Estimating model C0*x*y**2 + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y**2*z + C2
+model: 1.0293211047753*x*y**2 - 3.80484381632945*y**2*z - 0.605265068651625  ; p: 2.7123441317739253e-08; error: 100000000
+Estimating model C0*x*z + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2 + C2
+model: 4.85154683118408*x*z + 3.57354257121043*y**2 - 2.63544286841061       ; p: 1.2972261113856007e-05; error: 100000000
+Estimating model C0*x*y*z + C1
+model: 0.316147365699158*x*y*z + 24.9168318078154                            ; p: 0.0026835531317103887; error: 3.4755938057193245
+Estimating model C0*x*y + C1*x*z + C2*z + C3
+model: 5.26984867513975*x*y - 8.62919982253123*x*z - 30.0*z + 24.0700545804419; p: 5.413116551671152e-11; error: 0.11250867847732976
+Estimating model C0*x + C1*y**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**3 + C2
+model: -4.4877159601776*x + 3.90605176578505*y**3 + 3.4156154535666          ; p: 6.657974862977438e-06; error: 100000000
+Estimating model C0*x**3*z**2 + C1*z
+model: 0.00532744661207891*x**3*z**2 + 30.0*z                                ; p: 4.998644615872516e-07; error: 5.451291974031002
+Estimating model C0*x**2*z**3
+model: 0.0243086542305182*x**2*z**3                                          ; p: 3.155709984768002e-05; error: 35.710193305292535
+Estimating model C0*x*y + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2
+model: 1.36018496217929*x*y - 4.67647073947061*y**2 - 3.89720051507111       ; p: 1.2590724022272007e-05; error: 100000000
+Estimating model C0*x*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2
+model: -3.80072416950404*x*y**2                                              ; p: 0.002483965440000001; error: 100000000
+Estimating model C0*x**2 + C1
+model: 3.38305716179504*x**2 + 17.2475558160927                              ; p: 0.004401535213633537; error: 1.033637449358361
+Estimating model C0*x**3*y*z**2 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2 + C1*y**2
+model: -0.0660148958753271*x**3*y*z**2 + 2.77469826940076*y**2               ; p: 8.453472544028734e-09; error: 100000000
+Estimating model C0*z**3
+model: 2.14036571049836*z**3                                                 ; p: 0.0009055641600000002; error: 29.33326011036536
+Estimating model C0*x**3*y*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2
+model: 3.56984556966899*x**3*y*z**2                                          ; p: 4.043021380485122e-06; error: 100000000
+Estimating model C0*x**2 + C1*y
+model: -0.201554646936171*x**2 + 11.0929603471993*y                          ; p: 0.0004037298324111361; error: 0.021300048668515346
+Estimating model C0*x*y**3*z**5 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**5 + C1*x + C2
+model: -4.08386149181247*x*y**3*z**5 - 2.28218008516731*x - 1.53605564317316 ; p: 5.344694758458029e-13; error: 100000000
+Estimating model C0*x*y**2 + C1*x*z + C2*y + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*z + C2*y + C3*z + C4
+model: 2.18859178508808*x*y**2 + 1.93249354302059*x*z + 2.92670351950389*y + 1.9624825626931*z + 1.13285578601462; p: 1.1728412102668808e-13; error: 100000000
+Estimating model C0*x*y**3*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z + C1*y + C2
+model: 4.27150437647323*x*y**3*z - 4.01044348742082*y - 0.191704956214439    ; p: 1.1301433882391353e-07; error: 100000000
+Estimating model C0*x**2 + C1*x + C2*y + C3
+model: -0.847774566927977*x**2 + 23.2427373008784*x + 1.99124699338125*y - 0.871066864478842; p: 1.5108868826726406e-06; error: 0.0007968854007518051
+Estimating model C0*x**2*z + C1*z + C2
+model: 0.145215908703974*x**2*z + 30.0*z + 8.52203332725581                  ; p: 2.1651883095490566e-05; error: 1.783735196383517
+Estimating model C0*y*z + C1*z + C2
+model: 0.673617787563614*y*z + 30.0*z + 7.22695885803428                     ; p: 0.000287563866095826; error: 1.602143508285179
+Estimating model C0*x**2 + C1*y + C2
+model: -0.772327550081801*x**2 + 12.8809122494387*y - 1.76329460888571       ; p: 0.0002050487526833668; error: 0.0005391522598977642
+Estimating model C0*y**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y
+model: 0.974995756611501*y**2 + 1.54296633697889*y                           ; p: 0.00040372983241113614; error: 100000000
+Estimating model C0*x**2 + C1*x + C2
+model: -0.913515269217509*x**2 + 27.9084093456786*x - 0.998705507701251      ; p: 0.00021366077128704005; error: 0.001223648572323321
+Estimating model C0*x**2*y + C1*z
+model: 0.137344315982503*x**2*y + 29.9854660956572*z                         ; p: 2.7025543987200012e-05; error: 3.6939396427420546
+Estimating model C0*x*z**3 + C1*z
+model: 0.0615197239821009*x*z**3 + 30.0*z                                    ; p: 7.803210144153604e-06; error: 5.42336541328924
+Estimating model C0*x**3*y*z + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x
+model: 3.02404044713751*x**3*y*z - 4.0444471936639*x                         ; p: 9.417861568659461e-07; error: 100000000
+Estimating model C0*x**2*y + C1
+model: 0.224004759854564*x**2*y + 22.7410689690353                           ; p: 0.001049519513626215; error: 2.435188495464405
+Estimating model C0*x*z**3
+model: 0.24057373859418*x*z**3                                               ; p: 0.00035860340736000015; error: 32.96137548681672
+Estimating model C0*x*y + C1*z
+model: 0.906735793732114*x*y + 30.0*z                                        ; p: 0.0008198120476335148; error: 2.159615650089953
+Estimating model C0*y*z**3
+model: 0.266510925107172*y*z**3                                              ; p: 0.0002390689382400001; error: 48.17917931643905
+Estimating model C0*x*z**2 + C1*x + C2
+model: -0.118012879528126*x*z**2 + 24.3574080134007*x + 0.674890922781505    ; p: 8.378904527876657e-06; error: 0.003528978739168613
+Estimating model C0*x**3*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z + C1
+model: -0.911319671305536*x**3*y**2*z + 1.65502793788052                     ; p: 2.7123441317739246e-08; error: 100000000
+Estimating model C0*x**4*z + C1
+model: 0.00788718403439588*x**4*z + 27.0225924727113                         ; p: 3.5673718063104015e-06; error: 4.874241296932332
+Estimating model C0*x*y**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*z + C2
+model: -2.78591903463967*x*y**2 - 2.72326048005751*z + 1.2788282738777       ; p: 1.297226111385601e-05; error: 100000000
+Estimating model C0*x*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1
+model: -1.98811863714712*x*y**2*z + 4.92594932447977                         ; p: 0.0002447865672184628; error: 100000000
+Estimating model C0*x*z + C1*z
+model: 2.78067174856295*x*z + 30.0*z                                         ; p: 0.0006328295424000001; error: 2.8595383803043086
+Estimating model C0*x**3*y**2 + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2 + C1*x + C2*y + C3
+model: -4.59743312392466*x**3*y**2 - 1.90537141611947*x - 0.10857048825448*y + 1.92974018162314; p: 8.339979556240391e-10; error: 100000000
+Estimating model C0*x**3*y*z + C1*x*y*z + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x*y*z + C2*y
+model: -0.41088993228528*x**3*y*z - 0.310904441463807*x*y*z + 3.23721557604212*y; p: 2.6780601019483034e-10; error: 100000000
+Estimating model C0*y**2*z + C1*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y*z + C2
+model: 0.590398575042429*y**2*z - 4.7231013351893*y*z + 2.66088252501202     ; p: 1.3084550002327196e-06; error: 100000000
+Estimating model C0*y + C1*z**2
+model: 11.10566773308*y - 0.604507158579841*z**2                             ; p: 0.00042188636160000017; error: 0.009240279729323543
+Estimating model C0*x**3*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2
+model: 4.12985975781743*x**3*y**2                                            ; p: 5.770748510208003e-05; error: 100000000
+Estimating model C0*x*y + C1*x + C2
+model: -0.443950428338687*x*y + 28.0058671342528*x - 1.00928739029807        ; p: 0.0003112030179730392; error: 0.0014751657627048974
+Estimating model C0*y*z + C1*y
+model: -0.178342593369305*y*z + 11.097792813615*y                            ; p: 0.0008189558784000002; error: 0.01477163276710939
+Estimating model C0*x**3*y + C1*x*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x*z + C2
+model: -2.68678212282692*x**3*y - 0.292762890926171*x*z + 3.21046070457197   ; p: 2.7123441317739253e-08; error: 100000000
+Estimating model C0*x**2*z + C1*y*z
+model: 8.2602107366011*x**2*z - 30.0*y*z                                     ; p: 3.675473982259201e-06; error: 11.44203291112843
+Estimating model C0*x*y**2*z**2 + C1*x*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*x*y**2 + C2
+model: -1.43379712289814*x*y**2*z**2 - 2.54109840430027*x*y**2 + 0.28971831559372; p: 2.0288334105668962e-09; error: 100000000
+Estimating model C0*x**2 + C1*z + C2
+model: 5.73703724056001*x**2 - 30.0*z + 28.506586058268                      ; p: 0.00017548449155972435; error: 0.7967934860859709
+Estimating model C0*x*z**2 + C1
+model: 0.823460229516326*x*z**2 + 25.5937446368761                           ; p: 0.0014505870649982983; error: 4.086205859813216
+Estimating model C0*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1
+model: -4.21026589752621*y**2*z + 3.94397341183052                           ; p: 0.0014367761930649604; error: 100000000
+Estimating model C0*x*y**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1
+model: -2.99073483093961*x*y**3 + 2.10062806674739                           ; p: 5.875671210393603e-05; error: 100000000
+Estimating model C0*x + C1*y**3*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**3*z**2 + C2
+model: 1.78635442534158*x + 4.53959510179494*y**3*z**2 - 3.48976692607263    ; p: 2.7945363781913173e-08; error: 100000000
+Estimating model C0*x**2*z + C1*x**2 + C2*x*z + C3
+model: 1.37944152250687*x**2*z + 15.4639000751627*x**2 - 30.0*x*z + 13.8780014314828; p: 3.6887880192125384e-09; error: 0.10152464410774782
+Estimating model C0*x*y**2 + C1*x*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y*z + C2
+model: -3.69434650099401*x*y**2 - 0.538723845703202*x*y*z - 1.33965682085853 ; p: 2.7123441317739253e-08; error: 100000000
+Estimating model C0*x*y + C1*x*z + C2
+model: 4.52194432174299*x*y - 9.8809258841502*x*z + 12.2374918778646         ; p: 2.594452222771201e-05; error: 0.17657948664815162
+Estimating model C0*x + C1*y + C2*z**2 + C3
+model: 29.8107717793998*x - 2.32595678229722*y - 1.13829260638231*z**2 + 0.670181650324702; p: 9.23813678740931e-08; error: 0.0002592039464550733
+Estimating model C0*x**2*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z
+model: 4.24860155475908*x**2*y**3*z                                          ; p: 1.962054493470721e-06; error: 100000000
+Estimating model C0*x*y + C1*x*z**2 + C2*x
+model: -0.22128180701635*x*y - 0.0557698630209203*x*z**2 + 26.0279030683994*x; p: 1.1643901575797154e-07; error: 0.0004859435313745837
+Estimating model C0*y*z**2 + C1*y*z
+model: -2.40081244911895*y*z**2 + 16.6816117824576*y*z                       ; p: 3.7868519817216017e-06; error: 5.873534891936502
+Estimating model C0*x*y**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*z
+model: -3.66260587256591*x*y**2 + 3.02084282688745*z                         ; p: 5.405108797440003e-05; error: 100000000
+Estimating model C0*x**3*y*z**3 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**3 + C1*z + C2
+model: 1.23459418296351*x**3*y*z**3 - 3.96081874479111*z - 0.917952294953843 ; p: 7.029533299739621e-11; error: 100000000
+Estimating model C0*x*y**2*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x + C2
+model: -1.3579302872426*x*y**2*z + 2.59776958731249*x - 4.38227837900532     ; p: 1.7123384670289927e-06; error: 100000000
+Estimating model C0*x + C1*y*z
+model: 25.7817247291852*x - 0.460068247868807*y*z                            ; p: 0.0006150990225557423; error: 0.0001775225810703619
+Estimating model C0*x*y**3*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2 + C1
+model: 3.88268961424679*x*y**3*z**2 + 4.66297093092983                       ; p: 2.3287803151594308e-07; error: 100000000
+Estimating model C0*x*y*z + C1*x*y + C2
+model: -0.352330063386282*x*y*z + 3.23327121234969*x*y + 11.5926444494733    ; p: 1.0616498495579756e-06; error: 0.22088837394815136
+Estimating model C0*y**3 + C1*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*z**2 + C2
+model: 3.39410933287972*y**3 - 4.7744925330675*z**2 - 0.0474264946001945     ; p: 8.821137557422085e-07; error: 100000000
+Estimating model C0*x*z + C1*y*z
+model: 30.0*x*z - 11.5328230356087*y*z                                       ; p: 0.00016706699919360004; error: 4.128366579869479
+Estimating model C0*x**2*y
+model: 0.840131721948291*x**2*y                                              ; p: 0.002483965440000001; error: 32.83103298817034
+Estimating model C0*x*z + C1*y + C2*z + C3
+model: -0.466309125821966*x*z + 12.2336485114378*y - 3.55345568478491*z + 0.290300549092166; p: 2.2171528289782346e-08; error: 0.0002316505281826401
+Estimating model C0*x**2*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z
+model: -2.51247699807782*x**2*y*z                                            ; p: 0.0010134578995200003; error: 100000000
+Estimating model C0*x**2*y*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y + C2
+model: -0.886877487841037*x**2*y*z + 0.594992742665101*y - 3.95533302550202  ; p: 1.2671304656014544e-06; error: 100000000
+Estimating model C0*x*z + C1*x + C2
+model: -0.988837634978029*x*z + 25.912031066923*x - 0.1070936653696          ; p: 0.00026299404547967245; error: 0.0001117632873337005
+Estimating model C0*x**2*y*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y
+model: 4.48632680184033*x**2*y*z - 1.67263916044494*y                        ; p: 7.134743612620803e-06; error: 100000000
+Estimating model C0*y**4 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4 + C1*y + C2
+model: -1.05808099537576*y**4 - 3.03185766263964*y - 2.64977640512502        ; p: 8.309877854699524e-07; error: 100000000
+Estimating model C0*x*y*z**2 + C1
+model: 0.0465380902287956*x*y*z**2 + 27.791243404481                         ; p: 0.00014479139930112004; error: 5.163499830892481
+Estimating model C0*x**2 + C1*x*y*z
+model: 11.3547943484129*x**2 - 0.754406754007851*x*y*z                       ; p: 3.5673718063104024e-06; error: 1.7581522323655017
+Estimating model C0*x*y**2 + C1*x + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x + C2*z + C3
+model: -4.52381832818578*x*y**2 - 3.05535886098645*x - 2.70939494456225*z - 1.12517085851378; p: 2.0548061604347915e-07; error: 100000000
+Estimating model C0*x**3*z
+model: 0.143651494970961*x**3*z                                              ; p: 0.0003378192998400001; error: 26.248663145763825
+Estimating model C0*x*y**2*z**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*y + C2
+model: 2.98043220979996*x*y**2*z**2 + 2.78954587158394*y + 4.39395752813166  ; p: 1.443843795398847e-07; error: 100000000
+Estimating model C0*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3
+model: -2.21380941093567*y**3                                                ; p: 0.0008279884800000003; error: 100000000
+Estimating model C0*x + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2 + C2
+model: -4.03560917634277*x + 2.28952819465333*y**2 - 4.7633183228812         ; p: 5.210983781261849e-05; error: 100000000
+Estimating model C0*x*y*z + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z + C1*y**2 + C2*y + C3
+model: 2.31035611283811*x*y*z - 2.30835768716705*y**2 + 3.70460738941305*y - 2.06122463999911; p: 2.7123441317739246e-08; error: 100000000
+Estimating model C0*x*y + C1*x + C2*y + C3
+model: -0.443948676306199*x*y + 29.9964827443756*x - 0.958785458121499*y - 0.896264025629675; p: 1.9605268189560183e-06; error: 0.0013739687849378044
+Estimating model C0*x*y**2*z + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x + C2*y + C3
+model: -3.27698009328429*x*y**2*z + 4.47973525358547*x - 0.114408343929314*y + 0.62958496165657; p: 2.7123441317739253e-08; error: 100000000
+Estimating model C0*x**2*y*z + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y**2 + C2
+model: 4.78686488401711*x**2*y*z + 0.883091408515186*y**2 - 4.11502050813532 ; p: 6.50962591625742e-09; error: 100000000
+Estimating model C0*x**3*y*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**3
+model: 4.98683684778947*x**3*y*z**3                                          ; p: 5.498509077459768e-07; error: 100000000
+Estimating model C0*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2
+model: 2.22946466374271*y**2*z**2                                            ; p: 0.0006961124966400003; error: 100000000
+Estimating model C0*x*y**4*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z + C1*x + C2
+model: -1.80024536301501*x*y**4*z + 2.65552175493765*x - 0.573432243710611   ; p: 1.1342372196486931e-10; error: 100000000
+Estimating model C0*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z
+model: -2.16988097311086*y**3*z                                              ; p: 0.00045042573312000016; error: 100000000
+Estimating model C0*x*z + C1*x
+model: -0.965478434111174*x*z + 25.7998121147168*x                           ; p: 0.0006142169088000002; error: 0.0001612432287389708
+Estimating model C0*x**2*y*z + C1*x + C2*y**2 + C3*y*z + C4*y + C5
+model: 1.30535714104278*x**2*y*z - 2.22905653079074*x - 3.22107840617078*y**2 + 1.0509111945616*y*z - 0.436279448608136*y - 3.42929703165819; p: 1.1728412102668808e-13; error: 100000000
+Estimating model C0*x**2*y**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1
+model: -0.00123249388159219*x**2*y**3 - 2.42860213288494                     ; p: 7.955323066232345e-06; error: 100000000
+Estimating model C0*x*y*z + C1*x + C2*y
+model: -0.0462186485323423*x*y*z + 18.8068173686931*x + 2.87674040300214*y   ; p: 8.561692335144965e-07; error: 0.0005534521079829007
+Estimating model C0*x**2 + C1*x + C2*z + C3
+model: -2.78517213636848*x**2 + 30.0*x + 19.8580142271504*z - 9.93632324425077; p: 4.632653888980257e-07; error: 0.0006074087251924645
+Estimating model C0*x*y + C1*x + C2*y**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*x + C2*y**2 + C3
+model: 2.90425610514723*x*y - 0.26160822274925*x - 4.34695672412097*y**2 + 1.12307191562572; p: 1.994370685127886e-07; error: 100000000
+Estimating model C0*x*z + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2*z + C2
+model: -0.0932434859759368*x*z - 2.43301231876736*y**2*z - 0.225689355920232 ; p: 2.1170730137813005e-07; error: 100000000
+Estimating model C0*x*y**2 + C1*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y*z + C2
+model: -4.76944086750442*x*y**2 + 4.7588137527395*y*z + 0.00490218278156318  ; p: 4.9315347850435005e-08; error: 100000000
+Estimating model C0*x*y + C1*x + C2*z + C3
+model: -0.644735138377989*x*y + 28.5309600800116*x + 4.32614262569478*z - 2.95946501568095; p: 1.7932853763794545e-07; error: 0.001213032781848143
+Estimating model C0*x + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2 + C2*y
+model: -3.81948254368254*x + 4.77575647382225*y**2 - 2.11907675010162*y      ; p: 6.295362011136003e-06; error: 100000000
+Estimating model C0*x*y + C1*x
+model: -0.351732754875209*x*y + 26.6501531632515*x                           ; p: 0.0008011643028111362; error: 0.00419240135957455
+Estimating model C0*x**3 + C1*z + C2
+model: 0.116656051885075*x**3 + 30.0*z + 7.78427566617618                    ; p: 8.042801890590725e-06; error: 1.6295053975161833
+Estimating model C0*y**2*z**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1*y + C2
+model: -2.65764596708028*y**2*z**2 + 0.114888344165399*y + 4.40798726432117  ; p: 1.8658470161459193e-06; error: 100000000
+Estimating model C0*x**2*y*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2
+model: -3.67114030624116*x**2*y*z**2                                         ; p: 6.125789970432002e-05; error: 100000000
+Estimating model C0*x**2*z**2 + C1*x
+model: -0.0146840391416297*x**2*z**2 + 24.7183700566703*x                    ; p: 3.675473982259202e-06; error: 0.009538630160398492
+Estimating model C0*x*z + C1*y + C2
+model: -0.812354091201767*x*z + 12.0432098122525*y - 1.0572017191724         ; p: 0.00027772840571075306; error: 0.0005962558181273878
+Estimating model C0*x*z**3 + C1
+model: 0.11273996966629*x*z**3 + 27.6241374128782                            ; p: 0.00010672037403033604; error: 5.359785139245717
+Estimating model C0*x + C1*y*z**2 + C2
+model: 24.451442248946*x - 0.0582458500817602*y*z**2 + 0.580979046328927     ; p: 8.286523160002564e-06; error: 0.002447421603585717
+Estimating model C0*x*y*z + C1*x + C2*y**2 + C3*y*z + C4*y + C5*z + C6
+model: 0.912930840501044*x*y*z - 3.734944509375*x - 4.46592086924913*y**2 - 3.05970805425658*y*z - 2.083833342874*y - 0.98613501432575*z + 1.94494074873985; p: 1.208381853002241e-13; error: 100000000
+Estimating model C0*x*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z
+model: 3.86522235778032*x*y**3*z                                             ; p: 2.9728098385920014e-05; error: 100000000
+Estimating model C0*x**3 + C1*x*y + C2
+model: -0.78036604324194*x**3 + 4.18168099818675*x*y + 10.5996824200177      ; p: 1.0304248539827413e-06; error: 0.1390476031804934
+Estimating model C0*x*y + C1*y + C2
+model: -0.3809724223257*x*y + 12.9642353458027*y - 1.81856776419835          ; p: 0.00019443892282459111; error: 0.0006936051297389772
+Estimating model C0*x**2*z**2
+model: 0.182211045212656*x**2*z**2                                           ; p: 0.0005800937472000002; error: 29.937447556663383
+Estimating model C0*x**3*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z**2 + C1
+model: -4.32587706371154*x**3*y**2*z**2 - 1.8527329021538                    ; p: 6.404145866688434e-08; error: 100000000
+Estimating model C0*x**2*y**2*z**4 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**4 + C1
+model: -1.51538072923879*x**2*y**2*z**4 - 2.3886792819408                    ; p: 2.153656035459442e-09; error: 100000000
+Estimating model C0*x**2*y*z + C1*x*y + C2*x + C3*y**2*z + C4*y + C5
+model: -1.76983135746215*x**2*y*z - 2.58484723750096*x*y - 3.94163408834454*x - 1.2812454348256*y**2*z + 1.77726809794907*y - 3.84402053400682; p: 1.5481503975522824e-14; error: 100000000
+Estimating model C0*y**2*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y + C2
+model: -4.82915809660063*y**2*z + 1.61852929065554*y + 0.932698055219782     ; p: 2.1519424516553446e-08; error: 100000000
+Estimating model C0*x**4*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**2*z + C1
+model: -2.37078695089502*x**4*y**2*z - 0.206869697384421                     ; p: 1.4917892724756588e-08; error: 100000000
+Estimating model C0*x*y + C1*x + C2*y + C3*z
+model: -0.303374398987639*x*y + 20.2931227050121*x + 3.25968775666498*y - 2.07255450419131*z; p: 2.0548061604347923e-07; error: 0.00111127733486969
+Estimating model C0*x**2*y*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1
+model: -4.04337096774715*x**2*y*z + 4.77530427316604                         ; p: 0.00011614497783939075; error: 100000000
+Estimating model C0*x**2*z + C1*y**3 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*y**3 + C2*z + C3
+model: 3.0168511236723*x**2*z + 1.45919013498597*y**3 - 2.32923642014362*z - 1.09695826689193; p: 8.853091246110093e-10; error: 100000000
+Estimating model C0*x*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2
+model: 4.10017355906255*x*y**3*z**2                                          ; p: 4.043021380485122e-06; error: 100000000
+Estimating model C0*x**2*z**2 + C1*z
+model: 0.0501842803893623*x**2*z**2 + 30.0*z                                 ; p: 7.573703963443205e-06; error: 5.103100578794962
+Estimating model C0*x*z**2 + C1*x + C2*z
+model: -0.140340768855148*x*z**2 + 24.3891109751082*x + 1.05811520183572*z   ; p: 1.817688951226369e-06; error: 0.005647444680296452
+Estimating model C0*x**2*y + C1*y**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*y**3 + C2
+model: -4.32777973389288*x**2*y - 2.65772868196501*y**3 - 0.780667575894396  ; p: 2.632569304368811e-08; error: 100000000
+Estimating model C0*x*y*z + C1*z**2
+model: -0.908813384236063*x*y*z + 30.0*z**2                                  ; p: 3.7868519817216017e-06; error: 8.514237583534197
+Estimating model C0*x*y*z**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1
+model: 2.64432019276624*x*y*z**3 - 4.85213288377381                          ; p: 2.2721111890329614e-05; error: 100000000
+Estimating model C0*x**3*y + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1
+model: -1.94928387456956*x**3*y + 3.82252624915641                           ; p: 0.00011272894907940869; error: 100000000
+Estimating model C0*x*y + C1*x*z
+model: -8.05994730779814*x*y + 30.0*x*z                                      ; p: 5.4051087974400024e-05; error: 8.207006391165406
+Estimating model C0*x**4*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**3
+model: -0.972542199824519*x**4*y**3                                          ; p: 2.5137380510466065e-07; error: 100000000
+Estimating model C0*x*y*z + C1*y + C2*z + C3
+model: -0.0165716399076687*x*y*z + 12.1613057581623*y - 4.91134751488031*z + 0.890797784586029; p: 3.9802327585817264e-10; error: 0.00016540376015905167
+Estimating model C0*x*y**2*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*y + C2
+model: 2.24506938454232*x*y**2*z - 0.494765116569128*y + 1.96890910021637    ; p: 1.917819083072472e-06; error: 100000000
+Estimating model C0*x*y*z**2 + C1*y + C2
+model: -0.00507772681448442*x*y*z**2 + 11.3855716003377*y - 0.534728120936612; p: 2.1170730137813005e-07; error: 0.003674535086899515
+Estimating model C0*x**2*z**2 + C1*x*z + C2*x + C3*z**2
+model: 0.00112763251499117*x**2*z**2 - 0.817170758620891*x*z + 25.7760892664602*x - 0.287816215797565*z**2; p: 7.02953329973962e-11; error: 0.00013308383733475967
+Estimating model C0*x**2*y + C1*z**2 + C2
+model: 1.07429326025094*x**2*y - 29.9930255425705*z**2 + 22.2811422920336    ; p: 2.117073013781301e-07; error: 0.6470126813724719
+Estimating model C0*x**3*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y
+model: -4.51626862060536*x**3*y                                              ; p: 0.0002185889587200001; error: 100000000
+Estimating model C0*x**3 + C1*y*z + C2
+model: 5.98597037434237*x**3 - 30.0*y*z + 30.0                               ; p: 8.561692335144965e-07; error: 1.3535275238210756
+Estimating model C0*y**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y + C2
+model: -3.10376569755127*y**2 + 1.96330400799648*y + 3.90970509885379        ; p: 0.0002557635419581711; error: 100000000
+Estimating model C0*x**2*y**2*z**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*z
+model: -1.39183339838956*x**2*y**2*z**2 + 3.96719760748889*z                 ; p: 6.59821089295172e-08; error: 100000000
+Estimating model C0*x*y*z + C1*z
+model: 0.183044679655307*x*y*z + 30.0*z                                      ; p: 8.353349959680003e-05; error: 4.397727511563383
+Estimating model C0*x**2*y + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*y**2 + C2*y
+model: -0.805866168892504*x**2*y + 1.06693761605352*y**2 + 0.889130806247272*y; p: 1.0969038768203376e-07; error: 100000000
+Estimating model C0*x**2*y*z + C1*x**2*z + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x**2*z + C2*z
+model: 4.01894277650496*x**2*y*z - 1.43521502985379*x**2*z + 0.982225116045157*z; p: 2.090313210887105e-09; error: 100000000
+Estimating model C0*x**2 + C1*z**2 + C2
+model: 6.7494864978779*x**2 - 8.55198006342082*z**2 + 13.5983187786628       ; p: 7.067602333886058e-06; error: 0.21685106220980382
+Estimating model C0*x*y**2 + C1*x*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*z
+model: 1.30608515933668*x*y**2 + 4.18961151043025*x*z                        ; p: 3.5673718063104024e-06; error: 100000000
+Estimating model C0*x*y*z**2 + C1*x + C2
+model: -0.00609550548241135*x*y*z**2 + 24.1201410563678*x + 0.796675494244287; p: 8.821137557422085e-07; error: 0.004241019272591672
+Estimating model C0*x*y + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*y
+model: 1.15405858674094*x*y + 2.55177267720067*y**2 - 0.038059393852603*y    ; p: 8.309877854699524e-07; error: 100000000
+Estimating model C0*x + C1*y*z + C2*z
+model: 25.8064757038491*x - 0.45956418819623*y*z - 0.0512114349994589*z      ; p: 6.682679967744002e-06; error: 0.00017593731547316068
+Estimating model C0*x**2 + C1*x*y*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y*z**4
+model: -0.854767225748202*x**2 - 1.19897620805881*x*y*z**4                   ; p: 8.973566814414343e-09; error: 100000000
+Estimating model C0*x**2*z + C1*x*y + C2
+model: -0.693252311273181*x**2*z + 3.13637044114102*x*y + 11.8484704021757   ; p: 1.0616498495579756e-06; error: 0.2286789322748163
+Estimating model C0*x**2*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1
+model: -4.89337808501973*x**2*y**2*z + 0.747503133670767                     ; p: 1.4269487225241606e-05; error: 100000000
+Estimating model C0*x*y*z + C1*y*z + C2*z + C3
+model: -1.05263947004779*x*y*z + 11.8492748525733*y*z - 20.9091688429389*z + 18.1460236110827; p: 6.910126316982166e-09; error: 0.34683526613834575
+Estimating model C0*x**3*z + C1*z**2 + C2
+model: -0.247594295904259*x**3*z + 30.0*z**2 + 14.9991058654707              ; p: 3.9802327585817284e-10; error: 1.3042405287576255
+Estimating model C0*x**2*z + C1*y
+model: -0.0453902234047148*x**2*z + 11.0126886620949*y                       ; p: 8.107663196160003e-05; error: 0.011869867102597912
+Estimating model C0*x + C1*y*z**2 + C2*z
+model: 24.5482045410825*x - 0.0673247758726304*y*z**2 + 0.776934397883701*z  ; p: 1.817688951226369e-06; error: 0.0039541731113372156
+Estimating model C0*x + C1*y**4 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**4 + C2
+model: 2.81842755657994*x + 3.91729717634664*y**4 - 4.85260531808389         ; p: 8.788526819130217e-07; error: 100000000
+Estimating model C0*x*y*z + C1*x + C2*y**2*z**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z + C1*x + C2*y**2*z**2 + C3
+model: 4.42920019537175*x*y*z - 3.63043101136663*x + 2.67401144356575*y**2*z**2 - 2.22323761147091; p: 6.935157558552801e-12; error: 100000000
+Estimating model C0*x*y**2 + C1*y*z + C2*z**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y*z + C2*z**2 + C3
+model: 4.83742173696006*x*y**2 + 2.25870469412567*y*z - 4.32083683763642*z**2 - 1.33696452684821; p: 9.121366738416457e-10; error: 100000000
+Estimating model C0*x*y + C1*y
+model: -0.0962720363604157*x*y + 11.1006478080983*y                          ; p: 0.0007948689408000002; error: 0.02169846562586791
+Estimating model C0*x**2 + C1*z**2
+model: 11.094361230054*x**2 - 16.4679127221431*z**2                          ; p: 2.7844499865600016e-05; error: 3.0709715719213153
+Estimating model C0*x**2*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z
+model: -4.85401330077124*x**2*y**2*z                                         ; p: 0.00011891239354368005; error: 100000000
+Estimating model C0*x**2*y*z**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x + C2
+model: -2.21619417137186*x**2*y*z**2 - 4.77553393911073*x + 2.0259758808926  ; p: 3.6887880192125393e-09; error: 100000000
+Estimating model C0*x**2 + C1*y + C2*z + C3
+model: -1.10058367245737*x**2 + 13.0677736070586*y + 3.45527068477999*z - 3.39399179628928; p: 1.5566713336627204e-06; error: 0.0005170990368399586
+Estimating model C0*x**3*y**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2 + C1*z
+model: -0.78888870431657*x**3*y**2 - 0.617619013274536*z                     ; p: 4.7089307843297307e-07; error: 100000000
+Estimating model C0*x + C1*y*z**3
+model: 24.6216307382048*x - 0.00882194036649595*y*z**3                       ; p: 3.7868519817216017e-06; error: 0.0119347875811026
+Estimating model C0*x**2*y**2*z + C1*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*y**3*z
+model: 0.967187739200662*x**2*y**2*z + 1.71995992214742*y**3*z               ; p: 1.1158583758117932e-09; error: 100000000
+Estimating model C0*x + C1*y*z + C2
+model: 25.7961189761253*x - 0.461543933860547*y*z - 0.0128238594836697       ; p: 0.000291113263347794; error: 0.00017690844741178365
+Estimating model C0*x*y**2 + C1*x*y*z + C2*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y*z + C2*x
+model: -0.415747820862935*x*y**2 + 3.07092409177822*x*y*z - 0.73751390798223*x; p: 1.4917892724756588e-08; error: 100000000
+Estimating model C0*x**3*y**4 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**4 + C1
+model: -4.58496977808222*x**3*y**4 + 3.19200108440497                        ; p: 6.032971322511856e-08; error: 100000000
+Estimating model C0*x**3*z + C1
+model: 0.0715852101977856*x**3*z + 25.8320411220782                          ; p: 0.00014161385049292805; error: 4.1765210140506115
+Estimating model C0*x*z**2 + C1*z
+model: 0.459673971227429*x*z**2 + 30.0*z                                     ; p: 5.7376545177600026e-05; error: 4.588170587707664
+Estimating model C0*x*y*z + C1*y*z**3
+model: 3.54276741894321*x*y*z - 0.56604690410166*y*z**3                      ; p: 6.79815667758662e-08; error: 21.047924886901203
+Estimating model C0*x**2*y + C1*y + C2
+model: -0.0334204264931042*x**2*y + 11.9895008146946*y - 1.12628510091058    ; p: 2.5181448044544013e-05; error: 0.000481076462444914
+Estimating model C0*x*y*z + C1*y*z + C2
+model: -1.09857178816698*x*y*z + 10.8138860799475*y*z + 9.3936901169791      ; p: 8.821137557422084e-07; error: 0.43199298366267785
+Estimating model C0*x**2 + C1*x*z + C2*z + C3
+model: 11.6180871402858*x**2 - 9.65038589740903*x*z - 30.0*z + 24.5052412966657; p: 2.1170730137813005e-07; error: 0.11017982161563847
+Estimating model C0*x*y**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y + C2
+model: 4.92571977448201*x*y**2 - 2.77355246111329*y - 3.61002803282551       ; p: 3.021773765345281e-06; error: 100000000
+Estimating model C0*x**2 + C1*y*z + C2
+model: 10.4815702730191*x**2 - 5.55776670994813*y*z + 12.953642911489        ; p: 2.1388664124525782e-05; error: 0.13020853943420013
+Estimating model C0*x**2*y*z**2 + C1*x**2 + C2*x + C3*y**2*z + C4*y + C5
+model: 4.97073603831029*x**2*y*z**2 + 3.98378582306689*x**2 - 3.52798083729525*x - 2.9077260577539*y**2*z - 1.50080050983608*y - 3.45437145160763; p: 2.910621829023736e-17; error: 100000000
+Estimating model C0*x**2*y**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*x + C2
+model: -2.44846147290585*x**2*y**2 + 2.71241548997063*x + 4.92192333520867   ; p: 1.9943706851278858e-07; error: 100000000
+Estimating model C0*x**2*y**2*z + C1*x*y*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*x*y*z**2 + C2
+model: 3.8856563949308*x**2*y**2*z - 4.77155957192406*x*y*z**2 - 1.57721733099873; p: 2.7592134383709796e-10; error: 100000000
+Estimating model C0*x**3*y + C1*x**2*y*z + C2*x + C3*y + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x**2*y*z + C2*x + C3*y + C4
+model: -3.53228754211065*x**3*y + 4.85932016426182*x**2*y*z - 3.2344747087479*x + 2.09793161996614*y + 4.77795248041245; p: 4.74310783563812e-13; error: 100000000
+Estimating model C0*y*z**2 + C1*y
+model: -0.0299265643106189*y*z**2 + 10.9954343812454*y                       ; p: 2.872661362134222e-05; error: 0.010243516546305873
+Estimating model C0*x**2*y**3*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z**4
+model: 2.78609565592088*x**2*y**3*z**4                                       ; p: 4.935461747927887e-09; error: 100000000
+Estimating model C0*x*z**3 + C1*y + C2
+model: -0.0116698262041385*x*z**3 + 11.2501078215581*y - 0.379697416413074   ; p: 9.088444756131845e-07; error: 0.006385983893389259
+Estimating model C0*x**3 + C1
+model: 0.448921348421506*x**3 + 22.0685338485066                             ; p: 0.00044787367390740503; error: 2.3199936333671043
+Estimating model C0*x**2*y**3 + C1*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1*y*z
+model: -3.08885001681044*x**2*y**3 - 3.16629504535344*y*z                    ; p: 6.215788635315246e-08; error: 100000000
+Estimating model C0*x*y + C1*y*z**2 + C2*z + C3
+model: 3.69374458315844*x*y - 0.298981661114858*y*z**2 - 30.0*z + 24.435885357337; p: 3.9802327585817274e-10; error: 0.18643995252950532
+Estimating model C0*x*y + C1*z**2 + C2*z + C3
+model: 4.06920558438956*x*y - 7.01484885071534*z**2 - 30.0*z + 25.0305391935556; p: 2.3238126610709484e-10; error: 0.14279308615552413
+Estimating model C0*x**2*z**3 + C1
+model: 0.0117366893739657*x**2*z**3 + 28.3543490796995                       ; p: 3.7868519817216017e-06; error: 5.861836295899715
+Estimating model C0*x + C1*y + C2*z
+model: 30.0*x - 1.74505134663138*y - 5.10089952910482*z                      ; p: 0.00014741205811200005; error: 0.0739071319153041
+Estimating model C0*x**2 + C1*x*z
+model: 16.8765756269847*x**2 - 20.4745980246397*x*z                          ; p: 2.7025543987200012e-05; error: 2.3595961545140267
+Estimating model C0*x**2*y + C1*y**2 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*y**2 + C2*z + C3
+model: -2.46908452561893*x**2*y + 1.03149049358796*y**2 + 3.16883336757064*z - 3.30051889739491; p: 6.509625916257422e-09; error: 100000000
+Estimating model C0*x*y + C1*z**3 + C2
+model: 2.45472478205127*x*y - 0.77867337205733*z**3 + 13.4913207283237       ; p: 9.088444756131847e-07; error: 0.3748184879169534
+Estimating model C0*x + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2 + C2*y + C3
+model: 3.96646929860622*x - 2.73197269416448*y**2 + 3.81866840916437*y + 2.80690090274762; p: 1.3489198088501337e-07; error: 100000000
+Estimating model C0*x*y**2*z**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*x + C2
+model: 3.15873790212933*x*y**2*z**2 + 2.81099044678601*x + 4.12559008731602  ; p: 1.4438437953988472e-07; error: 100000000
+Estimating model C0*y*z**2 + C1*z**2 + C2
+model: -1.36758261736434*y*z**2 + 30.0*z**2 + 14.8949790057829               ; p: 9.363852172984326e-07; error: 1.2771368392533737
+Estimating model C0*x**2*y**2*z**2 + C1*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*z**2
+model: 1.40121377723481*x**2*y**2*z**2 + 4.99258658681188*z**2               ; p: 8.973566814414341e-09; error: 100000000
+Estimating model C0*x**2*y + C1*x
+model: -0.038301354072194*x**2*y + 25.5130740384603*x                        ; p: 2.7061662831869965e-05; error: 0.00018695714841887823
+Estimating model C0*x**2*y**2 + C1*x*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*x*z + C2*y + C3
+model: -2.2926483604375*x**2*y**2 - 1.8433783555783*x*z + 0.0938112703957938*y + 0.376263843938499; p: 3.5802942539415818e-09; error: 100000000
+Estimating model C0*x*y*z**3 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1*z
+model: -4.97515383660533*x*y*z**3 - 1.67082453677612*z                       ; p: 5.150118695141379e-07; error: 100000000
+Estimating model C0*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1
+model: 0.0667310289704026*y**2*z**2 + 4.38489445546642                       ; p: 3.4527179833344013e-05; error: 100000000
+Estimating model C0*y**3*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1
+model: -1.75813718231937*y**3*z + 3.50724426758132                           ; p: 2.8582215320862724e-05; error: 100000000
+Estimating model C0*x**2*z + C1*x + C2
+model: -0.0988889128641303*x**2*z + 24.8752406732062*x + 0.318775496722184   ; p: 1.2975101677892194e-05; error: 0.001189172740266338
+Estimating model C0*x*z + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2 + C2*y + C3
+model: -2.90795017955519*x*z - 1.23365857060448*y**2 - 3.5987402743576*y - 1.87545658181255; p: 2.0548061604347912e-07; error: 100000000
+Estimating model C0*x*z + C1*x + C2*z + C3
+model: -0.847482848696132*x*z + 26.063675150439*x - 1.42074608807687*z + 0.395724288804237; p: 4.903910944649774e-06; error: 5.940231027144205e-05
+Estimating model C0*x*y**4*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z + C1
+model: 2.64050943084142*x*y**4*z + 4.15850389545603                          ; p: 4.7089307843297307e-07; error: 100000000
+Estimating model C0*x**4*y*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y*z**2 + C1*y
+model: -2.36853658947333*x**4*y*z**2 + 2.98022527814798*y                    ; p: 8.453472544028734e-09; error: 100000000
+Estimating model C0*x*z**4 + C1*z**2 + C2
+model: -0.0230481744156396*x*z**4 + 15.4406451864563*z**2 + 17.8595098361098 ; p: 1.731938097915181e-08; error: 1.754137553128945
+Estimating model C0*y*z + C1*z**3 + C2
+model: 5.64333931996115*y*z - 1.68916684595779*z**3 + 13.9619238114825       ; p: 9.363852172984324e-07; error: 0.8139963082255346
+Estimating model C0*x**4*z
+model: 0.0161550133997709*x**4*z                                             ; p: 1.4864049192960007e-05; error: 30.33608706094474
+Estimating model C0*y**2*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**3
+model: -1.16318025738872*y**2*z**3                                           ; p: 3.155709984768002e-05; error: 100000000
+Estimating model C0*y*z + C1*y + C2*z + C3
+model: -0.25111547437061*y*z + 12.2274645717644*y - 3.07117407182762*z + 0.10333854113169; p: 1.788605928006747e-06; error: 0.00024756955299302843
+Estimating model C0*z**4
+model: 0.285825306052174*z**4                                                ; p: 0.00012315672576000003; error: 35.52682418298497
+Estimating model C0*x*y**4*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z**2
+model: -0.202324895204782*x*y**4*z**2                                        ; p: 2.668394111120181e-07; error: 100000000
+Estimating model C0*x*y + C1*y**2*z**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2*z**3 + C2
+model: -1.47292943997925*x*y - 2.75428683943912*y**2*z**3 + 0.478241564653885; p: 1.583570614308413e-08; error: 100000000
+Estimating model C0*x*y**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y
+model: -2.78496577574001*x*y**2 + 3.04250905261475*y                         ; p: 7.869202513920005e-05; error: 100000000
+Estimating model C0*x**2*y*z**2 + C1*y**2*z + C2*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*y**2*z + C2*y*z
+model: 2.89841269614991*x**2*y*z**2 - 0.411082679371861*y**2*z + 1.00897823740863*y*z; p: 3.752530276184532e-11; error: 100000000
+Estimating model C0*x*y**2 + C1*x*y*z + C2*x*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y*z + C2*x*y
+model: 4.67842127975539*x*y**2 - 0.226982504082435*x*y*z + 2.89005396682067*x*y; p: 1.96916183966787e-09; error: 100000000
+Estimating model C0*x + C1*z**2 + C2
+model: 24.8956380029581*x - 1.14194663019184*z**2 + 0.504055899877348        ; p: 0.0002146557807820801; error: 0.0010574435971656745
+Estimating model C0*x*y*z**2 + C1*y + C2*z + C3
+model: -0.00154276549476019*x*y*z**2 + 12.1831119660007*y - 5.94761932114937*z + 1.33140743992873; p: 6.9101263169821644e-09; error: 0.00010497391638220977
+Estimating model C0*x**2*y*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*z + C2
+model: -2.43764985154606*x**2*y*z - 0.139969068535237*z - 1.40463550991045   ; p: 1.7671541532186681e-06; error: 100000000
+Estimating model C0*x*y*z + C1*y
+model: -0.021755328111521*x*y*z + 11.0137300676931*y                         ; p: 2.7025543987200005e-05; error: 0.011992982548121494
+Estimating model C0*x*z**2 + C1*x*z
+model: -3.23972203926783*x*z**2 + 23.8312191751008*x*z                       ; p: 3.7868519817216017e-06; error: 3.273175536122748
+Estimating model C0*x**2 + C1*x*y**2*z**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**2*z**3 + C2
+model: 2.18270026763304*x**2 + 3.47496601556828*x*y**2*z**3 - 1.41853678926677; p: 2.0903132108871057e-09; error: 100000000
+Estimating model C0*x**2*y*z**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*z
+model: 4.7680092808264*x**2*y*z**2 - 2.96650539605*z                         ; p: 4.998644615872516e-07; error: 100000000
+Estimating model C0*x + C1*y*z + C2*y + C3
+model: 26.4768454778392*x - 0.471350616615142*y*z - 0.292941399044665*y - 0.015389802272069; p: 3.4987794708885983e-06; error: 6.06034553573011e-05
+Estimating model C0*x**2*z**2 + C1*x*z + C2*y + C3
+model: 0.00198164446500776*x**2*z**2 - 0.960064328039068*x*z + 12.1602977223225*y - 1.14642685548716; p: 2.18912801721995e-10; error: 0.00046184301234861435
+Estimating model C0*y*z**3 + C1
+model: 0.0578661892978106*y*z**3 + 28.5184422237722                          ; p: 9.295000318771204e-05; error: 5.730298761234255
+Estimating model C0*x**2*y + C1*x*z + C2
+model: -1.07046408023121*x**2*y + 30.0*x*z + 11.4295668863046                ; p: 8.853091246110093e-10; error: 0.7723507453635166
+Estimating model C0*y**4*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z + C1
+model: 0.251949738144036*y**4*z + 2.94246238266192                           ; p: 3.5673718063104015e-06; error: 100000000
+Estimating model C0*y*z**2 + C1*z + C2
+model: 0.0881929444812479*y*z**2 + 30.0*z + 9.12227715333962                 ; p: 9.917751569758034e-06; error: 1.8994928304257177
+Estimating model C0*x**2*y**3*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*x + C2
+model: -3.6466714024554*x**2*y**3*z + 3.35293712347684*x - 0.046044080292279 ; p: 3.5802942539415818e-09; error: 100000000
+Estimating model C0*y**3*z + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*y*z + C2*y + C3
+model: -1.60259641594293*y**3*z + 4.10193339377695*y*z - 4.36922080665355*y + 1.10161069789657; p: 8.853091246110093e-10; error: 100000000
+Estimating model C0*x**2*y**2*z + C1*x**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*x**2 + C2
+model: 4.4803339495135*x**2*y**2*z + 2.38543441315174*x**2 - 1.70725077021976; p: 1.4917892724756588e-08; error: 100000000
+Estimating model C0*x*y*z + C1*y + C2
+model: -0.0390708380534552*x*y*z + 11.6593638411276*y - 0.808779165926608    ; p: 1.9458391670784007e-05; error: 0.0017853879728891638
+Estimating model C0*x**3*y**2*z**2 + C1*x*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z**2 + C1*x*y + C2
+model: -2.34276409343824*x**3*y**2*z**2 - 3.23684594559791*x*y + 0.323149636111125; p: 1.119900461192334e-12; error: 100000000
+Estimating model C0*x*z**2 + C1*x
+model: -0.13520467144904*x*z**2 + 24.893951301899*x                          ; p: 5.5688999731200025e-05; error: 0.006233246814454942
+Estimating model C0*x**2 + C1*x
+model: -0.723062454718397*x**2 + 26.5756526350874*x                          ; p: 0.0003974344704000001; error: 0.003931428141086198
+Estimating model C0*y**2*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y
+model: 3.77738555792831*y**2*z + 0.446782557681376*y                         ; p: 2.7025543987200012e-05; error: 100000000
+Estimating model C0*x + C1*z**2 + C2*z + C3
+model: 25.8258264153154*x - 0.658187122308364*z**2 - 4.31283306639544*z + 1.7451520282415; p: 5.234944179531945e-08; error: 2.312935850682525e-05
+Estimating model C0*x**2*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2
+model: 3.49065102576301*x**2*y**2                                            ; p: 0.0005464723968000002; error: 100000000
+Estimating model C0*y*z**2 + C1*z
+model: 0.238301104281855*y*z**2 + 30.0*z                                     ; p: 5.737654517760002e-05; error: 4.970651346089984
+Estimating model C0*x*y*z + C1*z**2 + C2
+model: -0.985276563713308*x*y*z + 30.0*z**2 + 16.4423046899654               ; p: 5.234944179531943e-08; error: 2.345885265307899
+Estimating model C0*x*y*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3
+model: 3.6195021935518*x*y*z**3                                              ; p: 4.733564977152003e-05; error: 100000000
+Estimating model C0*x**6*z + C1
+model: 8.81761549541218e-5*x**6*z + 28.4533351154676                         ; p: 1.4917892724756588e-08; error: 5.913910723063974
+Estimating model C0*x**2*z + C1*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*y**2*z
+model: 0.720843377756729*x**2*z + 3.46910269155126*y**2*z                    ; p: 4.851625656582147e-07; error: 100000000
+Estimating model C0*x + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2*z + C2
+model: -1.13228359803494*x + 1.5243364314127*y**2*z + 4.70990794673817       ; p: 6.486130556928003e-06; error: 100000000
+Estimating model C0*x*y*z**2 + C1*z + C2
+model: 0.00728022492074709*x*y*z**2 + 29.9852447391926*z + 9.52054102202009  ; p: 1.126967149760349e-06; error: 1.9860240499721422
+Estimating model C0*x**3*y**3*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z**2 + C1
+model: 4.31452795134088*x**3*y**3*z**2 - 4.00396288846196                    ; p: 1.690694508805747e-08; error: 100000000
+Estimating model C0*x**2*z**2 + C1*y + C2
+model: -0.00763989224142032*x**2*z**2 + 11.1286669389956*y - 0.220283779834714; p: 2.6251705370888124e-07; error: 0.00964627638563339
+Estimating model C0*y**2 + C1*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y*z
+model: -2.02884759815099*y**2 + 0.259411694514995*y*z                        ; p: 8.107663196160004e-05; error: 100000000
+Estimating model C0*x**3*y + C1*x*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x*y**2*z
+model: -3.58662494248421*x**3*y + 4.55368953836595*x*y**2*z                  ; p: 8.204840998616124e-09; error: 100000000
+Estimating model C0*x**2*y + C1*x**2*z**2 + C2
+model: 0.498725846555286*x**2*y - 0.148284866878027*x**2*z**2 + 18.4771847591735; p: 1.536995008005225e-08; error: 1.0026578775886343
+Estimating model C0*x**2*z**2 + C1*x*y
+model: 1.12669788576745*x**2*z**2 - 30.0*x*y                                 ; p: 4.851625656582147e-07; error: 29.16778018705168
+Estimating model C0*x**2*y + C1*y
+model: -0.014218692352573*x**2*y + 11.0325234967804*y                        ; p: 2.7061662831869968e-05; error: 0.015514323213058904
+Estimating model C0*x*y*z**2 + C1*z
+model: 0.0260216213252137*x*y*z**2 + 30.0*z                                  ; p: 7.573703963443204e-06; error: 5.432939968763279
+Estimating model C0*x + C1*y*z**2 + C2*y
+model: 14.1830393604486*x - 0.05383284976456*y*z**2 + 4.87316291346402*y     ; p: 2.794536378191317e-08; error: 0.0013802928234742814
+Estimating model C0*y**3 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*y
+model: -3.45233500560326*y**3 - 2.20910637184747*y                           ; p: 2.6230675046400015e-05; error: 100000000
+Estimating model C0*x**2*z**2 + C1*x**2 + C2*y*z + C3
+model: 0.0847182214880077*x**2*z**2 + 15.5455252163476*x**2 - 11.267710673781*y*z + 13.0127298479508; p: 5.016751706129053e-10; error: 0.06103577458202281
+Estimating model C0*x**2 + C1*x + C2*y
+model: -0.760554737846803*x**2 + 30.0*x - 1.52895294904803*y                 ; p: 6.295362011136003e-06; error: 0.0024609867194792154
+Estimating model C0*x**2*y**2 + C1*x + C2*y*z**2 + C3*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*x + C2*y*z**2 + C3*y
+model: 1.49097395240687*x**2*y**2 + 4.50017703131413*x + 4.17731907151595*y*z**2 - 4.02375500718634*y; p: 6.427344244675929e-11; error: 100000000
+Estimating model C0*x**2*y**3*z + C1*y*z**2 + C2*y + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*y*z**2 + C2*y + C3*z + C4
+model: -1.22570134234227*x**2*y**3*z - 2.37006515042241*y*z**2 + 1.89279595479809*y - 2.20005873784549*z - 2.50883443054884; p: 6.847497167012697e-14; error: 100000000
+Estimating model C0*x*y*z + C1*x*z
+model: -1.50235574080227*x*y*z + 30.0*x*z                                    ; p: 3.675473982259201e-06; error: 1.5233208529886781
+Estimating model C0*x*y**3*z**4 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**4 + C1*z
+model: -3.16475025756926*x*y**3*z**4 - 4.72534889771333*z                    ; p: 1.2204050867603506e-09; error: 100000000
+Estimating model C0*x*y + C1*z**2
+model: -5.22501540394264*x*y + 30.0*z**2                                     ; p: 5.568899973120003e-05; error: 16.36049551912108
+Estimating model C0*z**2 + C1*z + C2
+model: 1.67748712053959*z**2 + 30.0*z + 8.20336812555594                     ; p: 5.2160495616000025e-05; error: 1.7787334585700099
+Estimating model C0*x*y*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**4
+model: 2.45897482886079*x*y*z**4                                             ; p: 2.1458827896422413e-06; error: 100000000
+Estimating model C0*x*z + C1*x + C2*y + C3*z
+model: -0.677446857570433*x*z + 7.65346614221301*x + 8.58531307406887*y - 1.94654315074206*z; p: 2.1170730137813002e-07; error: 8.857896650419001e-05
+Estimating model C0*x**2*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1
+model: 1.63682704890453*x**2*y**2 + 1.39093206918152                         ; p: 7.869202513920003e-05; error: 100000000
+Estimating model C0*x + C1*y*z + C2*z + C3
+model: 25.9899396349061*x - 0.389787031706985*y*z - 1.60854406339731*z + 0.551799131638274; p: 1.6067698339928121e-06; error: 7.243073418718212e-05
+Estimating model C0*x*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3
+model: 1.73595079402034*x*y**3                                               ; p: 0.00010929447936000005; error: 100000000
+Estimating model C0*x*y*z + C1*x + C2*y**2*z + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z + C1*x + C2*y**2*z + C3*z + C4
+model: -1.14326412522897*x*y*z - 3.91389889261973*x + 1.74534266160548*y**2*z - 3.2831233240057*z + 2.09872174427536; p: 2.8896489827303353e-11; error: 100000000
+Estimating model C0*x*z**2 + C1*z + C2
+model: 0.172614115842597*x*z**2 + 30.0*z + 9.05236930930981                  ; p: 6.885185421312004e-06; error: 1.891377140637351
+Estimating model C0*x*y**2*z**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**3 + C1
+model: 1.58879651617234*x*y**2*z**3 - 1.05542175698943                       ; p: 1.1996747078094036e-07; error: 100000000
+Estimating model C0*x**2 + C1*x*z + C2
+model: 9.90974353083546*x**2 - 10.6962513789223*x*z + 12.6416157028499       ; p: 6.4861305569280024e-06; error: 0.16743748228135838
+Estimating model C0*x**2*y*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1
+model: -4.06072463009845*x**2*y*z**2 - 1.32297248791635                      ; p: 4.55758773800141e-06; error: 100000000
+Estimating model C0*x**2 + C1*z**2 + C2*z
+model: 5.31118489735401*x**2 - 10.4207261772346*z**2 + 30.0*z                ; p: 9.088444756131847e-07; error: 0.3500210823294724
+Estimating model C0*x**2 + C1*x*y*z + C2
+model: 6.88827281708936*x**2 - 0.370299336869359*x*y*z + 11.9129468440898    ; p: 1.1109651974084108e-06; error: 0.20551587528950124
+Estimating model C0*x**2*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1
+model: -0.437064944823802*x**2*y**2*z**2 - 1.58389162916625                  ; p: 5.131079294401279e-07; error: 100000000
+Estimating model C0*x**2*y**2*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**3
+model: 1.92639412649181*x**2*y**2*z**3                                       ; p: 2.749254538729884e-07; error: 100000000
+Estimating model C0*x + C1*y + C2*z + C3
+model: 4.10222541180254*x + 10.513041791149*y - 8.27673546344819*z + 2.29382720618105; p: 5.323957552177265e-05; error: 0.0007684500936148502
+Estimating model C0*x**2*y*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**3
+model: -0.649637929434189*x**2*y*z**3                                        ; p: 2.0827685899468813e-06; error: 100000000
+Estimating model C0*x*y**3*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z + C1
+model: 1.38557816758427*x*y**3*z + 1.75438648093836                          ; p: 1.0907596034974684e-05; error: 100000000
+Estimating model C0*x**2*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3
+model: 1.36492073686874*x**2*y**3                                            ; p: 2.8853742551040014e-05; error: 100000000
+Estimating model C0*x**2*y + C1*x*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*x*y**2*z
+model: -0.318716544077176*x**2*y - 1.06130397060717*x*y**2*z                 ; p: 6.215788635315246e-08; error: 100000000
+Estimating model C0*x*y**3*z**2 + C1*x*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2 + C1*x*y*z
+model: 0.702272876109138*x*y**3*z**2 + 3.84840890841733*x*y*z                ; p: 1.1496722659879079e-09; error: 100000000
+Estimating model C0*y**2 + C1*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y*z + C2
+model: -4.27105724488248*y**2 - 4.89584734022391*y*z - 2.79995605877845      ; p: 6.859731677007056e-06; error: 100000000
+Estimating model C0*x + C1*y*z**2
+model: 24.9252303623512*x - 0.0655568288696407*y*z**2                        ; p: 2.7844499865600013e-05; error: 0.004266275196602607
+Estimating model C0*x*y + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2
+model: 1.82699483196004*x*y + 3.24209066575588*y**2                          ; p: 5.2461350092800024e-05; error: 100000000
+Estimating model C0*x*z**2 + C1*y
+model: -0.0621800581438997*x*z**2 + 10.9940515275824*y                       ; p: 2.7844499865600013e-05; error: 0.01048822359103354
+Estimating model C0*x*y**2 + C1*y**2*z**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y**2*z**3 + C2
+model: 2.96307753572571*x*y**2 - 3.62952608565515*y**2*z**3 - 4.68143736086572; p: 2.0903132108871057e-09; error: 100000000
+Estimating model C0*x**2*z**2 + C1*y**2 + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z**2 + C1*y**2 + C2*z
+model: 1.78839289838443*x**2*z**2 + 0.790898722582102*y**2 - 2.65975772890632*z; p: 1.5835706143084127e-08; error: 100000000
+Estimating model C0*x**2*y + C1*x + C2
+model: -0.0395618038674744*x**2*y + 25.6577398866966*x - 0.146710575673423   ; p: 8.168861745650079e-06; error: 0.00010055096277088013
+Estimating model C0*x**2*z + C1*x*y**4*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*x*y**4*z**2
+model: -1.67214042695464*x**2*z + 0.00326600393161014*x*y**4*z**2            ; p: 1.5175673911040386e-10; error: 100000000
+Estimating model C0*x*z + C1*y*z + C2
+model: 30.0*x*z - 12.1948113647424*y*z + 20.2081034824704                    ; p: 1.8176889512263685e-05; error: 1.1119256226217702
+Estimating model C0*x*y + C1*x*z**2
+model: -30.0*x*y + 11.5044429025448*x*z**2                                   ; p: 3.675473982259202e-06; error: 23.462022422497565
+Estimating model C0*x*y + C1*y + C2*z + C3
+model: -0.37815190077551*x*y + 12.9610579993595*y - 0.0614719978287846*z - 1.79000512312636; p: 1.5566713336627204e-06; error: 0.0006936393781978407
+Estimating model C0*x + C1*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**3
+model: -1.2088078349086*x - 4.59556155627431*y**3                            ; p: 2.6230675046400015e-05; error: 100000000
+Estimating model C0*x**2*z + C1*z**2 + C2
+model: -1.9914122052246*x**2*z + 30.0*z**2 + 18.6601582804157                ; p: 2.1812267414716428e-07; error: 3.1107070109356614
+Estimating model C0*x**4*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y*z
+model: -3.32693489225771*x**4*y*z                                            ; p: 1.962054493470721e-06; error: 100000000
+Estimating model C0*x**2*y*z + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x
+model: 2.37332909811063*x**2*y*z - 2.80346359627021*x                        ; p: 3.5673718063104024e-06; error: 100000000
+Estimating model C0*x*z + C1*x + C2*y + C3
+model: -0.884488312639663*x*z + 12.6314747996157*x + 6.14056629327181*y - 0.497843866082144; p: 1.1835683484104399e-08; error: 0.00017388275839003807
+Estimating model C0*x*y*z + C1*x*y + C2*z + C3
+model: -0.293610682536679*x*y*z + 4.07472598156009*x*y - 30.0*z + 23.7616305183365; p: 2.794536378191317e-08; error: 0.14284806285059387
+Estimating model C0*y**3 + C1*y + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*y + C2*z + C3
+model: 0.659244444535643*y**3 + 1.81746317090349*y + 1.70738712567688*z - 0.331116420586216; p: 1.5623102199017813e-09; error: 100000000
+Estimating model C0*x**2*y**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**4
+model: 2.39375559449116*x**2*y**4                                            ; p: 1.904347008368641e-06; error: 100000000
+Estimating model C0*x*y**2 + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y*z + C2*y + C3
+model: -4.691442529224*x*y**2 + 1.989025306606*y*z + 4.57032293921562*y - 1.52621655190518; p: 2.7123441317739253e-08; error: 100000000
+Estimating model C0*x**2*z + C1*x*z
+model: -3.10588709790357*x**2*z + 30.0*x*z                                   ; p: 7.350947964518402e-06; error: 2.1546358613399117
+Estimating model C0*x*y**2*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*z + C2
+model: 2.74515333657791*x*y**2*z - 2.37496748639479*z - 1.52282374316455     ; p: 8.850403974764597e-07; error: 100000000
+Estimating model C0*x*y + C1*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**3*z**2
+model: 3.90675980534753*x*y - 0.29044005111769*y**3*z**2                     ; p: 6.404145866688434e-08; error: 100000000
+Estimating model C0*x*y + C1*y*z
+model: 16.1651966315391*x*y - 20.5592030732051*y*z                           ; p: 8.107663196160004e-05; error: 7.736535996295559
+Estimating model C0*x**3*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z
+model: -0.780446677970519*x**3*y*z                                           ; p: 2.9728098385920014e-05; error: 100000000
+Estimating model C0*x**2*y + C1*x*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*x*y**2*z + C2
+model: 2.46022672315477*x**2*y - 4.69610301847634*x*y**2*z + 1.81131070799254; p: 3.580294253941581e-09; error: 100000000
+Estimating model C0*x**2 + C1*x*y + C2
+model: 30.0*x**2 - 12.8688443801071*x*y + 13.4753762245281                   ; p: 1.5108868826726408e-06; error: 0.37578088525081105
+Estimating model C0*x**2*y**2*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*y
+model: 4.85600691929687*x**2*y**2*z - 2.68392920073475*y                     ; p: 4.7089307843297307e-07; error: 100000000
+Estimating model C0*x**4*z**2
+model: 0.00216119306726803*x**4*z**2                                         ; p: 2.021510690242561e-06; error: 35.873550589638604
+Estimating model C0*x*y**2*z**3 + C1*x + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**3 + C1*x + C2*z
+model: -1.51252222456268*x*y**2*z**3 - 4.58976231071439*x - 0.353842048171118*z; p: 2.1536560354594418e-09; error: 100000000
+Estimating model C0*x*y**2 + C1*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*z**2 + C2
+model: 1.18534799972816*x*y**2 - 0.46989823320002*z**2 + 1.69355271750489    ; p: 8.821137557422087e-07; error: 100000000
+Estimating model C0*x**4*z**3 + C1
+model: 0.000124812299037152*x**4*z**3 + 29.1511603911255                     ; p: 6.598210892951721e-08; error: 6.577670516700435
+Estimating model C0*x**4 + C1*x + C2
+model: -0.00852139202382728*x**4 + 24.8030655879053*x + 0.345680154865239    ; p: 8.309877854699524e-07; error: 0.0012324684118971642
+Estimating model C0*x + C1*y**2*z + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2*z + C2*y
+model: 4.09216662818677*x - 0.370794891302323*y**2*z - 1.11121677274783*y    ; p: 8.561692335144962e-07; error: 100000000
+Estimating model C0*y**2*z + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y + C2*z
+model: 4.98256317226924*y**2*z + 2.69080996573668*y + 4.45841950500418*z     ; p: 8.821137557422084e-07; error: 100000000
+Estimating model C0*y*z**2 + C1*y*z + C2
+model: -0.860247478949796*y*z**2 + 7.05874714474656*y*z + 12.4487212729951   ; p: 9.088444756131843e-07; error: 0.630382660668354
+Estimating model C0*y**2*z**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1*z
+model: 1.08484988717803*y**2*z**2 + 2.63048922840758*z                       ; p: 3.7868519817216017e-06; error: 100000000
+Estimating model C0*x*y*z + C1*x*y
+model: -1.20848910193169*x*y*z + 8.2666957874842*x*y                         ; p: 3.5673718063104024e-06; error: 5.355426349211843
+Estimating model C0*x**2*z**4 + C1
+model: 0.00142706403450846*x**2*z**4 + 29.360166180352                       ; p: 5.15011869514138e-07; error: 6.565697963089471
+Estimating model C0*x**2*z**2 + C1*x**2 + C2
+model: -0.0701763580500597*x**2*z**2 + 5.1674371955253*x**2 + 13.550866964284; p: 1.1643901575797155e-07; error: 0.36927901486227394
+Estimating model C0*x*y + C1*x + C2*y + C3*z + C4
+model: -1.23214199434756*x*y + 27.4313011559022*x + 1.35021613628396*y + 16.6119904493356*z - 8.76881563861619; p: 4.931534785043499e-08; error: 0.0009256857851766468
+Estimating model C0*x*y + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*y + C3
+model: 1.35619032363636*x*y + 4.60777639678106*y**2 + 3.60841253560575*y - 4.71502385357085; p: 1.9943706851278858e-07; error: 100000000
+Estimating model C0*x**2 + C1*x*y**5*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**5*z + C2
+model: 0.857135859087349*x**2 + 2.310663977923*x*y**5*z + 2.66705829629224   ; p: 1.497193129936275e-11; error: 100000000
+Estimating model C0*x**2*y*z**2 + C1*x*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x*y
+model: -1.3734242725675*x**2*y*z**2 - 3.49669266295453*x*y                   ; p: 6.404145866688434e-08; error: 100000000
+Estimating model C0*x*y**2 + C1*x*z + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*z + C2*z + C3
+model: -3.25156037627106*x*y**2 - 4.45613791844128*x*z - 2.3097933974484*z - 3.00783686479478; p: 2.794536378191317e-08; error: 100000000
+Estimating model C0*x**2 + C1*x*y + C2*y
+model: 28.3822904089399*x**2 - 13.8322146829999*x*y + 12.1136639334427*y     ; p: 8.309877854699524e-07; error: 0.039427728499803465
+Estimating model C0*x**2*y*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x + C2
+model: -4.47047459890798*x**2*y*z - 3.43089764168461*x - 1.52009725890271    ; p: 8.561692335144962e-07; error: 100000000
+Estimating model C0*x*z**2 + C1*y + C2
+model: -0.0920031331436575*x*z**2 + 11.4274640858444*y - 0.568503521060598   ; p: 1.3365359935488005e-05; error: 0.005091726306809829
+Estimating model C0*x + C1*y + C2*z**2
+model: 13.6653220292862*x + 5.27159593772129*y - 1.04214277397208*z**2       ; p: 2.1170730137813002e-07; error: 0.0005452891059515214
+Estimating model C0*x*y*z + C1*x*z**2
+model: -10.3663509086732*x*y*z + 30.0*x*z**2                                 ; p: 4.998644615872514e-07; error: 8.817141240444087
+Estimating model C0*x + C1*y*z**2 + C2*y + C3*z + C4
+model: 21.696849704422*x - 0.0285152567714065*y*z**2 + 1.91559426868357*y - 4.98465095061573*z + 1.80015347339458; p: 6.9101263169821644e-09; error: 5.242122185667136e-05
+Estimating model C0*x*y*z + C1*x + C2*y*z
+model: -0.00720019125112069*x*y*z + 25.6941613879237*x - 0.395294922822042*y*z; p: 1.1643901575797154e-07; error: 0.00015970952701988844
+Estimating model C0*x**4 + C1*x
+model: -0.00916780110742836*x**4 + 25.0991121575374*x                        ; p: 3.4624491061248015e-06; error: 0.0018280207172377213
+Estimating model C0*x**2*z + C1*y + C2
+model: -0.0798172917266049*x**2*z + 11.6356288734529*y - 0.783874209324869   ; p: 8.042801890590723e-06; error: 0.0020997435912754403
+Estimating model C0*x**2*y**3*z + C1*x**2*z + C2*y + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*x**2*z + C2*y + C3*z + C4
+model: -0.920393588858635*x**2*y**3*z - 2.8985159284327*x**2*z - 0.571261483544809*y + 0.309958717404832*z - 2.86734549428718; p: 6.646100191512326e-14; error: 100000000
+Estimating model C0*x**2*y**2*z**4 + C1*x*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**4 + C1*x*z + C2
+model: 4.18711486545592*x**2*y**2*z**4 - 2.89568910236108*x*z - 4.02532571240261; p: 3.8662433148567914e-11; error: 100000000
+Estimating model C0*x + C1*y**4*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**4*z
+model: 1.77585502858735*x + 0.329807889088157*y**4*z                         ; p: 9.417861568659461e-07; error: 100000000
+Estimating model C0*x*y*z + C1*y*z + C2*z**2 + C3
+model: -2.46075197610054*x*y*z + 11.5807554834868*y*z + 30.0*z**2 + 3.38278012953373; p: 5.41311655167115e-11; error: 0.3921342284485912
+Estimating model C0*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z**2
+model: -2.34765129597649*y**3*z**2                                           ; p: 1.5314474926080006e-05; error: 100000000
+Estimating model C0*y**2 + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y*z + C2*y + C3
+model: 4.97549561997979*y**2 + 4.11833204242547*y*z + 2.67155636360352*y + 3.3084492516083; p: 2.083211800796642e-07; error: 100000000
+Estimating model C0*x*y**3 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*x + C2
+model: -3.33091188046019*x*y**3 - 2.88411570065417*x - 0.799385316589657     ; p: 4.786489644306927e-08; error: 100000000
+Estimating model C0*x**2*y*z**3 + C1*x*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**3 + C1*x*z
+model: -2.57250100700444*x**2*y*z**3 + 1.9316623741634*x*z                   ; p: 8.973566814414343e-09; error: 100000000
+Estimating model C0*x*y + C1*y**2 + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*z
+model: -4.5377512088793*x*y + 1.36648859967076*y**2 - 2.42700615328452*z     ; p: 8.561692335144968e-07; error: 100000000
+Estimating model C0*x**2*y**2*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*z + C2
+model: 2.49046256181311*x**2*y**2*z - 2.1845380917544*z + 0.864596429292063  ; p: 1.1643901575797151e-07; error: 100000000
+Estimating model C0*x**2*y*z + C1*x**2*z + C2*y + C3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x**2*z + C2*y + C3*z
+model: -0.668783575247031*x**2*y*z - 1.18194879214904*x**2*z - 0.56371451238268*y + 1.42737893803956*z; p: 6.622112252090349e-11; error: 100000000
+Estimating model C0*x**4*y*z**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y*z**3 + C1
+model: 0.531285819152932*x**4*y*z**3 + 2.08502052748144                      ; p: 8.709638378696271e-09; error: 100000000
+Estimating model C0*x**4*y + C1*y + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y + C1*y + C2*z + C3
+model: 1.19554063860313*x**4*y - 0.191518675824762*y + 0.160717866724992*z + 0.840598758274806; p: 2.732030113327557e-14; error: 100000000
+Estimating model C0*x**2*y*z + C1*x*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x*z + C2
+model: 2.71387744150217*x**2*y*z + 2.3950725363038*x*z + 0.841201508620069   ; p: 6.706887307659161e-09; error: 100000000
+Estimating model C0*x**2*y + C1*z + C2
+model: 0.0574353998243544*x**2*y + 30.0*z + 7.92426102465198                 ; p: 6.486130556928005e-06; error: 1.638799291709409
+Estimating model C0*x**2*y + C1*x + C2*y
+model: -0.0388218088322363*x**2*y + 26.6801362181657*x - 0.53423146344145*y  ; p: 8.309877854699524e-07; error: 8.637503827996024e-05
+Estimating model C0*x**2*y**2*z**2 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*x*y + C2*x + C3
+model: -4.15164933467832*x**2*y**2*z**2 - 1.27424938633251*x*y - 1.25856037323148*x - 1.59015503751097; p: 1.5425626187222228e-11; error: 100000000
+Estimating model C0*y**3*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z**2 + C1
+model: 0.201525138005707*y**3*z**2 + 1.31306578985239                        ; p: 3.675473982259201e-06; error: 100000000
+Estimating model C0*x*y**2 + C1*x*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y + C2
+model: -0.233980358379564*x*y**2 + 3.83340915772313*x*y - 2.44595217020612   ; p: 1.0304248539827413e-06; error: 100000000
+Estimating model C0*x*y + C1*z**3
+model: -30.0*x*y + 13.0481507745419*z**3                                     ; p: 3.7868519817216017e-06; error: 28.76070137362311
+Estimating model C0*x**2*y**3 + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1*x
+model: 1.95164189316556*x**2*y**3 + 2.38489140530727*x                       ; p: 4.5704328200847384e-07; error: 100000000
+Estimating model C0*x + C1*y*z**2 + C2*y + C3
+model: 29.6966355043267*x - 0.0568632650763554*y*z**2 - 2.51093382284909*y + 0.828786247116719; p: 2.1170730137813002e-07; error: 0.0010801771737296267
+Estimating model C0*x*y + C1*y**2 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*z + C3
+model: -1.75181458480103*x*y - 0.998174718348687*y**2 - 4.35863970431431*z - 3.7259830227113; p: 2.0548061604347915e-07; error: 100000000
+Estimating model C0*x*y + C1*x*z + C2*x + C3*y*z**2 + C4
+model: -0.239136774755292*x*y + 0.1035860298271*x*z + 26.2708661738364*x - 0.0343978514023796*y*z**2 - 0.263241028336; p: 5.2729389949188664e-14; error: 4.466820678430721e-05
+Estimating model C0*x**3*y*z**2 + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2 + C1*x + C2*y + C3
+model: -4.89675481653174*x**3*y*z**2 + 3.70789026287023*x + 3.0116199530748*y - 0.878470882585022; p: 4.869200185360551e-10; error: 100000000
+Estimating model C0*x**3*z**2 + C1*y
+model: -0.000658968258933187*x**3*z**2 + 10.9536850421201*y                  ; p: 4.851625656582148e-07; error: 0.012899346013636652
+Estimating model C0*x*y**2 + C1*y**3*z + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y**3*z + C2*z + C3
+model: -0.376209215551508*x*y**2 + 3.91247958297692*y**3*z - 3.04020867597288*z - 4.06081394344542; p: 2.8046593067676784e-11; error: 100000000
+Estimating model C0*x**3*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2 + C1
+model: 4.16522448313622*x**3*y**2 + 4.14219958122874                         ; p: 3.4624491061248015e-06; error: 100000000
+Estimating model C0*x**2 + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*y**2 + C2*y
+model: 2.14417065348033*x**2 + 0.353464169394535*y**2 + 4.68044111934346*y   ; p: 8.309877854699524e-07; error: 100000000
+Estimating model C0*x*y*z**2 + C1*x*y + C2
+model: -0.0331769459853127*x*y*z**2 + 2.46306543444169*x*y + 13.3972836379712; p: 1.1643901575797154e-07; error: 0.36641871212878835
+Estimating model C0*x*y**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x + C2
+model: 3.04881327910494*x*y**2 + 3.32900101053703*x - 0.300251113255889      ; p: 1.2590724022272007e-05; error: 100000000
+Estimating model C0*x**2*z + C1*y + C2*z + C3
+model: -0.0348600956686252*x**2*z + 12.1437873807764*y - 4.81337237472874*z + 0.863796679281623; p: 2.1170730137813005e-07; error: 0.00015903610282403364
+Estimating model C0*x*y**3 + C1*x + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*x + C2*z
+model: 2.27369876262723*x*y**3 + 1.71114889113189*x - 0.335528486142492*z    ; p: 1.1301433882391353e-07; error: 100000000
+Estimating model C0*x*y**2*z + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*y*z + C2*y + C3
+model: -2.9508744556805*x*y**2*z - 0.87087236090805*y*z - 4.58114941518854*y + 0.16139313938164; p: 8.85309124611009e-10; error: 100000000
+Estimating model C0*x + C1*y*z**2 + C2*z + C3
+model: 25.9392764362484*x - 0.0251106973263266*y*z**2 - 5.78638854975525*z + 2.21306373468944; p: 1.6584303160757197e-09; error: 5.79551651964807e-05
+Estimating model C0*x**3*y**3 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3 + C1*x*y + C2*x + C3
+model: -4.57314653099253*x**3*y**3 - 1.96469050344424*x*y + 0.0997886853214269*x - 0.167124323948464; p: 1.4531580378793259e-11; error: 100000000
+Estimating model C0*x**3*z + C1*x + C2*z + C3
+model: -0.00420691855639348*x**3*z + 26.0004714352128*x - 6.09826741006933*z + 2.31342837843966; p: 3.8631670892116767e-10; error: 9.326716934996557e-05
+Estimating model C0*y**3*z + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*z
+model: -2.13291316503562*y**3*z + 0.895801136495554*z                        ; p: 3.675473982259202e-06; error: 100000000
+Estimating model C0*x*z**3 + C1*z + C2
+model: 0.0189105645086127*x*z**3 + 30.0*z + 9.68656130991023                 ; p: 9.363852172984326e-07; error: 2.019820722243059
+Estimating model C0*x*y*z**2 + C1*y + C2*z
+model: -0.00410347537821956*x*y*z**2 + 11.678406792242*y - 1.88563469267974*z; p: 1.1996747078094033e-07; error: 0.0018769344124264502
+Estimating model C0*x**2*z + C1*x + C2*y + C3*z + C4
+model: -0.0733536959672904*x**2*z + 29.6348538370185*x - 1.96505934242902*y - 2.6752938679645*z + 1.24947895303378; p: 6.706887307659159e-09; error: 3.476969302926258e-05
+Estimating model C0*x*z**4 + C1*x
+model: -0.00224965943091459*x*z**4 + 24.4311580967711*x                      ; p: 5.150118695141379e-07; error: 0.020295623925022436
+Estimating model C0*x**3*y*z + C1*x*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x*y*z + C2
+model: -1.96667889680651*x**3*y*z + 1.79682122269955*x*y*z + 4.54618957116507; p: 1.168608044486532e-10; error: 100000000
+Estimating model C0*y**4*z**3 + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z**3 + C1*y + C2*z
+model: 1.02165835060091*y**4*z**3 - 2.56797027093533*y + 0.984307132514164*z ; p: 2.842825966806464e-10; error: 100000000
+Estimating model C0*y**4*z**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z**2 + C1*z + C2
+model: -3.57111871328659*y**4*z**2 + 0.238856872653244*z + 1.11482389539636  ; p: 3.800569474340191e-09; error: 100000000
+Estimating model C0*x**2*y**5*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**5*z**2 + C1
+model: -1.6116704639512*x**2*y**5*z**2 - 3.08843442221643                    ; p: 2.678060101948303e-10; error: 100000000
+Estimating model C0*x*y + C1*x + C2*y
+model: -0.370268134781961*x*y + 29.7236910163397*x - 1.35256578816054*y      ; p: 6.295362011136003e-06; error: 0.003115116361211674
+Estimating model C0*x**2*y*z + C1*x**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x**2 + C2
+model: 4.59225205360451*x**2*y*z - 2.15029074807285*x**2 + 2.91251216458401  ; p: 1.1301433882391354e-07; error: 100000000
+Estimating model C0*x**2*y*z + C1*x + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x + C2*z + C3
+model: 3.42085103547434*x**2*y*z - 0.0185468222399632*x - 1.93027664197924*z + 3.27050958758952; p: 6.706887307659157e-09; error: 100000000
+Estimating model C0*x + C1*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2*z**2
+model: -3.40424249576064*x - 0.937004714597163*y**2*z**2                     ; p: 3.675473982259202e-06; error: 100000000
+Estimating model C0*y**2 + C1*z**2 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z**2 + C2*z + C3
+model: -4.57252355340238*y**2 - 4.32622972521787*z**2 - 1.810096958832*z - 1.18010194835629; p: 2.181226741471643e-07; error: 100000000
+Estimating model C0*x**2 + C1*x*y**3*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**3*z**2 + C2
+model: -1.18391066379261*x**2 - 2.09918714433469*x*y**3*z**2 - 0.252483500774178; p: 4.869200185360552e-10; error: 100000000
+Estimating model C0*x**2*z**2 + C1*z + C2
+model: 0.0163418141096738*x**2*z**2 + 30.0*z + 9.47412196642628              ; p: 9.68255275446228e-10; error: 1.9762095069481984
+Estimating model C0*x*y**5 + C1*x*y*z**2 + C2*x + C3*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**5 + C1*x*y*z**2 + C2*x + C3*y*z
+model: -4.53075622724503*x*y**5 - 0.364074185598755*x*y*z**2 - 2.14274418578343*x + 0.320427004549214*y*z; p: 2.0104453079324783e-14; error: 100000000
+Estimating model C0*y**3*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*y
+model: -3.6245790069459*y**3*z + 0.297613103547483*y                         ; p: 3.567371806310401e-06; error: 100000000
+Estimating model C0*x*z + C1*y*z + C2*y + C3
+model: 2.11309255271926*x*z - 1.43433801969175*y*z + 12.173341616854*y - 1.09632692973946; p: 2.92664173425127e-09; error: 0.00040980658833891857
+Estimating model C0*x**2*y*z**2 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x*y + C2*x + C3
+model: 3.02794995501551*x**2*y*z**2 - 3.85654825269601*x*y + 2.77521507253349*x - 2.55779036723833; p: 4.869200185360553e-10; error: 100000000
+Estimating model C0*x**3*y*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2 + C1
+model: -4.71372944037587*x**3*y*z**2 + 2.18907499570456                      ; p: 4.851625656582147e-07; error: 100000000
+Estimating model C0*x*y**2*z + C1*x*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x*y + C2
+model: -4.6896438171264*x*y**2*z - 2.64337489045942*x*y + 3.6522945173921    ; p: 2.7123441317739253e-08; error: 100000000
+Estimating model C0*y**2*z + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*z
+model: 3.01988060978468*y**2*z - 3.51911213334519*z                          ; p: 2.7844499865600013e-05; error: 100000000
+Estimating model C0*x*z**3 + C1*x + C2*y*z
+model: -0.00116634783940972*x*z**3 + 25.7393360517802*x - 0.437155007990436*y*z; p: 1.631557602620789e-08; error: 0.00011085955029478639
+Estimating model C0*x*y*z + C1*x*z + C2*y + C3*z + C4
+model: -0.124851458505478*x*y*z + 3.32867373766859*x*z + 11.8836992945596*y - 16.6176471851805*z + 5.82749271777923; p: 9.71762683356005e-13; error: 0.0004575332818225576
+Estimating model C0*x*y*z**3 + C1*x + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1*x + C2*z + C3
+model: -2.27097299764465*x*y*z**3 - 4.35255036585673*x + 1.16397394059527*z - 0.321328476241464; p: 7.361838510272763e-12; error: 100000000
+Estimating model C0*x*y**3*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2 + C1*y
+model: 2.7754497490536*x*y**3*z**2 + 4.31029358341237*y                      ; p: 1.280829173337687e-07; error: 100000000
+Estimating model C0*x**3*z**2 + C1
+model: 0.00975756837814384*x**3*z**2 + 27.7490298394601                      ; p: 3.675473982259201e-06; error: 5.399472144117948
+Estimating model C0*x*z**3 + C1*z**2 + C2
+model: -0.254855053930059*x*z**3 + 20.2935657460254*z**2 + 16.2173226078725  ; p: 3.0563613492620843e-08; error: 1.4723273610961523
+Estimating model C0*x**3*z**3 + C1*x*y*z**2 + C2*x*z**3 + C3*z
+model: -0.161943700462484*x**3*z**3 - 6.02423623037979*x*y*z**2 + 29.9657586335498*x*z**3 + 30.0*z; p: 1.3676662771262981e-17; error: 1.4014667981922146
+Estimating model C0*x**2 + C1*x*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**2
+model: 0.662450306564177*x**2 - 1.20517012249465*x*y**2                      ; p: 3.462449106124803e-06; error: 100000000
+Estimating model C0*x**2*y + C1*x*y + C2*z
+model: -0.448049630420433*x**2*y + 3.75303101124869*x*y + 25.1956669533463*z ; p: 1.1301433882391354e-07; error: 0.17766463907670113
+Estimating model C0*x**2*y*z + C1*x*y + C2*z**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x*y + C2*z**2 + C3
+model: 3.7508604340017*x**2*y*z - 1.69747931660009*x*y + 4.56738214729895*z**2 + 0.588695539017066; p: 1.204020409470973e-10; error: 100000000
+Estimating model C0*y*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y*z**4
+model: 4.08185289861395*y*z**4                                               ; p: 1.6256687800320006e-05; error: 100000000
+Estimating model C0*x**3*y*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x + C2
+model: -0.785297474103298*x**3*y*z - 3.72514209617456*x + 2.87743160194188   ; p: 1.1301433882391353e-07; error: 100000000
+Estimating model C0*x**2*y + C1*x + C2*y + C3*z**2 + C4
+model: -0.0220356236978449*x**2*y + 28.6320758750985*x - 1.56986407725795*y - 0.50598968249471*z**2 + 0.268240198616855; p: 8.853091246110095e-10; error: 6.67728571892092e-05
+Estimating model C0*x*y*z + C1*x + C2*y + C3
+model: -0.0478612654283223*x*y*z + 28.8921645822574*x - 1.89369944943441*y + 0.455876254201113; p: 4.1096123208695825e-07; error: 0.00033561738137316414
+Estimating model C0*y**2 + C1*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z**2 + C2
+model: -3.01664258882615*y**2 + 1.00468677960745*z**2 - 1.95813707830305     ; p: 3.8492236614205467e-07; error: 100000000
+Estimating model C0*x*y**3 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*y
+model: 1.39614890332482*x*y**3 + 1.21075694921889*y                          ; p: 3.4624491061248015e-06; error: 100000000
+Estimating model C0*x**3*y**2*z + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z + C1*y*z + C2*y + C3
+model: -0.77819914839748*x**3*y**2*z - 3.59663482602843*y*z + 2.26347653280613*y + 0.156198282052484; p: 1.542562618722223e-11; error: 100000000
+Estimating model C0*y**2*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1*y
+model: 2.52180699266318*y**2*z**2 + 4.73332137949995*y                       ; p: 3.675473982259201e-06; error: 100000000
+Estimating model C0*x*z + C1*x + C2*y + C3*z + C4
+model: -1.05089152921902*x*z + 29.4717901887948*x - 1.78457091252108*y + 0.865398312863367*z - 0.199049542635378; p: 2.9266417342512697e-09; error: 0.00015286412804090156
+Estimating model C0*x**2*y*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*y
+model: -1.59939869597419*x**2*y*z**2 + 3.46464489872068*y                    ; p: 4.851625656582148e-07; error: 100000000
+Estimating model C0*x**2 + C1*x + C2*z**2
+model: -0.341040705295908*x**2 + 25.9741872350745*x - 0.711804333507989*z**2 ; p: 8.821137557422087e-07; error: 0.00011455185246791894
+Estimating model C0*y**2*z**3 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**3 + C1*y**2
+model: 2.20135945173153*y**2*z**3 + 1.94805817760893*y**2                    ; p: 6.59821089295172e-08; error: 100000000
+Estimating model C0*x**2*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z**2
+model: -3.07551093230856*x**2*y**3*z**2                                      ; p: 2.668394111120181e-07; error: 100000000
+Estimating model C0*x**3*z + C1*x*y + C2*y*z + C3
+model: 0.106785842701066*x**3*z + 7.56311042878589*x*y - 12.7922782452288*y*z + 13.6996545131197; p: 4.869200185360551e-10; error: 0.07008557863777874
+Estimating model C0*x*y**2*z**2 + C1*y*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*y*z**2 + C2
+model: 1.53425528558225*x*y**2*z**2 - 2.13203075003748*y*z**2 + 1.39077981103044; p: 5.168774485102659e-10; error: 100000000
+Estimating model C0*x**2*y**2*z**2 + C1*x*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*x*y*z + C2
+model: -4.23920129082992*x**2*y**2*z**2 - 3.93280029319237*x*y*z - 1.23866880390068; p: 2.75921343837098e-10; error: 100000000
+Estimating model C0*x*y*z + C1*x*y + C2*y
+model: -0.0597624364968609*x*y*z + 0.233648042100192*x*y + 10.7367706760976*y; p: 1.1301433882391354e-07; error: 0.005090048215803637
+Estimating model C0*x**2*z + C1*x*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*x*y**3*z**2
+model: 1.02939667358917*x**2*z - 1.86079631796195*x*y**3*z**2                ; p: 1.1496722659879079e-09; error: 100000000
+Estimating model C0*x*y**2*z + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*y**2 + C2*y + C3
+model: 2.71732387656935*x*y**2*z + 4.89318813592423*y**2 - 2.55737374692798*y - 1.62811772234256; p: 3.580294253941582e-09; error: 100000000
+Estimating model C0*x**2*y**3 + C1*y**2*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1*y**2*z**2 + C2
+model: -4.13961131376194*x**2*y**3 - 0.66585266079337*y**2*z**2 - 0.793516286034142; p: 2.678060101948304e-10; error: 100000000
+Estimating model C0*x + C1*y*z + C2*z**2 + C3*z + C4
+model: 25.8550848160707*x - 0.054719323916607*y*z - 0.584583003910165*z**2 - 3.83344709650135*z + 1.53092665775062; p: 7.1195240841634434e-09; error: 1.681438847758477e-05
+Estimating model C0*y*z + C1*y + C2*z
+model: -0.264326560902381*y*z + 12.2169184610505*y - 2.80637949237201*z      ; p: 6.682679967744002e-06; error: 0.0002528573798790722
+Estimating model C0*y*z**2 + C1*y + C2
+model: -0.048430453597076*y*z**2 + 11.5104538743179*y - 0.660480988056182    ; p: 3.2076863845171216e-06; error: 0.0024892726209219083
+Estimating model C0*y*z + C1*z**2 + C2
+model: 11.2614943280653*y*z - 27.3922258249221*z**2 + 13.7989334519363       ; p: 2.2843392783412118e-08; error: 0.3984572027445763
+Estimating model C0*x**2*y*z + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y**2
+model: 0.401125785702281*x**2*y*z + 1.03997385587399*y**2                    ; p: 4.708930784329731e-07; error: 100000000
+Estimating model C0*x**2 + C1*x*y + C2*x + C3
+model: -3.77387203328843*x**2 + 1.43061365704606*x*y + 26.9336183875277*x - 0.542800028896033; p: 2.75701803512079e-09; error: 0.00026898293575791345
+Estimating model C0*y**2*z + C1*z**2 + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*z**2 + C2*z
+model: -1.36197117458986*y**2*z + 4.34430991237509*z**2 - 2.76778805105794*z ; p: 1.236028486833931e-07; error: 100000000
+Estimating model C0*x*z**3 + C1*y*z + C2
+model: -0.147835965211932*x*z**3 + 4.86905900095435*y*z + 14.8975722994905   ; p: 1.236028486833931e-07; error: 0.9470128766445332
+Estimating model C0*y**3 + C1*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*y*z
+model: 4.84686307040163*y**3 + 0.617847283803975*y*z                         ; p: 3.5673718063104015e-06; error: 100000000
+Estimating model C0*x**2*z + C1*z
+model: 0.352243792498274*x**2*z + 30.0*z                                     ; p: 2.7844499865600013e-05; error: 3.972879952494943
+Estimating model C0*x*y**2*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**3
+model: -4.68786892301636*x*y**2*z**3                                         ; p: 4.1655371798937625e-06; error: 100000000
+Estimating model C0*x**2 + C1*y + C2*z**2
+model: 25.5943313898277*x**2 - 30.0*y - 28.5782836258297*z**2                ; p: 8.821137557422085e-07; error: 3.01876174479771
+Estimating model C0*x*y + C1*x + C2*y*z + C3
+model: 0.00712913977096535*x*y + 25.7614444376691*x - 0.469046122500722*y*z + 0.00267738598129139; p: 6.50962591625742e-09; error: 0.00017663481231444656
+Estimating model C0*x*z**2 + C1*y + C2*z + C3
+model: -0.0335059413882312*x*z**2 + 12.1710286241877*y - 5.61076742028166*z + 1.19402193882941; p: 4.362453482943286e-07; error: 0.0001213700912625308
+Estimating model C0*y**3*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*y + C2
+model: 0.705336987337772*y**3*z + 0.260529997797362*y - 3.51933414579058     ; p: 1.7123384670289929e-06; error: 100000000
+Estimating model C0*y**4*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z
+model: 3.20195525312044*y**4*z                                               ; p: 1.4864049192960007e-05; error: 100000000
+Estimating model C0*x*z**3 + C1*x + C2*z + C3
+model: -0.00549055208829437*x*z**3 + 26.0108709985559*x - 6.63396685197358*z + 2.54367706512778; p: 2.9664683684014336e-08; error: 0.00011288584477340253
+Estimating model C0*x*z + C1*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2*z
+model: -3.77388679225664*x*z - 3.09810729147575*y**2*z                       ; p: 3.675473982259202e-06; error: 100000000
+Estimating model C0*x**2 + C1*y**2 + C2*z**2 + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*y**2 + C2*z**2 + C3*z + C4
+model: -0.894347587591087*x**2 + 4.86122953978994*y**2 - 3.5568780841939*z**2 - 3.92894374495354*z + 3.38936771268861; p: 9.121366738416462e-10; error: 100000000
+Estimating model C0*x**2*z + C1*x
+model: -0.105863239177504*x**2*z + 25.1531964727266*x                        ; p: 5.405108797440001e-05; error: 0.0017048846134431667
+Estimating model C0*x**3*y + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x + C2*y + C3
+model: -0.487486422154771*x**3*y - 1.82069060864776*x - 0.382934293192254*y - 4.79901497644831; p: 1.5163599193164343e-09; error: 100000000
+Estimating model C0*x**2*z + C1*x*y + C2*y*z + C3*z + C4
+model: 1.818301931706*x**2*z + 9.07938136183222*x*y - 16.9273594389007*y*z - 30.0*z + 27.0127894932237; p: 1.204020409470973e-10; error: 0.040896675249192126
+Estimating model C0*x*y + C1*y*z**2 + C2
+model: 2.72639585366047*x*y - 0.354959949264202*y*z**2 + 12.763908434785     ; p: 1.764227511484417e-06; error: 0.3012769412728201
+Estimating model C0*x*y**2*z**2 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*x*y + C2*x + C3
+model: -1.32141031271403*x*y**2*z**2 - 0.166145376786004*x*y - 0.514372015583903*x - 4.75088519476906; p: 6.731182336242426e-12; error: 100000000
+Estimating model C0*x*z + C1*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**3
+model: 1.23848723456867*x*z + 0.629778731192649*y**3                         ; p: 3.5673718063104015e-06; error: 100000000
+Estimating model C0*x**4*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**2*z**2
+model: -1.87807930604141*x**4*y**2*z**2                                      ; p: 3.5222802266786394e-08; error: 100000000
+Estimating model C0*x**2*y + C1*y*z**3 + C2
+model: 0.445344195154377*x**2*y - 0.077466994403986*y*z**3 + 18.8200849729934; p: 3.800569474340192e-09; error: 1.0968379828892407
+Estimating model C0*y**3*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*z + C2
+model: -1.61112426993466*y**3*z - 1.92884926479354*z - 2.46784074566888      ; p: 2.1170730137813005e-07; error: 100000000
+Estimating model C0*x + C1*y*z**2 + C2*y*z + C3*z + C4
+model: 25.9406646004104*x - 0.021179852839874*y*z**2 - 0.0958969674699751*y*z - 4.51766154453022*z + 1.69467412539528; p: 2.2554652298629788e-10; error: 2.315207682386069e-05
+Estimating model C0*x**2 + C1*y*z
+model: 18.6072986508244*x**2 - 11.2879252839771*y*z                          ; p: 2.7025543987200012e-05; error: 1.1592882590431786
+Estimating model C0*x*y + C1*x*z + C2*y
+model: 0.371711707581055*x*y - 1.48974302165043*x*z + 10.8866839115461*y     ; p: 8.561692335144963e-07; error: 0.004487596485539583
+Estimating model C0*x**2*y + C1*x + C2*z + C3
+model: -0.0383427157702546*x**2*y + 25.6845212800857*x - 0.27774471772247*z - 0.0393827079043534; p: 1.1835683484104402e-08; error: 9.938680678679338e-05
+Estimating model C0*x**2*y + C1*x + C2*y + C3*z + C4
+model: -0.0401195601240426*x**2*y + 26.5806230952027*x - 0.47147769624911*y + 0.209783301145659*z - 0.141695278931709; p: 6.50962591625742e-09; error: 7.162394352160709e-05
+Estimating model C0*x*y**2 + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x
+model: 3.55982269708883*x*y**2 - 0.435130332182359*x                         ; p: 5.246135009280003e-05; error: 100000000
+Estimating model C0*x**3*y**3*z**4 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z**4 + C1*z + C2
+model: -0.0598416552521264*x**3*y**3*z**4 - 4.29770011664066*z - 2.71249102405183; p: 5.103441175610964e-12; error: 100000000
+Estimating model C0*y*z + C1*z**2
+model: -7.25874538753562*y*z + 30.0*z**2                                     ; p: 2.8688272588800013e-05; error: 12.697356241630084
+Estimating model C0*x**2*y**3*z + C1*x + C2*y + C3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*x + C2*y + C3*z
+model: 2.11149910729595*x**2*y**3*z + 4.18531613107169*x + 0.37859034309958*y - 1.92742860780789*z; p: 6.427344244675929e-11; error: 100000000
+Estimating model C0*x**3*y + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x + C2
+model: 0.148225733996988*x**3*y - 4.83035347210747*x - 2.20201460288142      ; p: 8.309877854699524e-07; error: 100000000
+Estimating model C0*x*y*z**3 + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1*y**2*z + C2
+model: 1.56093298990529*x*y*z**3 + 0.754314257249188*y**2*z + 4.82721311847485; p: 2.1536560354594418e-09; error: 100000000
+Estimating model C0*x**2*y*z**2 + C1*x**2*z + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x**2*z + C2*x + C3
+model: -4.88863964437104*x**2*y*z**2 - 0.847399031806421*x**2*z - 2.03276439701087*x - 4.50196370666328; p: 6.62211225209035e-11; error: 100000000
+Estimating model C0*x**2*z + C1*x*z**2 + C2
+model: 4.16051025512123*x**2*z - 4.97392689130159*x*z**2 + 18.1264416307287  ; p: 2.8792192987425686e-08; error: 1.094110208979807
+Estimating model C0*x**2 + C1*x*y*z + C2*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y*z + C2*y**2
+model: 2.68965218466644*x**2 - 2.03852038539505*x*y*z + 4.83869227242368*y**2; p: 1.4917892724756588e-08; error: 100000000
+Estimating model C0*x*y**2*z**4 + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**4 + C1*y + C2*z
+model: 4.3635403677499*x*y**2*z**4 + 4.11923835034528*y + 1.78016468611062*z ; p: 2.9289722082248415e-10; error: 100000000
+Estimating model C0*x**3*y + C1*x*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x*y + C2*z
+model: 0.369233452756303*x**3*y + 2.50097276703125*x*y - 3.61060140817578*z  ; p: 1.4917892724756588e-08; error: 100000000
+Estimating model C0*x*y + C1*y + C2*z
+model: -0.202310105744718*x*y + 12.7144456132965*y - 3.79169787716345*z      ; p: 6.486130556928003e-06; error: 0.0007094670962463961
+Estimating model C0*z**3 + C1*z + C2
+model: 0.189492150027345*z**3 + 30.0*z + 9.43509938622503                    ; p: 1.4187654807552007e-05; error: 1.9717047167148976
+Estimating model C0*x*y**3 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*z + C2
+model: -0.528190753473429*x*y**3 - 4.6632734087912*z - 1.16526111355649      ; p: 2.0548061604347915e-07; error: 100000000
+Estimating model C0*x*y**2*z**4 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**4 + C1*z
+model: -1.93479642700802*x*y**2*z**4 + 4.97540987183063*z                    ; p: 9.245493081517807e-09; error: 100000000
+Estimating model C0*x**3*y**3*z**3 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z**3 + C1*z + C2
+model: -3.20377509727463*x**3*y**3*z**3 + 1.73092475029374*z + 3.36715826696863; p: 2.302751047292124e-15; error: 100000000
+Estimating model C0*x*y*z**5
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**5
+model: -0.946223281619542*x*y*z**5                                           ; p: 2.918400593913448e-07; error: 100000000
+Estimating model C0*x*y**4*z**3 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z**3 + C1*y**2
+model: -3.63588640414692*x*y**4*z**3 - 1.13390695454816*y**2                 ; p: 1.5175673911040386e-10; error: 100000000
+Estimating model C0*y**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4
+model: 4.43143529442823*y**4                                                 ; p: 0.00010929447936000005; error: 100000000
+Estimating model C0*x**3 + C1*y*z
+model: 6.18947216857504*x**3 - 30.0*y*z                                      ; p: 3.5673718063104015e-06; error: 4.440015412767749
+Estimating model C0*x**2 + C1*x*y
+model: 30.0*x**2 - 12.6264041341535*x*y                                      ; p: 2.6230675046400012e-05; error: 0.9895464326445911
+Estimating model C0*y**2*z**4 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**4 + C1*y
+model: -1.72755871045514*y**2*z**4 - 0.772872954968538*y                     ; p: 6.798156677586621e-08; error: 100000000
+Estimating model C0*x**2*y**3*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z**3
+model: 1.77480137161107*x**2*y**3*z**3                                       ; p: 3.629015991123446e-08; error: 100000000
+Estimating model C0*x**3*y*z + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*y + C2*z
+model: 0.899367468922222*x**3*y*z - 4.06832929344517*y - 3.80036475186644*z  ; p: 1.5369950080052242e-08; error: 100000000
+Estimating model C0*x**3*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z
+model: 2.17250316019912*x**3*y**3*z                                          ; p: 2.589911931381352e-07; error: 100000000
+Estimating model C0*x*y*z**7 + C1

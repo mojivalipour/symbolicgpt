@@ -1,0 +1,1141 @@
+["'y'", "'x'", "'z'"]
+Grammar with 9 productions (start state = S)
+    S -> S '+' R [0.4]
+    S -> R [0.6]
+    R -> T [1.0]
+    R -> 'C' '*' F '(' T ')' [0]
+    T -> T '*' V [0.4]
+    T -> 'C' [0.6]
+    V -> 'y' [0.33]
+    V -> 'x' [0.33]
+    V -> 'z' [0.34]
+6500 =samples cardinality
+Estimating model C0*z**3 + C1
+Estimating model C0*x
+Estimating model C0*z
+Estimating model C0*x*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z
+Estimating model C0*y*z + C1
+Estimating model C0*y + C1
+Estimating model C0*x + C1
+Estimating model C0*x*y
+Estimating model C0*z + C1
+Estimating model C0*y
+Estimating model C0*x + C1*z + C2
+Estimating model C0*x**2*z + C1*y*z + C2*y + C3
+Estimating model C0*y + C1*z
+Estimating model C0*y*z**2
+Estimating model C0*x**3 + C1*y
+Estimating model C0*x*y + C1*y*z + C2
+Estimating model C0*y*z + C1*y + C2
+Estimating model C0*x*y*z
+Estimating model C0*x + C1*y
+Estimating model C0*y**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z
+Estimating model C0*x + C1*y + C2
+Estimating model C0*x*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1
+Estimating model C0*x*z + C1
+Estimating model C0*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2
+Estimating model C0*x + C1*z**3
+Estimating model C0*x**2
+Estimating model C0*x*z + C1*z**2 + C2
+Estimating model C0*x*y + C1
+Estimating model C0*x**2*y**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*z + C2
+Estimating model C0*x*z + C1*y
+Estimating model C0*x*y + C1*z + C2
+Estimating model C0*x**2 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*y**2
+Estimating model C0*y*z
+Estimating model C0*x*z + C1*z + C2
+Estimating model C0*x*z
+Estimating model C0*x**2*z**2 + C1
+Estimating model C0*x*y*z + C1*x + C2
+Estimating model C0*z**2 + C1
+Estimating model C0*z**2
+Estimating model C0*x + C1*z**3 + C2
+Estimating model C0*x + C1*y**5 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**5 + C2
+Estimating model C0*x*z**2
+Estimating model C0*x*y**2*z + C1*x*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x*z
+Estimating model C0*x**2*z + C1
+Estimating model C0*y + C1*z + C2
+Estimating model C0*y**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z + C2
+Estimating model C0*y**2*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*z + C2
+Estimating model C0*y*z + C1*z
+Estimating model C0*x*y*z**2 + C1*x
+Estimating model C0*x**2*z
+Estimating model C0*x + C1*z**2
+Estimating model C0*x*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2
+Estimating model C0*x**3
+Estimating model C0*x*z**2 + C1*x + C2*y*z + C3
+Estimating model C0*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z
+Estimating model C0*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1
+Estimating model C0*x**2*y*z**3 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**3 + C1*x + C2
+Estimating model C0*x*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1
+Estimating model C0*y*z**2 + C1
+Estimating model C0*x + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2
+Estimating model C0*x*z + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2
+Estimating model C0*x*y**2 + C1*x + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x + C2*y
+Estimating model C0*z**2 + C1*z
+Estimating model C0*x*y*z + C1*x
+Estimating model C0*y**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1
+Estimating model C0*x + C1*z
+Estimating model C0*x*y*z + C1*z**4
+Estimating model C0*x*y + C1*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2*z
+Estimating model C0*x**2*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2
+Estimating model C0*y + C1*z**2 + C2
+Estimating model C0*x*y*z + C1*z + C2
+Estimating model C0*x**2 + C1*z
+Estimating model C0*x**2 + C1*x + C2*y**2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x + C2*y**2*z + C3
+Estimating model C0*x*y*z**2
+Estimating model C0*x**4*y**5*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**5*z**2 + C1
+Estimating model C0*x**2 + C1*x*z**2
+Estimating model C0*x*y**2 + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y**2*z + C2
+Estimating model C0*x*z + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2 + C2
+Estimating model C0*x*y*z + C1
+Estimating model C0*x*y + C1*x*z + C2*z + C3
+Estimating model C0*x + C1*y**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**3 + C2
+Estimating model C0*x**3*z**2 + C1*z
+Estimating model C0*x**2*z**3
+Estimating model C0*x*y + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2
+Estimating model C0*x*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2
+Estimating model C0*x**2 + C1
+Estimating model C0*x**3*y*z**2 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2 + C1*y**2
+Estimating model C0*z**3
+Estimating model C0*x**3*y*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2
+Estimating model C0*x**2 + C1*y
+Estimating model C0*x*y**3*z**5 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**5 + C1*x + C2
+Estimating model C0*x*y**2 + C1*x*z + C2*y + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*z + C2*y + C3*z + C4
+Estimating model C0*x*y**3*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z + C1*y + C2
+Estimating model C0*x**2 + C1*x + C2*y + C3
+Estimating model C0*x**2*z + C1*z + C2
+Estimating model C0*y*z + C1*z + C2
+Estimating model C0*x**2 + C1*y + C2
+Estimating model C0*y**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y
+Estimating model C0*x**2 + C1*x + C2
+Estimating model C0*x**2*y + C1*z
+Estimating model C0*x*z**3 + C1*z
+Estimating model C0*x**3*y*z + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x
+Estimating model C0*x**2*y + C1
+Estimating model C0*x*z**3
+Estimating model C0*x*y + C1*z
+Estimating model C0*y*z**3
+Estimating model C0*x*z**2 + C1*x + C2
+Estimating model C0*x**3*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z + C1
+Estimating model C0*x**4*z + C1
+Estimating model C0*x*y**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*z + C2
+Estimating model C0*x*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1
+Estimating model C0*x*z + C1*z
+Estimating model C0*x**3*y**2 + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2 + C1*x + C2*y + C3
+Estimating model C0*x**3*y*z + C1*x*y*z + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x*y*z + C2*y
+Estimating model C0*y**2*z + C1*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y*z + C2
+Estimating model C0*y + C1*z**2
+Estimating model C0*x**3*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2
+Estimating model C0*x*y + C1*x + C2
+Estimating model C0*y*z + C1*y
+Estimating model C0*x**3*y + C1*x*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x*z + C2
+Estimating model C0*x**2*z + C1*y*z
+Estimating model C0*x*y**2*z**2 + C1*x*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*x*y**2 + C2
+Estimating model C0*x**2 + C1*z + C2
+Estimating model C0*x*z**2 + C1
+Estimating model C0*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1
+Estimating model C0*x*y**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1
+Estimating model C0*x + C1*y**3*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**3*z**2 + C2
+Estimating model C0*x**2*z + C1*x**2 + C2*x*z + C3
+Estimating model C0*x*y**2 + C1*x*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y*z + C2
+Estimating model C0*x*y + C1*x*z + C2
+Estimating model C0*x + C1*y + C2*z**2 + C3
+Estimating model C0*x**2*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z
+Estimating model C0*x*y + C1*x*z**2 + C2*x
+Estimating model C0*y*z**2 + C1*y*z
+Estimating model C0*x*y**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*z
+Estimating model C0*x**3*y*z**3 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**3 + C1*z + C2
+Estimating model C0*x*y**2*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x + C2
+Estimating model C0*x + C1*y*z
+Estimating model C0*x*y**3*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2 + C1
+Estimating model C0*x*y*z + C1*x*y + C2
+Estimating model C0*y**3 + C1*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*z**2 + C2
+Estimating model C0*x*z + C1*y*z
+Estimating model C0*x**2*y
+Estimating model C0*x*z + C1*y + C2*z + C3
+Estimating model C0*x**2*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z
+Estimating model C0*x**2*y*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y + C2
+Estimating model C0*x*z + C1*x + C2
+Estimating model C0*x**2*y*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y
+Estimating model C0*y**4 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4 + C1*y + C2
+Estimating model C0*x*y*z**2 + C1
+Estimating model C0*x**2 + C1*x*y*z
+Estimating model C0*x*y**2 + C1*x + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x + C2*z + C3
+Estimating model C0*x**3*z
+Estimating model C0*x*y**2*z**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*y + C2
+Estimating model C0*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3
+Estimating model C0*x + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2 + C2
+Estimating model C0*x*y*z + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z + C1*y**2 + C2*y + C3
+Estimating model C0*x*y + C1*x + C2*y + C3
+Estimating model C0*x*y**2*z + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x + C2*y + C3
+Estimating model C0*x**2*y*z + C1*y**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y**2 + C2
+Estimating model C0*x**3*y*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**3
+Estimating model C0*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2
+Estimating model C0*x*y**4*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z + C1*x + C2
+Estimating model C0*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z
+Estimating model C0*x*z + C1*x
+Estimating model C0*x**2*y*z + C1*x + C2*y**2 + C3*y*z + C4*y + C5
+Estimating model C0*x**2*y**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1
+Estimating model C0*x*y*z + C1*x + C2*y
+Estimating model C0*x**2 + C1*x + C2*z + C3
+Estimating model C0*x*y + C1*x + C2*y**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*x + C2*y**2 + C3
+Estimating model C0*x*z + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2*z + C2
+Estimating model C0*x*y**2 + C1*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y*z + C2
+Estimating model C0*x*y + C1*x + C2*z + C3
+Estimating model C0*x + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2 + C2*y
+Estimating model C0*x*y + C1*x
+Estimating model C0*x**3 + C1*z + C2
+Estimating model C0*y**2*z**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1*y + C2
+Estimating model C0*x**2*y*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2
+Estimating model C0*x**2*z**2 + C1*x
+Estimating model C0*x*z + C1*y + C2
+Estimating model C0*x*z**3 + C1
+Estimating model C0*x + C1*y*z**2 + C2
+Estimating model C0*x*y*z + C1*x + C2*y**2 + C3*y*z + C4*y + C5*z + C6
+Estimating model C0*x*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z
+Estimating model C0*x**3 + C1*x*y + C2
+Estimating model C0*x*y + C1*y + C2
+Estimating model C0*x**2*z**2
+Estimating model C0*x**3*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z**2 + C1
+Estimating model C0*x**2*y**2*z**4 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**4 + C1
+Estimating model C0*x**2*y*z + C1*x*y + C2*x + C3*y**2*z + C4*y + C5
+Estimating model C0*y**2*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y + C2
+Estimating model C0*x**4*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**2*z + C1
+Estimating model C0*x*y + C1*x + C2*y + C3*z
+Estimating model C0*x**2*y*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1
+Estimating model C0*x**2*z + C1*y**3 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*y**3 + C2*z + C3
+Estimating model C0*x*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2
+Estimating model C0*x**2*z**2 + C1*z
+Estimating model C0*x*z**2 + C1*x + C2*z
+Estimating model C0*x**2*y + C1*y**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*y**3 + C2
+Estimating model C0*x*y*z + C1*z**2
+Estimating model C0*x*y*z**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1
+Estimating model C0*x**3*y + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1
+Estimating model C0*x*y + C1*x*z
+Estimating model C0*x**4*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**3
+Estimating model C0*x*y*z + C1*y + C2*z + C3
+Estimating model C0*x*y**2*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*y + C2
+Estimating model C0*x*y*z**2 + C1*y + C2
+Estimating model C0*x**2*z**2 + C1*x*z + C2*x + C3*z**2
+Estimating model C0*x**2*y + C1*z**2 + C2
+Estimating model C0*x**3*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y
+Estimating model C0*x**3 + C1*y*z + C2
+Estimating model C0*y**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y + C2
+Estimating model C0*x**2*y**2*z**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*z
+Estimating model C0*x*y*z + C1*z
+Estimating model C0*x**2*y + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*y**2 + C2*y
+Estimating model C0*x**2*y*z + C1*x**2*z + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x**2*z + C2*z
+Estimating model C0*x**2 + C1*z**2 + C2
+Estimating model C0*x*y**2 + C1*x*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*z
+Estimating model C0*x*y*z**2 + C1*x + C2
+Estimating model C0*x*y + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*y
+Estimating model C0*x + C1*y*z + C2*z
+Estimating model C0*x**2 + C1*x*y*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y*z**4
+Estimating model C0*x**2*z + C1*x*y + C2
+Estimating model C0*x**2*y**2*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1
+Estimating model C0*x*y*z + C1*y*z + C2*z + C3
+Estimating model C0*x**3*z + C1*z**2 + C2
+Estimating model C0*x**2*z + C1*y
+Estimating model C0*x + C1*y*z**2 + C2*z
+Estimating model C0*x + C1*y**4 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**4 + C2
+Estimating model C0*x*y*z + C1*x + C2*y**2*z**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z + C1*x + C2*y**2*z**2 + C3
+Estimating model C0*x*y**2 + C1*y*z + C2*z**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y*z + C2*z**2 + C3
+Estimating model C0*x*y + C1*y
+Estimating model C0*x**2 + C1*z**2
+Estimating model C0*x**2*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z
+Estimating model C0*x**2*y*z**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x + C2
+Estimating model C0*x**2 + C1*y + C2*z + C3
+Estimating model C0*x**3*y**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2 + C1*z
+Estimating model C0*x + C1*y*z**3
+Estimating model C0*x**2*y**2*z + C1*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*y**3*z
+Estimating model C0*x + C1*y*z + C2
+Estimating model C0*x*y**2 + C1*x*y*z + C2*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y*z + C2*x
+Estimating model C0*x**3*y**4 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**4 + C1
+Estimating model C0*x**3*z + C1
+Estimating model C0*x*z**2 + C1*z
+Estimating model C0*x*y*z + C1*y*z**3
+Estimating model C0*x**2*y + C1*y + C2
+Estimating model C0*x*y*z + C1*y*z + C2
+Estimating model C0*x**2 + C1*x*z + C2*z + C3
+Estimating model C0*x*y**2 + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y + C2
+Estimating model C0*x**2 + C1*y*z + C2
+Estimating model C0*x**2*y*z**2 + C1*x**2 + C2*x + C3*y**2*z + C4*y + C5
+Estimating model C0*x**2*y**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*x + C2
+Estimating model C0*x**2*y**2*z + C1*x*y*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*x*y*z**2 + C2
+Estimating model C0*x**3*y + C1*x**2*y*z + C2*x + C3*y + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x**2*y*z + C2*x + C3*y + C4
+Estimating model C0*y*z**2 + C1*y
+Estimating model C0*x**2*y**3*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z**4
+Estimating model C0*x*z**3 + C1*y + C2
+Estimating model C0*x**3 + C1
+Estimating model C0*x**2*y**3 + C1*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1*y*z
+Estimating model C0*x*y + C1*y*z**2 + C2*z + C3
+Estimating model C0*x*y + C1*z**2 + C2*z + C3
+Estimating model C0*x**2*z**3 + C1
+Estimating model C0*x + C1*y + C2*z
+Estimating model C0*x**2 + C1*x*z
+Estimating model C0*x**2*y + C1*y**2 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*y**2 + C2*z + C3
+Estimating model C0*x*y + C1*z**3 + C2
+Estimating model C0*x + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2 + C2*y + C3
+Estimating model C0*x*y**2*z**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*x + C2
+Estimating model C0*y*z**2 + C1*z**2 + C2
+Estimating model C0*x**2*y**2*z**2 + C1*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*z**2
+Estimating model C0*x**2*y + C1*x
+Estimating model C0*x**2*y**2 + C1*x*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*x*z + C2*y + C3
+Estimating model C0*x*y*z**3 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1*z
+Estimating model C0*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1
+Estimating model C0*y**3*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1
+Estimating model C0*x**2*z + C1*x + C2
+Estimating model C0*x*z + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2 + C2*y + C3
+Estimating model C0*x*z + C1*x + C2*z + C3
+Estimating model C0*x*y**4*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z + C1
+Estimating model C0*x**4*y*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y*z**2 + C1*y
+Estimating model C0*x*z**4 + C1*z**2 + C2
+Estimating model C0*y*z + C1*z**3 + C2
+Estimating model C0*x**4*z
+Estimating model C0*y**2*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**3
+Estimating model C0*y*z + C1*y + C2*z + C3
+Estimating model C0*z**4
+Estimating model C0*x*y**4*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z**2
+Estimating model C0*x*y + C1*y**2*z**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2*z**3 + C2
+Estimating model C0*x*y**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y
+Estimating model C0*x**2*y*z**2 + C1*y**2*z + C2*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*y**2*z + C2*y*z
+Estimating model C0*x*y**2 + C1*x*y*z + C2*x*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y*z + C2*x*y
+Estimating model C0*x + C1*z**2 + C2
+Estimating model C0*x*y*z**2 + C1*y + C2*z + C3
+Estimating model C0*x**2*y*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*z + C2
+Estimating model C0*x*y*z + C1*y
+Estimating model C0*x*z**2 + C1*x*z
+Estimating model C0*x**2 + C1*x*y**2*z**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**2*z**3 + C2
+Estimating model C0*x**2*y*z**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*z
+Estimating model C0*x + C1*y*z + C2*y + C3
+Estimating model C0*x**2*z**2 + C1*x*z + C2*y + C3
+Estimating model C0*y*z**3 + C1
+Estimating model C0*x**2*y + C1*x*z + C2
+Estimating model C0*y**4*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z + C1
+Estimating model C0*y*z**2 + C1*z + C2
+Estimating model C0*x**2*y**3*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*x + C2
+Estimating model C0*y**3*z + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*y*z + C2*y + C3
+Estimating model C0*x**2*y**2*z + C1*x**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*x**2 + C2
+Estimating model C0*x*y*z + C1*y + C2
+Estimating model C0*x**3*y**2*z**2 + C1*x*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z**2 + C1*x*y + C2
+Estimating model C0*x*z**2 + C1*x
+Estimating model C0*x**2 + C1*x
+Estimating model C0*y**2*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y
+Estimating model C0*x + C1*z**2 + C2*z + C3
+Estimating model C0*x**2*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2
+Estimating model C0*y*z**2 + C1*z
+Estimating model C0*x*y*z + C1*z**2 + C2
+Estimating model C0*x*y*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3
+Estimating model C0*x**6*z + C1
+Estimating model C0*x**2*z + C1*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*y**2*z
+Estimating model C0*x + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2*z + C2
+Estimating model C0*x*y*z**2 + C1*z + C2
+Estimating model C0*x**3*y**3*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z**2 + C1
+Estimating model C0*x**2*z**2 + C1*y + C2
+Estimating model C0*y**2 + C1*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y*z
+Estimating model C0*x**3*y + C1*x*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x*y**2*z
+Estimating model C0*x**2*y + C1*x**2*z**2 + C2
+Estimating model C0*x**2*z**2 + C1*x*y
+Estimating model C0*x**2*y + C1*y
+Estimating model C0*x*y*z**2 + C1*z
+Estimating model C0*x + C1*y*z**2 + C2*y
+Estimating model C0*y**3 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*y
+Estimating model C0*x**2*z**2 + C1*x**2 + C2*y*z + C3
+Estimating model C0*x**2 + C1*x + C2*y
+Estimating model C0*x**2*y**2 + C1*x + C2*y*z**2 + C3*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1*x + C2*y*z**2 + C3*y
+Estimating model C0*x**2*y**3*z + C1*y*z**2 + C2*y + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*y*z**2 + C2*y + C3*z + C4
+Estimating model C0*x*y*z + C1*x*z
+Estimating model C0*x*y**3*z**4 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**4 + C1*z
+Estimating model C0*x*y + C1*z**2
+Estimating model C0*z**2 + C1*z + C2
+Estimating model C0*x*y*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**4
+Estimating model C0*x*z + C1*x + C2*y + C3*z
+Estimating model C0*x**2*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2 + C1
+Estimating model C0*x + C1*y*z + C2*z + C3
+Estimating model C0*x*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3
+Estimating model C0*x*y*z + C1*x + C2*y**2*z + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z + C1*x + C2*y**2*z + C3*z + C4
+Estimating model C0*x*z**2 + C1*z + C2
+Estimating model C0*x*y**2*z**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**3 + C1
+Estimating model C0*x**2 + C1*x*z + C2
+Estimating model C0*x**2*y*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1
+Estimating model C0*x**2 + C1*z**2 + C2*z
+Estimating model C0*x**2 + C1*x*y*z + C2
+Estimating model C0*x**2*y**2*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1
+Estimating model C0*x**2*y**2*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**3
+Estimating model C0*x + C1*y + C2*z + C3
+Estimating model C0*x**2*y*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**3
+Estimating model C0*x*y**3*z + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z + C1
+Estimating model C0*x**2*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3
+Estimating model C0*x**2*y + C1*x*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*x*y**2*z
+Estimating model C0*x*y**3*z**2 + C1*x*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2 + C1*x*y*z
+Estimating model C0*y**2 + C1*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y*z + C2
+Estimating model C0*x + C1*y*z**2
+Estimating model C0*x*y + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2
+Estimating model C0*x*z**2 + C1*y
+Estimating model C0*x*y**2 + C1*y**2*z**3 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y**2*z**3 + C2
+Estimating model C0*x**2*z**2 + C1*y**2 + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z**2 + C1*y**2 + C2*z
+Estimating model C0*x**2*y + C1*x + C2
+Estimating model C0*x**2*z + C1*x*y**4*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*x*y**4*z**2
+Estimating model C0*x*z + C1*y*z + C2
+Estimating model C0*x*y + C1*x*z**2
+Estimating model C0*x*y + C1*y + C2*z + C3
+Estimating model C0*x + C1*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**3
+Estimating model C0*x**2*z + C1*z**2 + C2
+Estimating model C0*x**4*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y*z
+Estimating model C0*x**2*y*z + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x
+Estimating model C0*x*z + C1*x + C2*y + C3
+Estimating model C0*x*y*z + C1*x*y + C2*z + C3
+Estimating model C0*y**3 + C1*y + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*y + C2*z + C3
+Estimating model C0*x**2*y**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**4
+Estimating model C0*x*y**2 + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y*z + C2*y + C3
+Estimating model C0*x**2*z + C1*x*z
+Estimating model C0*x*y**2*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*z + C2
+Estimating model C0*x*y + C1*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**3*z**2
+Estimating model C0*x*y + C1*y*z
+Estimating model C0*x**3*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z
+Estimating model C0*x**2*y + C1*x*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1*x*y**2*z + C2
+Estimating model C0*x**2 + C1*x*y + C2
+Estimating model C0*x**2*y**2*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*y
+Estimating model C0*x**4*z**2
+Estimating model C0*x*y**2*z**3 + C1*x + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**3 + C1*x + C2*z
+Estimating model C0*x*y**2 + C1*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*z**2 + C2
+Estimating model C0*x**4*z**3 + C1
+Estimating model C0*x**4 + C1*x + C2
+Estimating model C0*x + C1*y**2*z + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2*z + C2*y
+Estimating model C0*y**2*z + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*y + C2*z
+Estimating model C0*y*z**2 + C1*y*z + C2
+Estimating model C0*y**2*z**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1*z
+Estimating model C0*x*y*z + C1*x*y
+Estimating model C0*x**2*z**4 + C1
+Estimating model C0*x**2*z**2 + C1*x**2 + C2
+Estimating model C0*x*y + C1*x + C2*y + C3*z + C4
+Estimating model C0*x*y + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*y + C3
+Estimating model C0*x**2 + C1*x*y**5*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**5*z + C2
+Estimating model C0*x**2*y*z**2 + C1*x*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x*y
+Estimating model C0*x*y**2 + C1*x*z + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*z + C2*z + C3
+Estimating model C0*x**2 + C1*x*y + C2*y
+Estimating model C0*x**2*y*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x + C2
+Estimating model C0*x*z**2 + C1*y + C2
+Estimating model C0*x + C1*y + C2*z**2
+Estimating model C0*x*y*z + C1*x*z**2
+Estimating model C0*x + C1*y*z**2 + C2*y + C3*z + C4
+Estimating model C0*x*y*z + C1*x + C2*y*z
+Estimating model C0*x**4 + C1*x
+Estimating model C0*x**2*z + C1*y + C2
+Estimating model C0*x**2*y**3*z + C1*x**2*z + C2*y + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*x**2*z + C2*y + C3*z + C4
+Estimating model C0*x**2*y**2*z**4 + C1*x*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**4 + C1*x*z + C2
+Estimating model C0*x + C1*y**4*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**4*z
+Estimating model C0*x*y*z + C1*y*z + C2*z**2 + C3
+Estimating model C0*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z**2
+Estimating model C0*y**2 + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*y*z + C2*y + C3
+Estimating model C0*x*y**3 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*x + C2
+Estimating model C0*x**2*y*z**3 + C1*x*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**3 + C1*x*z
+Estimating model C0*x*y + C1*y**2 + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*z
+Estimating model C0*x**2*y**2*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z + C1*z + C2
+Estimating model C0*x**2*y*z + C1*x**2*z + C2*y + C3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x**2*z + C2*y + C3*z
+Estimating model C0*x**4*y*z**3 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y*z**3 + C1
+Estimating model C0*x**4*y + C1*y + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y + C1*y + C2*z + C3
+Estimating model C0*x**2*y*z + C1*x*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x*z + C2
+Estimating model C0*x**2*y + C1*z + C2
+Estimating model C0*x**2*y + C1*x + C2*y
+Estimating model C0*x**2*y**2*z**2 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*x*y + C2*x + C3
+Estimating model C0*y**3*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z**2 + C1
+Estimating model C0*x*y**2 + C1*x*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x*y + C2
+Estimating model C0*x*y + C1*z**3
+Estimating model C0*x**2*y**3 + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1*x
+Estimating model C0*x + C1*y*z**2 + C2*y + C3
+Estimating model C0*x*y + C1*y**2 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y + C1*y**2 + C2*z + C3
+Estimating model C0*x*y + C1*x*z + C2*x + C3*y*z**2 + C4
+Estimating model C0*x**3*y*z**2 + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2 + C1*x + C2*y + C3
+Estimating model C0*x**3*z**2 + C1*y
+Estimating model C0*x*y**2 + C1*y**3*z + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*y**3*z + C2*z + C3
+Estimating model C0*x**3*y**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2 + C1
+Estimating model C0*x**2 + C1*y**2 + C2*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*y**2 + C2*y
+Estimating model C0*x*y*z**2 + C1*x*y + C2
+Estimating model C0*x*y**2 + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x + C2
+Estimating model C0*x**2*z + C1*y + C2*z + C3
+Estimating model C0*x*y**3 + C1*x + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*x + C2*z
+Estimating model C0*x*y**2*z + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*y*z + C2*y + C3
+Estimating model C0*x + C1*y*z**2 + C2*z + C3
+Estimating model C0*x**3*y**3 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3 + C1*x*y + C2*x + C3
+Estimating model C0*x**3*z + C1*x + C2*z + C3
+Estimating model C0*y**3*z + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*z
+Estimating model C0*x*z**3 + C1*z + C2
+Estimating model C0*x*y*z**2 + C1*y + C2*z
+Estimating model C0*x**2*z + C1*x + C2*y + C3*z + C4
+Estimating model C0*x*z**4 + C1*x
+Estimating model C0*x**3*y*z + C1*x*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x*y*z + C2
+Estimating model C0*y**4*z**3 + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z**3 + C1*y + C2*z
+Estimating model C0*y**4*z**2 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z**2 + C1*z + C2
+Estimating model C0*x**2*y**5*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**5*z**2 + C1
+Estimating model C0*x*y + C1*x + C2*y
+Estimating model C0*x**2*y*z + C1*x**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x**2 + C2
+Estimating model C0*x**2*y*z + C1*x + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x + C2*z + C3
+Estimating model C0*x + C1*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x + C1*y**2*z**2
+Estimating model C0*y**2 + C1*z**2 + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z**2 + C2*z + C3
+Estimating model C0*x**2 + C1*x*y**3*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**3*z**2 + C2
+Estimating model C0*x**2*z**2 + C1*z + C2
+Estimating model C0*x*y**5 + C1*x*y*z**2 + C2*x + C3*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**5 + C1*x*y*z**2 + C2*x + C3*y*z
+Estimating model C0*y**3*z + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*y
+Estimating model C0*x*z + C1*y*z + C2*y + C3
+Estimating model C0*x**2*y*z**2 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x*y + C2*x + C3
+Estimating model C0*x**3*y*z**2 + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z**2 + C1
+Estimating model C0*x*y**2*z + C1*x*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*x*y + C2
+Estimating model C0*y**2*z + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*z
+Estimating model C0*x*z**3 + C1*x + C2*y*z
+Estimating model C0*x*y*z + C1*x*z + C2*y + C3*z + C4
+Estimating model C0*x*y*z**3 + C1*x + C2*z + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1*x + C2*z + C3
+Estimating model C0*x*y**3*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3*z**2 + C1*y
+Estimating model C0*x**3*z**2 + C1
+Estimating model C0*x*z**3 + C1*z**2 + C2
+Estimating model C0*x**3*z**3 + C1*x*y*z**2 + C2*x*z**3 + C3*z
+Estimating model C0*x**2 + C1*x*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y**2
+Estimating model C0*x**2*y + C1*x*y + C2*z
+Estimating model C0*x**2*y*z + C1*x*y + C2*z**2 + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*x*y + C2*z**2 + C3
+Estimating model C0*y*z**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y*z**4
+Estimating model C0*x**3*y*z + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*x + C2
+Estimating model C0*x**2*y + C1*x + C2*y + C3*z**2 + C4
+Estimating model C0*x*y*z + C1*x + C2*y + C3
+Estimating model C0*y**2 + C1*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2 + C1*z**2 + C2
+Estimating model C0*x*y**3 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*y
+Estimating model C0*x**3*y**2*z + C1*y*z + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**2*z + C1*y*z + C2*y + C3
+Estimating model C0*y**2*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**2 + C1*y
+Estimating model C0*x*z + C1*x + C2*y + C3*z + C4
+Estimating model C0*x**2*y*z**2 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*y
+Estimating model C0*x**2 + C1*x + C2*z**2
+Estimating model C0*y**2*z**3 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**3 + C1*y**2
+Estimating model C0*x**2*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z**2
+Estimating model C0*x**3*z + C1*x*y + C2*y*z + C3
+Estimating model C0*x*y**2*z**2 + C1*y*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*y*z**2 + C2
+Estimating model C0*x**2*y**2*z**2 + C1*x*y*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**2*z**2 + C1*x*y*z + C2
+Estimating model C0*x*y*z + C1*x*y + C2*y
+Estimating model C0*x**2*z + C1*x*y**3*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*z + C1*x*y**3*z**2
+Estimating model C0*x*y**2*z + C1*y**2 + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z + C1*y**2 + C2*y + C3
+Estimating model C0*x**2*y**3 + C1*y**2*z**2 + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3 + C1*y**2*z**2 + C2
+Estimating model C0*x + C1*y*z + C2*z**2 + C3*z + C4
+Estimating model C0*y*z + C1*y + C2*z
+Estimating model C0*y*z**2 + C1*y + C2
+Estimating model C0*y*z + C1*z**2 + C2
+Estimating model C0*x**2*y*z + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z + C1*y**2
+Estimating model C0*x**2 + C1*x*y + C2*x + C3
+Estimating model C0*y**2*z + C1*z**2 + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z + C1*z**2 + C2*z
+Estimating model C0*x*z**3 + C1*y*z + C2
+Estimating model C0*y**3 + C1*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3 + C1*y*z
+Estimating model C0*x**2*z + C1*z
+Estimating model C0*x*y**2*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**3
+Estimating model C0*x**2 + C1*y + C2*z**2
+Estimating model C0*x*y + C1*x + C2*y*z + C3
+Estimating model C0*x*z**2 + C1*y + C2*z + C3
+Estimating model C0*y**3*z + C1*y + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*y + C2
+Estimating model C0*y**4*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4*z
+Estimating model C0*x*z**3 + C1*x + C2*z + C3
+Estimating model C0*x*z + C1*y**2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**2*z
+Estimating model C0*x**2 + C1*y**2 + C2*z**2 + C3*z + C4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*y**2 + C2*z**2 + C3*z + C4
+Estimating model C0*x**2*z + C1*x
+Estimating model C0*x**3*y + C1*x + C2*y + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x + C2*y + C3
+Estimating model C0*x**2*z + C1*x*y + C2*y*z + C3*z + C4
+Estimating model C0*x*y + C1*y*z**2 + C2
+Estimating model C0*x*y**2*z**2 + C1*x*y + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**2 + C1*x*y + C2*x + C3
+Estimating model C0*x*z + C1*y**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*z + C1*y**3
+Estimating model C0*x**4*y**2*z**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**4*y**2*z**2
+Estimating model C0*x**2*y + C1*y*z**3 + C2
+Estimating model C0*y**3*z + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**3*z + C1*z + C2
+Estimating model C0*x + C1*y*z**2 + C2*y*z + C3*z + C4
+Estimating model C0*x**2 + C1*y*z
+Estimating model C0*x*y + C1*x*z + C2*y
+Estimating model C0*x**2*y + C1*x + C2*z + C3
+Estimating model C0*x**2*y + C1*x + C2*y + C3*z + C4
+Estimating model C0*x*y**2 + C1*x
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2 + C1*x
+Estimating model C0*x**3*y**3*z**4 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z**4 + C1*z + C2
+Estimating model C0*y*z + C1*z**2
+Estimating model C0*x**2*y**3*z + C1*x + C2*y + C3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z + C1*x + C2*y + C3*z
+Estimating model C0*x**3*y + C1*x + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x + C2
+Estimating model C0*x*y*z**3 + C1*y**2*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**3 + C1*y**2*z + C2
+Estimating model C0*x**2*y*z**2 + C1*x**2*z + C2*x + C3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z**2 + C1*x**2*z + C2*x + C3
+Estimating model C0*x**2*z + C1*x*z**2 + C2
+Estimating model C0*x**2 + C1*x*y*z + C2*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*x*y*z + C2*y**2
+Estimating model C0*x*y**2*z**4 + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**4 + C1*y + C2*z
+Estimating model C0*x**3*y + C1*x*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y + C1*x*y + C2*z
+Estimating model C0*x*y + C1*y + C2*z
+Estimating model C0*z**3 + C1*z + C2
+Estimating model C0*x*y**3 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**3 + C1*z + C2
+Estimating model C0*x*y**2*z**4 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**2*z**4 + C1*z
+Estimating model C0*x**3*y**3*z**3 + C1*z + C2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z**3 + C1*z + C2
+Estimating model C0*x*y*z**5
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y*z**5
+Estimating model C0*x*y**4*z**3 + C1*y**2
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x*y**4*z**3 + C1*y**2
+Estimating model C0*y**4
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**4
+Estimating model C0*x**3 + C1*y*z
+Estimating model C0*x**2 + C1*x*y
+Estimating model C0*y**2*z**4 + C1*y
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*y**2*z**4 + C1*y
+Estimating model C0*x**2*y**3*z**3
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y**3*z**3
+Estimating model C0*x**3*y*z + C1*y + C2*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y*z + C1*y + C2*z
+Estimating model C0*x**3*y**3*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**3*y**3*z
+Estimating model C0*x*y*z**7 + C1
+
+================ notes: =================
+|| 15.43 zac -17.21-17.51 ... 
+one model (the last written down) needed more
+than 30min. Therefore manually aborted.

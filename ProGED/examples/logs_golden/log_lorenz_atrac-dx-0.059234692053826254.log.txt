@@ -1,0 +1,108 @@
+["'x'", "'y'", "'z'"]
+Grammar with 9 productions (start state = S)
+    S -> S '+' R [0.4]
+    S -> R [0.6]
+    R -> T [1.0]
+    R -> 'C' '*' F '(' T ')' [0]
+    T -> T '*' V [0.4]
+    T -> 'C' [0.6]
+    V -> 'x' [0.33]
+    V -> 'y' [0.33]
+    V -> 'z' [0.34]
+50 =samples cardinality
+Estimating model C0*z**3 + C1
+Estimating model C0*y
+Estimating model C0*z
+Estimating model C0*x**2*y*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y*z
+Estimating model C0*x*z + C1
+Estimating model C0*x + C1
+Estimating model C0*y + C1
+Estimating model C0*x*y
+Estimating model C0*z + C1
+Estimating model C0*x
+Estimating model C0*y + C1*z + C2
+Estimating model C0*x*z + C1*x + C2*y**2*z + C3
+Estimating model C0*x + C1*z
+Estimating model C0*x*z**2
+Estimating model C0*x + C1*y**3
+Estimating model C0*x*y + C1*x*z + C2
+Estimating model C0*x*z + C1*x + C2
+Estimating model C0*x*y*z
+Estimating model C0*x + C1*y
+Estimating model C0*x**2 + C1*z
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2 + C1*z
+Estimating model C0*x + C1*y + C2
+Estimating model C0*x**2*y + C1
+Excepted an error: The map-like callable must be of the form f(func, iterable), returning a sequence of numbers the same length as 'iterable'!! 
+Model: C0*x**2*y + C1
+Estimating model C0*y*z + C1
+Estimating model C0*x**2
+Excepted an error: operands could not be broadcast together with shapes (1000,1) (903,1) !! 
+Model: C0*x**2
+Estimating model C0*y + C1*z**3
+Estimating model C0*y**2
+Estimating model C0*y*z + C1*z**2 + C2
+Estimating model C0*x*y + C1
+ModelBox: 28 models
+-> C0*z**3 + C1, p = 0.0002173353984000001, parse trees = 1, valid = True, error = 1.046296526145194
+-> C0*y, p = 0.04752, parse trees = 1, valid = True, error = 0.001894172992048076
+-> C0*z, p = 0.048960000000000004, parse trees = 1, valid = True, error = 0.25824372056631445
+-> C0*x**2*y*z, p = 0.00011260643328000003, parse trees = 1, valid = False
+-> C0*x*z + C1, p = 8.934064128e-05, parse trees = 1, valid = True, error = 0.4613156397247702
+-> C0*x + C1, p = 0.02371088941056, parse trees = 5, valid = True, error = 0.0008825522568393243
+-> C0*y + C1, p = 0.025548931491220686, parse trees = 4, valid = True, error = 0.000144810294638743
+-> C0*x*y, p = 0.006272640000000001, parse trees = 1, valid = True, error = 4.873767962316754
+-> C0*z + C1, p = 0.011750400000000001, parse trees = 1, valid = True, error = 0.2579356998554135
+-> C0*x, p = 0.04752, parse trees = 1, valid = True, error = 0.06525974225249485
+-> C0*y + C1*z + C2, p = 8.934064128000002e-05, parse trees = 1, valid = True, error = 4.4871893864642065e-05
+-> C0*x*z + C1*x + C2*y**2*z + C3, p = 2.794536378191317e-08, parse trees = 1, valid = True, error = 0.00013149268716269768
+-> C0*x + C1*z, p = 0.0031021056, parse trees = 2, valid = True, error = 0.011146736035257699
+-> C0*x*z**2, p = 0.0008789299200000002, parse trees = 1, valid = True, error = 10.544407746854112
+-> C0*x + C1*y**3, p = 2.6230675046400015e-05, parse trees = 1, valid = True, error = 3.2991695915495267
+-> C0*x*y + C1*x*z + C2, p = 6.486130556928003e-06, parse trees = 1, valid = True, error = 0.031143211920675515
+-> C0*x*z + C1*x + C2, p = 1.1792964648960004e-05, parse trees = 1, valid = True, error = 0.0002476345920551889
+-> C0*x*y*z, p = 0.0017061580800000003, parse trees = 2, valid = True, error = 9.545602282212485
+-> C0*x + C1*y, p = 0.0015054336000000002, parse trees = 1, valid = True, error = 2.9469879490635797e-06
+-> C0*x**2 + C1*z, p = 0.0002047389696000001, parse trees = 1, valid = False
+-> C0*x + C1*y + C2, p = 1.5823106262171657e-07, parse trees = 1, valid = True, error = 2.5660343349435573e-06
+-> C0*x**2*y + C1, p = 0.0001987172352000001, parse trees = 1, valid = False
+-> C0*y*z + C1, p = 0.0031021056000000006, parse trees = 2, valid = True, error = 0.40241362417687865
+-> C0*x**2, p = 0.006272640000000001, parse trees = 1, valid = False
+-> C0*y + C1*z**3, p = 2.868827258880001e-05, parse trees = 1, valid = True, error = 0.000638138921719523
+-> C0*y**2, p = 0.006272640000000001, parse trees = 1, valid = True, error = 1.4014991231270757
+-> C0*y*z + C1*z**2 + C2, p = 3.965866802675714e-07, parse trees = 1, valid = True, error = 0.07429710235371227
+-> C0*x*y + C1, p = 0.0015054336000000002, parse trees = 1, valid = True, error = 0.1793759261949316
+
+Final score:
+model: 0.53488190475301*z**3 + 12.8224568092403                              ; p: 0.0002173353984000001; error: 1.046296526145194
+model: 5.35973388202602*y                                                    ; p: 0.04752; error: 0.001894172992048076
+model: 21.4885375040633*z                                                    ; p: 0.048960000000000004; error: 0.25824372056631445
+model: -3.38690482115004*x**2*y*z                                            ; p: 0.00011260643328000003; error: 100000000
+model: 2.69470331522073*x*z + 9.7078789347636                                ; p: 8.934064128e-05; error: 0.4613156397247702
+model: 10.993692952978*x + 0.98675558343859                                  ; p: 0.02371088941056; error: 0.0008825522568393243
+model: 5.23407763034049*y + 0.457511738735667                                ; p: 0.025548931491220686; error: 0.000144810294638743
+model: 2.53784912880799*x*y                                                  ; p: 0.006272640000000001; error: 4.873767962316754
+model: 21.2592387798981*z + 0.202832506752471                                ; p: 0.011750400000000001; error: 0.2579356998554135
+model: 12.8666877724363*x                                                    ; p: 0.04752; error: 0.06525974225249485
+model: 5.33081877987557*y - 0.444512154554779*z + 0.499936486772757          ; p: 8.934064128000002e-05; error: 4.4871893864642065e-05
+model: 0.350099161042253*x*z + 10.9841444883711*x - 0.0112521293701417*y**2*z + 0.915330150288093; p: 2.794536378191317e-08; error: 0.00013149268716269768
+model: 9.85545393842935*x + 3.28698844266716*z                               ; p: 0.0031021056; error: 0.011146736035257699
+model: 2.05742495457855*x*z**2                                               ; p: 0.0008789299200000002; error: 10.544407746854112
+model: -30.0*x + 0.0879562440603217*y**3                                     ; p: 2.6230675046400015e-05; error: 3.2991695915495267
+model: 1.98450539318672*x*y - 4.04911793224865*x*z + 6.31678370283837        ; p: 6.486130556928003e-06; error: 0.031143211920675515
+model: -0.115050156847081*x*z + 11.3863145236248*x + 0.827329610828528       ; p: 1.1792964648960004e-05; error: 0.0002476345920551889
+model: 0.709508303770189*x*y*z                                               ; p: 0.0017061580800000003; error: 9.545602282212485
+model: -9.86129306392073*x + 9.93510270842711*y                              ; p: 0.0015054336000000002; error: 2.9469879490635797e-06
+model: -0.712042775017622*x**2 - 4.3192592602528*z                           ; p: 0.0002047389696000001; error: 100000000
+model: -10.7699879073954*x + 10.3707541393177*y - 0.0392846367184707         ; p: 1.5823106262171657e-07; error: 2.5660343349435573e-06
+model: -2.62258173984361*x**2*y + 0.0238945748926145                         ; p: 0.0001987172352000001; error: 100000000
+model: 1.26562081976697*y*z + 9.50598205873962                               ; p: 0.0031021056000000006; error: 0.40241362417687865
+model: 3.8630466608656*x**2                                                  ; p: 0.006272640000000001; error: 100000000
+model: 5.42124088907173*y - 0.0194739972499786*z**3                          ; p: 2.868827258880001e-05; error: 0.000638138921719523
+model: 0.597579926827849*y**2                                                ; p: 0.006272640000000001; error: 1.4014991231270757
+model: 4.58975618371582*y*z - 10.595883971035*z**2 + 7.53775015112926        ; p: 3.965866802675714e-07; error: 0.07429710235371227
+model: 0.821015038353928*x*y + 8.0386262734859                               ; p: 0.0015054336000000002; error: 0.1793759261949316
+[1] [2, 3]
