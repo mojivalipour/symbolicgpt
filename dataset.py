@@ -70,7 +70,6 @@ def processData(numSamples, nv, decimals,
 
 def main():
     # Config
-    # Config
     seed = 2021 # 2021 Train, 2022 Val, 2023 Test
     #from GenerateData import seed
     import random
@@ -81,7 +80,7 @@ def main():
     numVars = [1] #list(range(31)) #[1,2,3,4,5]
     decimals = 4
     numberofPoints = [20,21] # only usable if support points has not been provided
-    numSamples = 10000 # number of generated samples
+    numSamples = 50000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
 
@@ -105,8 +104,8 @@ def main():
     const_range = [-1, 1]
     const_ratio = 0.0
     op_list=[
-                "id", "add", "sub", "mul", "div",
-                "sin", "exp", "log" #, "pow", "cos"
+                "id", "id", "id", "id", "id", "add", "mul", "mul", "mul", "mul", "mul", "sqrt",
+                "sin", "exp", "log" #, "pow", "cos", "sub", "div"
             ]
 
     sortY = False # if the data is sorted based on y

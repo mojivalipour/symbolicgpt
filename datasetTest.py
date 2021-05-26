@@ -71,16 +71,16 @@ def processData(numSamples, nv, decimals,
 
 def main():
     # Config
-    seed = 2023 # 2021 Train, 2022 Val, 2023 Test
+    seed = 2022 # 2021 Train, 2022 Val, 2023 Test
     #from GenerateData import seed
     import random
     random.seed(seed)
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
-    numVars = [1] #list(range(31)) #[1,2,3,4,5]
+    numVars = [2] #list(range(31)) #[1,2,3,4,5]
     decimals = 4
     numberofPoints = [20,21] # only usable if support points has not been provided
-    numSamples = 1000//len(numVars) # number of generated samples
+    numSamples = 500 #1000//len(numVars) # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
 
@@ -103,9 +103,9 @@ def main():
     n_levels = 3
     allow_constants = True
     const_range = [-1, 1]
-    const_ratio = 0.4
+    const_ratio = 0.0
     op_list=[
-                "id", "add", "mul", "sqrt",
+                "id", "id", "id", "id", "id", "add", "mul", "mul", "mul", "mul", "mul", "sqrt",
                 "sin", "exp", "log" #, "pow", "cos", "sub", "div"
             ]
 

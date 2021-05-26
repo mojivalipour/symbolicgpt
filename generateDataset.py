@@ -22,16 +22,18 @@ from ProGED.generate import generate_models
 #     "polynomial": construct_grammar_polynomial}
 
 # Config
-numSamples = 10000
+numSamples = 1000
 numVars = 2
-seed = 2021
+seed = 2022 # 2021: Train, 2022: Val, 2023: Test
 numPoints = [20,21]
 decimals = 4
-trainRange = [-1.0,4.0]
-testRange = [4.1,8.0]
-constantsRange = [1,1]
+trainRange = [-1.0,1.0]
+testRange = [1.1,4.0]
+constantsRange = [-1,1]
+grammerType = 'universal' # universal/polynomial
 template = {'EQ':'', 'Skeleton':'', 'X':[], 'Y':0.0, 'XT':[], 'YT':0.0,}
 folder = './Dataset'
+
 os.makedirs(folder, exist_ok=True)
 now = datetime.now()
 time = now.strftime("%d%m%Y_%H%M%S")
@@ -82,26 +84,40 @@ random.seed(seed)
 rng = np.random.RandomState(seed)
 
 symbols = {"x":['x{}'.format(i+1) for i in range(numVars)], "start":"S", "const":"C"}
-grammer = grammar_from_template("universal", 
-    {"functions":["sin", "sqrt", "exp", "log"], 
-    "variables":["'x{}'".format(i+1) for i in range(numVars)],
-    "p_sum":[0.2, 0.2, 0.6], 
-    "p_mul": [0.3, 0.1, 0.6], 
-    "p_rec": [0.2, 0.4, 0.4], 
-    "p_vars":[1/numVars for i in range(numVars)],
-    "p_functs":[0.7, 0.1, 0.1, 0.05, 0.05]})
+
+if grammerType == 'polynomial':
+    grammer = grammar_from_template("polynomial",
+                {"variables":["'x1'","'x2'"],
+                "p_vars":[0.5, 0.5],
+                "functions":["'1.0*'"],
+                "p_S":[0.4, 0.6], 
+                "p_T":[0.4, 0.6],
+                "p_R":[0.6, 0.4],
+                "p_F":[0.5],
+                })  
+else:
+    grammer = grammar_from_template("universal", 
+        {"functions":["sin", "sqrt", "exp", "log"], 
+        "variables":["'x{}'".format(i+1) for i in range(numVars)],
+        "p_sum":[0.2, 0.2, 0.6], 
+        "p_mul": [0.3, 0.1, 0.6], 
+        "p_rec": [0.2, 0.4, 0.4], 
+        "p_vars":[1/numVars for i in range(numVars)],
+        "p_functs":[0.7, 0.1, 0.1, 0.05, 0.05]})
 
 # Generate Equations
 equations = []
+targetSamples = numSamples + 0
 while len(equations) < numSamples:
-    models = generate_models(grammer, symbols, strategy_settings = {"N":numSamples}) # the output is an ModelBox object
+    models = generate_models(grammer, symbols, strategy_settings = {"N":targetSamples}) # the output is an ModelBox object
     equations.extend([eq for eq in models])
+    targetSamples = abs(numSamples - len(equations))
 
 # Generate the data
 fileID = 1
 
 for eq in tqdm(equations):
-    skeletonEqn = eq.__str__() # convert the object to string
+    skeletonEqn = eq.__str__().replace('E', '0.0').replace('I', '0.0') # convert the object to string
     
     chosenPoints = np.random.randint(numPoints[0],numPoints[1]) # for each equation choose the number of points randomly
     
@@ -118,8 +134,16 @@ for eq in tqdm(equations):
         tmpEq = eq + '' # copy the string
         for varId in range(numVars):
             tmpEq = tmpEq.replace('x{}'.format(varId+1),str(np.round(point[varId], decimals)))
-        y = eval(tmpEq)
-        Y.append(np.round(y))
+        try:
+            y = eval(tmpEq)
+            if type(y) is np.complex128 or np.complex:
+                y = 0 #abs(err.real)
+        except ZeroDivisionError:
+            y = 0
+        except:
+            raise Exception('Err to process this equation: {}, original:{}'.format(tmpEq, skeletonEqn)) 
+
+        Y.append(round(y, decimals))
         
     # generate xt for the test range
     XT = np.round(rng.uniform(low=testRange[0], high=testRange[1], size=(chosenPoints,numVars)), decimals) # generate random points uniformly
@@ -130,8 +154,15 @@ for eq in tqdm(equations):
         tmpEq = eq + '' # copy the string
         for varId in range(numVars):
             tmpEq = tmpEq.replace('x{}'.format(varId+1),str(point[varId]))
-        y = eval(tmpEq)
-        YT.append(np.round(y))
+        try:
+            y = eval(tmpEq)
+            if type(y) is np.complex128 or np.complex:
+                y = 0 #abs(err.real)
+        except ZeroDivisionError:
+            y = 0
+        except:
+            raise Exception('Err to process this equation: {}, original:{}'.format(tmpEq, skeletonEqn)) 
+        YT.append(round(y, decimals))
     
     structure = template.copy() # copy the template
     

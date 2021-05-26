@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from ProGED.model_box import ModelBox
-
+from tqdm import tqdm
 
 """Functions for generating models using a given generator. 
 
@@ -81,7 +81,7 @@ def monte_carlo_sampling (model_generator, symbols, N=5, max_repeat = 10, verbos
     """
     models = ModelBox()
     
-    for n in range(N):
+    for n in tqdm(range(N)):
         good = False
         n = 0
         while not good and n < max_repeat:

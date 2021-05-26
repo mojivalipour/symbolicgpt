@@ -14,7 +14,7 @@ from wrapt_timeout_decorator import *
 # except ImportError:
 #     import _thread as thread
 
-seed = 2023 # 2021 Train, 2022 Val, 2023 Test
+seed = 2021 # 2021 Train, 2022 Val, 2023 Test
 import random
 random.seed(seed)
 np.random.seed(seed=seed) # we didn't use this line for the training data
@@ -248,7 +248,7 @@ def raw_eqn_to_str(raw_eqn, n_vars=2, exponents=[3,4,5,6]):
     if current_op == 'log':
         if left_is_float:
             return "{:.3f}".format(np.math.log(safe_abs(left_value)))
-        return "log({})".format(left_side)
+        return "log(abs({}))".format(left_side)
 
     if current_op == 'sin':
         if left_is_float:
@@ -492,6 +492,8 @@ def eqn_to_str_skeleton(eq):
         'C**9':'C',
         'C*C*C':'C',
         'C*C':'C', # remove the duplicates
+        'C+C+C':'C',
+        'C+C':'C',
     }
     for k in dic:
         eq = eq.replace(k, dic[k])
