@@ -134,11 +134,16 @@ for eq in tqdm(equations):
         tmpEq = eq + '' # copy the string
         for varId in range(numVars):
             tmpEq = tmpEq.replace('x{}'.format(varId+1),str(np.round(point[varId], decimals)))
-        try:
+        try: 
             y = eval(tmpEq)
-            if type(y) is np.complex128 or np.complex:
+            if type(y) is np.complex128 or type(y) is np.complex:
+                print('Type was complex! Why?: {}'.format(tmpEq))
                 y = 0 #abs(err.real)
         except ZeroDivisionError:
+            print('Zero Division: {}'.format(tmpEq))
+            y = 0
+        except OverflowError:
+            print('Overflow Error: {}'.format(tmpEq))
             y = 0
         except:
             raise Exception('Err to process this equation: {}, original:{}'.format(tmpEq, skeletonEqn)) 
@@ -154,11 +159,16 @@ for eq in tqdm(equations):
         tmpEq = eq + '' # copy the string
         for varId in range(numVars):
             tmpEq = tmpEq.replace('x{}'.format(varId+1),str(point[varId]))
-        try:
+        try: 
             y = eval(tmpEq)
-            if type(y) is np.complex128 or np.complex:
+            if type(y) is np.complex128 or type(y) is np.complex:
+                print('Type was complex! Why?: {}'.format(tmpEq))
                 y = 0 #abs(err.real)
         except ZeroDivisionError:
+            print('Zero Division: {}'.format(tmpEq))
+            y = 0
+        except OverflowError:
+            print('Overflow Error: {}'.format(tmpEq))
             y = 0
         except:
             raise Exception('Err to process this equation: {}, original:{}'.format(tmpEq, skeletonEqn)) 
