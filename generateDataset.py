@@ -124,6 +124,8 @@ for eq in tqdm(equations):
     # find all constants in the generated equation, generate a random number based on the given boundry
     constants = [random.uniform(constantsRange[0], constantsRange[1]) for i,x in enumerate(skeletonEqn) if x=='C']            
     eq = skeletonEqn.replace('C','{}').format(*constants) if len(constants)>0 else skeletonEqn
+
+    saveEq = True
     
     # for each variable, generate the same number of points (x: (numPoints, numVars))
     X = np.round(rng.uniform(low=trainRange[0], high=trainRange[1], size=(chosenPoints,numVars)), decimals) # generate random points uniformly
@@ -139,13 +141,17 @@ for eq in tqdm(equations):
             if type(y) is np.complex128 or type(y) is np.complex:
                 print('Type was complex! Why?: {}'.format(tmpEq))
                 y = 0 #abs(err.real)
+                saveEq = False
         except ZeroDivisionError:
             print('Zero Division: {}'.format(tmpEq))
             y = 0
+            saveEq = False
         except OverflowError:
             print('Overflow Error: {}'.format(tmpEq))
             y = 0
+            saveEq = False
         except:
+            saveEq = False
             raise Exception('Err to process this equation: {}, original:{}'.format(tmpEq, skeletonEqn)) 
 
         Y.append(round(y, decimals))
@@ -164,15 +170,24 @@ for eq in tqdm(equations):
             if type(y) is np.complex128 or type(y) is np.complex:
                 print('Type was complex! Why?: {}'.format(tmpEq))
                 y = 0 #abs(err.real)
+                saveEq = False
         except ZeroDivisionError:
             print('Zero Division: {}'.format(tmpEq))
             y = 0
+            saveEq = False
         except OverflowError:
             print('Overflow Error: {}'.format(tmpEq))
             y = 0
+            saveEq = False
         except:
+            saveEq = False
             raise Exception('Err to process this equation: {}, original:{}'.format(tmpEq, skeletonEqn)) 
         YT.append(round(y, decimals))
+    
+    if not saveEq:
+        # ignore this sample, generate another one
+        i = i-1 
+        continue
     
     structure = template.copy() # copy the template
     
