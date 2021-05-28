@@ -200,7 +200,7 @@ class tNet(nn.Module):
         self.bn4 = nn.BatchNorm1d(2 * self.num_units)
         self.bn5 = nn.BatchNorm1d(self.num_units)
 
-        self.drop = nn.Dropout(0.5)
+        #self.drop = nn.Dropout(0.5)
 
     def forward(self, x):
         """
@@ -208,7 +208,7 @@ class tNet(nn.Module):
         :return:
             logit: [batch, embedding_size]
         """
-        x = self.drop(x) # make the model more robust to input points
+        #x = self.drop(x) # make the model more robust to input points
         x = self.input_batch_norm(x)
         x = self.activation_func(self.bn1(self.conv1(x)))
         x = self.activation_func(self.bn2(self.conv2(x)))
