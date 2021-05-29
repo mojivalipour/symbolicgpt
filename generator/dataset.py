@@ -7,7 +7,7 @@ import numpy as np
 from tqdm import tqdm
 import multiprocessing as mp
 from datetime import datetime
-from GenerateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
+from generateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
 
 def processData(numSamples, nv, decimals, 
                 template, dataPath, fileID, time, 
