@@ -105,28 +105,33 @@ addr = './SavedModels/' # where to save model
 ```
 
 # Directories
-```
+```Diff
 symbolicGPT
-│   README.md
-│   .gitignore
-│   environment.yml
-│   requirements.txt
-│   models.py
-│   trainer.py
-│   utils.py
-│   symbolicGPT.py
+│   README.md --- This file
+│   .gitignore --- Ignore tracking of large/unnecessary files in the repo
+│   environment.yml --- Conda environment file
+│   requirements.txt --- Pip environment file
+│   models.py --- Class definitions of GPT and T-Net
+│   trainer.py --- The code for training Pytorch based models
+│   utils.py --- Useful functions
+│   symbolicGPT.py --- Main script to train and test our proposed method
 │
 └───generator
-│   │   dataset.py
-│   │   datasetTest.py
-│   │   generateData.py
-│   
+│   │   
+│   └───treeBased --- equation generator based on expression trees
+│   │   │   dataset.py --- Main script to generate training data
+│   │   │   datasetTest.py --- Main script to generate test data
+│   │   │   generateData.py --- Base class for data generation
+│   └───grammarBased --- equation generator based on context free grammar
+│   │
+│   └───templateBased --- quation generator based on templates of general equations
+│   │
 └───results
-    │   symbolicGPT
-    │   DSR
-    │   GP
-    │   MLP
-└───plots
+│   │   symbolicGPT --- reported results for our proposed method
+│   │   DSR --- reported results for Deep Symbolic Regression paper: 
+│   │   GP --- reported results for GPLearn: 
+│   │   MLP --- reported results for a simple blackbox multi layer perceptron
+└───plots -- any graphics related to our paper experiments/architecture
 ```
 
 # System Spec:
@@ -155,6 +160,13 @@ note={under review}
 - https://github.com/charlesq34/pointnet
 - https://github.com/volpato30/PointNovo
 - https://github.com/brencej/ProGED
+
+# TODO: 
+- [x] Reproduce the results for 1-5 General Model
+- [ ] Reproduce the results for 1 Variable Model
+- [ ] Reproduce the results for 2 Variable Model
+- [ ] Reproduce the results for 3 Variable Model
+- [ ] Create a dataset and test our pipeline with new data
 
 # License:
 MIT
