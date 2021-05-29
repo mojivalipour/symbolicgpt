@@ -5,4 +5,10 @@
 **/SavedModels/*
 **/OtherModelTests/*
 **/dsr/*
+**/old/*
 **/benchmark/log/*
+**/__pycache__/*
+**/.vscode/*
+**/.ipynb_checkpoints/*
+**/models/*
+**/datasets/*
