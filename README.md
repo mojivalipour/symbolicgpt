@@ -1,5 +1,5 @@
 
-This is the code for our proposed method, SymbolicGPT, and we tried to keep the implementation as simple and clean as possible to make sure it's understandable and easy to re-implement. 
+This is the code for our proposed method, SymbolicGPT, and we tried to keep the implementation as simple and clean as possible to make sure it's understandable and easy to reuse. 
 
 # Abstract:
 Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active area of research. In this work, we present a novel transformer-based language model for symbolic regression. This model exploits the strength and other possible flexibilities that have been provided by probabilistic language models like GPT. We show that our model is state of the art in terms of scalability and performance through comprehensive experiments.
@@ -93,7 +93,7 @@ addr = './SavedModels/' # where to save model
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
 numPoints=500 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=5 # the dimenstion of input points x, if you don't know then use the maximum
+numVars=3 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 100 # spatial extent of the model for its context
 batchSize = 128 # batch size of training data
@@ -131,7 +131,7 @@ symbolicGPT
 │   │   DSR --- reported results for Deep Symbolic Regression paper: 
 │   │   GP --- reported results for GPLearn: 
 │   │   MLP --- reported results for a simple blackbox multi layer perceptron
-└───plots -- any graphics related to our paper experiments/architecture
+└───
 ```
 
 # System Spec:

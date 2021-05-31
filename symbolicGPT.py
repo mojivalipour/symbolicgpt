@@ -36,15 +36,15 @@ set_seed(42)
 # config
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=500 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=5 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 100 # spatial extent of the model for its context
 batchSize = 128 # batch size of training data
 dataDir = './datasets/'
 dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1-5Var_RandSupport_RandLength_0to3_3.1to6_100to500Points'
+dataFolder = '1Var_RandSupport_FixedLength_0to3_3.1to6_30Points'
 addr = './SavedModels/' # where to save model
 maxNumFiles = 30
 bestLoss = None # if there is any model to load as pre-trained one
