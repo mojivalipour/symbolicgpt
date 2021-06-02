@@ -196,16 +196,16 @@ def raw_eqn_to_str(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
     current_op = eqn_ops[0]
 
     if len(eqn_ops) == 1:
-        if n_vars > 1:
-            left_side = "({}*x{}+{})".format(
-                float(eqn_weights[0]), eqn_vars[0], float(eqn_biases[0]))
-            right_side = "({}*x{}+{})".format(
-                float(eqn_weights[1]), eqn_vars[1], float(eqn_biases[1]))
-        else:
-            left_side = "({}*x+{})".format(
-                float(eqn_weights[0]), float(eqn_biases[0]))
-            right_side = "({}*x+{})".format(
-                float(eqn_weights[1]), float(eqn_biases[1]))
+        # if n_vars > 1:
+        left_side = "({}*x{}+{})".format(
+            float(eqn_weights[0]), eqn_vars[0], float(eqn_biases[0]))
+        right_side = "({}*x{}+{})".format(
+            float(eqn_weights[1]), eqn_vars[1], float(eqn_biases[1]))
+        # else:
+        #     left_side = "({}*x+{})".format(
+        #         float(eqn_weights[0]), float(eqn_biases[0]))
+        #     right_side = "({}*x+{})".format(
+        #         float(eqn_weights[1]), float(eqn_biases[1]))
 
     else:
         split_point = int((len(eqn_ops) + 1) / 2)
@@ -305,12 +305,12 @@ def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
     current_op = eqn_ops[0]
 
     if len(eqn_ops) == 1:
-        if n_vars > 1:
-            left_side = "(C*x{}+C)".format(eqn_vars[0])
-            right_side = "(C*x{}+C)".format(eqn_vars[1])
-        else:
-            left_side = "(C*x+C)".format(eqn_weights[0], eqn_biases[0])
-            right_side = "(C*x+C)".format(eqn_weights[1], eqn_biases[1])
+        # if n_vars > 1:
+        left_side = "(C*x{}+C)".format(eqn_vars[0])
+        right_side = "(C*x{}+C)".format(eqn_vars[1])
+        # else:
+        #     left_side = "(C*x+C)".format(eqn_weights[0], eqn_biases[0])
+        #     right_side = "(C*x+C)".format(eqn_weights[1], eqn_biases[1])
 
     else:
         split_point = int((len(eqn_ops) + 1) / 2)
