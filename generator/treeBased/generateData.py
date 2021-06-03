@@ -69,7 +69,7 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
 
 def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=['id', 'sin'],
                             allow_constants=True, const_range=[-0.4, 0.4],
-                            const_ratio=0.8):
+                            const_ratio=0.8, exponents=[3, 4, 5, 6]):
 
     level_to_use = np.random.randint(1, n_levels)
     const_min_val, const_max_val = const_range
@@ -82,6 +82,8 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=['id', 'sin'],
                        max_bound, size=len(eqn_vars)))
     eqn_biases = list(np.random.uniform(-1 * max_bound,
                       max_bound, size=len(eqn_vars)))
+    exponent_list = [exponents[np.random.randint(
+        len(exponents))] for i in range(2 ** level_to_use)]
 
     if not allow_constants:
         const_ratio = 0.0
@@ -94,7 +96,7 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=['id', 'sin'],
         if random_const_chooser_b[i] >= const_ratio:
             eqn_biases[i] = 0
 
-    return [eqn_ops, eqn_vars, eqn_weights, eqn_biases]
+    return [eqn_ops, eqn_vars, eqn_weights, eqn_biases, exponent_list]
 
 
 # Function to create a data set given an operator/input list
@@ -127,8 +129,10 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
     eqn_vars = raw_eqn[1]
     eqn_weights = raw_eqn[2]
     eqn_biases = raw_eqn[3]
+    exponent_list = raw_eqn[4]
     current_op = eqn_ops[0]
 
+    exponent = exponent_list[0]
     if len(eqn_ops) == 1:
         left_side = eqn_weights[0] * input_x[eqn_vars[0] - 1] + eqn_biases[0]
         right_side = eqn_weights[1] * input_x[eqn_vars[1] - 1] + eqn_biases[1]
@@ -147,10 +151,13 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
         left_biases = eqn_biases[:split_point]
         right_biases = eqn_biases[split_point:]
 
+        left_exponent = exponent_list[:split_point]
+        right_exponent = exponent_list[split_point:]
+
         left_side = evaluate_eqn_list_on_datum(
-            [left_ops, left_vars, left_weights, left_biases], input_x)
+            [left_ops, left_vars, left_weights, left_biases, left_exponent], input_x)
         right_side = evaluate_eqn_list_on_datum(
-            [right_ops, right_vars, right_weights, right_biases], input_x)
+            [right_ops, right_vars, right_weights, right_biases, right_exponent], input_x)
 
     if current_op == 'id':
         return left_side
@@ -159,7 +166,7 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
         return np.sqrt(np.abs(left_side))
 
     if current_op == 'pow':
-        return np.power(left_side, right_side)
+        return np.power(left_side, exponent)
 
     if current_op == 'log':
         return np.log(np.sqrt(left_side * left_side + 1e-10))
@@ -188,19 +195,22 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
     return None
 
 
-def raw_eqn_to_str(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
+def raw_eqn_to_str(raw_eqn, n_vars=2):
     eqn_ops = raw_eqn[0]
     eqn_vars = raw_eqn[1]
     eqn_weights = raw_eqn[2]
     eqn_biases = raw_eqn[3]
+    exponent_list = raw_eqn[4]
     current_op = eqn_ops[0]
 
+    exponent = exponent_list[0]
     if len(eqn_ops) == 1:
         # if n_vars > 1:
         left_side = "({}*x{}+{})".format(
             float(eqn_weights[0]), eqn_vars[0], float(eqn_biases[0]))
         right_side = "({}*x{}+{})".format(
             float(eqn_weights[1]), eqn_vars[1], float(eqn_biases[1]))
+
         # else:
         #     left_side = "({}*x+{})".format(
         #         float(eqn_weights[0]), float(eqn_biases[0]))
@@ -221,10 +231,13 @@ def raw_eqn_to_str(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
         right_weights = eqn_weights[split_point:]
         right_biases = eqn_biases[split_point:]
 
+        left_exponent = exponent_list[:split_point]
+        right_exponent = exponent_list[split_point:]
+
         left_side = eqn_to_str(
-            [left_ops, left_vars, left_weights, left_biases])
+            [left_ops, left_vars, left_weights, left_biases, left_exponent])
         right_side = eqn_to_str(
-            [right_ops, right_vars, right_weights, right_biases])
+            [right_ops, right_vars, right_weights, right_biases, right_exponent])
 
     left_is_float = False
     right_is_float = False
@@ -257,10 +270,11 @@ def raw_eqn_to_str(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
         return "sin({})".format(left_side)
 
     if current_op == 'pow':
-        exponent = exponents[np.random.randint(len(exponents))]
+        # exponent = exponents[np.random.randint(len(exponents))]
         if left_is_float:
             return "{:.3f}".format(np.power(left_value, exponent))
-        return "pow({},{})".format(left_side, exponent)
+        # return "pow({},{})".format(left_side, exponent)
+        return "({}**{})".format(left_side, exponent)
 
     if current_op == 'cos':
         if left_is_float:
@@ -297,17 +311,20 @@ def raw_eqn_to_str(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
 # return not only skeleton but also the placeholder of constant as fixed
 
 
-def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
+def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2):
     eqn_ops = raw_eqn[0]
     eqn_vars = raw_eqn[1]
     eqn_weights = raw_eqn[2]
     eqn_biases = raw_eqn[3]
+    exponent_list = raw_eqn[4]
     current_op = eqn_ops[0]
 
+    exponent = exponent_list[0]
     if len(eqn_ops) == 1:
         # if n_vars > 1:
         left_side = "(C*x{}+C)".format(eqn_vars[0])
         right_side = "(C*x{}+C)".format(eqn_vars[1])
+
         # else:
         #     left_side = "(C*x+C)".format(eqn_weights[0], eqn_biases[0])
         #     right_side = "(C*x+C)".format(eqn_weights[1], eqn_biases[1])
@@ -326,10 +343,13 @@ def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
         right_weights = eqn_weights[split_point:]
         right_biases = eqn_biases[split_point:]
 
+        left_exponent = exponent_list[:split_point]
+        right_exponent = exponent_list[split_point:]
+
         left_side = eqn_to_str_skeleton_structure(
-            [left_ops, left_vars, left_weights, left_biases])
+            [left_ops, left_vars, left_weights, left_biases, left_exponent])
         right_side = eqn_to_str_skeleton_structure(
-            [right_ops, right_vars, right_weights, right_biases])
+            [right_ops, right_vars, right_weights, right_biases, right_exponent])
 
     left_is_float = False
     right_is_float = False
@@ -364,10 +384,11 @@ def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
         return "sin({})".format(left_side)
 
     if current_op == 'pow':
-        exponent = exponents[np.random.randint(len(exponents))]
+        # exponent = exponents[np.random.randint(len(exponents))]
         if left_is_float:
-            return "C*pow(C,{})".format(exponent)
-        return "pow({},{})".format(left_side, exponent)
+            return "C*(C**{})".format(exponent)
+        # return "pow({},{})".format(left_side, exponent)
+        return "({}**{})".format(left_side, exponent)
 
     if current_op == 'cos':
         if left_is_float:
@@ -423,14 +444,14 @@ def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2, exponents=[3, 4, 5, 6]):
 
 
 def simplify_formula(formula_to_simplify, digits=4):
-    if len("{}".format(formula_to_simplify)) > 1000:
-        return "{}".format(formula_to_simplify)
+    # if len("{}".format(formula_to_simplify)) > 1000:
+    #     return "{}".format(formula_to_simplify)
     orig_form_str = sympify(formula_to_simplify)
-    if len("{}".format(orig_form_str)) > 1000:
-        return "{}".format(orig_form_str)
+    # if len("{}".format(orig_form_str)) > 1000:
+    #     return "{}".format(orig_form_str)
 
-    if len("{}".format(orig_form_str)) < 700:
-        orig_form_str = expand(orig_form_str)
+    # if len("{}".format(orig_form_str)) < 700:
+    orig_form_str = expand(orig_form_str)
 
     rounded = orig_form_str
 
@@ -457,12 +478,12 @@ def simplify_formula(formula_to_simplify, digits=4):
     return "{}".format(rounded).replace(' ', '')
 
 
-def eqn_to_str(raw_eqn, n_vars=2, decimals=2, exponents=[3, 4, 5, 6]):
-    return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars, exponents=exponents), digits=decimals)
+def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
+    return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars), digits=decimals)
 
 
-def eqn_to_str_skeleton_structure(raw_eqn, n_vars=2, decimals=2, exponents=[3, 4, 5, 6]):
-    return raw_eqn_to_skeleton_structure(raw_eqn, n_vars, exponents=exponents)
+def eqn_to_str_skeleton_structure(raw_eqn, n_vars=2, decimals=2):
+    return raw_eqn_to_skeleton_structure(raw_eqn, n_vars)
 
 
 # receive an string equation and convert any number to a specific constant token
@@ -472,11 +493,14 @@ def eqn_to_str_skeleton(eq):
     constants = re.findall("\d+\.\d+", eq)  # replace float number first
     for c in constants:
         eq = eq.replace(c, 'C')
+    eq = eq.replace('-', '+')
+    eq = re.sub(r'^\+', '', eq)
 
     # TODO: find a way to resolve standalone numbers, not x1 etc. The easiest way is to make sure every constant is float.
 
     eq = eq + '+C'  # add a bias
     dic = {
+        '(+': '(',
         'sin(': 'sin(C*',
         'cos(': 'cos(C*',
         'log(': 'log(C*',
@@ -502,6 +526,7 @@ def eqn_to_str_skeleton(eq):
         'C**9': 'C',
         'C*C*C': 'C',
         'C*C': 'C',  # remove the duplicates
+        'C+C': 'C'  # handles the case when it is -1.23x1 converts to C * x1
     }
     for k in dic:
         eq = eq.replace(k, dic[k])
@@ -522,7 +547,7 @@ def dataGen(nv, decimals, numberofPoints=[0, 10],
             op_list=[
                 "id", "add", "mul", "div",
                 "sqrt", "sin", "exp", "log"],
-            exponents=[3, 4, 5, 6]):
+            exponents=[2, 3]):
     """
     - nv: Number of Variables
     - decimals: number of floating points
@@ -541,13 +566,14 @@ def dataGen(nv, decimals, numberofPoints=[0, 10],
                                       op_list=op_list,
                                       allow_constants=allow_constants,
                                       const_range=const_range,
-                                      const_ratio=const_ratio)
+                                      const_ratio=const_ratio,
+                                      exponents=exponents)
 
     cleanEqn = eqn_to_str(currEqn, n_vars=nv,
-                          decimals=decimals, exponents=exponents)
-    skeletonEqn = eqn_to_str_skeleton_structure(
-        currEqn, n_vars=nv, decimals=decimals, exponents=exponents)
-    #skeletonEqn = eqn_to_str_skeleton(cleanEqn)
+                          decimals=decimals)
+    # skeletonEqn = eqn_to_str_skeleton_structure(
+    # currEqn, n_vars=nv, decimals=decimals)
+    skeletonEqn = eqn_to_str_skeleton(cleanEqn)
     data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv,
                                        decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
     if testPoints:
