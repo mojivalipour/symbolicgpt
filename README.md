@@ -161,12 +161,15 @@ note={under review}
 - https://github.com/volpato30/PointNovo
 - https://github.com/brencej/ProGED
 
+# Stable Commit:
+- 8c258e3e425b9cdec79bbf5b0984d347fad2a1f7
+
 # TODO: 
 - [x] Reproduce the results for 1-5 General Model
-- [ ] Reproduce the results for 1 Variable Model
-- [ ] Reproduce the results for 2 Variable Model
-- [ ] Reproduce the results for 3 Variable Model
-- [ ] Create a dataset and test our pipeline with new data
+- [x] Reproduce the results for 1 Variable Model
+- [x] Reproduce the results for 2 Variable Model
+- [x] Reproduce the results for 3 Variable Model
+- [X] Create a dataset and test our pipeline with new data
 
 # License:
 MIT

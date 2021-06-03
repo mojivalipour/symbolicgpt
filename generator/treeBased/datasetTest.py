@@ -22,7 +22,8 @@ def processData(numSamples, nv, decimals,
                 op_list=[
                     "id", "add", "mul", "div",
                     "sqrt", "sin", "exp", "log"],
-                sortY=False
+                sortY=False,
+                exponents=[3,4,5,6]
                 ):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
@@ -41,7 +42,8 @@ def processData(numSamples, nv, decimals,
                 op_list=op_list,
                 allow_constants=allow_constants,
                 const_range=const_range,
-                const_ratio=const_ratio
+                const_ratio=const_ratio,
+                exponents=exponents
             )
         except Exception as e:
             # Handle any exceptions that timing might raise here
@@ -73,24 +75,23 @@ def processData(numSamples, nv, decimals,
 
 def main():
     # Config
-    seed = 2023  # 2021 Train, 2022 Val, 2023 Test
+    seed = 2023 # 2021 Train, 2022 Val, 2023 Test, you have to change the generateData.py seed as well
     #from GenerateData import seed
     import random
     random.seed(seed)
-    np.random.seed(seed=seed)  # fix the seed for reproducibility
+    np.random.seed(seed=seed) # fix the seed for reproducibility
 
-    numVars = [5]  # list(range(31)) #[1,2,3,4,5]
-    decimals = 4
-    # only usable if support points has not been provided
-    numberofPoints = [20, 21]
-    numSamples = 1000 // len(numVars)  # number of generated samples
+    #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
+    numVars = [1,2,3,4,5,6,7,8,9,10] #list(range(31)) #[1,2,3,4,5]
+    decimals = 2
+    numberofPoints = [10,501] # only usable if support points has not been provided
+    numSamples = 1000 // len(numVars) # number of generated samples
     folder = './Dataset'
-    dataPath = folder + '/{}_{}_{}.json'
+    dataPath = folder +'/{}_{}_{}.json'
 
     testPoints = True
-
-    xRange = [-1.0, 4.0]
-    testRange = [4.1, 8.0]
+    xRange = [-1.0,1.0]
+    testRange = [[-5.0, 1.0],[-1.0, 5.0]] # this means Union((-5,-1),(1,5))
 
     supportPoints = None
     #supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
@@ -99,20 +100,21 @@ def main():
     #supportPoints = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPoints]
 
     supportPointsTest = None
-    # supportPoints = None # uncomment this line if you don't want to use support points
+    #supportPoints = None # uncomment this line if you don't want to use support points
     #supportPointsTest = np.linspace(xRange[0],xRange[1],numberofPoints[1])
     #supportPointsTest = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPointsTest]
-
-    n_levels = 6
+    
+    n_levels = 5
     allow_constants = True
     const_range = [-1, 1]
     const_ratio = 0.4
-    op_list = [
-        "id", "add", "mul", "sqrt",
-        "sin", "exp", "log", "pow"  # , "pow", "cos", "sub", "div"
-    ]
+    op_list=[
+                "id", "add", "mul", "div",
+                "sin", "exp", "log", "pow"#, "cos", "sub",
+            ]
+    exponents=[3, 4, 5, 6]
 
-    sortY = False  # if the data is sorted based on y
+    sortY = False # if the data is sorted based on y
 
     print(os.mkdir(folder) if not os.path.isdir(
         folder) else 'We do have the path already!')
@@ -137,7 +139,7 @@ def main():
                            numberofPoints,
                            xRange, testPoints, testRange, n_levels,
                            allow_constants, const_range,
-                           const_ratio, op_list, sortY
+                           const_ratio, op_list, sortY, exponents
                        )
                        )
 

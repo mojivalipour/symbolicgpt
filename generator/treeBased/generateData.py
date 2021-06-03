@@ -16,7 +16,7 @@ from wrapt_timeout_decorator import *
 # except ImportError:
 #     import _thread as thread
 
-seed = 2023  # 2021 Train, 2022 Val, 2023 Test
+seed = 2021  # 2021 Train, 2022 Val, 2023 Test
 random.seed(seed)
 np.random.seed(seed=seed)  # we didn't use this line for the training data
 
@@ -98,15 +98,22 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=['id', 'sin'],
 
     return [eqn_ops, eqn_vars, eqn_weights, eqn_biases, exponent_list]
 
-
 # Function to create a data set given an operator/input list
 # Output is a list with entries of the form of pairs [ [x1, ..., xn], y ]
 def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
                                 min_x=0.1, max_x=3.1,
                                 noise_std_dev=0, decimals=2,
                                 supportPoints=None):
-    x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals))
-              for _ in range(n_points)] if supportPoints is None else list(supportPoints)
+    if isinstance(min_x, list):
+        # support multiple range
+        x_data = []
+        for minix, maxix in zip(min_x, max_x):
+            x_data += [list(np.round(np.random.uniform(minix, maxix, n_vars), decimals))
+                for _ in range(n_points)] if supportPoints is None else list(supportPoints)
+    else:
+        x_data = [list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals))
+                for _ in range(n_points)] if supportPoints is None else list(supportPoints)
+    
     # y_data = [np.round(np.log(evaluate_eqn_list_on_datum(raw_eqn, x_data_i) + np.random.normal(0, noise_std_dev)), decimals)
     #          for x_data_i in x_data]
     y_data = []
@@ -490,9 +497,10 @@ def eqn_to_str_skeleton_structure(raw_eqn, n_vars=2, decimals=2):
 
 
 def eqn_to_str_skeleton(eq):
-    constants = re.findall("\d+\.\d+", eq)  # replace float number first
-    for c in constants:
-        eq = eq.replace(c, 'C')
+    #constants = re.findall("\d+\.\d+", eq)  # replace float number first
+    #for c in constants:
+    #    eq = eq.replace(c, 'C')
+    eq = re.sub("\d+\.\d+", "C", eq)
     eq = eq.replace('-', '+')
     eq = re.sub(r'^\+', '', eq)
 
