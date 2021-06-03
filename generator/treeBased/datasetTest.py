@@ -79,7 +79,7 @@ def main():
     random.seed(seed)
     np.random.seed(seed=seed)  # fix the seed for reproducibility
 
-    numVars = [1]  # list(range(31)) #[1,2,3,4,5]
+    numVars = [5]  # list(range(31)) #[1,2,3,4,5]
     decimals = 4
     # only usable if support points has not been provided
     numberofPoints = [20, 21]
@@ -103,13 +103,13 @@ def main():
     #supportPointsTest = np.linspace(xRange[0],xRange[1],numberofPoints[1])
     #supportPointsTest = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPointsTest]
 
-    n_levels = 3
+    n_levels = 6
     allow_constants = True
     const_range = [-1, 1]
     const_ratio = 0.4
     op_list = [
         "id", "add", "mul", "sqrt",
-        "sin", "exp", "log"  # , "pow", "cos", "sub", "div"
+        "sin", "exp", "log", "pow"  # , "pow", "cos", "sub", "div"
     ]
 
     sortY = False  # if the data is sorted based on y
