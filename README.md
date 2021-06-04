@@ -51,10 +51,12 @@ numYs=1 # the dimension of output points y = f(x), if you don't know then use th
 blockSize = 100 # spatial extent of the model for its context
 batchSize = 128 # batch size of training data
 dataDir = './datasets/'
-dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+dataInfo = 'XYE_1-{}Var_100-{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+titleTemplate = "1-{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
 dataFolder = '1-5Var_RandSupport_RandLength_0to3_3.1to6_100to500Points'
 addr = './SavedModels/' # where to save model
+method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT -> whether to concat the embedding or use summation. 
 ```
 ### Use this in symbolicGPT.py to reproduce the results for 1 Variable Model
 ```python
@@ -70,6 +72,7 @@ dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embed
 target = 'Skeleton' #'Skeleton' #'EQ'
 dataFolder = '1Var_RandSupport_FixedLength_0to3_3.1to6_30Points'
 addr = './SavedModels/' # where to save model
+method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT -> whether to concat the embedding or use summation. 
 ```
 
 ### Use this in symbolicGPT.py to reproduce the results for 2 Variable Model
@@ -86,6 +89,7 @@ dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embed
 target = 'Skeleton' #'Skeleton' #'EQ'
 dataFolder = '2Var_RandSupport_FixedLength_0to3_3.1to6_200Points'
 addr = './SavedModels/' # where to save model
+method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT -> whether to concat the embedding or use summation. 
 ```
 
 ### Use this in symbolicGPT.py to reproduce the results for 3 Variable Model
@@ -102,6 +106,7 @@ dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embed
 target = 'Skeleton' #'Skeleton' #'EQ'
 dataFolder = '3Var_RandSupport_FixedLength_0to3_3.1to6_500Points'
 addr = './SavedModels/' # where to save model
+method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT -> whether to concat the embedding or use summation. 
 ```
 
 # Directories

@@ -16,8 +16,8 @@ import json
 import math
 import random
 import numpy as np
-from numpy import * # to override the math functions
 from tqdm import tqdm
+from numpy import * # to override the math functions
 
 import torch
 import torch.nn as nn
@@ -29,6 +29,7 @@ from matplotlib import pyplot as plt
 from scipy.optimize import minimize
 from trainer import Trainer, TrainerConfig
 from models import GPT, GPTConfig, PointNetConfig
+from utils import processDataFiles, CharDataset, relativeErr, mse, sqrt, divide
 
 # set the random seed
 set_seed(42)
@@ -36,21 +37,27 @@ set_seed(42)
 # config
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints=500 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars=5 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 100 # spatial extent of the model for its context
 batchSize = 128 # batch size of training data
 dataDir = './datasets/'
-dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+dataInfo = 'XYE_1-{}Var_100-{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+titleTemplate = "{} equations of 1-{} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1Var_RandSupport_FixedLength_0to3_3.1to6_30Points'
+dataFolder = '1-5Var_RandSupport_RandLength_0to3_3.1to6_100to500Points'
 addr = './SavedModels/' # where to save model
-maxNumFiles = 30
+method = 'EMB_CON' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT -> whether to concat the embedding or use summation. 
+# EMB_CAT: Concat point embedding to GPT token+pos embedding
+# EMB_SUM: Add point embedding to GPT tokens+pos embedding
+# OUT_CAT: Concat the output of the self-attention and point embedding
+# OUT_SUM: Add the output of the self-attention and point embedding
+# EMB_CON: Conditional Embedding, add the point embedding as the first token
+maxNumFiles = 30 # maximum number of file to load in memory for training the neural network
 bestLoss = None # if there is any model to load as pre-trained one
-
 fName = '{}_SymbolicGPT_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
-                                             'GPT_PT_Summation', 
+                                             'GPT_PT_{}_{}'.format(method, target), 
                                              'Padding',
                                              blockSize)
 ckptPath = '{}/{}.pt'.format(addr,fName.split('.txt')[0])
@@ -58,121 +65,6 @@ try:
     os.mkdir(addr)
 except:
     print('Folder already exists!')
-
-# helper class and functions
-# add a safe wrapper for numpy math functions
-
-def divide(x, y):
-  x = np.nan_to_num(x)
-  y = np.nan_to_num(y)
-  return np.divide(x,y+1e-5)
-
-def sqrt(x):
-  x = np.nan_to_num(x)
-  return np.sqrt(np.abs(x)) 
-
-# Mean square error
-def mse(y, y_hat):
-    y_hat = np.reshape(y_hat, [1, -1])[0]
-    y_gold = np.reshape(y, [1, -1])[0]
-    our_sum = 0
-    for i in range(len(y_gold)):
-        our_sum += (y_hat[i] - y_gold[i]) ** 2
-
-    return our_sum / len(y_gold)
-
-# Mean square error
-def relativeErr(y, y_hat):
-    y_hat = np.reshape(y_hat, [1, -1])[0]
-    y_gold = np.reshape(y, [1, -1])[0]
-    our_sum = 0
-    for i in range(len(y_gold)):
-        if y_gold[i] < 1: 
-            # use regular MSE
-            our_sum += (y_hat[i] - y_gold[i]) ** 2
-        else:
-            # use relative MSE
-            our_sum += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
-
-    return our_sum / len(y_gold)
-
-class CharDataset(Dataset):
-    def __init__(self, data, block_size, chars, target='EQ'):
-        data_size, vocab_size = len(data), len(chars)
-        print('data has %d examples, %d unique.' % (data_size, vocab_size))
-        
-        self.stoi = { ch:i for i,ch in enumerate(chars) }
-        self.itos = { i:ch for i,ch in enumerate(chars) }
-        
-        # padding token
-        self.paddingToken = '_'
-        self.paddingID = self.stoi[self.paddingToken]
-        self.stoi[self.paddingToken] = self.paddingID
-        self.itos[self.paddingID] = self.paddingToken
-        self.threshold = [-1000,1000]
-        
-        self.block_size = block_size
-        self.vocab_size = vocab_size
-        self.data = data # it should be a list of examples
-        self.target = target
-    
-    def __len__(self):
-        return len(self.data)-1
-
-    def __getitem__(self, idx):
-        # grab an example from the data
-        chunk = self.data[idx] # sequence of tokens including x, y, eq, etc.
-        
-        try:
-            chunk = json.loads(chunk) # convert the sequence tokens to a dictionary
-        except:
-            print("Couldn't convert to json: {}".format(chunk))
-            
-        # encode every character in the equation to an integer
-        # < is SOS, > is EOS
-        dix = [self.stoi[s] for s in '<'+chunk[self.target]+'>']
-        inputs = dix[:-1]
-        outputs = dix[1:]
-        
-        # add the padding to the equations
-        paddingSize = max(self.block_size-len(inputs),0)
-        paddingList = [self.paddingID]*paddingSize
-        inputs += paddingList
-        outputs += paddingList 
-        
-        # make sure it is not more than what should be
-        inputs = inputs[:self.block_size]
-        outputs = outputs[:self.block_size]
-        
-        # extract points from the input sequence
-        points = torch.zeros(numVars+numYs, numPoints)
-        for idx, xy in enumerate(zip(chunk['X'], chunk['Y'])):
-            x = xy[0] + [0]*(max(numVars-len(xy[0]),0)) # padding
-            y = [xy[1]] if type(xy[1])== float else xy[1]
-            y = y + [0]*(max(numYs-len(y),0)) # padding
-            p = x+y # because it is only one point 
-            p = torch.tensor(p)
-            #replace nan and inf
-            p = torch.nan_to_num(p, nan=0.0, 
-                                 posinf=self.threshold[1], 
-                                 neginf=self.threshold[0])
-            p[p>self.threshold[1]] = self.threshold[1] # clip the upper bound
-            p[p<self.threshold[0]] = self.threshold[0] # clip the lower bound
-            points[:,idx] = p
-        
-        inputs = torch.tensor(inputs, dtype=torch.long)
-        outputs = torch.tensor(outputs, dtype=torch.long)
-        return inputs, outputs, points
-
-def processDataFiles(files):
-    text = ''""
-    for f in tqdm(files):
-        with open(f, 'r') as h: 
-            lines = h.read() # don't worry we won't run out of file handles
-            if lines[-1]==-1:
-                lines = lines[:-1]
-            text += lines #json.loads(line)        
-    return text
 
 # load the train dataset
 path = '{}/{}/Train/*.json'.format(dataDir, dataFolder)
@@ -182,7 +74,7 @@ chars = sorted(list(set(text))+['_','T','<','>']) # extract unique characters fr
 text = text.split('\n') # convert the raw text to a set of examples
 text = text[:-1] if len(text[-1]) == 0 else text
 random.shuffle(text) # shuffle the dataset, it's important for combined number of variables
-train_dataset = CharDataset(text, blockSize, chars, target=target) 
+train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, numYs=numYs, numPoints=numPoints, target=target) 
 
 # print a random sample
 idx = np.random.randint(train_dataset.__len__())
@@ -197,7 +89,7 @@ path = '{}/{}/Val/*.json'.format(dataDir,dataFolder)
 files = glob.glob(path)
 textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
-val_dataset = CharDataset(textVal, blockSize, chars, target=target)
+val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, numYs=numYs, numPoints=numPoints, target=target)
 
 # print a random sample
 idx = np.random.randint(val_dataset.__len__())
@@ -213,7 +105,7 @@ files = glob.glob(path)
 textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
 # test_dataset_target = CharDataset(textTest, blockSize, chars, target=target)
-test_dataset = CharDataset(textTest, blockSize, chars)
+test_dataset = CharDataset(textTest, blockSize, chars, numVars=numVars, numYs=numYs, numPoints=numPoints)
 
 # print a random sample
 idx = np.random.randint(test_dataset.__len__())
@@ -227,7 +119,8 @@ print('id:{}\ninputs:{}\noutputs:{}\npoints:{}'.format(idx,inputs,outputs,points
 pconf = PointNetConfig(embeddingSize=embeddingSize, 
                        numberofPoints=numPoints, 
                        numberofVars=numVars, 
-                       numberofYs=numYs)
+                       numberofYs=numYs,
+                       method=method)
 mconf = GPTConfig(train_dataset.vocab_size, train_dataset.block_size,
                   n_layer=8, n_head=8, n_embd=embeddingSize, padding_idx=train_dataset.paddingID)
 model = GPT(mconf, pconf)
@@ -255,9 +148,6 @@ loader = torch.utils.data.DataLoader(
                                 pin_memory=True,
                                 batch_size=1,
                                 num_workers=0)
-
-testRange = [3.1,6.0]
-numTestPoints = 10
 
 resultDict = {}
 try:
@@ -315,19 +205,17 @@ try:
                 return err
             
             try:
-                if len(c) == 0:
-                    pass # do nothing
-                else:
+                if len(c) != 0:
                     # This is the bottleneck in our algorithm
                     # for easier comparison, we are using minimize package  
                     cHat = minimize(lossFunc, c,
                                    args=(predicted, t['X'], t['Y'])) 
         
                     predicted = predicted.replace('C','{}').format(*cHat.x)
-            except:
-                print('Wrong Equation:{}'.format(predicted))
-                raise
-                predicted = 0
+            except ValueError:
+                raise 'Err: Wrong Equation {}'.format(predicted)
+            except Exception as e:
+                raise 'Err: Wrong Equation {}, Err: {}'.format(predicted, e)
 
             # TODO: let's enjoy GPU
 
@@ -389,6 +277,7 @@ except KeyboardInterrupt:
 # plot the error frequency for model comparison
 num_eqns = len(resultDict[fName]['SymbolicGPT'])
 num_vars = pconf.numberofVars
+title = titleTemplate.format(num_eqns, num_vars)
 
 models = list(key for key in resultDict[fName].keys() if len(resultDict[fName][key])==num_eqns)
 lists_of_error_scores = [resultDict[fName][key] for key in models if len(resultDict[fName][key])==num_eqns]
@@ -412,7 +301,7 @@ for idx, m in enumerate(models):
            label=m)
 
 plt.legend(loc="upper left")
-plt.title("{} equations of {} variables - Benchmark".format(num_eqns, num_vars))
+plt.title(title)
 plt.xlabel("Log of Relative Mean Square Error")
 plt.ylabel("Normalized Cumulative Frequency")
 

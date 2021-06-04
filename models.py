@@ -228,25 +228,46 @@ class GPT(nn.Module):
         super().__init__()
 
         self.config = config
-
-        # input embedding stem
-        self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd, padding_idx=self.config.padding_idx)
-        self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
-        self.drop = nn.Dropout(config.embd_pdrop)
-
-        self.pointNet = None
         self.pointNetConfig = pointNetConfig
+        self.pointNet = None
+
+        embeddingSize = config.n_embd
         if self.pointNetConfig is not None:
+
+            if self.pointNetConfig.method == 'EMB_CAT':
+                print('The model is going to concatenate the embeddings!')
+                embeddingSize = config.n_embd//2 # if concatenation
+
+            # OVERRIDE: POINT embedding should have the same size of token and position embedding
+            if self.pointNetConfig.embeddingSize != embeddingSize:
+                print("We've override your choice for pointNet embedding! Updating {} with {}!".format(self.pointNetConfig.embeddingSize, embeddingSize))
+                self.pointNetConfig.embeddingSize = embeddingSize   
+
             self.pointNet = tNet(self.pointNetConfig)
             #self.pointNet = PointNet(self.pointNetConfig)
+            
+        if self.pointNetConfig.method == 'EMB_CON':
+            print('Add one to the supported block size!')
+            self.block_size = config.block_size + 1 # add a first token
+            config.block_size += 1
+        else:        
+            self.block_size = config.block_size
+
+        # input embedding stem
+        self.tok_emb = nn.Embedding(config.vocab_size, embeddingSize, padding_idx=self.config.padding_idx)
+        self.pos_emb = nn.Parameter(torch.zeros(1, self.block_size, embeddingSize))
+        self.drop = nn.Dropout(config.embd_pdrop)        
 
         # transformer
         self.blocks = nn.Sequential(*[Block(config) for _ in range(config.n_layer)])
         # decoder head
         self.ln_f = nn.LayerNorm(config.n_embd)
-        self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
 
-        self.block_size = config.block_size
+        if self.pointNetConfig.method == 'OUT_CAT':
+            self.head = nn.Linear(config.n_embd*2, config.vocab_size, bias=False)
+        else:
+            self.head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+        
         self.apply(self._init_weights)
 
         logger.info("number of parameters: %e", sum(p.numel() for p in self.parameters()))
@@ -320,14 +341,37 @@ class GPT(nn.Module):
         if points != None and self.pointNet !=None:
             points_embeddings = self.pointNet(points)
             points_embeddings = points_embeddings.unsqueeze(1)
-            points_embeddings = torch.tile(points_embeddings, (1,token_embeddings.shape[1],1))
-            input_embedding = token_embeddings + position_embeddings + points_embeddings
+
+            if self.pointNetConfig.method == 'EMB_CON':
+                input_embedding = token_embeddings + position_embeddings
+                input_embedding = torch.cat((points_embeddings, input_embedding), dim=1) # add point embedding as the first token
+            else:
+                points_embeddings = torch.tile(points_embeddings, (1,token_embeddings.shape[1],1))
+
+                if self.pointNetConfig.method == 'EMB_SUM':
+                    # summation
+                    input_embedding = token_embeddings + position_embeddings + points_embeddings
+                elif self.pointNetConfig.method == 'EMB_CAT':
+                    # concatenation, you have to also change the dimensionality to half
+                    input_embedding = token_embeddings + position_embeddings
+                    input_embedding = torch.cat((input_embedding, points_embeddings), dim=-1)
+                else:
+                    input_embedding = token_embeddings + position_embeddings
         else:
             input_embedding = token_embeddings + position_embeddings
 
         x = self.drop(input_embedding)
         x = self.blocks(x)
         x = self.ln_f(x)
+
+        if self.pointNetConfig.method == 'OUT_SUM':
+            x += points_embeddings
+        elif self.pointNetConfig.method == 'OUT_CAT':
+            x = torch.cat((x, points_embeddings), dim=-1)
+        elif self.pointNetConfig.method == 'EMB_CON':
+            # remove the first token
+            x = x[:,1:,:]
+
         logits = self.head(x)
 
         printCondition = random.random() < 0.001 and tokenizer is not None
