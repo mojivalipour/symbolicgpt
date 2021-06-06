@@ -101,12 +101,15 @@ class Block(nn.Module):
 
 class PointNetConfig:
     """ base PointNet config """
-    def __init__(self, embeddingSize, numberofPoints, numberofVars, numberofYs, method='GPT', **kwargs):
+    def __init__(self, embeddingSize, numberofPoints, numberofVars, 
+                    numberofYs, method='GPT', varibleEmbedding='NOT_VAR', 
+                    **kwargs):
         self.embeddingSize = embeddingSize
         self.numberofPoints = numberofPoints # number of points
         self.numberofVars = numberofVars # input dimension (Xs)
         self.numberofYs = numberofYs # output dimension (Ys)
         self.method = method
+        self.varibleEmbedding = varibleEmbedding
 
         for k,v in kwargs.items():
             setattr(self, k, v)
@@ -200,8 +203,6 @@ class tNet(nn.Module):
         self.bn4 = nn.BatchNorm1d(2 * self.num_units)
         self.bn5 = nn.BatchNorm1d(self.num_units)
 
-        
-
     def forward(self, x):
         """
         :param x: [batch, #features, #points]
@@ -232,7 +233,7 @@ class GPT(nn.Module):
         self.pointNet = None
 
         embeddingSize = config.n_embd
-        if self.pointNetConfig is not None:
+        if self.pointNetConfig is not None:            
 
             if self.pointNetConfig.method == 'EMB_CAT':
                 print('The model is going to concatenate the embeddings!')
@@ -245,6 +246,8 @@ class GPT(nn.Module):
 
             self.pointNet = tNet(self.pointNetConfig)
             #self.pointNet = PointNet(self.pointNetConfig)
+
+            self.vars_emb = nn.Embedding(self.pointNetConfig.numberofVars+1, embeddingSize)
             
         if self.pointNetConfig.method == 'EMB_CON':
             print('Add one to the supported block size!')
@@ -254,7 +257,7 @@ class GPT(nn.Module):
             self.block_size = config.block_size
 
         # input embedding stem
-        self.tok_emb = nn.Embedding(config.vocab_size, embeddingSize, padding_idx=self.config.padding_idx)
+        self.tok_emb = nn.Embedding(config.vocab_size, embeddingSize, padding_idx=self.config.padding_idx)        
         self.pos_emb = nn.Parameter(torch.zeros(1, self.block_size, embeddingSize))
         self.drop = nn.Dropout(config.embd_pdrop)        
 
@@ -330,7 +333,7 @@ class GPT(nn.Module):
         optimizer = torch.optim.AdamW(optim_groups, lr=train_config.learning_rate, betas=train_config.betas)
         return optimizer
 
-    def forward(self, idx, targets=None, points=None, tokenizer=None):
+    def forward(self, idx, targets=None, points=None, variables=None, tokenizer=None):
         b, t = idx.size()
         assert t <= self.block_size, "Cannot forward, model block size is exhausted."
 
@@ -340,12 +343,19 @@ class GPT(nn.Module):
 
         if points != None and self.pointNet !=None:
             points_embeddings = self.pointNet(points)
+
+            if variables != None and self.pointNetConfig.varibleEmbedding =='LEA_EMB':
+                # add the variables information to the point embedding
+                variables_embeddings = self.vars_emb(variables)
+                points_embeddings += variables_embeddings
+
             points_embeddings = points_embeddings.unsqueeze(1)
 
             if self.pointNetConfig.method == 'EMB_CON':
                 input_embedding = token_embeddings + position_embeddings
                 input_embedding = torch.cat((points_embeddings, input_embedding), dim=1) # add point embedding as the first token
             else:
+                # TODO: I have to find a smarter way to replace this tile overhead
                 points_embeddings = torch.tile(points_embeddings, (1,token_embeddings.shape[1],1))
 
                 if self.pointNetConfig.method == 'EMB_SUM':

@@ -1,3 +1,4 @@
+import re
 import json
 import random
 import torch
@@ -20,7 +21,7 @@ def top_k_logits(logits, k):
     return out
 
 @torch.no_grad()
-def sample(model, x, steps, points=None, temperature=1.0, sample=False, top_k=None):
+def sample(model, x, steps, points=None, variables=None, temperature=1.0, sample=False, top_k=None):
     """
     take a conditioning sequence of indices in x (of shape (b,t)) and predict the next token in
     the sequence, feeding the predictions back into the model each time. Clearly the sampling
@@ -31,7 +32,7 @@ def sample(model, x, steps, points=None, temperature=1.0, sample=False, top_k=No
     model.eval()
     for k in range(steps):
         x_cond = x if x.size(1) <= block_size else x[:, -block_size:] # crop context if needed
-        logits, _ = model(x_cond, points=points)
+        logits, _ = model(x_cond, points=points, variables=variables)
         # pluck the logits at the final step and scale by temperature
         logits = logits[:, -1, :] / temperature
         # optionally crop probabilities to only the top k options
@@ -87,7 +88,8 @@ def relativeErr(y, y_hat):
     return our_sum / len(y_gold)
 
 class CharDataset(Dataset):
-    def __init__(self, data, block_size, chars, numVars, numYs, numPoints, target='EQ'):
+    def __init__(self, data, block_size, chars, 
+        numVars, numYs, numPoints, target='EQ', addVars=False):
         data_size, vocab_size = len(data), len(chars)
         print('data has %d examples, %d unique.' % (data_size, vocab_size))
         
@@ -109,6 +111,7 @@ class CharDataset(Dataset):
         self.vocab_size = vocab_size
         self.data = data # it should be a list of examples
         self.target = target
+        self.addVars = addVars
     
     def __len__(self):
         return len(self.data)-1
@@ -122,9 +125,23 @@ class CharDataset(Dataset):
         except:
             print("Couldn't convert to json: {}".format(chunk))
             
+        # find the number of variables in the equation
+        eq = chunk[self.target]
+        vars = re.finditer('x[\d]*',eq) 
+        numVars = 0
+        for v in vars:
+            v = v.group(0).strip('x')
+            v = eval(v)
+            v = int(v)
+            if v > numVars:
+                numVars = v
+        
         # encode every character in the equation to an integer
         # < is SOS, > is EOS
-        dix = [self.stoi[s] for s in '<'+chunk[self.target]+'>']
+        if self.addVars:
+            dix = [self.stoi[s] for s in '<'+str(numVars)+':'+eq+'>']
+        else:
+            dix = [self.stoi[s] for s in '<'+eq+'>']
         inputs = dix[:-1]
         outputs = dix[1:]
         
@@ -156,7 +173,8 @@ class CharDataset(Dataset):
         
         inputs = torch.tensor(inputs, dtype=torch.long)
         outputs = torch.tensor(outputs, dtype=torch.long)
-        return inputs, outputs, points
+        numVars = torch.tensor(numVars, dtype=torch.long)
+        return inputs, outputs, points, numVars
 
 def processDataFiles(files):
     text = ''""
@@ -167,3 +185,19 @@ def processDataFiles(files):
                 lines = lines[:-1]
             text += lines #json.loads(line)        
     return text
+
+def lossFunc(constants, eq, X, Y):
+    err = 0
+    eq = eq.replace('C','{}').format(*constants)
+
+    for x,y in zip(X,Y):
+        eqTemp = eq + ''
+        for i,e in enumerate(x):
+            eqTemp = eqTemp.replace('x{}'.format(i+1), str(e))
+        try:
+            yHat = eval(eqTemp)
+        except:
+            yHat = 100
+        err += (y-yHat)**2
+    err /= len(Y)
+    return err
