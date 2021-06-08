@@ -35,18 +35,18 @@ from utils import processDataFiles, CharDataset, relativeErr, mse, sqrt, divide,
 set_seed(42)
 
 # config
-numEpochs = 4 # number of epochs to train the GPT+PT model
+numEpochs = 20 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=500 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=5 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints=20 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars=2 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 100 # spatial extent of the model for its context
-batchSize = 64 # batch size of training data
+batchSize = 128 # batch size of training data
 dataDir = './datasets/'
-dataInfo = 'XYE_1-{}Var_100-{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+dataInfo = 'XYE_1-{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 titleTemplate = "{} equations of 1-{} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1-5Var_RandSupport_RandLength_0to3_3.1to6_100to500Points'
+dataFolder = '1-2Var_RandSupport_RandLength_-1to1_-5to1_1to5_100to500Points'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -54,7 +54,7 @@ method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to conca
 # OUT_CAT: Concat the output of the self-attention and point embedding
 # OUT_SUM: Add the output of the self-attention and point embedding
 # EMB_CON: Conditional Embedding, add the point embedding as the first token
-variableEmbedding = 'STR_VAR' # NOT_VAR/LEA_EMB/STR_VAR
+variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
 # NOT_VAR: Do nothing, will not pass any information from the number of variables in the equation to the GPT
 # LEA_EMB: Learnable embedding for the variables, added to the pointNET embedding
 # STR_VAR: Add the number of variables to the first token
@@ -188,11 +188,15 @@ try:
             target = ''.join([train_dataset.itos[int(i)] for i in outputs[0]])
             predicted = ''.join([train_dataset.itos[int(i)] for i in outputsHat])
 
+            if variableEmbedding == 'STR_VAR':
+                target = target.split(':')[-1]
+                predicted = predicted.split(':')[-1]
+
             target = target.strip(train_dataset.paddingToken).split('>')
-            target = target[0] if len(target[0])>=1 else target[1]
+            target = target[0] #if len(target[0])>=1 else target[1]
             target = target.strip('<').strip(">")
             predicted = predicted.strip(train_dataset.paddingToken).split('>')
-            predicted = predicted[0] if len(predicted[0])>=1 else predicted[1]
+            predicted = predicted[0] #if len(predicted[0])>=1 else predicted[1]
             predicted = predicted.strip('<').strip(">")
             
             print('Target:{}\nSkeleton:{}'.format(target, predicted))

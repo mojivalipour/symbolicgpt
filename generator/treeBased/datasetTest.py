@@ -30,21 +30,38 @@ def processData(numSamples, nv, decimals,
         # generate a formula
         # Create a new random equation
         try:
-            x, y, cleanEqn, skeletonEqn, xT, yT = dataGen(
-                nv=nv, decimals=decimals,
-                numberofPoints=numberofPoints,
-                supportPoints=supportPoints,
-                supportPointsTest=supportPointsTest,
-                xRange=xRange,
-                testPoints=testPoints,
-                testRange=testRange,
-                n_levels=n_levels,
-                op_list=op_list,
-                allow_constants=allow_constants,
-                const_range=const_range,
-                const_ratio=const_ratio,
-                exponents=exponents
-            )
+            if testPoints:
+                x, y, cleanEqn, skeletonEqn, xT, yT, _ = dataGen(
+                    nv=nv, decimals=decimals,
+                    numberofPoints=numberofPoints,
+                    supportPoints=supportPoints,
+                    supportPointsTest=supportPointsTest,
+                    xRange=xRange,
+                    testPoints=testPoints,
+                    testRange=testRange,
+                    n_levels=n_levels,
+                    op_list=op_list,
+                    allow_constants=allow_constants,
+                    const_range=const_range,
+                    const_ratio=const_ratio,
+                    exponents=exponents
+                )
+            else:
+                x, y, cleanEqn, skeletonEqn, _ = dataGen(
+                    nv=nv, decimals=decimals,
+                    numberofPoints=numberofPoints,
+                    supportPoints=supportPoints,
+                    supportPointsTest=supportPointsTest,
+                    xRange=xRange,
+                    testPoints=testPoints,
+                    testRange=testRange,
+                    n_levels=n_levels,
+                    op_list=op_list,
+                    allow_constants=allow_constants,
+                    const_range=const_range,
+                    const_ratio=const_ratio,
+                    exponents=exponents
+                )
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
@@ -71,7 +88,6 @@ def processData(numSamples, nv, decimals,
         with open(outputPath, "a", encoding="utf-8") as h:
             json.dump(structure, h, ensure_ascii=False)
             h.write('\n')
-
 
 def main():
     # Config
@@ -104,13 +120,13 @@ def main():
     #supportPointsTest = np.linspace(xRange[0],xRange[1],numberofPoints[1])
     #supportPointsTest = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPointsTest]
     
-    n_levels = 2
+    n_levels = 4
     allow_constants = True
     const_range = [-1, 1]
-    const_ratio = 0.4
+    const_ratio = 0.5
     op_list=[
                 "id", "add", "mul",
-                "sin", "pow" #, "cos", "sub", "div", "exp", "log",
+                "sin", "pow", "cos", "log", #"exp", "div", "sub", 
             ]
     exponents=[3, 4, 5, 6]
 

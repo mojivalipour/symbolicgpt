@@ -7,6 +7,7 @@ import torch.nn as nn
 from tqdm import tqdm
 from torch.utils.data import Dataset
 from torch.nn import functional as F
+from numpy import * # to override the math functions
 
 def set_seed(seed):
     random.seed(seed)
@@ -193,10 +194,14 @@ def lossFunc(constants, eq, X, Y):
     for x,y in zip(X,Y):
         eqTemp = eq + ''
         for i,e in enumerate(x):
+            # make sure e is not a tensor
+            if type(e) == torch.Tensor:
+                e = e.item()
             eqTemp = eqTemp.replace('x{}'.format(i+1), str(e))
         try:
             yHat = eval(eqTemp)
         except:
+            print('Exception has been occured! EQ: {}, OR: {}'.format(eqTemp, eq))
             yHat = 100
         err += (y-yHat)**2
     err /= len(Y)

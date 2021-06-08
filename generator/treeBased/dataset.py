@@ -23,52 +23,83 @@ def processData(numSamples, nv, decimals,
                     "id", "add", "mul", "div", 
                     "sqrt", "sin", "exp", "log"],
                 sortY=False,
-                exponents= [3,4,5,6]
+                exponents= [3,4,5,6],
+                numSamplesEachEq=1,
                 ):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
         # generate a formula
         # Create a new random equation
         try:
-            x,y,cleanEqn,skeletonEqn = dataGen( 
-                                                nv = nv, decimals = decimals, 
-                                                numberofPoints=numberofPoints, 
-                                                supportPoints=supportPoints,
-                                                supportPointsTest=supportPointsTest,
-                                                xRange=xRange,
-                                                testPoints=testPoints,
-                                                testRange=testRange,
-                                                n_levels=n_levels,
-                                                op_list=op_list,
-                                                allow_constants=allow_constants, 
-                                                const_range=const_range,
-                                                const_ratio=const_ratio,
-                                                exponents=exponents
-                                               )
+            if testPoints:
+                x,y,cleanEqn,skeletonEqn, _, _, currEqn = dataGen( 
+                                                    nv = nv, decimals = decimals, 
+                                                    numberofPoints=numberofPoints, 
+                                                    supportPoints=supportPoints,
+                                                    supportPointsTest=supportPointsTest,
+                                                    xRange=xRange,
+                                                    testPoints=testPoints,
+                                                    testRange=testRange,
+                                                    n_levels=n_levels,
+                                                    op_list=op_list,
+                                                    allow_constants=allow_constants, 
+                                                    const_range=const_range,
+                                                    const_ratio=const_ratio,
+                                                    exponents=exponents
+                                                )
+            else:
+                x,y,cleanEqn,skeletonEqn, currEqn = dataGen( 
+                                                    nv = nv, decimals = decimals, 
+                                                    numberofPoints=numberofPoints, 
+                                                    supportPoints=supportPoints,
+                                                    supportPointsTest=supportPointsTest,
+                                                    xRange=xRange,
+                                                    testPoints=testPoints,
+                                                    testRange=testRange,
+                                                    n_levels=n_levels,
+                                                    op_list=op_list,
+                                                    allow_constants=allow_constants, 
+                                                    const_range=const_range,
+                                                    const_ratio=const_ratio,
+                                                    exponents=exponents
+                                                )
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
             i = i-1
             continue
 
-        # sort data based on Y
-        if sortY:
-            x,y = zip(*sorted(zip(x,y), key=lambda d: d[1]))
-        
-        # hold data in the structure
-        structure['X'] = list(x)
-        structure['Y'] = y
-        structure['Skeleton'] = skeletonEqn
-        structure['EQ'] = cleanEqn
+        for e in range(numSamplesEachEq):
+            # sort data based on Y
+            if sortY:
+                x,y = zip(*sorted(zip(x,y), key=lambda d: d[1]))
+            
+            # hold data in the structure
+            structure['X'] = list(x)
+            structure['Y'] = y
+            structure['Skeleton'] = skeletonEqn
+            structure['EQ'] = cleanEqn
 
-        outputPath = dataPath.format(fileID, nv, time)
-        if os.path.exists(outputPath):
-            fileSize = os.path.getsize(outputPath)
-            if fileSize > 500000000: # 500 MB
-                fileID +=1 
-        with open(outputPath, "a", encoding="utf-8") as h:
-            json.dump(structure, h, ensure_ascii=False)
-            h.write('\n')
+            outputPath = dataPath.format(fileID, nv, time)
+            if os.path.exists(outputPath):
+                fileSize = os.path.getsize(outputPath)
+                if fileSize > 500000000: # 500 MB
+                    fileID +=1 
+            with open(outputPath, "a", encoding="utf-8") as h:
+                json.dump(structure, h, ensure_ascii=False)
+                h.write('\n')
+
+            nPoints = np.random.randint(
+                    *numberofPoints) if supportPoints is None else len(supportPoints)
+
+            data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv,
+                                        decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
+            # if testPoints:
+            #     dataTest = create_dataset_from_raw_eqn(currEqn, n_points=numberofPoints, n_vars=nv, decimals=decimals,
+            #                                         supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1]))
+
+            # use the new x and y
+            x,y = data
 
 def main():
     # Config
@@ -101,17 +132,18 @@ def main():
     #supportPointsTest = np.linspace(xRange[0],xRange[1],numberofPoints[1])
     #supportPointsTest = [[np.round(p,decimals) for i in range(numVars[0])] for p in supportPointsTest]
     
-    n_levels = 2
+    n_levels = 4
     allow_constants = True
     const_range = [-1, 1]
-    const_ratio = 0.4
+    const_ratio = 0.5
     op_list=[
                 "id", "add", "mul",
-                "sin", "pow" #, "cos", "sub", "div", "exp", "log",
+                "sin", "pow", "cos", "log", #"exp", "div", "sub", 
             ]
     exponents=[3, 4, 5, 6]
 
     sortY = False # if the data is sorted based on y
+    numSamplesEachEq = 10
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
@@ -133,7 +165,8 @@ def main():
                                 numberofPoints,
                                 xRange, testPoints, testRange, n_levels, 
                                 allow_constants, const_range,
-                                const_ratio, op_list, sortY, exponents
+                                const_ratio, op_list, sortY, exponents,
+                                numSamplesEachEq
                             )
                        )
         p.start()

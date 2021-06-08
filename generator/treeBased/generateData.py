@@ -587,8 +587,8 @@ def dataGen(nv, decimals, numberofPoints=[0, 10],
     if testPoints:
         dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals,
                                                supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1])
-        return data[0], data[1], cleanEqn, skeletonEqn, dataTest[0], dataTest[1]
-    return data[0], data[1], cleanEqn, skeletonEqn
+        return data[0], data[1], cleanEqn, skeletonEqn, dataTest[0], dataTest[1], currEqn
+    return data[0], data[1], cleanEqn, skeletonEqn, currEqn
 
 ######################################
 # Use cases

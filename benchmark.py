@@ -49,18 +49,24 @@ titleTemplate = "{} equations of 1-{} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
 dataFolder = '1-2Var_RandSupport_RandLength_-1to1_-5to1_1to5_100to500Points'
 addr = './SavedModels/' # where to save model
-method = 'EMB_CON' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
+method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
 # EMB_SUM: Add point embedding to GPT tokens+pos embedding
 # OUT_CAT: Concat the output of the self-attention and point embedding
 # OUT_SUM: Add the output of the self-attention and point embedding
 # EMB_CON: Conditional Embedding, add the point embedding as the first token
+variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
+# NOT_VAR: Do nothing, will not pass any information from the number of variables in the equation to the GPT
+# LEA_EMB: Learnable embedding for the variables, added to the pointNET embedding
+# STR_VAR: Add the number of variables to the first token
+addVars = True if variableEmbedding == 'STR_VAR' else False
 maxNumFiles = 30 # maximum number of file to load in memory for training the neural network
 bestLoss = None # if there is any model to load as pre-trained one
-fName = '{}_SymbolicGPT_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
+fName = '{}_SymbolicGPT_{}_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
                                              'GPT_PT_{}_{}'.format(method, target), 
                                              'Padding',
-                                             blockSize)
+                                             blockSize,
+                                             variableEmbedding)
 ckptPath = '{}/{}.pt'.format(addr,fName.split('.txt')[0])
 try: 
     os.mkdir(addr)
@@ -71,34 +77,36 @@ except:
 path = '{}/{}/Train/*.json'.format(dataDir, dataFolder)
 files = glob.glob(path)[:maxNumFiles]
 text = processDataFiles(files)
-chars = sorted(list(set(text))+['_','T','<','>']) # extract unique characters from the text before converting the text to a list, # T is for the test data
+chars = sorted(list(set(text))+['_','T','<','>',':']) # extract unique characters from the text before converting the text to a list, # T is for the test data
 text = text.split('\n') # convert the raw text to a set of examples
 text = text[:-1] if len(text[-1]) == 0 else text
 random.shuffle(text) # shuffle the dataset, it's important for combined number of variables
-train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, numYs=numYs, numPoints=numPoints, target=target) 
+train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
+                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
 
 # print a random sample
 idx = np.random.randint(train_dataset.__len__())
-inputs, outputs, points = train_dataset.__getitem__(idx)
+inputs, outputs, points, variables = train_dataset.__getitem__(idx)
 print('inputs:{}'.format(inputs))
 inputs = ''.join([train_dataset.itos[int(i)] for i in inputs])
 outputs = ''.join([train_dataset.itos[int(i)] for i in outputs])
-print('id:{}\ninputs:{}\noutputs:{}\npoints:{}'.format(idx,inputs,outputs,points))
+print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,outputs,points, variables))
 
 # load the val dataset
 path = '{}/{}/Val/*.json'.format(dataDir,dataFolder)
 files = glob.glob(path)
 textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
-val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, numYs=numYs, numPoints=numPoints, target=target)
+val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, 
+                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars)
 
 # print a random sample
 idx = np.random.randint(val_dataset.__len__())
-inputs, outputs, points = val_dataset.__getitem__(idx)
+inputs, outputs, points, variables = val_dataset.__getitem__(idx)
 print(points.min(), points.max())
 inputs = ''.join([train_dataset.itos[int(i)] for i in inputs])
 outputs = ''.join([train_dataset.itos[int(i)] for i in outputs])
-print('id:{}\ninputs:{}\noutputs:{}\npoints:{}'.format(idx,inputs,outputs,points))
+print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,outputs,points, variables))
 
 # load the test data
 path = '{}/{}/Test/*.json'.format(dataDir,dataFolder)
@@ -106,29 +114,34 @@ files = glob.glob(path)
 textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
 # test_dataset_target = CharDataset(textTest, blockSize, chars, target=target)
-test_dataset = CharDataset(textTest, blockSize, chars, numVars=numVars, numYs=numYs, numPoints=numPoints)
+test_dataset = CharDataset(textTest, blockSize, chars, numVars=numVars, 
+                numYs=numYs, numPoints=numPoints, addVars=addVars)
 
 # print a random sample
 idx = np.random.randint(test_dataset.__len__())
-inputs, outputs, points = test_dataset.__getitem__(idx)
+inputs, outputs, points, variables = test_dataset.__getitem__(idx)
 print(points.min(), points.max())
 inputs = ''.join([train_dataset.itos[int(i)] for i in inputs])
 outputs = ''.join([train_dataset.itos[int(i)] for i in outputs])
-print('id:{}\ninputs:{}\noutputs:{}\npoints:{}'.format(idx,inputs,outputs,points))
+print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,outputs,points, variables))
 
 # create the model
 pconf = PointNetConfig(embeddingSize=embeddingSize, 
                        numberofPoints=numPoints, 
                        numberofVars=numVars, 
                        numberofYs=numYs,
-                       method=method)
+                       method=method,
+                       variableEmbedding=variableEmbedding)
 mconf = GPTConfig(train_dataset.vocab_size, train_dataset.block_size,
-                  n_layer=8, n_head=8, n_embd=embeddingSize, padding_idx=train_dataset.paddingID)
+                  n_layer=8, n_head=8, n_embd=embeddingSize, 
+                  padding_idx=train_dataset.paddingID)
 model = GPT(mconf, pconf)
     
 # initialize a trainer instance and kick off training
-tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize, learning_rate=6e-4,
-                      lr_decay=True, warmup_tokens=512*20, final_tokens=2*len(train_dataset)*blockSize,
+tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize, 
+                      learning_rate=6e-4,
+                      lr_decay=True, warmup_tokens=512*20, 
+                      final_tokens=2*len(train_dataset)*blockSize,
                       num_workers=0, ckpt_path=ckptPath)
 trainer = Trainer(model, train_dataset, val_dataset, tconf, bestLoss)
 
@@ -242,7 +255,7 @@ for i in tqdm(range(numTests)):
 
             points = points.unsqueeze(0).to(trainer.device)
             outputsHat = sample(model, inputs, blockSize, points=points,
-                          temperature=1.0, sample=True, 
+                          temperature=0.9, sample=True, 
                           top_k=40)[0]
 
             # filter out predicted
@@ -276,7 +289,8 @@ for i in tqdm(range(numTests)):
 
             # optimize the constants
             # train a regressor to find the constants (too slow)
-            c = [1 for i,x in enumerate(predicted) if x=='C']     
+            c = [1 for i,x in enumerate(predicted) if x=='C']   # variables
+            b = [(-2,2) for i,x in enumerate(predicted) if x=='C']  # bounds on variables
             #predicted = predicted.replace('C','{}').format(*c)
             try:
                 if len(c) == 0:
@@ -284,8 +298,8 @@ for i in tqdm(range(numTests)):
                     pass # do nothing
                 else:
                     # for easier comparison, we are using minimize package  
-                    cHat = minimize(lossFunc, c,
-                                   args=(predicted, points[:,:numVars,:20].squeeze().cpu().T, points[:,numVars:,:20].squeeze().cpu().T)) 
+                    cHat = minimize(lossFunc, c, bounds=b, 
+                                   args=(predicted, points[:,:numVars,:20].squeeze().cpu().T.numpy(), points[:,numVars:,:20].squeeze().cpu().T.numpy())) 
                     predicted = predicted.replace('C','{}').format(*cHat.x)
             except:
                 print('Wrong Equation:{}'.format(predicted))
@@ -334,6 +348,6 @@ for i in tqdm(range(numTests)):
             print('NGUYEN-{} --> Target:{}\nPredicted:{}\nErr:{}\n'.format(key, target, predicted, err))
 
 # print the final equations
-print('\n\n',''*100)
+print('\n\n','-'*100)
 for pr,ta,er in zip(bestEquations, NGUYEN2Eq,bestErr):
     print('PR:{}\nTA:{}\nErr:{}\n'.format(bestEquations[pr],NGUYEN2Eq[ta],bestErr[er]))
