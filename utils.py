@@ -61,11 +61,18 @@ def divide(x, y):
 
 def sqrt(x):
   x = np.nan_to_num(x)
-  return np.sqrt(np.abs(x)) 
+  x = np.maximum(x,0)
+  return np.sqrt(x) 
 
-def log(x):
+def log(x, eps=1e-1):
   x = np.nan_to_num(x)
-  return np.log(np.abs(x)) 
+  x = np.maximum(x,0)
+  return np.log(x+eps)
+
+def exp(x, eps=1e-5):
+    x = np.nan_to_num(x)
+    x = np.minimum(x,5) # to avoid overflow
+    return np.minimum(np.exp(x), 100)
 
 # Mean square error
 def mse(y, y_hat):
@@ -83,12 +90,18 @@ def relativeErr(y, y_hat):
     y_gold = np.reshape(y, [1, -1])[0]
     our_sum = 0
     for i in range(len(y_gold)):
-        if y_gold[i] < 1: 
-            # use regular MSE
-            our_sum += (y_hat[i] - y_gold[i]) ** 2
-        else:
-            # use relative MSE
-            our_sum += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
+        try: 
+            y_hat[i] = min(y_hat[i], 100)
+            y_gold[i] = min(y_gold[i], 100)
+            if y_gold[i] < 1: 
+                # use regular MSE
+                our_sum += (y_hat[i] - y_gold[i]) ** 2
+            else:
+                # use relative MSE
+                our_sum += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
+        except:
+            print('yHat:{}, y:{}'.format(y_hat, y_gold))
+            raise 'Err: not able to calculate the error'
 
     return our_sum / len(y_gold)
 
@@ -211,7 +224,7 @@ def lossFunc(constants, eq, X, Y):
             yHat = 100
         try:
             # handle overflow
-            err += (y-yHat)**2
+            err += relativeErr(y, yHat) #(y-yHat)**2
         except:
             print('Exception has been occured! EQ: {}, OR: {}, y:{}-yHat:{}'.format(eqTemp, eq, y, yHat))
             err = 100

@@ -26,9 +26,9 @@ from torch.utils.data import Dataset
 
 from utils import set_seed, sample
 from matplotlib import pyplot as plt
-from scipy.optimize import minimize
 from trainer import Trainer, TrainerConfig
 from models import GPT, GPTConfig, PointNetConfig
+from scipy.optimize import minimize, least_squares
 from utils import processDataFiles, CharDataset, relativeErr, mse, sqrt, divide, lossFunc
 
 # set the random seed
@@ -213,8 +213,11 @@ try:
                 if len(c) != 0:
                     # This is the bottleneck in our algorithm
                     # for easier comparison, we are using minimize package  
-                    cHat = minimize(lossFunc, c, #bounds=b,
-                                   args=(predicted, t['X'], t['Y'])) 
+                    # cHat = minimize(lossFunc, c, #bounds=b,
+                    #                args=(predicted, t['X'], t['Y'])) 
+
+                    cHat = least_squares(lossFunc, c, ftol=1e-5,
+                                         args=(predicted, t['X'], t['Y']))
         
                     predicted = predicted.replace('C','{}').format(*cHat.x)
             except ValueError:
