@@ -98,16 +98,16 @@ def main():
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
-    numVars = [1,2] #list(range(31)) #[1,2,3,4,5]
+    numVars = [1] #list(range(31)) #[1,2,3,4,5]
     decimals = 2
-    numberofPoints = [20,21] # only usable if support points has not been provided
+    numberofPoints = [30,31] # only usable if support points has not been provided
     numSamples = 1000 // len(numVars) # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
 
     testPoints = True
-    xRange = [-1.0,1.0]
-    testRange = [[-5.0, 1.0],[-1.0, 5.0]] # this means Union((-5,-1),(1,5))
+    xRange = [-3.0,3.0]
+    testRange = [[-5.0, 3.0],[-3.0, 5.0]] # this means Union((-5,-1),(1,5))
 
     supportPoints = None
     #supportPoints = np.linspace(xRange[0],xRange[1],numberofPoints[1])
@@ -122,11 +122,12 @@ def main():
     
     n_levels = 4
     allow_constants = True
-    const_range = [-1, 1]
+    const_range = [-2.1, 2.1]
     const_ratio = 0.5
     op_list=[
                 "id", "add", "mul",
-                "sin", "pow", "cos", "log", #"exp", "div", "sub", 
+                "sin", "pow", "cos", 
+                "exp", "div", "sub", "log"
             ]
     exponents=[3, 4, 5, 6]
 

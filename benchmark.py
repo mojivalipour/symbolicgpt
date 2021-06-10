@@ -39,7 +39,7 @@ set_seed(seed)
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
 numPoints=20 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=2 # the dimenstion of input points x, if you don't know then use the maximum
+numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 100 # spatial extent of the model for its context
 batchSize = 64 # batch size of training data
@@ -47,7 +47,7 @@ dataDir = './datasets/'
 dataInfo = 'XYE_1-{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 titleTemplate = "{} equations of 1-{} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1-2Var_RandSupport_RandLength_-1to1_-5to1_1to5_100to500Points'
+dataFolder = '1Var_RandSupport_RandLength_-1to1_-5to1_1to5_20Points'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -198,6 +198,21 @@ bestEquations = {
    '12':'C',
 }
 
+bestTemplates = {
+   '1':'C',
+   '2':'C',
+   '3':'C',
+   '4':'C',
+   '5':'C',
+   '6':'C',
+   '7':'C',
+   '8':'C',
+   '9':'C',
+   '10':'C',
+   '11':'C',
+   '12':'C',
+}
+
 bestErr = {
    '1':1000,
    '2':1000,
@@ -213,7 +228,7 @@ bestErr = {
    '12':1000,
 }
 
-numTests = 10
+numTests = 100
 
 for i in tqdm(range(numTests)):
     for dataPoint in dataPoints: 
@@ -255,7 +270,7 @@ for i in tqdm(range(numTests)):
 
             points = points.unsqueeze(0).to(trainer.device)
             outputsHat = sample(model, inputs, blockSize, points=points,
-                          temperature=0.9, sample=True, 
+                          temperature=1.0, sample=True, 
                           top_k=40)[0]
 
             # filter out predicted
@@ -267,6 +282,7 @@ for i in tqdm(range(numTests)):
 
             predicted = predicted.replace(' ','')
             predicted = predicted.replace('\n','')
+            template = predicted + ''
             target = target.replace(' ','')
             target = target.replace('\n','')
 
@@ -344,10 +360,11 @@ for i in tqdm(range(numTests)):
             if err < bestErr[key]:
                 bestErr[key] = err
                 bestEquations[key] = predicted
+                bestTemplates[key] = template
 
-            print('NGUYEN-{} --> Target:{}\nPredicted:{}\nErr:{}\n'.format(key, target, predicted, err))
+            print('NGUYEN-{} --> Target:{}\nPredicted:{}\ntemplate:{}\nErr:{}\n'.format(key, target, predicted, template, err))
 
 # print the final equations
 print('\n\n','-'*100)
-for pr,ta,er in zip(bestEquations, NGUYEN2Eq,bestErr):
-    print('PR:{}\nTA:{}\nErr:{}\n'.format(bestEquations[pr],NGUYEN2Eq[ta],bestErr[er]))
+for pr,te,ta,er in zip(bestEquations, bestTemplates, NGUYEN2Eq, bestErr):
+    print('PR:{}\nTE:{}\nTA:{}\nErr:{}\n'.format(bestEquations[pr],bestTemplates[te],NGUYEN2Eq[ta],bestErr[er]))

@@ -35,18 +35,18 @@ from utils import processDataFiles, CharDataset, relativeErr, mse, sqrt, divide,
 set_seed(42)
 
 # config
-numEpochs = 20 # number of epochs to train the GPT+PT model
+numEpochs = 2 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=20 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=2 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 100 # spatial extent of the model for its context
 batchSize = 128 # batch size of training data
 dataDir = './datasets/'
-dataInfo = 'XYE_1-{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
-titleTemplate = "{} equations of 1-{} variables - Benchmark"
+dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+titleTemplate = "{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1-2Var_RandSupport_RandLength_-1to1_-5to1_1to5_100to500Points'
+dataFolder = '1Var_RandSupport_FixedLength_-3to3_-6.1to-3.0-3.1to6_30Points'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -79,7 +79,7 @@ text = processDataFiles(files)
 chars = sorted(list(set(text))+['_','T','<','>',':']) # extract unique characters from the text before converting the text to a list, # T is for the test data
 text = text.split('\n') # convert the raw text to a set of examples
 text = text[:-1] if len(text[-1]) == 0 else text
-random.shuffle(text) # shuffle the dataset, it's important for combined number of variables
+random.shuffle(text) # shuffle the dataset, it's important specailly for the combined number of variables experiment
 train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
                 numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
 
@@ -144,10 +144,10 @@ tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize,
                       num_workers=0, ckpt_path=ckptPath)
 trainer = Trainer(model, train_dataset, val_dataset, tconf, bestLoss)
 
-try:
-    trainer.train()
-except KeyboardInterrupt:
-    print('KeyboardInterrupt')
+# try:
+#     trainer.train()
+# except KeyboardInterrupt:
+#     print('KeyboardInterrupt')
 
 # load the best model
 model.load_state_dict(torch.load(ckptPath))
@@ -206,13 +206,14 @@ try:
             o.write('{}\n'.format(predicted))
 
             # train a regressor to find the constants (too slow)
-            c = [1 for i,x in enumerate(predicted) if x=='C']            
-            
+            c = [1.0 for i,x in enumerate(predicted) if x=='C'] # initialize coefficients as 1
+            c[-1] = 0 # initialize the constant as zero
+            b = [(-2,2) for i,x in enumerate(predicted) if x=='C']  # bounds on variables
             try:
                 if len(c) != 0:
                     # This is the bottleneck in our algorithm
                     # for easier comparison, we are using minimize package  
-                    cHat = minimize(lossFunc, c,
+                    cHat = minimize(lossFunc, c, #bounds=b,
                                    args=(predicted, t['X'], t['Y'])) 
         
                     predicted = predicted.replace('C','{}').format(*cHat.x)

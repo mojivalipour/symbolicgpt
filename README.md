@@ -60,7 +60,7 @@ method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT -> whether to concat the em
 ```
 ### Use this in symbolicGPT.py to reproduce the results for 1 Variable Model
 ```python
-numEpochs = 4 # number of epochs to train the GPT+PT model
+numEpochs = 2 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
 numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
@@ -69,10 +69,12 @@ blockSize = 100 # spatial extent of the model for its context
 batchSize = 128 # batch size of training data
 dataDir = './datasets/'
 dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+titleTemplate = "{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1Var_RandSupport_FixedLength_0to3_3.1to6_30Points'
+dataFolder = '1Var_RandSupport_FixedLength_-3to3_-6.1to-3.0-3.1to6_30Points'
 addr = './SavedModels/' # where to save model
-method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT -> whether to concat the embedding or use summation. 
+method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
+variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
 ```
 
 ### Use this in symbolicGPT.py to reproduce the results for 2 Variable Model

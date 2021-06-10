@@ -63,6 +63,10 @@ def sqrt(x):
   x = np.nan_to_num(x)
   return np.sqrt(np.abs(x)) 
 
+def log(x):
+  x = np.nan_to_num(x)
+  return np.log(np.abs(x)) 
+
 # Mean square error
 def mse(y, y_hat):
     y_hat = np.reshape(y_hat, [1, -1])[0]
@@ -106,7 +110,7 @@ class CharDataset(Dataset):
         self.paddingID = self.stoi[self.paddingToken]
         self.stoi[self.paddingToken] = self.paddingID
         self.itos[self.paddingID] = self.paddingToken
-        self.threshold = [-1000,1000]
+        self.threshold = [-10,10]
         
         self.block_size = block_size
         self.vocab_size = vocab_size
@@ -128,7 +132,7 @@ class CharDataset(Dataset):
             
         # find the number of variables in the equation
         eq = chunk[self.target]
-        vars = re.finditer('x[\d]*',eq) 
+        vars = re.finditer('x[\d]+',eq) 
         numVars = 0
         for v in vars:
             v = v.group(0).strip('x')
@@ -165,7 +169,7 @@ class CharDataset(Dataset):
             p = x+y # because it is only one point 
             p = torch.tensor(p)
             #replace nan and inf
-            p = torch.nan_to_num(p, nan=0.0, 
+            p = torch.nan_to_num(p, nan=self.threshold[1], 
                                  posinf=self.threshold[1], 
                                  neginf=self.threshold[0])
             p[p>self.threshold[1]] = self.threshold[1] # clip the upper bound
@@ -193,6 +197,8 @@ def lossFunc(constants, eq, X, Y):
 
     for x,y in zip(X,Y):
         eqTemp = eq + ''
+        if type(x) == np.float32:
+                x = [x]
         for i,e in enumerate(x):
             # make sure e is not a tensor
             if type(e) == torch.Tensor:
@@ -203,6 +209,11 @@ def lossFunc(constants, eq, X, Y):
         except:
             print('Exception has been occured! EQ: {}, OR: {}'.format(eqTemp, eq))
             yHat = 100
-        err += (y-yHat)**2
+        try:
+            # handle overflow
+            err += (y-yHat)**2
+        except:
+            print('Exception has been occured! EQ: {}, OR: {}, y:{}-yHat:{}'.format(eqTemp, eq, y, yHat))
+            err = 100
     err /= len(Y)
     return err
