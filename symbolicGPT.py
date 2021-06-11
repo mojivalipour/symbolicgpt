@@ -16,13 +16,13 @@ import json
 import math
 import random
 import numpy as np
-from tqdm import tqdm
+#from tqdm import tqdm
 from numpy import * # to override the math functions
 
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from torch.utils.data import Dataset
+#from torch.utils.data import Dataset
 
 from utils import set_seed, sample
 from matplotlib import pyplot as plt
@@ -35,7 +35,7 @@ from utils import processDataFiles, CharDataset, relativeErr, mse, sqrt, divide,
 set_seed(42)
 
 # config
-numEpochs = 2 # number of epochs to train the GPT+PT model
+numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
 numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
@@ -144,10 +144,10 @@ tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize,
                       num_workers=0, ckpt_path=ckptPath)
 trainer = Trainer(model, train_dataset, val_dataset, tconf, bestLoss)
 
-# try:
-#     trainer.train()
-# except KeyboardInterrupt:
-#     print('KeyboardInterrupt')
+try:
+    trainer.train()
+except KeyboardInterrupt:
+    print('KeyboardInterrupt')
 
 # load the best model
 model.load_state_dict(torch.load(ckptPath))
@@ -162,6 +162,7 @@ loader = torch.utils.data.DataLoader(
                                 batch_size=1,
                                 num_workers=0)
 
+from utils import *
 resultDict = {}
 try:
     with open(fName, 'w', encoding="utf-8") as o:
@@ -179,9 +180,13 @@ try:
             inputs = inputs[:,0:1].to(trainer.device)
             points = points.to(trainer.device)
             variables = variables.to(trainer.device)
-            outputsHat = sample(model, inputs, blockSize, points=points,
+            outputsHat = sample(model, 
+                          inputs, 
+                          blockSize, 
+                          points=points,
                           variables=variables,
-                          temperature=1.0, sample=True, 
+                          temperature=1.0, 
+                          sample=True, 
                           top_k=40)[0]
 
             # filter out predicted
@@ -207,17 +212,14 @@ try:
 
             # train a regressor to find the constants (too slow)
             c = [1.0 for i,x in enumerate(predicted) if x=='C'] # initialize coefficients as 1
-            c[-1] = 0 # initialize the constant as zero
+            # c[-1] = 0 # initialize the constant as zero
             b = [(-2,2) for i,x in enumerate(predicted) if x=='C']  # bounds on variables
             try:
                 if len(c) != 0:
                     # This is the bottleneck in our algorithm
                     # for easier comparison, we are using minimize package  
-                    # cHat = minimize(lossFunc, c, #bounds=b,
-                    #                args=(predicted, t['X'], t['Y'])) 
-
-                    cHat = least_squares(lossFunc, c, ftol=1e-5,
-                                         args=(predicted, t['X'], t['Y']))
+                    cHat = minimize(lossFunc, c, #bounds=b,
+                                   args=(predicted, t['X'], t['Y'])) 
         
                     predicted = predicted.replace('C','{}').format(*cHat.x)
             except ValueError:
@@ -242,8 +244,8 @@ try:
                         if ',' in eqTmp:
                             assert 'There is a , in the equation!'
                     YEval = eval(eqTmp)
-                    YEval = 0 if np.isnan(YEval) else YEval
-                    YEval = 100 if np.isinf(YEval) else YEval
+                    # YEval = 0 if np.isnan(YEval) else YEval
+                    # YEval = 100 if np.isinf(YEval) else YEval
                 except:
                     print('TA: For some reason, we used the default value. Eq:{}'.format(eqTmp))
                     YEval = 100 #TODO: Maybe I have to punish the model for each wrong template not for each point
@@ -258,8 +260,8 @@ try:
                         if ',' in eqTmp:
                             assert 'There is a , in the equation!'
                     Yhat = eval(eqTmp)
-                    Yhat = 0 if np.isnan(Yhat) else Yhat
-                    Yhat = 100 if np.isinf(Yhat) else Yhat
+                    # Yhat = 0 if np.isnan(Yhat) else Yhat
+                    # Yhat = 100 if np.isinf(Yhat) else Yhat
                 except:
                     print('PR: For some reason, we used the default value. Eq:{}'.format(eqTmp))
                     Yhat = 100
