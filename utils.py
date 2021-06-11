@@ -57,7 +57,7 @@ def sample(model, x, steps, points=None, variables=None, temperature=1.0, sample
 def divide(x, y):
   x = np.nan_to_num(x)
   y = np.nan_to_num(y)
-  return np.divide(x,y+1e-5)
+  return np.divide(x,max(y,1.0))
 
 def sqrt(x):
   x = np.nan_to_num(x)
@@ -85,29 +85,33 @@ def mse(y, y_hat):
     return our_sum / len(y_gold)
 
 # Relative Mean Square Error
-def relativeErr(y, y_hat, eps=1e-5):
-    y_hat = np.reshape(y_hat, [1, -1])[0]
-    y_gold = np.reshape(y, [1, -1])[0]
-    err = 0
-    for i in range(len(y_gold)):
-        try: 
-            
-            #y_hat[i] = min(y_hat[i], 100)
-            #y_gold[i] = min(y_gold[i], 100)
-            # if y_gold[i] < 1: 
-            #     # use regular MSE
-            #     err += (y_hat[i] - y_gold[i]) ** 2
-            # else:
-            #     # use relative MSE
-            #     err += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
-            err += ( (y_hat[i] - y_gold[i]) / max( abs(y_gold[i]), 1 ) ) ** 2
-            if random.rand()<0.001:
-                print(y_hat[i],y_gold[i],err)
-        except:
-            print('yHat:{}, y:{}'.format(y_hat, y_gold))
-            raise 'Err: not able to calculate the error'
+def relativeErr(y, yHat, eps=1e-5):
+    yHat = np.reshape(yHat, [1, -1])[0]
+    y = np.reshape(y, [1, -1])[0]
+    err = ( (yHat - y) / np.linalg.norm(y+eps) )** 2
+    
+    if random.rand()<0.001:
+        i = np.random.randint(len(y))
+        print(yHat[i],y[i],err[i])
 
-    return err / len(y_gold)
+    # for i in range(len(y_gold)):
+    #     try: 
+    #         #y_hat[i] = min(y_hat[i], 100)
+    #         #y_gold[i] = min(y_gold[i], 100)
+    #         # if y_gold[i] < 1: 
+    #         #     # use regular MSE
+    #         #     err += (y_hat[i] - y_gold[i]) ** 2
+    #         # else:
+    #         #     # use relative MSE
+    #         #     err += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
+    #         err += ( (y_hat[i] - y_gold[i]) / max( abs(y_gold[i]), 1 ) ) ** 2
+    #         if random.rand()<0.001:
+    #             print(y_hat[i],y_gold[i],err)
+    #     except:
+    #         print('yHat:{}, y:{}'.format(y_hat, y_gold))
+    #         raise 'Err: not able to calculate the error'
+
+    return np.sum(err) #/ len(y_gold)
 
 class CharDataset(Dataset):
     def __init__(self, data, block_size, chars, 
