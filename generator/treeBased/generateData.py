@@ -66,7 +66,6 @@ def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=main_op_list,
 # Constants appear in weight and bias lists.
 # const_ratio determines how many weights are not 1, and how many biases are not 0
 
-
 def generate_random_eqn_raw(n_levels=2, n_vars=2, op_list=['id', 'sin'],
                             allow_constants=True, const_range=[-0.4, 0.4],
                             const_ratio=0.8, exponents=[3, 4, 5, 6]):
@@ -129,7 +128,6 @@ def create_dataset_from_raw_eqn(raw_eqn, n_points, n_vars=2,
     return x_data, y_data
 
 # Function to evaluate equation (in list format) on a data point
-
 
 def evaluate_eqn_list_on_datum(raw_eqn, input_x):
     eqn_ops = raw_eqn[0]
@@ -200,7 +198,6 @@ def evaluate_eqn_list_on_datum(raw_eqn, input_x):
         return safe_div(left_side, right_side)
 
     return None
-
 
 def raw_eqn_to_str(raw_eqn, n_vars=2):
     eqn_ops = raw_eqn[0]
@@ -316,7 +313,6 @@ def raw_eqn_to_str(raw_eqn, n_vars=2):
     return None
 
 # return not only skeleton but also the placeholder of constant as fixed
-
 
 def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2):
     eqn_ops = raw_eqn[0]
@@ -448,7 +444,6 @@ def raw_eqn_to_skeleton_structure(raw_eqn, n_vars=2):
 # @func_set_timeout(5)
 # def timing(x):
 #     return sympy.preorder_traversal(x)
-
 
 def simplify_formula(formula_to_simplify, digits=4):
     # if len("{}".format(formula_to_simplify)) > 1000:

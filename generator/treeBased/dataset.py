@@ -85,6 +85,26 @@ def processData(numSamples, nv, decimals,
             # sort data based on Y
             if sortY:
                 x,y = zip(*sorted(zip(x,y), key=lambda d: d[1]))
+
+            nPoints = np.random.randint(
+                    *numberofPoints) if supportPoints is None else len(supportPoints)
+
+            data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv,
+                                        decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
+            # if testPoints:
+            #     dataTest = create_dataset_from_raw_eqn(currEqn, n_points=numberofPoints, n_vars=nv, decimals=decimals,
+            #                                         supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1]))
+
+            # use the new x and y
+            x,y = data
+
+            # replace the constants with new ones
+            cleanEqn = ''
+            for chr in skeletonEqn:
+                if chr == 'C':
+                    # genereate a new random number
+                    chr = '{}'.format(np.random.uniform(const_range[0], const_range[1]))
+                cleanEqn += chr
             
             # hold data in the structure
             structure['X'] = list(x)
@@ -100,19 +120,7 @@ def processData(numSamples, nv, decimals,
             with open(outputPath, "a", encoding="utf-8") as h:
                 json.dump(structure, h, ensure_ascii=False)
                 h.write('\n')
-
-            nPoints = np.random.randint(
-                    *numberofPoints) if supportPoints is None else len(supportPoints)
-
-            data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv,
-                                        decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
-            # if testPoints:
-            #     dataTest = create_dataset_from_raw_eqn(currEqn, n_points=numberofPoints, n_vars=nv, decimals=decimals,
-            #                                         supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1]))
-
-            # use the new x and y
-            x,y = data
-
+                
 def main():
     # Config
     seed = 2021 # 2021 Train, 2022 Val, 2023 Test, you have to change the generateData.py seed as well
