@@ -84,26 +84,30 @@ def mse(y, y_hat):
 
     return our_sum / len(y_gold)
 
-# Mean square error
-def relativeErr(y, y_hat):
+# Relative Mean Square Error
+def relativeErr(y, y_hat, eps=1e-5):
     y_hat = np.reshape(y_hat, [1, -1])[0]
     y_gold = np.reshape(y, [1, -1])[0]
-    our_sum = 0
+    err = 0
     for i in range(len(y_gold)):
         try: 
-            y_hat[i] = min(y_hat[i], 100)
-            y_gold[i] = min(y_gold[i], 100)
-            if y_gold[i] < 1: 
-                # use regular MSE
-                our_sum += (y_hat[i] - y_gold[i]) ** 2
-            else:
-                # use relative MSE
-                our_sum += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
+            
+            #y_hat[i] = min(y_hat[i], 100)
+            #y_gold[i] = min(y_gold[i], 100)
+            # if y_gold[i] < 1: 
+            #     # use regular MSE
+            #     err += (y_hat[i] - y_gold[i]) ** 2
+            # else:
+            #     # use relative MSE
+            #     err += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
+            err += ( (y_hat[i] - y_gold[i]) / max( abs(y_gold[i]), 1 ) ) ** 2
+            if random.rand()<0.001:
+                print(y_hat[i],y_gold[i],err)
         except:
             print('yHat:{}, y:{}'.format(y_hat, y_gold))
             raise 'Err: not able to calculate the error'
 
-    return our_sum / len(y_gold)
+    return err / len(y_gold)
 
 class CharDataset(Dataset):
     def __init__(self, data, block_size, chars, 
@@ -123,7 +127,7 @@ class CharDataset(Dataset):
         self.paddingID = self.stoi[self.paddingToken]
         self.stoi[self.paddingToken] = self.paddingID
         self.itos[self.paddingID] = self.paddingToken
-        self.threshold = [-10,10]
+        self.threshold = [-1000,1000]
         
         self.block_size = block_size
         self.vocab_size = vocab_size
@@ -174,10 +178,20 @@ class CharDataset(Dataset):
         outputs = outputs[:self.block_size]
         
         # extract points from the input sequence
+        # maxX = max(chunk['X'])
+        # maxY = max(chunk['Y'])
+        # minX = min(chunk['X'])
+        # minY = min(chunk['Y'])
+        eps = 1e-5
         points = torch.zeros(self.numVars+self.numYs, self.numPoints)
         for idx, xy in enumerate(zip(chunk['X'], chunk['Y'])):
-            x = xy[0] + [0]*(max(self.numVars-len(xy[0]),0)) # padding
+            
+            x = xy[0]
+            #x = [(e-minX[eID])/(maxX[eID]-minX[eID]+eps) for eID, e in enumerate(x)] # normalize x
+            x = x + [0]*(max(self.numVars-len(x),0)) # padding
+
             y = [xy[1]] if type(xy[1])== float else xy[1]
+            #y = [(e-minY)/(maxY-minY+eps) for e in y]
             y = y + [0]*(max(self.numYs-len(y),0)) # padding
             p = x+y # because it is only one point 
             p = torch.tensor(p)
@@ -185,9 +199,19 @@ class CharDataset(Dataset):
             p = torch.nan_to_num(p, nan=self.threshold[1], 
                                  posinf=self.threshold[1], 
                                  neginf=self.threshold[0])
-            p[p>self.threshold[1]] = self.threshold[1] # clip the upper bound
-            p[p<self.threshold[0]] = self.threshold[0] # clip the lower bound
+            # p[p>self.threshold[1]] = self.threshold[1] # clip the upper bound
+            # p[p<self.threshold[0]] = self.threshold[0] # clip the lower bound
             points[:,idx] = p
+
+        # Normalize points between zero and one # DxN
+        minP = points.min(dim=1, keepdim=True)[0]
+        maxP = points.max(dim=1, keepdim=True)[0]
+        points -= minP
+        points /= (maxP-minP+eps) 
+        points = torch.nan_to_num(points, nan=self.threshold[1], 
+                                 posinf=self.threshold[1], 
+                                 neginf=self.threshold[0])
+        #points += torch.normal(0, 0.05, size=points.shape) # add a guassian noise
         
         inputs = torch.tensor(inputs, dtype=torch.long)
         outputs = torch.tensor(outputs, dtype=torch.long)
@@ -204,14 +228,14 @@ def processDataFiles(files):
             text += lines #json.loads(line)        
     return text
 
-def lossFunc(constants, eq, X, Y):
+def lossFunc(constants, eq, X, Y, eps=1e-5):
     err = 0
     eq = eq.replace('C','{}').format(*constants)
 
     for x,y in zip(X,Y):
         eqTemp = eq + ''
         if type(x) == np.float32:
-                x = [x]
+            x = [x]
         for i,e in enumerate(x):
             # make sure e is not a tensor
             if type(e) == torch.Tensor:
@@ -227,6 +251,7 @@ def lossFunc(constants, eq, X, Y):
             err += relativeErr(y, yHat) #(y-yHat)**2
         except:
             print('Exception has been occured! EQ: {}, OR: {}, y:{}-yHat:{}'.format(eqTemp, eq, y, yHat))
-            err = 100
+            err += 10
+        
     err /= len(Y)
     return err
