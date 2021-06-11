@@ -22,7 +22,7 @@ from numpy import * # to override the math functions
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from torch.utils.data import Dataset
+#from torch.utils.data import Dataset
 
 from utils import set_seed, sample
 from matplotlib import pyplot as plt
@@ -38,16 +38,20 @@ set_seed(seed)
 # config
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=20 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 100 # spatial extent of the model for its context
 batchSize = 64 # batch size of training data
+trainRange = [-3.0,3.0] 
+testRange = [[-5.0, 3.0],[-3.0, 5.0]]
+useRange = True
+decimals = 2
 dataDir = './datasets/'
-dataInfo = 'XYE_1-{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
-titleTemplate = "{} equations of 1-{} variables - Benchmark"
+dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+titleTemplate = "{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1Var_RandSupport_RandLength_-1to1_-5to1_1to5_20Points'
+dataFolder = '1Var_RandSupport_FixedLength_-3to3_-6.1to-3.0-3.1to6_30Points'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -228,24 +232,55 @@ bestErr = {
    '12':1000,
 }
 
-numTests = 100
-
+numTests = 10
+from utils import *
 for i in tqdm(range(numTests)):
     for dataPoint in dataPoints: 
         key = dataPoint.split('\\')[-1].split('Nguyen-')[-1].split('_')[0]
         if not key in NGUYEN2Eq.keys():
             continue
         target = NGUYEN2Eq[key]
+        
         with open(dataPoint, newline='\n') as csvfile:
             reader = csv.reader(csvfile, delimiter=',', quotechar='|')
             pointsList = []
             pointsListTest = []
-            for i, c in enumerate(reader):
-                p = ([eval(x) for x in c[:-1]],eval(c[-1]))
-                if i < numPoints:
+
+            if useRange:
+                for p in range(numPoints):
+                    minX, maxX = (trainRange[0], trainRange[1]) 
+                    x = list(np.round(np.random.uniform(minX, maxX, numVars), decimals))
+                    tmpEq = target + ''
+                    for nVID in range(numVars):
+                        tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(x[nVID]))
+                    # if there is still vars in the equation, use zero
+                    for nVID in range(NGUYENNumVars[key]):
+                        tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(0))
+                    y = float(np.round(eval(tmpEq), decimals))
+                    p = (x,y)
+                    #print('p:{}, range:{}'.format(p, (minX, maxX)))
                     pointsList.append(p)
-                else:
+                # generate test points
+                for p in range(numPoints):
+                    minX, maxX = (testRange[0][0], testRange[1][0]) if random.random() < 0.5 else (testRange[0][1], testRange[1][1])
+                    x = list(np.round(np.random.uniform(minX, maxX, numVars), decimals))
+                    tmpEq = target + ''
+                    for nVID in range(numVars):
+                        tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(x[nVID]))
+                    # if there is still vars in the equation, use zero
+                    for nVID in range(NGUYENNumVars[key]):
+                        tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(0))
+                    y = float(np.round(eval(tmpEq), decimals))
+                    p = (x,y)
+                    #print('#T p:{}, range:{}'.format(p, (minX, maxX)))
                     pointsListTest.append(p)
+            else: 
+                for i, c in enumerate(reader):
+                    p = ([eval(x) for x in c[:-1]],eval(c[-1])) # use the benchmark points                        
+                    if i < numPoints:
+                        pointsList.append(p)
+                    else:
+                        pointsListTest.append(p)
 
             # initialized the input variable with start token <
             inputs = torch.tensor([[train_dataset.stoi['<']]]).to(trainer.device)
@@ -254,7 +289,7 @@ for i in tqdm(range(numTests)):
             points = torch.zeros(numVars+numYs, numPoints)
             for idx, xy in enumerate(pointsList): # zip(X,Y)): #
                 x = xy[0][:numVars] + [0]*(max(numVars-len(xy[0]),0)) # padding
-                y = [xy[1]] if type(xy[1])== float else xy[1]
+                y = [xy[1]] if type(xy[1])==float else xy[1]
 
                 y = y + [0]*(max(numYs-len(y),0)) # padding
 
@@ -267,6 +302,16 @@ for i in tqdm(range(numTests)):
                 p[p>train_dataset.threshold[1]] = train_dataset.threshold[1] # clip the upper bound
                 p[p<train_dataset.threshold[0]] = train_dataset.threshold[0] # clip the lower bound
                 points[:,idx] = p
+            
+            # Normalize points between zero and one # DxN
+            eps = 1e-5
+            minP = points.min(dim=1, keepdim=True)[0]
+            maxP = points.max(dim=1, keepdim=True)[0]
+            points -= minP
+            points /= (maxP-minP+eps) 
+            points = torch.nan_to_num(points, nan=train_dataset.threshold[1], 
+                                    posinf=train_dataset.threshold[1], 
+                                    neginf=train_dataset.threshold[0])
 
             points = points.unsqueeze(0).to(trainer.device)
             outputsHat = sample(model, inputs, blockSize, points=points,
@@ -287,7 +332,7 @@ for i in tqdm(range(numTests)):
             target = target.replace('\n','')
 
             # extract points from the input sequence
-            pointsTest = torch.zeros(numVars+numYs, numPoints).numpy()
+            pointsTest = torch.zeros(numVars+numYs, numPoints)
             for idx, xy in enumerate(pointsListTest):
                 x = xy[0][:numVars] + [0]*(max(numVars-len(xy[0]),0)) # padding
                 y = [xy[1]] if type(xy[1])== float else xy[1]
@@ -303,6 +348,17 @@ for i in tqdm(range(numTests)):
                 p[p<train_dataset.threshold[0]] = train_dataset.threshold[0] # clip the lower bound
                 pointsTest[:,idx] = p
 
+            # Normalize points between zero and one # DxN
+            # eps = 1e-5
+            # minP = pointsTest.min(dim=1, keepdim=True)[0]
+            # maxP = pointsTest.max(dim=1, keepdim=True)[0]
+            # pointsTest -= minP
+            # pointsTest /= (maxP-minP+eps) 
+            # pointsTest = torch.nan_to_num(pointsTest, nan=train_dataset.threshold[1], 
+            #                         posinf=train_dataset.threshold[1], 
+            #                         neginf=train_dataset.threshold[0])
+            pointsTest = pointsTest.numpy()
+
             # optimize the constants
             # train a regressor to find the constants (too slow)
             c = [1 for i,x in enumerate(predicted) if x=='C']   # variables
@@ -314,7 +370,7 @@ for i in tqdm(range(numTests)):
                     pass # do nothing
                 else:
                     # for easier comparison, we are using minimize package  
-                    cHat = minimize(lossFunc, c, bounds=b, 
+                    cHat = minimize(lossFunc, c, #bounds=b, 
                                    args=(predicted, points[:,:numVars,:20].squeeze().cpu().T.numpy(), points[:,numVars:,:20].squeeze().cpu().T.numpy())) 
                     predicted = predicted.replace('C','{}').format(*cHat.x)
             except:
@@ -324,7 +380,7 @@ for i in tqdm(range(numTests)):
 
             Ys = [] 
             Yhats = []
-            for xs in pointsTest[:-1,:20].T:
+            for xs in pointsTest[:-1,:numPoints].T:
                 try:
                     eqTmp = target + '' # copy eq
                     for i,x in enumerate(xs):
@@ -334,8 +390,8 @@ for i in tqdm(range(numTests)):
                             assert 'There is a , in the equation!'
                     #print('target',eqTmp)
                     YEval = eval(eqTmp)
-                    YEval = 0 if np.isnan(YEval) else YEval
-                    YEval = 100 if np.isinf(YEval) else YEval
+                    # YEval = 0 if np.isnan(YEval) else YEval
+                    # YEval = 100 if np.isinf(YEval) else YEval
                 except:
                     print('TA: For some reason, we used the default value. Eq:{}'.format(eqTmp))
                     YEval = 100 #TODO: Maybe I have to punish the model for each wrong template not for each point
@@ -348,8 +404,8 @@ for i in tqdm(range(numTests)):
                         if ',' in eqTmp:
                             assert 'There is a , in the equation!'
                     Yhat = eval(eqTmp)
-                    Yhat = 0 if np.isnan(Yhat) else Yhat
-                    Yhat = 1000 if np.isinf(Yhat) else Yhat
+                    # Yhat = 0 if np.isnan(Yhat) else Yhat
+                    # Yhat = 1000 if np.isinf(Yhat) else Yhat
                 except:
                     print('PR: For some reason, we used the default value. Eq:{}'.format(eqTmp))
                     Yhat = 1000

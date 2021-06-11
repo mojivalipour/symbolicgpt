@@ -158,8 +158,8 @@ class PointNet(nn.Module):
         hList = []
         for pointIdx in range(points.shape[-1]):
             
-            # normalize features
-            point = self.iNorm(points[:,:,pointIdx]) #TODO: make sure this is correct
+            # normalize features, now the normalization is based on the x-max/max-min
+            point = points[:,:,pointIdx] #self.iNorm(points[:,:,pointIdx]) #TODO: make sure this is correct
             
             h = self.hDense(point)
             #hi = hi.unsqueeze(self.unSqDim)
