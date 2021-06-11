@@ -8,7 +8,6 @@ from tqdm import tqdm
 import multiprocessing as mp
 from generateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
 
-
 def processData(numSamples, nv, decimals,
                 template, dataPath, fileID, time,
                 supportPoints=None,
@@ -23,7 +22,8 @@ def processData(numSamples, nv, decimals,
                     "id", "add", "mul", "div",
                     "sqrt", "sin", "exp", "log"],
                 sortY=False,
-                exponents=[3,4,5,6]
+                exponents=[3,4,5,6],
+                threshold=1000
                 ):
     for i in tqdm(range(numSamples)):
         structure = template.copy()
@@ -62,6 +62,17 @@ def processData(numSamples, nv, decimals,
                     const_ratio=const_ratio,
                     exponents=exponents
                 )
+
+            # check if there is nan/inf/very large numbers in the y
+            if np.isnan(y).any() or np.isinf(y).any() or np.any([abs(e)>threshold for e in y]):
+                # repeat the equation generation
+                i = i-1
+                continue
+
+            # just make sure there is no samples out of the threshold
+            if abs(min(y)) > threshold or abs(max(y)) > threshold:
+                raise 'Err: Min:{},Max:{},Threshold:{}, \n Y:{} \n Eq:{}'.format(min(y), max(y), threshold, y, cleanEqn)
+
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
@@ -91,7 +102,7 @@ def processData(numSamples, nv, decimals,
 
 def main():
     # Config
-    seed = 2023 # 2021 Train, 2022 Val, 2023 Test, you have to change the generateData.py seed as well
+    seed = 2022 # 2021 Train, 2022 Val, 2023 Test, you have to change the generateData.py seed as well
     #from GenerateData import seed
     import random
     random.seed(seed)
@@ -106,7 +117,7 @@ def main():
     dataPath = folder +'/{}_{}_{}.json'
 
     testPoints = True
-    xRange = [-3.0,3.0]
+    trainRange = [-3.0,3.0]
     testRange = [[-5.0, 3.0],[-3.0, 5.0]] # this means Union((-5,-1),(1,5))
 
     supportPoints = None
@@ -154,7 +165,7 @@ def main():
                            dataPath, fileID, time, supportPoints,
                            supportPointsTest,
                            numberofPoints,
-                           xRange, testPoints, testRange, n_levels,
+                           trainRange, testPoints, testRange, n_levels,
                            allow_constants, const_range,
                            const_ratio, op_list, sortY, exponents
                        )
