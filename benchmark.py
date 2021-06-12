@@ -344,8 +344,8 @@ for i in tqdm(range(numTests)):
                 p = torch.nan_to_num(p, nan=0.0, 
                                      posinf=train_dataset.threshold[1], 
                                      neginf=train_dataset.threshold[0])
-                p[p>train_dataset.threshold[1]] = train_dataset.threshold[1] # clip the upper bound
-                p[p<train_dataset.threshold[0]] = train_dataset.threshold[0] # clip the lower bound
+                # p[p>train_dataset.threshold[1]] = train_dataset.threshold[1] # clip the upper bound
+                # p[p<train_dataset.threshold[0]] = train_dataset.threshold[0] # clip the lower bound
                 pointsTest[:,idx] = p
 
             # Normalize points between zero and one # DxN

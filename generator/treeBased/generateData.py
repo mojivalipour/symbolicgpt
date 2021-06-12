@@ -16,7 +16,7 @@ from wrapt_timeout_decorator import *
 # except ImportError:
 #     import _thread as thread
 
-seed = 2021  # 2021 Train, 2022 Val, 2023 Test
+seed = 2023  # 2021 Train, 2022 Val, 2023 Test
 random.seed(seed)
 np.random.seed(seed=seed)  # we didn't use this line for the training data
 
@@ -536,8 +536,6 @@ def eqn_to_str_skeleton(eq):
     return eq
 
 # @timeout(5) #, use_signals=False)
-
-
 def dataGen(nv, decimals, numberofPoints=[0, 10],
             supportPoints=None,
             supportPointsTest=None,
@@ -577,13 +575,13 @@ def dataGen(nv, decimals, numberofPoints=[0, 10],
     # skeletonEqn = eqn_to_str_skeleton_structure(
     # currEqn, n_vars=nv, decimals=decimals)
     skeletonEqn = eqn_to_str_skeleton(cleanEqn)
-    data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv,
-                                       decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
-    if testPoints:
-        dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals,
-                                               supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1])
-        return data[0], data[1], cleanEqn, skeletonEqn, dataTest[0], dataTest[1], currEqn
-    return data[0], data[1], cleanEqn, skeletonEqn, currEqn
+    # data = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv,
+    #                                    decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
+    # if testPoints:
+    #     dataTest = create_dataset_from_raw_eqn(currEqn, n_points=nPoints, n_vars=nv, decimals=decimals,
+    #                                            supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1])
+    #     return data[0], data[1], cleanEqn, skeletonEqn, dataTest[0], dataTest[1], currEqn
+    return cleanEqn, skeletonEqn, currEqn
 
 ######################################
 # Use cases

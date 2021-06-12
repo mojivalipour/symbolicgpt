@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import re
 import os
 import json
 import numpy as np
 from tqdm import tqdm
 import multiprocessing as mp
-from generateData import generate_random_eqn_raw, eqn_to_str, create_dataset_from_raw_eqn, simplify_formula, dataGen
+from generator.treeBased.generateData import dataGen
+from utils import * # TODO: replace with a safer import
 
 def processData(numSamples, nv, decimals,
                 template, dataPath, fileID, time,
@@ -30,58 +32,76 @@ def processData(numSamples, nv, decimals,
         # generate a formula
         # Create a new random equation
         try:
-            if testPoints:
-                x, y, cleanEqn, skeletonEqn, xT, yT, _ = dataGen(
-                    nv=nv, decimals=decimals,
-                    numberofPoints=numberofPoints,
-                    supportPoints=supportPoints,
-                    supportPointsTest=supportPointsTest,
-                    xRange=xRange,
-                    testPoints=testPoints,
-                    testRange=testRange,
-                    n_levels=n_levels,
-                    op_list=op_list,
-                    allow_constants=allow_constants,
-                    const_range=const_range,
-                    const_ratio=const_ratio,
-                    exponents=exponents
-                )
-            else:
-                x, y, cleanEqn, skeletonEqn, _ = dataGen(
-                    nv=nv, decimals=decimals,
-                    numberofPoints=numberofPoints,
-                    supportPoints=supportPoints,
-                    supportPointsTest=supportPointsTest,
-                    xRange=xRange,
-                    testPoints=testPoints,
-                    testRange=testRange,
-                    n_levels=n_levels,
-                    op_list=op_list,
-                    allow_constants=allow_constants,
-                    const_range=const_range,
-                    const_ratio=const_ratio,
-                    exponents=exponents
-                )
-
-            # check if there is nan/inf/very large numbers in the y
-            if np.isnan(y).any() or np.isinf(y).any() or np.any([abs(e)>threshold for e in y]):
-                # repeat the equation generation
-                i = i-1
-                continue
-
-            # just make sure there is no samples out of the threshold
-            if abs(min(y)) > threshold or abs(max(y)) > threshold:
-                raise 'Err: Min:{},Max:{},Threshold:{}, \n Y:{} \n Eq:{}'.format(min(y), max(y), threshold, y, cleanEqn)
-
+            cleanEqn,skeletonEqn, currEqn = dataGen( 
+                                                    nv = nv, decimals = decimals, 
+                                                    numberofPoints=numberofPoints, 
+                                                    supportPoints=supportPoints,
+                                                    supportPointsTest=supportPointsTest,
+                                                    xRange=xRange,
+                                                    testPoints=testPoints,
+                                                    testRange=testRange,
+                                                    n_levels=n_levels,
+                                                    op_list=op_list,
+                                                    allow_constants=allow_constants, 
+                                                    const_range=const_range,
+                                                    const_ratio=const_ratio,
+                                                    exponents=exponents
+                                                )
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
             i = i - 1
             continue
 
+        # fix exponents that are larger than our expected value, sometimes the data generator generates those odd numbers
+        exps = re.findall(r"(\*\*[0-9\.]+)", skeletonEqn)
+        for ex in exps:
+            # correct the exponent
+            cexp = '**'+str(eval(ex[2:]) if eval(ex[2:]) < exponents[-1] else np.random.randint(2,exponents[-1]+1))
+            # replace the exponent
+            skeletonEqn = skeletonEqn.replace(ex, cexp)     
+
+        # replace the constants with new ones
+        cleanEqn = ''
+        for chr in skeletonEqn:
+            if chr == 'C':
+                # genereate a new random number
+                chr = '{}'.format(np.random.uniform(const_range[0], const_range[1]))
+            cleanEqn += chr
+        
+        if 'I' in cleanEqn or 'zoo' in cleanEqn:
+            # repeat the equation generation
+            print('This equation has been rejected: {}'.format(cleanEqn))
+            i -= 1
+            continue
+
+        # create a set of points
+        nPoints = np.random.randint(
+                *numberofPoints) if supportPoints is None else len(supportPoints)
+
+        data = generateDataStrEq(cleanEqn, n_points=nPoints, n_vars=nv,
+                                    decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
+        # use the new x and y
+        x,y = data
+
+        if testPoints:
+            dataTest = generateDataStrEq(cleanEqn, n_points=nPoints, n_vars=nv, decimals=decimals,
+                                                supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1])   
+            xT, yT = dataTest
+
+        # check if there is nan/inf/very large numbers in the y
+        if np.isnan(y).any() or np.isinf(y).any() or np.any([abs(e)>threshold for e in y]):
+            # repeat the equation generation
+            i -= 1
+            continue
+
+        # just make sure there is no samples out of the threshold
+        if abs(min(y)) > threshold or abs(max(y)) > threshold:
+            raise 'Err: Min:{},Max:{},Threshold:{}, \n Y:{} \n Eq:{}'.format(min(y), max(y), threshold, y, cleanEqn)
+
         # sort data based on Y
         if sortY:
-            x, y = zip(*sorted(zip(x, y), key=lambda d: d[1]))
+            x,y = zip(*sorted(zip(x,y), key=lambda d: d[1]))
 
         # hold data in the structure
         structure['X'] = list(x)
@@ -102,7 +122,7 @@ def processData(numSamples, nv, decimals,
 
 def main():
     # Config
-    seed = 2022 # 2021 Train, 2022 Val, 2023 Test, you have to change the generateData.py seed as well
+    seed = 2023 # 2021 Train, 2022 Val, 2023 Test, you have to change the generateData.py seed as well
     #from GenerateData import seed
     import random
     random.seed(seed)
@@ -110,7 +130,7 @@ def main():
 
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
     numVars = [1] #list(range(31)) #[1,2,3,4,5]
-    decimals = 2
+    decimals = 8
     numberofPoints = [30,31] # only usable if support points has not been provided
     numSamples = 1000 // len(numVars) # number of generated samples
     folder = './Dataset'
