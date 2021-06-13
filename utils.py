@@ -61,18 +61,18 @@ def divide(x, y):
 
 def sqrt(x):
   x = np.nan_to_num(x)
-  x = np.maximum(x,0)
+  x = np.abs(x)
   return np.sqrt(x) 
 
-def log(x, eps=1e-1):
+def log(x, eps=1e-5):
   x = np.nan_to_num(x)
-  x = np.maximum(x,0)
-  return np.log(x+eps)
+  x = np.sqrt(x*x+eps)
+  return np.log(x)
 
 def exp(x, eps=1e-5):
     x = np.nan_to_num(x)
-    x = np.minimum(x,5) # to avoid overflow
-    return np.minimum(np.exp(x), 100)
+    #x = np.minimum(x,5) # to avoid overflow
+    return np.exp(x)
 
 # Mean square error
 def mse(y, y_hat):
@@ -85,33 +85,19 @@ def mse(y, y_hat):
     return our_sum / len(y_gold)
 
 # Relative Mean Square Error
-def relativeErr(y, yHat, eps=1e-5):
+def relativeErr(y, yHat, info=False, eps=1e-5):
     yHat = np.reshape(yHat, [1, -1])[0]
     y = np.reshape(y, [1, -1])[0]
-    err = ( (yHat - y) / np.linalg.norm(y+eps) )** 2
-    
-    if random.rand()<0.001:
-        i = np.random.randint(len(y))
-        print(yHat[i],y[i],err[i])
+    if len(y) > 0 and len(y)==len(yHat):
+        err = ( (yHat - y) )** 2 / np.linalg.norm(y+eps)
+        if info:
+            for _ in range(5):
+                i = np.random.randint(len(y))
+                print('yPR,yTrue:{},{}, Err:{}'.format(yHat[i],y[i],err[i]))
+    else:
+        err = 100
 
-    # for i in range(len(y_gold)):
-    #     try: 
-    #         #y_hat[i] = min(y_hat[i], 100)
-    #         #y_gold[i] = min(y_gold[i], 100)
-    #         # if y_gold[i] < 1: 
-    #         #     # use regular MSE
-    #         #     err += (y_hat[i] - y_gold[i]) ** 2
-    #         # else:
-    #         #     # use relative MSE
-    #         #     err += ((y_hat[i] - y_gold[i])/y_gold[i]) ** 2
-    #         err += ( (y_hat[i] - y_gold[i]) / max( abs(y_gold[i]), 1 ) ) ** 2
-    #         if random.rand()<0.001:
-    #             print(y_hat[i],y_gold[i],err)
-    #     except:
-    #         print('yHat:{}, y:{}'.format(y_hat, y_gold))
-    #         raise 'Err: not able to calculate the error'
-
-    return np.sum(err) #/ len(y_gold)
+    return np.mean(err)
 
 class CharDataset(Dataset):
     def __init__(self, data, block_size, chars, 
@@ -208,10 +194,12 @@ class CharDataset(Dataset):
             points[:,idx] = p
 
         # Normalize points between zero and one # DxN
-        minP = points.min(dim=1, keepdim=True)[0]
-        maxP = points.max(dim=1, keepdim=True)[0]
-        points -= minP
-        points /= (maxP-minP+eps) 
+        # minP = points.min(dim=1, keepdim=True)[0]
+        # maxP = points.max(dim=1, keepdim=True)[0]
+        # points -= minP
+        # points /= (maxP-minP+eps)
+        points -= points.mean()
+        points /= points.std()
         points = torch.nan_to_num(points, nan=self.threshold[1], 
                                  posinf=self.threshold[1], 
                                  neginf=self.threshold[0])
@@ -249,13 +237,38 @@ def lossFunc(constants, eq, X, Y, eps=1e-5):
             yHat = eval(eqTemp)
         except:
             print('Exception has been occured! EQ: {}, OR: {}'.format(eqTemp, eq))
+            continue
             yHat = 100
         try:
             # handle overflow
             err += relativeErr(y, yHat) #(y-yHat)**2
         except:
             print('Exception has been occured! EQ: {}, OR: {}, y:{}-yHat:{}'.format(eqTemp, eq, y, yHat))
+            continue
             err += 10
         
     err /= len(Y)
     return err
+
+def generateDataStrEq(eq, n_points=2, n_vars=3,
+                        decimals=4, supportPoints=None, min_x=0, max_x=3):
+    X = []
+    Y= []
+    # TODO: Need to make this faster
+    for p in range(n_points):
+        if supportPoints is None:
+            if type(min_x) == list:
+                idx = np.random.randint(len(min_x))
+                x = list(np.round(np.random.uniform(min_x[idx], max_x[idx], n_vars), decimals))
+            else:
+                x = list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals))
+        else:
+            x = supportPoints[p]
+
+        tmpEq = eq + ''
+        for nVID in range(n_vars):
+            tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(x[nVID]))
+        y = float(np.round(eval(tmpEq), decimals))
+        X.append(x)
+        Y.append(y)
+    return X, Y
