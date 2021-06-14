@@ -161,7 +161,7 @@ class CharDataset(Dataset):
         paddingSize = max(self.block_size-len(inputs),0)
         paddingList = [self.paddingID]*paddingSize
         inputs += paddingList
-        outputs += paddingList 
+        outputs += paddingList
         
         # make sure it is not more than what should be
         inputs = inputs[:self.block_size]
@@ -200,8 +200,8 @@ class CharDataset(Dataset):
         # points /= (maxP-minP+eps)
         points -= points.mean()
         points /= points.std()
-        points = torch.nan_to_num(points, nan=self.threshold[1], 
-                                 posinf=self.threshold[1], 
+        points = torch.nan_to_num(points, nan=self.threshold[1],
+                                 posinf=self.threshold[1],
                                  neginf=self.threshold[0])
         #points += torch.normal(0, 0.05, size=points.shape) # add a guassian noise
         
@@ -258,8 +258,10 @@ def generateDataStrEq(eq, n_points=2, n_vars=3,
     for p in range(n_points):
         if supportPoints is None:
             if type(min_x) == list:
-                idx = np.random.randint(len(min_x))
-                x = list(np.round(np.random.uniform(min_x[idx], max_x[idx], n_vars), decimals))
+                x = []
+                for _ in range(n_vars):
+                    idx = np.random.randint(len(min_x))
+                    x += list(np.round(np.random.uniform(min_x[idx], max_x[idx], 1), decimals))
             else:
                 x = list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals))
         else:
