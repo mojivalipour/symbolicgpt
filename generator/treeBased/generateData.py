@@ -25,14 +25,11 @@ np.random.seed(seed=seed)  # we didn't use this line for the training data
 eps = 1e-4
 big_eps = 1e-3
 
-
 def safe_abs(x):
     return np.sqrt(x * x + eps)
 
-
 def safe_div(x, y):
     return np.sign(y) * x / safe_abs(y)
-
 
 def is_float(value):
     try:
@@ -40,7 +37,6 @@ def is_float(value):
         return True
     except ValueError:
         return False
-
 
 """
 # Function to generate random equation as operator/input list
@@ -467,30 +463,28 @@ def simplify_formula(formula_to_simplify, digits=4):
     #     print("sympy.preorder_traversal(orig_form_str) was terminated.\n")
     #     return False
 
-    for a in traversed:
-        if isinstance(a, sympy.Float):
-            if digits is not None:
-                if np.abs(a) < 10**(-1 * digits):
+    try:
+        for a in traversed:
+            if isinstance(a, sympy.Float):
+                if digits is not None:
+                    if np.abs(a) < 10**(-1 * digits):
+                        rounded = rounded.subs(a, 0)
+                    else:
+                        rounded = rounded.subs(a, round(a, digits))
+                elif np.abs(a) < big_eps:
                     rounded = rounded.subs(a, 0)
-                else:
-                    rounded = rounded.subs(a, round(a, digits))
-            elif np.abs(a) < big_eps:
-                rounded = rounded.subs(a, 0)
+    except:
+        return None
 
     return "{}".format(rounded).replace(' ', '')
-
 
 def eqn_to_str(raw_eqn, n_vars=2, decimals=2):
     return simplify_formula(raw_eqn_to_str(raw_eqn, n_vars), digits=decimals)
 
-
 def eqn_to_str_skeleton_structure(raw_eqn, n_vars=2, decimals=2):
     return raw_eqn_to_skeleton_structure(raw_eqn, n_vars)
 
-
 # receive an string equation and convert any number to a specific constant token
-
-
 def eqn_to_str_skeleton(eq):
     #constants = re.findall("\d+\.\d+", eq)  # replace float number first
     #for c in constants:
@@ -535,8 +529,9 @@ def eqn_to_str_skeleton(eq):
         eq = eq.replace(k, dic[k])
     return eq
 
-# @timeout(5) #, use_signals=False)
-def dataGen(nv, decimals, numberofPoints=[0, 10],
+#@timeout(5) #, use_signals=False)
+def dataGen(nv, decimals, 
+            numberofPoints=[0, 10],
             supportPoints=None,
             supportPointsTest=None,
             xRange=[0.1, 3.1], testPoints=False,
@@ -560,8 +555,8 @@ def dataGen(nv, decimals, numberofPoints=[0, 10],
     - n_levels: complexity of formulas
     - op_list: operator lists for using in the experiment
     """
-    nPoints = np.random.randint(
-        *numberofPoints) if supportPoints is None else len(supportPoints)
+    # nPoints = np.random.randint(
+    #     *numberofPoints) if supportPoints is None else len(supportPoints)
     currEqn = generate_random_eqn_raw(n_vars=nv,
                                       n_levels=n_levels,
                                       op_list=op_list,
