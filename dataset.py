@@ -75,7 +75,7 @@ def processData(numSamples, nv, decimals,
             if 'I' in cleanEqn or 'zoo' in cleanEqn:
                 # repeat the equation generation
                 print('This equation has been rejected: {}'.format(cleanEqn))
-                i -= 1
+                i -= 1 #TODO: this might lead to a bad loop
                 break
 
             # generate new data points
@@ -92,10 +92,15 @@ def processData(numSamples, nv, decimals,
             x,y = data
 
             # check if there is nan/inf/very large numbers in the y
-            if np.isnan(y).any() or np.isinf(y).any() or np.any([abs(e)>threshold for e in y]):
-                # repeat the equation generation
-                i -= 1
-                break
+            if np.isnan(y).any() or np.isinf(y).any(): # TODO: Later find a more optimized solution
+                # repeat the data generation
+                #i -= 1 #TODO: this might lead to a bad loop
+                #break
+                e -= 1
+                continue
+                
+            # replace out of threshold with maximum numbers
+            y = [e if abs(e)<threshold else np.sign(e) * threshold for e in y]
 
             # just make sure there is no samples out of the threshold
             if abs(min(y)) > threshold or abs(max(y)) > threshold:
@@ -164,6 +169,7 @@ def main():
 
     sortY = False # if the data is sorted based on y
     numSamplesEachEq = 50
+    threshold = 1000
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 
@@ -186,7 +192,8 @@ def main():
                                 trainRange, testPoints, testRange, n_levels, 
                                 allow_constants, const_range,
                                 const_ratio, op_list, sortY, exponents,
-                                numSamplesEachEq
+                                numSamplesEachEq,
+                                threshold
                             )
                        )
         p.start()

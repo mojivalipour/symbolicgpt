@@ -93,6 +93,7 @@ def processData(numSamples, nv, decimals,
         if np.isnan(y).any() or np.isinf(y).any() or np.any([abs(e)>threshold for e in y]):
             # repeat the equation generation
             i -= 1
+            print('{} has been rejected because of wrong value in y.'.format(skeletonEqn))
             continue
 
         # just make sure there is no samples out of the threshold
@@ -110,6 +111,8 @@ def processData(numSamples, nv, decimals,
         structure['Skeleton'] = skeletonEqn
         structure['XT'] = list(xT)
         structure['YT'] = yT
+
+        print('\n EQ: {}'.format(skeletonEqn))
 
         outputPath = dataPath.format(fileID, nv, time)
         if os.path.exists(outputPath):
@@ -129,9 +132,9 @@ def main():
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
-    numVars = [1] #list(range(31)) #[1,2,3,4,5]
+    numVars = [3] #list(range(31)) #[1,2,3,4,5]
     decimals = 8
-    numberofPoints = [30,31] # only usable if support points has not been provided
+    numberofPoints = [500,501] # only usable if support points has not been provided
     numSamples = 1000 // len(numVars) # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
