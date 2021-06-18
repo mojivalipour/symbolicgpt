@@ -25,14 +25,16 @@ def processData(numSamples, nv, decimals,
                     "sqrt", "sin", "exp", "log"],
                 sortY=False,
                 exponents=[3,4,5,6],
-                threshold=1000
+                threshold=1000,
+                templatesEQs=None
                 ):
+    templatesEQsKeys = list(templatesEQs.keys()) if type(templatesEQs)==dict else None
     for i in tqdm(range(numSamples)):
         structure = template.copy()
         # generate a formula
         # Create a new random equation
         try:
-            cleanEqn,skeletonEqn, currEqn = dataGen( 
+            _, skeletonEqn, _ = dataGen( 
                                                     nv = nv, decimals = decimals, 
                                                     numberofPoints=numberofPoints, 
                                                     supportPoints=supportPoints,
@@ -47,6 +49,12 @@ def processData(numSamples, nv, decimals,
                                                     const_ratio=const_ratio,
                                                     exponents=exponents
                                                 )
+            if templatesEQs != None and np.random.rand() < 0.4: 
+                # by a chance, replace the skeletonEqn with a given templates
+                idx = np.random.randint(len(templatesEQs))
+                nvTemplate, skeletonTemplate = templatesEQs[templatesEQsKeys[idx]]
+                if nvTemplate == nv:
+                    skeletonEqn = skeletonTemplate
         except Exception as e:
             # Handle any exceptions that timing might raise here
             print("\n-->dataGen(.) was terminated!\n{}\n".format(e))
@@ -132,9 +140,9 @@ def main():
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
-    numVars = [3] #list(range(31)) #[1,2,3,4,5]
+    numVars = [1,2] #list(range(31)) #[1,2,3,4,5]
     decimals = 8
-    numberofPoints = [500,501] # only usable if support points has not been provided
+    numberofPoints = [10,30] # only usable if support points has not been provided
     numSamples = 1000 // len(numVars) # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
@@ -160,12 +168,27 @@ def main():
     const_ratio = 0.5
     op_list=[
                 "id", "add", "mul",
-                "sin", "pow", "cos", 
+                "sin", "pow", "cos", "sqrt",
                 "exp", "div", "sub", "log"
             ]
     exponents=[3, 4, 5, 6]
-
+    
     sortY = False # if the data is sorted based on y
+    threshold = 5000
+    templatesEQs = {
+        'nguyen1': [1,'C*x1**3+C*x1**2+C*x1+C'],
+        'nguyen2': [1,'C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
+        'nguyen3': [1,'C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
+        'nguyen4': [1,'C*x1**6+C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
+        'nguyen5': [1,'C*sin(C*x1**2)*cos(C*x1+C)+C'],
+        'nguyen6': [1,'C*sin(C*x1+C)+C*sin(C*x1+C*x1**2)+C'],
+        'nguyen7': [1,'C*log(C*x1+C)+C*log(C*x1**2+C)+C'],
+        'nguyen8': [1,'C*sqrt(C*x1+C)+C'],
+        'nguyen9': [2,'C*sin(C*x1+C)+C*sin(C*x2**2+C)+C'],
+        'nguyen10': [2,'C*sin(C*x1+C)*cos(C*x2+C)+C'],
+        'nguyen11': [2,'C*x1**x2+C'],
+        'nguyen12': [2,'C*x1**4+C*x1**3+C*x2**2+C*x2+C'],
+    }
 
     print(os.mkdir(folder) if not os.path.isdir(
         folder) else 'We do have the path already!')
@@ -190,8 +213,9 @@ def main():
                            numberofPoints,
                            trainRange, testPoints, testRange, n_levels,
                            allow_constants, const_range,
-                           const_ratio, op_list, sortY, exponents
-                       )
+                           const_ratio, op_list, sortY, exponents,
+                           threshold, templatesEQs
+                        )
                        )
 
         p.start()
