@@ -111,6 +111,11 @@ def processData(numSamples, nv, decimals,
             # replace out of threshold with maximum numbers
             y = [e if abs(e)<threshold else np.sign(e) * threshold for e in y]
 
+            if len(y) == 0: # if for whatever reason the y is empty
+                print('Empty y, x: {}, most of the time this is because of wrong numberofPoints: {}'.format(x, numberofPoints))
+                e -= 1
+                continue
+
             # just make sure there is no samples out of the threshold
             if abs(min(y)) > threshold or abs(max(y)) > threshold:
                 raise 'Err: Min:{},Max:{},Threshold:{}, \n Y:{} \n Eq:{}'.format(min(y), max(y), threshold, y, cleanEqn)
@@ -143,9 +148,9 @@ def main():
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
-    numVars = [1,2] #list(range(31)) #[1,2,3,4,5]
+    numVars = [5] #list(range(31)) #[1,2,3,4,5]
     decimals = 8
-    numberofPoints = [10,30] # only usable if support points has not been provided
+    numberofPoints = [5000,5001] # only usable if support points has not been provided
     numSamples = 10000 # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
@@ -179,20 +184,21 @@ def main():
     sortY = False # if the data is sorted based on y
     numSamplesEachEq = 50
     threshold = 5000
-    templatesEQs = {
-        'nguyen1': [1,'C*x1**3+C*x1**2+C*x1+C'],
-        'nguyen2': [1,'C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
-        'nguyen3': [1,'C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
-        'nguyen4': [1,'C*x1**6+C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
-        'nguyen5': [1,'C*sin(C*x1**2)*cos(C*x1+C)+C'],
-        'nguyen6': [1,'C*sin(C*x1+C)+C*sin(C*x1+C*x1**2)+C'],
-        'nguyen7': [1,'C*log(C*x1+C)+C*log(C*x1**2+C)+C'],
-        'nguyen8': [1,'C*sqrt(C*x1+C)+C'],
-        'nguyen9': [2,'C*sin(C*x1+C)+C*sin(C*x2**2+C)+C'],
-        'nguyen10': [2,'C*sin(C*x1+C)*cos(C*x2+C)+C'],
-        'nguyen11': [2,'C*x1**x2+C'],
-        'nguyen12': [2,'C*x1**4+C*x1**3+C*x2**2+C*x2+C'],
-    }
+    templatesEQs = None 
+    # templatesEQs = {
+    #     'nguyen1': [1,'C*x1**3+C*x1**2+C*x1+C'],
+    #     'nguyen2': [1,'C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
+    #     'nguyen3': [1,'C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
+    #     'nguyen4': [1,'C*x1**6+C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C'],
+    #     'nguyen5': [1,'C*sin(C*x1**2)*cos(C*x1+C)+C'],
+    #     'nguyen6': [1,'C*sin(C*x1+C)+C*sin(C*x1+C*x1**2)+C'],
+    #     'nguyen7': [1,'C*log(C*x1+C)+C*log(C*x1**2+C)+C'],
+    #     'nguyen8': [1,'C*sqrt(C*x1+C)+C'],
+    #     'nguyen9': [2,'C*sin(C*x1+C)+C*sin(C*x2**2+C)+C'],
+    #     'nguyen10': [2,'C*sin(C*x1+C)*cos(C*x2+C)+C'],
+    #     'nguyen11': [2,'C*x1**x2+C'],
+    #     'nguyen12': [2,'C*x1**4+C*x1**3+C*x2**2+C*x2+C'],
+    # }
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')
 

@@ -104,6 +104,11 @@ def processData(numSamples, nv, decimals,
             print('{} has been rejected because of wrong value in y.'.format(skeletonEqn))
             continue
 
+        if len(y) == 0: # if for whatever reason the y is empty
+            print('Empty y, x: {}, most of the time this is because of wrong numberofPoints: {}'.format(x, numberofPoints))
+            e -= 1
+            continue
+
         # just make sure there is no samples out of the threshold
         if abs(min(y)) > threshold or abs(max(y)) > threshold:
             raise 'Err: Min:{},Max:{},Threshold:{}, \n Y:{} \n Eq:{}'.format(min(y), max(y), threshold, y, cleanEqn)
