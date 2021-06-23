@@ -12,14 +12,13 @@ from baseline_utils import nostdout, processDataFiles, relativeErr
 
 warnings.filterwarnings("ignore")
 
-
 def generate_results(file_path, config_path, save_path):
 
     results_data = []
     test_set = processDataFiles([file_path])
     test_set = test_set.strip().split("\n")
 
-    for idx, sample in tqdm(enumerate(test_set)):
+    for idx, sample in enumerate(tqdm(test_set)):
         t = json.loads(sample)
         X = np.array(t["X"])
         y = np.array(t["Y"])
@@ -58,7 +57,6 @@ def generate_results(file_path, config_path, save_path):
 
     results = pd.DataFrame(results_data)
     results.to_csv(save_path, index=False)
-
 
 if __name__ == "__main__":
 
