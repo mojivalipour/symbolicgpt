@@ -5,6 +5,8 @@ import warnings
 import numpy as np
 import pandas as pd
 
+from tqdm import tqdm
+
 from dsr import DeepSymbolicRegressor
 from baseline_utils import nostdout, processDataFiles, relativeErr
 
@@ -17,7 +19,7 @@ def generate_results(file_path, config_path, save_path):
     test_set = processDataFiles([file_path])
     test_set = test_set.strip().split("\n")
 
-    for idx, sample in enumerate(test_set):
+    for idx, sample in tqdm(enumerate(test_set)):
         t = json.loads(sample)
         X = np.array(t["X"])
         y = np.array(t["Y"])
@@ -60,8 +62,8 @@ def generate_results(file_path, config_path, save_path):
 
 if __name__ == "__main__":
 
-    data_path = "./data/0_1_0_12062021_083325.json"
+    data_path = "D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points/Test/0_1_0_13062021_174033.json"
     config_path = "./dsr_baseline_config.json"
-    save_path = "./results/0_1_0_12062021_083325_dsr.csv"
+    save_path = "./results/{}_dsr.csv".format(data_path.split('/')[-1].split('.json')[0])
 
     generate_results(data_path, config_path, save_path)

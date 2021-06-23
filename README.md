@@ -2,7 +2,7 @@
 This is the code for our proposed method, SymbolicGPT, and we tried to keep the implementation as simple and clean as possible to make sure it's understandable and easy to reuse. 
 
 # Abstract:
-Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active area of research. In this work, we present a novel transformer-based language model for symbolic regression. This model exploits the strength and other possible flexibilities that have been provided by probabilistic language models like GPT. We show that our model is state of the art in terms of scalability and performance through comprehensive experiments.
+Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active research area. In this work, we present SymbolicGPT, a novel transformer-based language model for symbolic regression. This model exploits the advantages of probabilistic language models like GPT, including strength in performance and flexibility. Through comprehensive experiments, we show that our model is not only scalable but also comparable in terms of performance with other models.
 
 # Setup the environment
 ## Install Anaconda
@@ -153,10 +153,10 @@ symbolicGPT
 
 # Citation:
 @inproceedings{
-anonymous2021symbolic,
-title={Symbolic Regression Using a Generative Transformer Model},
-author={Anonymous},
-booktitle={Submitted to Thirty-Fifth Conference on Neural Information Processing Systems},
+SymbolicGPT2021,
+title={SymbolicGPT: A Generative Transformer Model for Symbolic Regression},
+author={Mojtaba Valipour, Maysum Panju, Bowen You, Ali Ghodsi},
+booktitle={Preprint Arxiv},
 year={2021},
 url={https://openreview.net/forum?id=bTrP-koP-KB},
 note={under review}
@@ -172,16 +172,10 @@ note={under review}
 - https://github.com/charlesq34/pointnet
 - https://github.com/volpato30/PointNovo
 - https://github.com/brencej/ProGED
+- https://github.com/brendenpetersen/deep-symbolic-optimization
 
 # Stable Commit:
 - 8c258e3e425b9cdec79bbf5b0984d347fad2a1f7
-
-# TODO: 
-- [x] Reproduce the results for 1-5 General Model
-- [x] Reproduce the results for 1 Variable Model
-- [x] Reproduce the results for 2 Variable Model
-- [x] Reproduce the results for 3 Variable Model
-- [X] Create a dataset and test our pipeline with new data
 
 # License:
 MIT
