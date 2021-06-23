@@ -39,19 +39,19 @@ set_seed(seed)
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
 numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
+numVars=2 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 100 # spatial extent of the model for its context
+blockSize = 200 # spatial extent of the model for its context
 batchSize = 64 # batch size of training data
 trainRange = [-3.0,3.0] 
 testRange = [[-5.0, 3.0],[-3.0, 5.0]]
 useRange = True
-decimals = 2
-dataDir = './datasets/'
+decimals = 8
+dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
 dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1Var_RandSupport_FixedLength_-3to3_-6.1to-3.0-3.1to6_30Points'
+dataFolder = '1-2Var_RandSupport_RandLength__-3to3_-5.0to-3.0-3.0to5.0_10-30Points'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -84,6 +84,7 @@ text = processDataFiles(files)
 chars = sorted(list(set(text))+['_','T','<','>',':']) # extract unique characters from the text before converting the text to a list, # T is for the test data
 text = text.split('\n') # convert the raw text to a set of examples
 text = text[:-1] if len(text[-1]) == 0 else text
+trainText = text.copy() # keep a copy of trainText
 random.shuffle(text) # shuffle the dataset, it's important for combined number of variables
 train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
                 numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
@@ -173,6 +174,21 @@ NGUYEN2Eq = {
            '10':'2*sin(x1)*cos(x2)',
            '11':'x1**x2',
            '12':'x1**4-x1**3+x2**2/2-x2',}
+
+NGUYEN2EqTemplates = {
+            '1':'C*x1**3+C*x1**2+C*x1+C',
+            '2':'C*x1**4+C*x1**3+C*x1**2+C*x1+C',
+            '3':'C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C',
+            '4':'C*x1**6+C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C',
+            '5':'C*sin(C*x1**2)*cos(C*x1+C)+C',
+            '6':'C*sin(C*x1+C)+C*sin(C*x1+C*x1**2)+C',
+            '7':'C*log(C*x1+C)+C*log(C*x1**2+C)+C',
+            '8':'C*sqrt(C*x1+C)+C',
+            '9':'C*sin(C*x1+C)+C*sin(C*x2**2+C)+C',
+            '10':'C*sin(C*x1+C)*cos(C*x2+C)+C',
+            '11':'C*x1**x2+C',
+            '12':'C*x1**4+C*x1**3+C*x2**2+C*x2+C',}
+
 NGUYENNumVars = {
            '1':1,
            '2':1,
@@ -232,7 +248,31 @@ bestErr = {
    '12':1000,
 }
 
-numTests = 10
+# Check if there is a similar equation in the training set
+eqList = list(NGUYEN2EqTemplates.values())
+foundEQ = {}
+for sample in tqdm(trainText):
+    try:
+        sample = json.loads(sample) # convert the sequence tokens to a dictionary
+    except:
+        print("Couldn't convert to json: {}".format(sample))
+        
+    # find the number of variables in the equation
+    eq = sample['Skeleton']
+
+    if eq in eqList:
+        foundEQ[eq] = 1 if eq not in foundEQ else foundEQ[eq] + 1
+        print('This equation has been found in the data: {}'.format(eq))
+
+# save the results to a file
+fileName = './benchmarkSimilarEquations.json'
+with open(fileName, 'w', encoding="utf-8") as o:
+    json.dump(foundEQ, o)
+print('{} has been saved succesfully.'.format(fileName))
+
+# NGUYEN2EqTemplates
+
+numTests = 100
 from utils import *
 for i in tqdm(range(numTests)):
     for dataPoint in dataPoints: 
@@ -249,27 +289,36 @@ for i in tqdm(range(numTests)):
             if useRange:
                 for p in range(numPoints):
                     minX, maxX = (trainRange[0], trainRange[1]) 
-                    x = list(np.round(np.random.uniform(minX, maxX, numVars), decimals))
+                    x = list(np.round(np.random.uniform(minX, maxX, max(NGUYENNumVars[key],numVars)), decimals))
                     tmpEq = target + ''
-                    for nVID in range(numVars):
+                    for nVID in range(max(NGUYENNumVars[key],numVars)):
                         tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(x[nVID]))
-                    # if there is still vars in the equation, use zero
-                    for nVID in range(NGUYENNumVars[key]):
-                        tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(0))
-                    y = float(np.round(eval(tmpEq), decimals))
+                    
+                    # # if there is still vars in the equation, use zero
+                    # for nVID in range(NGUYENNumVars[key]):
+                    #     tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(0))
+
+                    try:
+                        y = float(np.round(eval(tmpEq), decimals))
+                    except:
+                        # ZeroDivisionError: 0.0 cannot be raised to a negative power
+                        y = 0
+
                     p = (x,y)
                     #print('p:{}, range:{}'.format(p, (minX, maxX)))
                     pointsList.append(p)
                 # generate test points
                 for p in range(numPoints):
                     minX, maxX = (testRange[0][0], testRange[1][0]) if random.random() < 0.5 else (testRange[0][1], testRange[1][1])
-                    x = list(np.round(np.random.uniform(minX, maxX, numVars), decimals))
+                    x = list(np.round(np.random.uniform(minX, maxX, max(NGUYENNumVars[key],numVars)), decimals))
                     tmpEq = target + ''
-                    for nVID in range(numVars):
+                    for nVID in range(max(NGUYENNumVars[key],numVars)):
                         tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(x[nVID]))
-                    # if there is still vars in the equation, use zero
-                    for nVID in range(NGUYENNumVars[key]):
-                        tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(0))
+
+                    # # if there is still vars in the equation, use zero
+                    # for nVID in range(NGUYENNumVars[key]):
+                    #     tmpEq = tmpEq.replace('x{}'.format(nVID+1), str(0))
+
                     y = float(np.round(eval(tmpEq), decimals))
                     p = (x,y)
                     #print('#T p:{}, range:{}'.format(p, (minX, maxX)))
@@ -289,7 +338,7 @@ for i in tqdm(range(numTests)):
             points = torch.zeros(numVars+numYs, numPoints)
             for idx, xy in enumerate(pointsList): # zip(X,Y)): #
                 x = xy[0][:numVars] + [0]*(max(numVars-len(xy[0]),0)) # padding
-                y = [xy[1]] if type(xy[1])==float else xy[1]
+                y = [xy[1]] if type(xy[1])==float or type(xy[1])==int else xy[1]
 
                 y = y + [0]*(max(numYs-len(y),0)) # padding
 
@@ -299,24 +348,26 @@ for i in tqdm(range(numTests)):
                 p = torch.nan_to_num(p, nan=0.0, 
                                      posinf=train_dataset.threshold[1], 
                                      neginf=train_dataset.threshold[0])
-                p[p>train_dataset.threshold[1]] = train_dataset.threshold[1] # clip the upper bound
-                p[p<train_dataset.threshold[0]] = train_dataset.threshold[0] # clip the lower bound
+                # p[p>train_dataset.threshold[1]] = train_dataset.threshold[1] # clip the upper bound
+                # p[p<train_dataset.threshold[0]] = train_dataset.threshold[0] # clip the lower bound
                 points[:,idx] = p
             
             # Normalize points between zero and one # DxN
-            eps = 1e-5
-            minP = points.min(dim=1, keepdim=True)[0]
-            maxP = points.max(dim=1, keepdim=True)[0]
-            points -= minP
-            points /= (maxP-minP+eps) 
-            points = torch.nan_to_num(points, nan=train_dataset.threshold[1], 
-                                    posinf=train_dataset.threshold[1], 
-                                    neginf=train_dataset.threshold[0])
+            # eps = 1e-5
+            # minP = points.min(dim=1, keepdim=True)[0]
+            # maxP = points.max(dim=1, keepdim=True)[0]
+            # points -= minP
+            # points /= (maxP-minP+eps) 
+            # points = torch.nan_to_num(points, nan=train_dataset.threshold[1], 
+            #                         posinf=train_dataset.threshold[1], 
+            #                         neginf=train_dataset.threshold[0])
+            points -= points.mean()
+            points /= points.std()
 
             points = points.unsqueeze(0).to(trainer.device)
             outputsHat = sample(model, inputs, blockSize, points=points,
-                          temperature=1.0, sample=True, 
-                          top_k=40)[0]
+                          temperature=1.0, sample=True, #top_k=40
+                          )[0]
 
             # filter out predicted
             predicted = ''.join([train_dataset.itos[int(i)] for i in outputsHat])
@@ -332,10 +383,10 @@ for i in tqdm(range(numTests)):
             target = target.replace('\n','')
 
             # extract points from the input sequence
-            pointsTest = torch.zeros(numVars+numYs, numPoints)
+            pointsTest = torch.zeros(max(NGUYENNumVars[key],numVars)+numYs, numPoints)
             for idx, xy in enumerate(pointsListTest):
-                x = xy[0][:numVars] + [0]*(max(numVars-len(xy[0]),0)) # padding
-                y = [xy[1]] if type(xy[1])== float else xy[1]
+                x = xy[0][:numVars] + [0]*(max(max(NGUYENNumVars[key],numVars)-len(xy[0][:numVars]),0)) # padding
+                y = [xy[1]] if type(xy[1])==float else xy[1]
                 y = y + [0]*(max(numYs-len(y),0)) # padding
 
                 p = x+y # because it is only one point 
@@ -362,6 +413,7 @@ for i in tqdm(range(numTests)):
             # optimize the constants
             # train a regressor to find the constants (too slow)
             c = [1 for i,x in enumerate(predicted) if x=='C']   # variables
+            c[-1] = 0
             b = [(-2,2) for i,x in enumerate(predicted) if x=='C']  # bounds on variables
             #predicted = predicted.replace('C','{}').format(*c)
             try:
@@ -371,7 +423,7 @@ for i in tqdm(range(numTests)):
                 else:
                     # for easier comparison, we are using minimize package  
                     cHat = minimize(lossFunc, c, #bounds=b, 
-                                   args=(predicted, points[:,:numVars,:20].squeeze().cpu().T.numpy(), points[:,numVars:,:20].squeeze().cpu().T.numpy())) 
+                                   args=(predicted, points[:,:numVars,:].squeeze().cpu().T.numpy(), points[:,numVars:,:].squeeze().cpu().T.numpy())) 
                     predicted = predicted.replace('C','{}').format(*cHat.x)
             except:
                 print('Wrong Equation:{}'.format(predicted))
@@ -388,6 +440,7 @@ for i in tqdm(range(numTests)):
                         eqTmp = eqTmp.replace('x{}'.format(i+1), str(x))
                         if ',' in eqTmp:
                             assert 'There is a , in the equation!'
+
                     #print('target',eqTmp)
                     YEval = eval(eqTmp)
                     # YEval = 0 if np.isnan(YEval) else YEval
@@ -411,7 +464,7 @@ for i in tqdm(range(numTests)):
                     Yhat = 1000
                 Yhats.append(Yhat)
 
-            err = relativeErr(Ys,Yhats)
+            err = relativeErr(Ys,Yhats, info=True)
             
             if err < bestErr[key]:
                 bestErr[key] = err

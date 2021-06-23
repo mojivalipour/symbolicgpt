@@ -145,9 +145,9 @@ def main():
     np.random.seed(seed=seed) # fix the seed for reproducibility
 
     #NOTE: For linux you can only use unique numVars, in Windows, it is possible to use [1,2,3,4] * 10!
-    numVars = [1,2] #list(range(31)) #[1,2,3,4,5]
+    numVars = [1,2,3,4,5] #list(range(31)) #[1,2,3,4,5]
     decimals = 8
-    numberofPoints = [10,30] # only usable if support points has not been provided
+    numberofPoints = [5000,5001] # only usable if support points has not been provided
     numSamples = 1000 // len(numVars) # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'

@@ -37,8 +37,8 @@ set_seed(42)
 # config
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=2 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints=5000 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars=5 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 200 # spatial extent of the model for its context
 batchSize = 64 # batch size of training data
@@ -46,7 +46,8 @@ dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datas
 dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1-2Var_RandSupport_RandLength__-3to3_-5.0to-3.0-3.0to5.0_10-30Points'
+dataFolderTrain = '1-5Var_RandSupport_RandLength_-3to3_-5.0to-3.0-3.0to5.0_10to200Points'
+dataFolderTest = '1-5Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_5000Points'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -73,7 +74,7 @@ except:
     print('Folder already exists!')
 
 # load the train dataset
-path = '{}/{}/Train/*.json'.format(dataDir, dataFolder)
+path = '{}/{}/Train/*.json'.format(dataDir, dataFolderTrain)
 files = glob.glob(path)[:maxNumFiles]
 text = processDataFiles(files)
 chars = sorted(list(set(text))+['_','T','<','>',':']) # extract unique characters from the text before converting the text to a list, # T is for the test data
@@ -92,7 +93,7 @@ outputs = ''.join([train_dataset.itos[int(i)] for i in outputs])
 print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,outputs,points, variables))
 
 # load the val dataset
-path = '{}/{}/Val/*.json'.format(dataDir,dataFolder)
+path = '{}/{}/Val/*.json'.format(dataDir,dataFolderTrain)
 files = glob.glob(path)
 textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
@@ -108,7 +109,7 @@ outputs = ''.join([train_dataset.itos[int(i)] for i in outputs])
 print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,outputs,points, variables))
 
 # load the test data
-path = '{}/{}/Test/*.json'.format(dataDir,dataFolder)
+path = '{}/{}/Test/*.json'.format(dataDir,dataFolderTest)
 files = glob.glob(path)
 textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
@@ -143,11 +144,6 @@ tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize,
                       final_tokens=2*len(train_dataset)*blockSize,
                       num_workers=0, ckpt_path=ckptPath)
 trainer = Trainer(model, train_dataset, val_dataset, tconf, bestLoss)
-
-try:
-    trainer.train()
-except KeyboardInterrupt:
-    print('KeyboardInterrupt')
 
 # load the best model
 print('The following model {} has been loaded!'.format(ckptPath))

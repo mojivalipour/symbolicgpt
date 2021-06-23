@@ -13,3 +13,5 @@
 **/models/*
 **/datasets/*
 **/venv/*
+**/plots/*
+benchmarkSimilarEquations.json

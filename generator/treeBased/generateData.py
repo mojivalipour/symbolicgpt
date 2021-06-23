@@ -16,7 +16,7 @@ from wrapt_timeout_decorator import *
 # except ImportError:
 #     import _thread as thread
 
-seed = 2021  # 2021 Train, 2022 Val, 2023 Test
+seed = 2023  # 2021 Train, 2022 Val, 2023 Test
 random.seed(seed)
 np.random.seed(seed=seed)  # we didn't use this line for the training data
 
