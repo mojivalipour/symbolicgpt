@@ -1,8 +1,8 @@
 {
    "task": {
       "task_type" : "regression",
-      "name" : "Nguyen-1",
-      "function_set": null,
+      "name" : "symbolicGPT",
+      "function_set": ["add", "sub", "mul", "div", "sin", "cos", "exp", "log", "const", "sqrt"],
       "dataset" : {
          "name" : null,
          "noise": null,
@@ -15,7 +15,7 @@
       "reward_noise" : 0.0
    },
    "prior": {
-      "length" : {"min_" : 4, "max_" : 30},
+      "length" : {"min_" : 4, "max_" : 200},
       "repeat" : {"tokens" : "const", "max_" : 3},
       "inverse" : {},
       "trig" : {},

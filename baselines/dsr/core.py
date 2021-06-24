@@ -90,6 +90,8 @@ class DeepSymbolicOptimizer():
         return seed_
 
     def make_prior(self):
+        print('---->',Program.library.tokens) # 
+        #----> ['L', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'actionize', 'arities', 'binary_tokens', 'const_token', 'float_tokens', 'input_tokens', 'inverse_tokens', 'names', 'parent_adjust', 'terminal_tokens', 'tokenize', 'tokens', 'tokens_of_arity', 'trig_tokens', 'unary_tokens']
         prior = make_prior(Program.library, self.config_prior)
         return prior
 

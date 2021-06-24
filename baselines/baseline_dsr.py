@@ -29,11 +29,11 @@ def generate_results(file_path, config_path, save_path):
 
         try:
             start_time = time.time()
-            with nostdout():
-                model = DeepSymbolicRegressor(config_path)
-                model.fit(X, y)
-                equation_pred = model.program_.pretty()
-                pred_y = model.predict(X_test)
+            #with nostdout():
+            model = DeepSymbolicRegressor(config_path)
+            model.fit(X, y)
+            equation_pred = model.program_.pretty()
+            pred_y = model.predict(X_test)
             train_time = time.time() - start_time
             err = relativeErr(y_test, pred_y)
             predicted_tree = model.program_
@@ -44,7 +44,7 @@ def generate_results(file_path, config_path, save_path):
             err = "NA"
             train_time = "NA"
 
-        results_data.append({
+        res = {
             "test_index": idx,
             "true_equation": raw_eqn,
             "true_skeleton": skeleton,
@@ -53,7 +53,10 @@ def generate_results(file_path, config_path, save_path):
             "predicted_y": pred_y,
             "rel_err": err,
             "dsr_time": train_time
-        })
+        }
+        results_data.append(res)
+
+        print(res)
 
     results = pd.DataFrame(results_data)
     results.to_csv(save_path, index=False)
@@ -61,7 +64,7 @@ def generate_results(file_path, config_path, save_path):
 if __name__ == "__main__":
 
     data_path = "D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points/Test/0_1_0_13062021_174033.json"
-    config_path = "./dsr_baseline_config.json"
+    config_path = "./dsr_max_basline_config.json"
     save_path = "./results/{}_dsr.csv".format(data_path.split('/')[-1].split('.json')[0])
 
     generate_results(data_path, config_path, save_path)

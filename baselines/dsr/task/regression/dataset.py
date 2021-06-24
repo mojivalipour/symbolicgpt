@@ -101,6 +101,8 @@ class BenchmarkDataset(object):
         function_set_name = row["function_set"]
         self.function_set = function_set_df.loc[function_set_name].tolist()[0].strip().split(',')
 
+        print('\n\n---> Function Sets: {}\n\n'.format(self.function_set))
+
         # Prepare status output
         output_message = '\n-- Building dataset -----------------\n'
         output_message += 'Benchmark path                 : {}\n'.format(benchmark_path)

@@ -71,6 +71,7 @@ def make_task(task_type, **config_task):
     }
 
     task = task_dict[task_type](**config_task)
+
     return task
 
 
