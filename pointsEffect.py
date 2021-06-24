@@ -46,7 +46,7 @@ batchSize = 64 # batch size of training data
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
 dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
-target = 'Skeleton' #'Skeleton' #'EQ'
+targetColumn = 'Skeleton' #'Skeleton' #'EQ'
 dataFolderTrain = '3Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_500Points'
 dataFolderTest = '3Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_500Points'
 addr = './SavedModels/' # where to save model
@@ -64,7 +64,7 @@ addVars = True if variableEmbedding == 'STR_VAR' else False
 maxNumFiles = 30 # maximum number of file to load in memory for training the neural network
 bestLoss = None # if there is any model to load as pre-trained one
 fName = '{}_SymbolicGPT_{}_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
-                                             'GPT_PT_{}_{}'.format(method, target), 
+                                             'GPT_PT_{}_{}'.format(method, targetColumn), 
                                              'Padding',
                                              blockSize,
                                              variableEmbedding)
@@ -83,7 +83,7 @@ text = text.split('\n') # convert the raw text to a set of examples
 text = text[:-1] if len(text[-1]) == 0 else text
 random.shuffle(text) # shuffle the dataset, it's important specailly for the combined number of variables experiment
 train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
+                numYs=numYs, numPoints=numPoints, target=targetColumn, addVars=addVars) 
 
 # print a random sample
 idx = np.random.randint(train_dataset.__len__())
@@ -100,7 +100,7 @@ files = glob.glob(path)
 textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
 val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars)
+                numYs=numYs, numPoints=numPoints, target=targetColumn, addVars=addVars)
 
 # print a random sample
 idx = np.random.randint(val_dataset.__len__())
@@ -160,7 +160,7 @@ for numPoints in testPoints:
     resultDict = {}
     dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
     fName = '{}_SymbolicGPT_{}_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
-                                             'GPT_PT_{}_{}'.format(method, target), 
+                                             'GPT_PT_{}_{}'.format(method, targetColumn), 
                                              'Padding',
                                              blockSize,
                                              variableEmbedding)
