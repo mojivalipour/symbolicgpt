@@ -64,7 +64,7 @@ def generate_results(file_path, config_path, save_path):
 if __name__ == "__main__":
 
     data_path = "D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points/Test/0_1_0_13062021_174033.json"
-    config_path = "./dsr_max_basline_config.json"
+    config_path = "./dsr_baseline_config.json"
     save_path = "./results/{}_dsr.csv".format(data_path.split('/')[-1].split('.json')[0])
 
     generate_results(data_path, config_path, save_path)
