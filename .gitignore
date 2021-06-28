@@ -10,7 +10,6 @@
 **/.vscode/*
 **/.ipynb_checkpoints/*
 **/models/*
-**/datasets/*
 **/venv/*
 **/plots/*
 benchmarkSimilarEquations.json

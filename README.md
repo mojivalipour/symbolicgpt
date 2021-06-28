@@ -1,31 +1,52 @@
 
-This is the code for our proposed method, SymbolicGPT, and we tried to keep the implementation as simple and clean as possible to make sure it's understandable and easy to reuse. 
+This is the code for our proposed method, SymbolicGPT. We tried to keep the implementation as simple and clean as possible to make sure it's understandable and easy to reuse. Please feel free to add features and submit a pull-request.
 
 # Abstract:
-Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active research area. In this work, we present SymbolicGPT, a novel transformer-based language model for symbolic regression. This model exploits the advantages of probabilistic language models like GPT, including strength in performance and flexibility. Through comprehensive experiments, we show that our model is not only scalable but also comparable in terms of performance with other models.
+Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active research area. In this work, we present SymbolicGPT, a novel transformer-based language model for symbolic regression. This model exploits the advantages of probabilistic language models like GPT, including strength in performance and flexibility. Through comprehensive experiments, we show that our model performs strongly compared to competing models with respect to the accuracy, running time, and data efficiency.
 
 # Setup the environment
-## Install Anaconda
-## Create the environment from environment.yml, as an alternative we also provided the requirements.txt
+- Install Anaconda
+- Create the environment from environment.yml, as an alternative we also provided the requirements.txt
 ```bash
 conda env create -f environment.yml
 ```
 
 # Dataset Generation
 
-Skip this part, if you want to use the already generated datasets in this repository. Just make sure to extract the datasets, and change the configuration.
-
 ## How to generate the training data:
+- Use the corresponding config file (config.txt) for each experiment
+- Copy all the settings in config file into dataset.py
+- Change the seed to 2021 in the dataset.py 
+- Change the seed to 2021 in the generateData.py 
+- Generate the data using the following command:
 ```bash
-$ cd generator
-$ for P in {1..2} ; do sleep 1;  echo $P; python dataset.py ; done
+$ python dataset.py
 ```
+- Move the generated data (./Datasets/*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Train/*.json)
 
-## Generate the test data:
+## Generate the validation data:
+- Use the corresponding config file (config.txt) for each experiment
+- Copy all the settings in config file into dataset.py except the numSamples
+- Make sure that the numSamples = 1000 // len(numVars) in the datasetTest.py 
+- Change the seed to 2022 in the datasetTest.py 
+- Change the seed to 2022 in the generateData.py 
+- Generate the data using the following command:
 ```bash
-$ cd generator
 $ python datasetTest.py
 ```
+- Move the generated data (./Datasets/*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Val/*.json)
+
+## Generate the test data:
+- Use the corresponding config file (config.txt) for each experiment
+- Copy all the settings in config file into dataset.py except the numSamples
+- Make sure that the numSamples = 1000 // len(numVars) in the datasetTest.py 
+- Change the seed to 2023 in the datasetTest.py 
+- Change the seed to 2023 in the generateData.py 
+- Generate the data using the following command:
+```bash
+$ python datasetTest.py
+```
+- Move the generated data (./Datasets/*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Test/*.json)
 
 # Train/Test the model
 
@@ -33,14 +54,10 @@ It's easy to train a new model and reproduce the results.
 
 ## Configure the parameters
 
-Follow each dataset config file and change the parameters in the symbolicGPT.py script. 
-
-## Run the script
-```bash
-python symbolicGPT.py
-```
+Follow each dataset config file and change the corresponding parameters (numVars, numPoints etc.) in the symbolicGPT.py script. 
 
 ## Reproduce the experiments
+
 ### Use this in symbolicGPT.py to reproduce the results for General 1-5 Model
 ```python
 numEpochs = 4 # number of epochs to train the GPT+PT model
@@ -116,6 +133,11 @@ method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to conca
 variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
 ```
 
+## Run the script to train and test the model
+```bash
+python symbolicGPT.py
+```
+
 # Directories
 ```Diff
 symbolicGPT
@@ -127,17 +149,13 @@ symbolicGPT
 │   trainer.py --- The code for training Pytorch based models
 │   utils.py --- Useful functions
 │   symbolicGPT.py --- Main script to train and test our proposed method
+│   dataset.py --- Main script to generate training data
+│   datasetTest.py --- Main script to generate test data
 │
 └───generator
 │   │   
 │   └───treeBased --- equation generator based on expression trees
-│   │   │   dataset.py --- Main script to generate training data
-│   │   │   datasetTest.py --- Main script to generate test data
 │   │   │   generateData.py --- Base class for data generation
-│   └───grammarBased --- equation generator based on context free grammar
-│   │
-│   └───templateBased --- quation generator based on templates of general equations
-│   │
 └───results
 │   │   symbolicGPT --- reported results for our proposed method
 │   │   DSR --- reported results for Deep Symbolic Regression paper: 
