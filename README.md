@@ -1,6 +1,12 @@
 
 This is the code for our proposed method, SymbolicGPT. We tried to keep the implementation as simple and clean as possible to make sure it's understandable and easy to reuse. Please feel free to add features and submit a pull-request.
 
+# Results/Model/Datasets
+- Download via [link](https://drive.google.com/drive/folders/19HsGO_dMgx2xHQBJmgU8-ngy47cU-lNk?usp=sharing)
+
+# Mirror Repository:
+If you want to pull, open an issue or follow this repository, you can use this github repo [link](https://github.com/mojivalipour/symbolicgpt) which is going to be like a mirror repo for this one. Unfortunately, the UWaterloo Gitlab is quite limited to users with @uwaterloo emails. Therefore, it is not possible for you to have any contributions. 
+
 # Abstract:
 Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active research area. In this work, we present SymbolicGPT, a novel transformer-based language model for symbolic regression. This model exploits the advantages of probabilistic language models like GPT, including strength in performance and flexibility. Through comprehensive experiments, we show that our model performs strongly compared to competing models with respect to the accuracy, running time, and data efficiency.
 
