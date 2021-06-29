@@ -7,8 +7,12 @@ This is the code for our proposed method, SymbolicGPT. We tried to keep the impl
 # Mirror Repository:
 If you want to pull, open an issue or follow this repository, you can use this github repo [link](https://github.com/mojivalipour/symbolicgpt) which is a mirror repo for this one. Unfortunately, the UWaterloo GITLAB is limited to users with @uwaterloo emails. Therefore, you cannot contribute to this repository. Why do I not use github directly? You can find the answer [here](https://github.com/1995parham/github-do-not-ban-us). It's because I no longer trust GITHUB as my primary repository. Once, I was adversely affected for no good reason.
 
+Original Repo: [link](https://git.uwaterloo.ca/data-analytics-lab/symbolicgpt2)
+
 # Abstract:
 Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active research area. In this work, we present SymbolicGPT, a novel transformer-based language model for symbolic regression. This model exploits the advantages of probabilistic language models like GPT, including strength in performance and flexibility. Through comprehensive experiments, we show that our model performs strongly compared to competing models with respect to the accuracy, running time, and data efficiency.
+
+Paper: [link](https://arxiv.org/abs/2106.14131)
 
 # Setup the environment
 - Install [Anaconda](https://www.anaconda.com/products/individual/)
