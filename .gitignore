@@ -13,3 +13,4 @@
 **/venv/*
 **/plots/*
 benchmarkSimilarEquations.json
+**/benchmark/*
