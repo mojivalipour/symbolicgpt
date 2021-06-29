@@ -1,2 +1,0 @@
-DSR: 1000 (population size) * 10 (epochs) = 10000 samples total
-DSR_MAX: 5000 * 20 = 200000 samples total
