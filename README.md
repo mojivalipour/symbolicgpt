@@ -13,6 +13,8 @@ conda env create -f environment.yml
 
 # Dataset Generation
 
+You can skip this step if you already downloaded the datasets using this [link](https://drive.google.com/drive/folders/19HsGO_dMgx2xHQBJmgU8-ngy47cU-lNk?usp=sharing).
+
 ## How to generate the training data:
 - Use the corresponding config file (config.txt) for each experiment
 - Copy all the settings in config file into dataset.py
@@ -193,9 +195,6 @@ symbolicGPT
 - https://github.com/volpato30/PointNovo
 - https://github.com/brencej/ProGED
 - https://github.com/brendenpetersen/deep-symbolic-optimization
-
-# Stable Commit:
-- 8c258e3e425b9cdec79bbf5b0984d347fad2a1f7
 
 # License:
 MIT
