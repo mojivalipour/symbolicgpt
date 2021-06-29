@@ -5,7 +5,7 @@ This is the code for our proposed method, SymbolicGPT. We tried to keep the impl
 Symbolic regression is the task of identifying a mathematical expression that best fits a provided dataset of input and output values. Due to the richness of the space of mathematical expressions, symbolic regression is generally a challenging problem. While conventional approaches based on genetic evolution algorithms have been used for decades, deep learning-based methods are relatively new and an active research area. In this work, we present SymbolicGPT, a novel transformer-based language model for symbolic regression. This model exploits the advantages of probabilistic language models like GPT, including strength in performance and flexibility. Through comprehensive experiments, we show that our model performs strongly compared to competing models with respect to the accuracy, running time, and data efficiency.
 
 # Setup the environment
-- Install Anaconda
+- Install [Anaconda](https://www.anaconda.com/products/individual/)
 - Create the environment from environment.yml, as an alternative we also provided the requirements.txt
 ```bash
 conda env create -f environment.yml
@@ -22,7 +22,7 @@ conda env create -f environment.yml
 ```bash
 $ python dataset.py
 ```
-- Move the generated data (./Datasets/*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Train/*.json)
+- Move the generated data (./Datasets/\*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Train/\*.json)
 
 ## Generate the validation data:
 - Use the corresponding config file (config.txt) for each experiment
@@ -34,7 +34,7 @@ $ python dataset.py
 ```bash
 $ python datasetTest.py
 ```
-- Move the generated data (./Datasets/*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Val/*.json)
+- Move the generated data (./Datasets/\*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Val/\*.json)
 
 ## Generate the test data:
 - Use the corresponding config file (config.txt) for each experiment
@@ -46,7 +46,7 @@ $ python datasetTest.py
 ```bash
 $ python datasetTest.py
 ```
-- Move the generated data (./Datasets/*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Test/*.json)
+- Move the generated data (./Datasets/\*.json) into the corresponding experiment directory (./datasets/{Experiment Name}/Test/\*.json)
 
 # Train/Test the model
 
@@ -170,15 +170,17 @@ symbolicGPT
 - 32.0 GB Ram
 
 # Citation:
+```
 @inproceedings{
-SymbolicGPT2021,
-title={SymbolicGPT: A Generative Transformer Model for Symbolic Regression},
-author={Mojtaba Valipour, Maysum Panju, Bowen You, Ali Ghodsi},
-booktitle={Preprint Arxiv},
-year={2021},
-url={https://openreview.net/forum?id=bTrP-koP-KB},
-note={under review}
+    SymbolicGPT2021,
+    title={SymbolicGPT: A Generative Transformer Model for Symbolic Regression},
+    author={Mojtaba Valipour, Maysum Panju, Bowen You, Ali Ghodsi},
+    booktitle={Preprint Arxiv},
+    year={2021},
+    url={https://arxiv.org/abs/2106.14131},
+    note={Under Review}
 }
+```
 
 # REFERENCES: 
 - https://github.com/agermanidis/OpenGPT-2
