@@ -38,7 +38,7 @@ class TrainerConfig:
 
 class Trainer:
 
-    def __init__(self, model, train_dataset, test_dataset, config, best=None):
+    def __init__(self, model, train_dataset, test_dataset, config, best=None, device='gpu'):
         self.model = model
         self.train_dataset = train_dataset
         self.test_dataset = test_dataset
@@ -46,9 +46,10 @@ class Trainer:
 
         # take over whatever gpus are on the system
         self.device = 'cpu'
-        if torch.cuda.is_available():
+        if device == 'gpu' and torch.cuda.is_available():
             self.device = torch.cuda.current_device()
             self.model = torch.nn.DataParallel(self.model).to(self.device)
+            print('We are using the gpu now! device={}'.format(self.device))
 
         self.best_loss = best
 
