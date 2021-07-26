@@ -248,6 +248,14 @@ class GPT(nn.Module):
             #self.pointNet = PointNet(self.pointNetConfig)
 
             self.vars_emb = nn.Embedding(self.pointNetConfig.numberofVars+1, embeddingSize)
+
+            # this is a function with the goal to help the model to converge faster based
+            # on the intuitation that given equation it is possible to infer points
+            self.pointFeatures = (self.pointNetConfig.numberofVars+self.pointNetConfig.numberofYs)*self.pointNetConfig.numberofPoints
+            self.helper_batch_norm = nn.BatchNorm1d(self.pointNetConfig.numberofVars+self.pointNetConfig.numberofYs)
+            self.helper = nn.Linear(config.n_embd,
+                    self.pointFeatures, 
+                    bias=False)
             
         if self.pointNetConfig.method == 'EMB_CON':
             print('Add one to the supported block size!')
@@ -372,7 +380,7 @@ class GPT(nn.Module):
 
         x = self.drop(input_embedding)
         x = self.blocks(x)
-        x = self.ln_f(x)
+        x = self.ln_f(x) # b, embedding
 
         if self.pointNetConfig.method == 'OUT_SUM':
             x += points_embeddings
@@ -382,7 +390,7 @@ class GPT(nn.Module):
             # remove the first token
             x = x[:,1:,:]
 
-        logits = self.head(x)
+        logits = self.head(x) # b, vocab_size
 
         printCondition = random.random() < 0.001 and tokenizer is not None
         if printCondition:
@@ -405,5 +413,20 @@ class GPT(nn.Module):
 
             loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), 
                                    ignore_index=self.config.padding_idx)
+
+
+            if points != None and self.pointNet !=None:
+                recPoints = self.helper(x) # b, (#Ys+#Vars) * #Points
+                recPoints, _ = torch.max(recPoints, dim=1)  # global max pooling
+                recPoints = recPoints.view(b*self.pointNetConfig.numberofPoints,
+                                self.pointNetConfig.numberofVars+self.pointNetConfig.numberofYs)
+                targetPoints = points.view(b*self.pointNetConfig.numberofPoints,
+                                self.pointNetConfig.numberofVars+self.pointNetConfig.numberofYs) 
+                recPoints = self.helper_batch_norm(recPoints)
+                targetPoints = self.helper_batch_norm(targetPoints)
+                mseLoss = F.mse_loss(recPoints, targetPoints)
+                #print('loss,mseLoss:',loss, mseLoss)
+                loss += mseLoss
+                
 
         return logits, loss
