@@ -145,6 +145,11 @@ tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize,
                       num_workers=0, ckpt_path=ckptPath)
 trainer = Trainer(model, train_dataset, val_dataset, tconf, bestLoss, device=device)
 
+# # load the best model before training
+# print('The following model {} has been loaded!'.format(ckptPath))
+# model.load_state_dict(torch.load(ckptPath))
+# model = model.eval().to(trainer.device)
+
 try:
     trainer.train()
 except KeyboardInterrupt:
@@ -189,7 +194,8 @@ try:
                           variables=variables,
                           temperature=1.0, 
                           sample=True, 
-                          top_k=40)[0]
+                          top_k=0.0,
+                          top_p=0.7)[0]
 
             # filter out predicted
             target = ''.join([train_dataset.itos[int(i)] for i in outputs[0]])
