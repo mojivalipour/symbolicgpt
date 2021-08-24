@@ -197,8 +197,13 @@ class CharDataset(Dataset):
         
         try:
             chunk = json.loads(chunk) # convert the sequence tokens to a dictionary
-        except:
-            print("Couldn't convert to json: {}".format(chunk))
+        except Exception as e:
+            print("Couldn't convert to json: {} \n error is: {}".format(chunk, e))
+            # try the previous example
+            idx = idx - 1 
+            idx = idx if idx>=0 else 0
+            chunk = self.data[idx]
+            chunk = json.loads(chunk) # convert the sequence tokens to a dictionary
             
         # find the number of variables in the equation
         eq = chunk[self.target]
@@ -274,13 +279,14 @@ class CharDataset(Dataset):
         return inputs, outputs, points, numVars
 
 def processDataFiles(files):
-    text = ''""
+    text = ""
     for f in tqdm(files):
         with open(f, 'r') as h: 
             lines = h.read() # don't worry we won't run out of file handles
             if lines[-1]==-1:
                 lines = lines[:-1]
-            text += lines #json.loads(line)        
+            #text += lines #json.loads(line)    
+            text = ''.join([lines,text])    
     return text
 
 def lossFunc(constants, eq, X, Y, eps=1e-5):
