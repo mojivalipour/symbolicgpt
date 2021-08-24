@@ -14,6 +14,7 @@ import os
 import glob
 import json
 import math
+import pickle
 import random
 import numpy as np
 #from tqdm import tqdm
@@ -38,16 +39,16 @@ set_seed(42)
 device='gpu'
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints = 30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars = 1 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints = 250 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars = 9 # the dimenstion of input points x, if you don't know then use the maximum
 numYs = 1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 200 # spatial extent of the model for its context
 batchSize = 64 # batch size of training data
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
 dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
-target = 'EQ' #'Skeleton' #'EQ'
-dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
+target = 'Skeleton' #'Skeleton' #'EQ'
+dataFolder = '1-9Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_20-250'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -60,7 +61,7 @@ variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
 # LEA_EMB: Learnable embedding for the variables, added to the pointNET embedding
 # STR_VAR: Add the number of variables to the first token
 addVars = True if variableEmbedding == 'STR_VAR' else False
-maxNumFiles = 30 # maximum number of file to load in memory for training the neural network
+maxNumFiles = 100 # maximum number of file to load in memory for training the neural network
 bestLoss = None # if there is any model to load as pre-trained one
 fName = '{}_SymbolicGPT_{}_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
                                              'GPT_PT_{}_{}'.format(method, target), 
@@ -74,15 +75,24 @@ except:
     print('Folder already exists!')
 
 # load the train dataset
-path = '{}/{}/Train/*.json'.format(dataDir, dataFolder)
-files = glob.glob(path)[:maxNumFiles]
-text = processDataFiles(files)
-chars = sorted(list(set(text))+['_','T','<','>',':']) # extract unique characters from the text before converting the text to a list, # T is for the test data
-text = text.split('\n') # convert the raw text to a set of examples
-text = text[:-1] if len(text[-1]) == 0 else text
-random.shuffle(text) # shuffle the dataset, it's important specailly for the combined number of variables experiment
-train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
+train_file = 'train_dataset.pb'
+if os.path.isfile(train_file):
+    # just load the train set
+    with open(train_file, 'rb') as f:
+        train_dataset = pickle.load(f)
+else:
+    # process training files from scratch
+    path = '{}/{}/Train/*.json'.format(dataDir, dataFolder)
+    files = glob.glob(path)[:maxNumFiles]
+    text = processDataFiles(files)
+    chars = sorted(list(set(text))+['_','T','<','>',':']) # extract unique characters from the text before converting the text to a list, # T is for the test data
+    text = text.split('\n') # convert the raw text to a set of examples
+    text = text[:-1] if len(text[-1]) == 0 else text
+    random.shuffle(text) # shuffle the dataset, it's important specailly for the combined number of variables experiment
+    train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
+                    numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
+    with open(train_file, 'wb') as f:
+        pickle.dump(train_dataset, f)
 
 # print a random sample
 idx = np.random.randint(train_dataset.__len__())
