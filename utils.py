@@ -243,6 +243,10 @@ class CharDataset(Dataset):
         eps = 1e-5
         points = torch.zeros(self.numVars+self.numYs, self.numPoints)
         for idx, xy in enumerate(zip(chunk['X'], chunk['Y'])):
+
+            # don't let to exceed the maximum number of points
+            if idx >= self.numPoints:
+                break
             
             x = xy[0]
             #x = [(e-minX[eID])/(maxX[eID]-minX[eID]+eps) for eID, e in enumerate(x)] # normalize x
