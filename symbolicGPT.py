@@ -79,7 +79,7 @@ train_file = 'train_dataset.pb'
 if os.path.isfile(train_file):
     # just load the train set
     with open(train_file, 'rb') as f:
-        train_dataset = pickle.load(f)
+        train_dataset,trainText,chars = pickle.load(f)
 else:
     # process training files from scratch
     path = '{}/{}/Train/*.json'.format(dataDir, dataFolder)
@@ -87,12 +87,12 @@ else:
     text = processDataFiles(files)
     chars = sorted(list(set(text))+['_','T','<','>',':']) # extract unique characters from the text before converting the text to a list, # T is for the test data
     text = text.split('\n') # convert the raw text to a set of examples
-    text = text[:-1] if len(text[-1]) == 0 else text
-    random.shuffle(text) # shuffle the dataset, it's important specailly for the combined number of variables experiment
+    trainText = text[:-1] if len(text[-1]) == 0 else text
+    random.shuffle(trainText) # shuffle the dataset, it's important specailly for the combined number of variables experiment
     train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
                     numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
     with open(train_file, 'wb') as f:
-        pickle.dump(train_dataset, f)
+        pickle.dump([train_dataset,trainText,chars], f)
 
 # print a random sample
 idx = np.random.randint(train_dataset.__len__())
