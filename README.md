@@ -2,7 +2,7 @@
 This is the code for our proposed method, SymbolicGPT. We tried to keep the implementation as simple and clean as possible to make sure it's understandable and easy to reuse. Please feel free to add features and submit a pull-request.
 
 # Results/Models/Datasets
-- Download via [link](https://drive.google.com/drive/folders/19HsGO_dMgx2xHQBJmgU8-ngy47cU-lNk?usp=sharing)
+- Download via [link](https://www.dropbox.com/sh/yq03daorth1h4kj/AADolbgySCjOO18qGoP5Abqfa?dl=0)
 
 # Mirror Repository:
 If you want to pull, open an issue or follow this repository, you can use this github repo [link](https://github.com/mojivalipour/symbolicgpt) which is a mirror repo for this one. Unfortunately, the UWaterloo GITLAB is limited to users with @uwaterloo emails. Therefore, you cannot contribute to this repository. Why do I not use github directly? You can find the answer [here](https://github.com/1995parham/github-do-not-ban-us). It's because I no longer trust GITHUB as my primary repository. Once, I was adversely affected for no good reason.
