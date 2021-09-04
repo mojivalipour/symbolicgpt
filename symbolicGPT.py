@@ -37,18 +37,21 @@ set_seed(42)
 
 # config
 device='gpu'
-numEpochs = 4 # number of epochs to train the GPT+PT model
+numEpochs = 20 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints = 250 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars = 9 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints = 30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars = 1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs = 1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 200 # spatial extent of the model for its context
 batchSize = 64 # batch size of training data
+target = 'Skeleton' #'Skeleton' #'EQ'
+const_range = [-2.1, 2.1] # constant range to generate during training only if target is Skeleton
+decimals = 8 # decimals of the points only if target is Skeleton
+xRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
+dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
 dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
-target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1-9Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_20-250'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -75,7 +78,7 @@ except:
     print('Folder already exists!')
 
 # load the train dataset
-train_file = 'train_dataset.pb'
+train_file = 'train_dataset.pb' # make sure to delete if you want to start from scratch
 if os.path.isfile(train_file):
     # just load the train set
     with open(train_file, 'rb') as f:
@@ -90,7 +93,8 @@ else:
     trainText = text[:-1] if len(text[-1]) == 0 else text
     random.shuffle(trainText) # shuffle the dataset, it's important specailly for the combined number of variables experiment
     train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
-                    numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
+                    numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
+                    const_range=const_range, xRange=xRange, decimals=decimals) 
     with open(train_file, 'wb') as f:
         pickle.dump([train_dataset,trainText,chars], f)
 
@@ -108,7 +112,8 @@ files = glob.glob(path)
 textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
 val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars)
+                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
+                const_range=const_range, xRange=xRange, decimals=decimals)
 
 # print a random sample
 idx = np.random.randint(val_dataset.__len__())
@@ -125,7 +130,8 @@ textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
 # test_dataset_target = CharDataset(textTest, blockSize, chars, target=target)
 test_dataset = CharDataset(textTest, 2*blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, addVars=addVars)
+                numYs=numYs, numPoints=numPoints, addVars=addVars,
+                const_range=const_range, xRange=xRange, decimals=decimals)
 
 # print a random sample
 idx = np.random.randint(test_dataset.__len__())
@@ -197,7 +203,8 @@ try:
             inputs = inputs[:,0:1].to(trainer.device)
             points = points.to(trainer.device)
             variables = variables.to(trainer.device)
-            outputsHat = sample(model, 
+            outputsHat = sample(
+                          model, 
                           inputs, 
                           blockSize, 
                           points=points,

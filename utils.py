@@ -164,7 +164,10 @@ def relativeErr(y, yHat, info=False, eps=1e-5):
 
 class CharDataset(Dataset):
     def __init__(self, data, block_size, chars, 
-        numVars, numYs, numPoints, target='EQ', addVars=False):
+        numVars, numYs, numPoints, target='EQ', 
+        addVars=False, const_range=[-0.4, 0.4],
+        xRange=[-3.0,3.0], decimals=4):
+
         data_size, vocab_size = len(data), len(chars)
         print('data has %d examples, %d unique.' % (data_size, vocab_size))
         
@@ -187,6 +190,10 @@ class CharDataset(Dataset):
         self.data = data # it should be a list of examples
         self.target = target
         self.addVars = addVars
+
+        self.const_range = const_range
+        self.xRange = xRange
+        self.decimals = decimals
     
     def __len__(self):
         return len(self.data)-1
@@ -215,7 +222,30 @@ class CharDataset(Dataset):
             v = int(v)
             if v > numVars:
                 numVars = v
-        
+
+        if self.target == 'Skeleton':
+            # randomly generate the constants
+            cleanEqn = ''
+            for chr in eq:
+                if chr == 'C':
+                    # genereate a new random number
+                    chr = '{}'.format(np.random.uniform(self.const_range[0], self.const_range[1]))
+                cleanEqn += chr
+
+            nPoints = len(chunk['Y'])
+
+            # update the points
+            try:
+                chunk['X'], chunk['Y'] = generateDataStrEq(cleanEqn, n_points=nPoints, n_vars=numVars,
+                                                           decimals=self.decimals, min_x=self.xRange[0], 
+                                                           max_x=self.xRange[1])
+            except Exception as e: 
+                # for different reason this might happend including but not limited to division by zero
+                print("".join([
+                    f"We just used the original equation and support points because of {e}. ",
+                    f"The equation is {eq}, and we update the equation to {cleanEqn}",
+                ]))
+ 
         # encode every character in the equation to an integer
         # < is SOS, > is EOS
         if self.addVars:
@@ -324,7 +354,8 @@ def lossFunc(constants, eq, X, Y, eps=1e-5):
     return err
 
 def generateDataStrEq(eq, n_points=2, n_vars=3,
-                        decimals=4, supportPoints=None, min_x=0, max_x=3):
+                      decimals=4, supportPoints=None, 
+                      min_x=0, max_x=3):
     X = []
     Y= []
     # TODO: Need to make this faster
