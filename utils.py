@@ -166,7 +166,7 @@ class CharDataset(Dataset):
     def __init__(self, data, block_size, chars, 
         numVars, numYs, numPoints, target='EQ', 
         addVars=False, const_range=[-0.4, 0.4],
-        xRange=[-3.0,3.0], decimals=4):
+        xRange=[-3.0,3.0], decimals=4, trainMode=False):
 
         data_size, vocab_size = len(data), len(chars)
         print('data has %d examples, %d unique.' % (data_size, vocab_size))
@@ -194,6 +194,7 @@ class CharDataset(Dataset):
         self.const_range = const_range
         self.xRange = xRange
         self.decimals = decimals
+        self.trainMode = trainMode
     
     def __len__(self):
         return len(self.data)-1
@@ -213,7 +214,10 @@ class CharDataset(Dataset):
             chunk = json.loads(chunk) # convert the sequence tokens to a dictionary
             
         # find the number of variables in the equation
+        printInfoCondition = random.random() < 0.001
         eq = chunk[self.target]
+        if printInfoCondition:
+            print(f'\nEquation: {eq}')
         vars = re.finditer('x[\d]+',eq) 
         numVars = 0
         for v in vars:
@@ -223,7 +227,8 @@ class CharDataset(Dataset):
             if v > numVars:
                 numVars = v
 
-        if self.target == 'Skeleton':
+        if self.target == 'Skeleton' and self.trainMode:
+            threshold = 5000
             # randomly generate the constants
             cleanEqn = ''
             for chr in eq:
@@ -232,13 +237,26 @@ class CharDataset(Dataset):
                     chr = '{}'.format(np.random.uniform(self.const_range[0], self.const_range[1]))
                 cleanEqn += chr
 
-            nPoints = len(chunk['Y'])
-
             # update the points
+            nPoints = np.random.randint(*self.numPoints) #if supportPoints is None else len(supportPoints)
             try:
-                chunk['X'], chunk['Y'] = generateDataStrEq(cleanEqn, n_points=nPoints, n_vars=numVars,
-                                                           decimals=self.decimals, min_x=self.xRange[0], 
-                                                           max_x=self.xRange[1])
+                if printInfoCondition:
+                    print('Org:',chunk['X'], chunk['Y'])
+
+                X, y = generateDataStrEq(cleanEqn, n_points=nPoints, n_vars=self.numVars,
+                                         decimals=self.decimals, min_x=self.xRange[0], 
+                                         max_x=self.xRange[1])
+
+                # replace out of threshold with maximum numbers
+                y = [e if abs(e)<threshold else np.sign(e) * threshold for e in y]
+
+                # check if there is nan/inf/very large numbers in the y
+                conditions = (np.isnan(y).any() or np.isinf(y).any()) or len(y) == 0 or (abs(min(y)) > threshold or abs(max(y)) > threshold)
+                if not conditions:
+                    chunk['X'], chunk['Y'] = X, y
+
+                if printInfoCondition:
+                    print('Evd:',chunk['X'], chunk['Y'])
             except Exception as e: 
                 # for different reason this might happend including but not limited to division by zero
                 print("".join([
@@ -270,19 +288,19 @@ class CharDataset(Dataset):
         # maxY = max(chunk['Y'])
         # minX = min(chunk['X'])
         # minY = min(chunk['Y'])
-        eps = 1e-5
-        points = torch.zeros(self.numVars+self.numYs, self.numPoints)
+        points = torch.zeros(self.numVars+self.numYs, self.numPoints[1]-1)
         for idx, xy in enumerate(zip(chunk['X'], chunk['Y'])):
 
             # don't let to exceed the maximum number of points
-            if idx >= self.numPoints:
+            if idx >= self.numPoints[1]-1:
                 break
             
             x = xy[0]
             #x = [(e-minX[eID])/(maxX[eID]-minX[eID]+eps) for eID, e in enumerate(x)] # normalize x
             x = x + [0]*(max(self.numVars-len(x),0)) # padding
 
-            y = [xy[1]] if type(xy[1])== float else xy[1]
+            y = [xy[1]] if type(xy[1])==float or type(xy[1])==np.float64 else xy[1]
+
             #y = [(e-minY)/(maxY-minY+eps) for e in y]
             y = y + [0]*(max(self.numYs-len(y),0)) # padding
             p = x+y # because it is only one point 
@@ -300,11 +318,17 @@ class CharDataset(Dataset):
         # maxP = points.max(dim=1, keepdim=True)[0]
         # points -= minP
         # points /= (maxP-minP+eps)
-        points -= points.mean()
-        points /= points.std()
+        # if printInfoCondition:
+        #     print(f'Points: {points}')
+
+        # points -= points.mean()
+        # points /= points.std()
         points = torch.nan_to_num(points, nan=self.threshold[1],
                                  posinf=self.threshold[1],
                                  neginf=self.threshold[0])
+
+        # if printInfoCondition:
+        #     print(f'Points: {points}')
         #points += torch.normal(0, 0.05, size=points.shape) # add a guassian noise
         
         inputs = torch.tensor(inputs, dtype=torch.long)
@@ -368,6 +392,7 @@ def generateDataStrEq(eq, n_points=2, n_vars=3,
                     x += list(np.round(np.random.uniform(min_x[idx], max_x[idx], 1), decimals))
             else:
                 x = list(np.round(np.random.uniform(min_x, max_x, n_vars), decimals))
+            assert len(x)!=0, "For some reason, we didn't generate the points correctly!"
         else:
             x = supportPoints[p]
 
