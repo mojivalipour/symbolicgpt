@@ -39,18 +39,19 @@ set_seed(42)
 device='gpu'
 numEpochs = 20 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints = 30 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numPoints = [30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars = 1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs = 1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 200 # spatial extent of the model for its context
-batchSize = 64 # batch size of training data
+blockSize = 64 # spatial extent of the model for its context
+testBlockSize = 400
+batchSize = 128 # batch size of training data
 target = 'Skeleton' #'Skeleton' #'EQ'
 const_range = [-2.1, 2.1] # constant range to generate during training only if target is Skeleton
 decimals = 8 # decimals of the points only if target is Skeleton
-xRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
+trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
 dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
-dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
@@ -66,10 +67,9 @@ variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
 addVars = True if variableEmbedding == 'STR_VAR' else False
 maxNumFiles = 100 # maximum number of file to load in memory for training the neural network
 bestLoss = None # if there is any model to load as pre-trained one
-fName = '{}_SymbolicGPT_{}_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
+fName = '{}_SymbolicGPT_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
                                              'GPT_PT_{}_{}'.format(method, target), 
                                              'Padding',
-                                             blockSize,
                                              variableEmbedding)
 ckptPath = '{}/{}.pt'.format(addr,fName.split('.txt')[0])
 try: 
@@ -94,7 +94,7 @@ else:
     random.shuffle(trainText) # shuffle the dataset, it's important specailly for the combined number of variables experiment
     train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
                     numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
-                    const_range=const_range, xRange=xRange, decimals=decimals) 
+                    const_range=const_range, xRange=trainRange, decimals=decimals, trainMode=True) 
     with open(train_file, 'wb') as f:
         pickle.dump([train_dataset,trainText,chars], f)
 
@@ -113,7 +113,7 @@ textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
 val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, 
                 numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
-                const_range=const_range, xRange=xRange, decimals=decimals)
+                const_range=const_range, xRange=trainRange, decimals=decimals)
 
 # print a random sample
 idx = np.random.randint(val_dataset.__len__())
@@ -129,9 +129,9 @@ files = glob.glob(path)
 textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
 # test_dataset_target = CharDataset(textTest, blockSize, chars, target=target)
-test_dataset = CharDataset(textTest, 2*blockSize, chars, numVars=numVars, 
+test_dataset = CharDataset(textTest, testBlockSize, chars, numVars=numVars, 
                 numYs=numYs, numPoints=numPoints, addVars=addVars,
-                const_range=const_range, xRange=xRange, decimals=decimals)
+                const_range=const_range, xRange=trainRange, decimals=decimals)
 
 # print a random sample
 idx = np.random.randint(test_dataset.__len__())
@@ -143,7 +143,7 @@ print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,
 
 # create the model
 pconf = PointNetConfig(embeddingSize=embeddingSize, 
-                       numberofPoints=numPoints, 
+                       numberofPoints=numPoints[1]-1, 
                        numberofVars=numVars, 
                        numberofYs=numYs,
                        method=method,
