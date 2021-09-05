@@ -39,7 +39,7 @@ set_seed(seed)
 # config
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=250 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numPoints=[20,250] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=9 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 400 # spatial extent of the model for its context
@@ -50,7 +50,7 @@ useRange = True
 decimals = 4
 const_range = [-2.1, 2.1]
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
-dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints[1], embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
 dataFolder = '1-9Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_20-250'
@@ -95,7 +95,7 @@ else:
     trainText = text[:-1] if len(text[-1]) == 0 else text
     random.shuffle(trainText) # shuffle the dataset, it's important specailly for the combined number of variables experiment
     train_dataset = CharDataset(trainText, blockSize, chars, numVars=numVars, 
-                    numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
+                    numYs=numYs, numPoints=numPoints[1], target=target, addVars=addVars) 
     with open(train_file, 'wb') as f:
         pickle.dump([train_dataset,trainText,chars], f)
 
@@ -113,7 +113,7 @@ files = glob.glob(path)
 textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
 val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars)
+                numYs=numYs, numPoints=numPoints[1], target=target, addVars=addVars)
 
 # print a random sample
 idx = np.random.randint(val_dataset.__len__())
@@ -130,7 +130,7 @@ textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
 # test_dataset_target = CharDataset(textTest, blockSize, chars, target=target)
 test_dataset = CharDataset(textTest, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, addVars=addVars)
+                numYs=numYs, numPoints=numPoints[1], addVars=addVars)
 
 # print a random sample
 idx = np.random.randint(test_dataset.__len__())
@@ -142,7 +142,7 @@ print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,
 
 # create the model
 pconf = PointNetConfig(embeddingSize=embeddingSize, 
-                       numberofPoints=numPoints, 
+                       numberofPoints=numPoints[1], 
                        numberofVars=numVars, 
                        numberofYs=numYs,
                        method=method,
@@ -271,128 +271,128 @@ templatesEQs = {
             'C*sin(C*x1+C)*cos(C*x2+C)+C',
             'C*x1**x2+C',
             'C*x1**4+C*x1**3+C*x2**2+C*x2+C',
-            # AI Faynman
-            'C*exp(C*x1**2+C)/sqrt(C*x2+C)+C',
-            'C*x1*x2+C',
-            'C*1/2*x1*x2**2+C',
-            'C*x1/x2+C',
-            'C*arcsin(C*x1*sin(C*x2+C)+C)+C',
-            'C*(C*x1/(2*pi)+C)*x2+C',
-            'C*3/2*x1*x2+C',
-            'C*x1/(C*4*pi*x2**2+C)+C',
-            'C*x1*x2**2/2+C',
-            'C*1+C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)+C',
-            'C*x1*x2**2+C',
-            'C*x1/(2*(1+C*x2+C))+C',
-            'C*x1*(C*x2/(2*pi)+C)+C',
+            # # AI Faynman
+            # 'C*exp(C*x1**2+C)/sqrt(C*x2+C)+C',
+            # 'C*x1*x2+C',
+            # 'C*1/2*x1*x2**2+C',
+            # 'C*x1/x2+C',
+            # 'C*arcsin(C*x1*sin(C*x2+C)+C)+C',
+            # 'C*(C*x1/(2*pi)+C)*x2+C',
+            # 'C*3/2*x1*x2+C',
+            # 'C*x1/(C*4*pi*x2**2+C)+C',
+            # 'C*x1*x2**2/2+C',
+            # 'C*1+C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)+C',
+            # 'C*x1*x2**2+C',
+            # 'C*x1/(2*(1+C*x2+C))+C',
+            # 'C*x1*(C*x2/(2*pi)+C)+C',
             ], 
-        3: [
-            # AI Faynman
-            'C*exp(C*(x1/x2)**2)/(C*sqrt(2*x3)*x2+C)+C',
-            'C*x1/sqrt(1-x2**2/x3**2+C)+C',
-            'C*x1*x2*x3+C',
-            'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
-            'C*(C*x1+C*x2+C)/(C*1+C*x1*x2/x3**2+C)+C',
-            'C*x1*x3*sin(C*x2+C)+C',
-            'C*1/(C*1/x1+C*x2/x3+C)+C',
-            'C*x1*sin(C*x2*x3/2+C)**2/sin(x3/2)**2+C',
-            'C*arcsin(C*x1/(C*x2*x3+C)+C)+C',
-            'C*x1/(C*1-C*x2/x3+C)+C',
-            'C*(1+C*x1/x3+C)/sqrt(1-C*x1**2/x3**2+C)*x2+C',
-            'C*(C*x1/(C*x3+C)+C)*x2+C',
-            'C*x1+C*x2+C*2*sqrt(x1*x2)*cos(x3)+C',
-            'C*1/(x1-1)*x2*x3+C',
-            'C*x1*x2*x3+C',
-            'C*sqrt(x1*x2/x3)+C',
-            'C*x1*x2**2/sqrt(C*1-C*x3**2/x2**2+C)+C',
-            'C*x1/(C*4*pi*x2*x3+C)+C',
-            'C*1/(C*4*pi*x1+C)*x4*cos(C*x2+C)/x3**2+C',
-            'C*3/5*x1**2/(C*4*pi*x2*x3+C)+C',
-            'C*x1/x2*1/(1+x3)+C',
-            'C*x1/sqrt(C*1-C*x2**2/x3**2+C)+C',
-            'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
-            '-C*x1*x3*COS(C*x2+C)+C',
-            '-C*x1*x2*COS(C*x3+C)+C',
-            'C*sqrt(C*x1**2/x2**2-C*pi**2/x3**2+C)+C',
-            'C*x1*x2*x3**2+C',
-            'C*x1*x2/(C*2*pi*x3+C)+C',
-            'C*x1*x2*x3/2+C',
-            'C*x1*x2/(4*pi*x3)+C',
-            'C*x1*(1+C*x2+C)*x3+C',
-            'C*2*x1*x2/(C*x3/(2*pi)+C)+C',
-            'C*sin(C*x1*x2/(C*x3/(2*pi)+C)+C)**2+C',
-            'C*2*x1*(1-C*cos(C*x2*x3+C)+C)+C',
-            'C*(C*x1/(2*pi)+C)**2/(C*2*x2*x3**2+C)+C',
-            'C*2*pi*x3/(C*x1*x2+C)+C',
-            'C*x1*(1+C*x2*cos(x3)+C)+C',
-        ], 
-        4: [
-            # AI Faynman
-            'C*exp(C*((C*x1+C*x2+C)/x3)**2+C)/(C*sqrt(C*x4+C)*x3+C)+C', 
-            'C*sqrt(C*(C*x2+C*x1+C)**2+(C*x3+C*x4+C)**2+C)+C',    
-            'C*x1*x2/(C*x3*x4*x2**3+C)+C',
-            'C/2*x1*(C*x2**2+C*x3**2+C*x4**2+C)+C',
-            'C*(C*x1-C*x2*x3+C)/sqrt(C*1-C*x2**2/x4**2+C)+C',
-            'C*(C*x1-C*x3*x2/x4**2+C)/sqrt(C*1-C*x3**2/x4**2+C)+C',
-            'C*(C*x1*x3+C*x2*x4+C)/(C*x1+C*x2+C)+C',
-            'C*x1*x2*x3*sin(C*x4+C)+C',
-            'C*1/2*x1*(C*x3**2+C*x4**2+C)*1/2*x2**2+C',
-            'C*sqrt(C*x1**2+C*x2**2-C*2*x1*x2*cos(C*x3-C*x4+C))+C',
-            'C*x1*x2*x3/x4+C',
-            'C*4*pi*x1*(C*x2/(2*pi)+C)**2/(C*x3*x4**2+C)+C',
-            'C*x1*x2*x3/x4+C',
-            'C*1/(C*x1-1+C)*x2*x3/x4+C',
-            'C*x1*(C*cos(C*x2*x3+C)+C*x4*cos(C*x2*x3+C)**2+C)+C',
-            'C*x1/(C*4*pi*x2+C)*3*cos(C*x3+C)*sin(C*x3+C)/x4**3+C',
-            'C*x1*x2/(C*x3*(C*x4**2-x5**2+C)+C)+C',
-            'C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)*x3*x4+C',
-            'C*1/(C*4*pi*x1*x2**2+C)*2*x3/x4+C',
-            'C*x1*x2*x3/(2*x4)+C',
-            'C*x1*x2*x3/x4+C',
-            'C*1/(C*exp(C*(C*x1/(2*pi)+C)*x4/(C*x2*x3+C)+C)-1)+C',
-            'C*(x1/(2*pi))*x2/(C*exp(C*(C*x1/(2*pi)+C)*x2/(C*x3*x4+C))-1)+C',
-            'C*x1*sqrt(C*x2**2+C*x3**2+C*x4**2+C)+C',
-            'C*2*x1*x2**2*x3/(C*x4/(2*pi)+C)+C',
-            'C*x1*(C*exp(C*x3*x2/(C*x4*x5+C)+C)-1)+C',
-            '-C*x1*x2*x3/x4+C',
-        ], 
-        5: [
-            # AI Faynman
-            'C*x1*x2*x3/(C*x4*x5*x3**3+C)+C',  
-            'C*x1*(C*x2+C*x3*x4*sin(C*x5+C))+C',     
-            'C*x1*x2*x3*(C*1/x4-C*1/x5+C)+C',  
-            'C*x1/(2*pi)*x2**3/(pi**2*x5**2*(exp((x1/(2*pi))*x2/(x3*x4))-1))+C',   
-            'C*x1*x2*x3*ln(x4/x5)+C',
-            'C*x1*(C*x2-C*x3+C)*x4/x5+C',
-            'C*x1*x2**2*x3/(C*3*x4*x5+C)+C',
-            'C*x1/(C*4*pi*x2*x3*(1-C*x4/x5+C)+C)+C',
-            'C*x1*x2*x3*x4/(C*x5/(2*pi)+C)+C',
-            'C*x1/(C*exp(C*x2*x3/(C*x4*x5+C)+C)+C*exp(-C*x2*x3/(C*x4*x5+C)))+C',
-            'C*x1*x2*tanh(C*x2*x3/(C*x4*x5+C)+C)+C',
-            '-C*x1*x3**4/(C*2*(C*4*pi*x2+C)**2*(C*x4/(2*pi)+C)**2)*(C*1/x5**2+C)',
-        ], 
-        6: [
-            # AI Faynman
-            'C*x1*x4+C*x2*x5+C*x3*x6+C', 
-            'C*x1**2*x2**2/(C*6*x3*x4*x5**3+C)+C',     
-            'C*x1*exp(-C*x2*x3*x4/(C*x5*x6+C))+C',      
-            'C*x1/(C*4*pi*x2+C)*3*x5/x6**5*sqrt(C*x3**2+x4**2+C)+C',
-            'C*x1*(1+C*x2*x3*cos(C*x4+C)/(C*x5*x6+C)+C)+C',
-            'C*(C*x1*x5*x4/(C*x6/(2*pi)+C)+C)*sin(C*(C*x2-C*x3+C)*x4/2)**2/(C*(C*x2-C*x3+C)*x4/2)**2+C',
-        ], 
-        7: [
-            # AI Faynman
-            'C*(C*1/2*x1*x4*x5**2+C)*(C*8*x6*x7**2/3+C)*(C*x2**4/(C*x2**2-C*x3**2+C)**2+C)+C',
+        # 3: [
+        #     # AI Faynman
+        #     'C*exp(C*(x1/x2)**2)/(C*sqrt(2*x3)*x2+C)+C',
+        #     'C*x1/sqrt(1-x2**2/x3**2+C)+C',
+        #     'C*x1*x2*x3+C',
+        #     'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
+        #     'C*(C*x1+C*x2+C)/(C*1+C*x1*x2/x3**2+C)+C',
+        #     'C*x1*x3*sin(C*x2+C)+C',
+        #     'C*1/(C*1/x1+C*x2/x3+C)+C',
+        #     'C*x1*sin(C*x2*x3/2+C)**2/sin(x3/2)**2+C',
+        #     'C*arcsin(C*x1/(C*x2*x3+C)+C)+C',
+        #     'C*x1/(C*1-C*x2/x3+C)+C',
+        #     'C*(1+C*x1/x3+C)/sqrt(1-C*x1**2/x3**2+C)*x2+C',
+        #     'C*(C*x1/(C*x3+C)+C)*x2+C',
+        #     'C*x1+C*x2+C*2*sqrt(x1*x2)*cos(x3)+C',
+        #     'C*1/(x1-1)*x2*x3+C',
+        #     'C*x1*x2*x3+C',
+        #     'C*sqrt(x1*x2/x3)+C',
+        #     'C*x1*x2**2/sqrt(C*1-C*x3**2/x2**2+C)+C',
+        #     'C*x1/(C*4*pi*x2*x3+C)+C',
+        #     'C*1/(C*4*pi*x1+C)*x4*cos(C*x2+C)/x3**2+C',
+        #     'C*3/5*x1**2/(C*4*pi*x2*x3+C)+C',
+        #     'C*x1/x2*1/(1+x3)+C',
+        #     'C*x1/sqrt(C*1-C*x2**2/x3**2+C)+C',
+        #     'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
+        #     '-C*x1*x3*cos(C*x2+C)+C',
+        #     '-C*x1*x2*cos(C*x3+C)+C',
+        #     'C*sqrt(C*x1**2/x2**2-C*pi**2/x3**2+C)+C',
+        #     'C*x1*x2*x3**2+C',
+        #     'C*x1*x2/(C*2*pi*x3+C)+C',
+        #     'C*x1*x2*x3/2+C',
+        #     'C*x1*x2/(4*pi*x3)+C',
+        #     'C*x1*(1+C*x2+C)*x3+C',
+        #     'C*2*x1*x2/(C*x3/(2*pi)+C)+C',
+        #     'C*sin(C*x1*x2/(C*x3/(2*pi)+C)+C)**2+C',
+        #     'C*2*x1*(1-C*cos(C*x2*x3+C)+C)+C',
+        #     'C*(C*x1/(2*pi)+C)**2/(C*2*x2*x3**2+C)+C',
+        #     'C*2*pi*x3/(C*x1*x2+C)+C',
+        #     'C*x1*(1+C*x2*cos(x3)+C)+C',
+        # ], 
+        # 4: [
+        #     # AI Faynman
+        #     'C*exp(C*((C*x1+C*x2+C)/x3)**2+C)/(C*sqrt(C*x4+C)*x3+C)+C', 
+        #     'C*sqrt(C*(C*x2+C*x1+C)**2+(C*x3+C*x4+C)**2+C)+C',    
+        #     'C*x1*x2/(C*x3*x4*x2**3+C)+C',
+        #     'C/2*x1*(C*x2**2+C*x3**2+C*x4**2+C)+C',
+        #     'C*(C*x1-C*x2*x3+C)/sqrt(C*1-C*x2**2/x4**2+C)+C',
+        #     'C*(C*x1-C*x3*x2/x4**2+C)/sqrt(C*1-C*x3**2/x4**2+C)+C',
+        #     'C*(C*x1*x3+C*x2*x4+C)/(C*x1+C*x2+C)+C',
+        #     'C*x1*x2*x3*sin(C*x4+C)+C',
+        #     'C*1/2*x1*(C*x3**2+C*x4**2+C)*1/2*x2**2+C',
+        #     'C*sqrt(C*x1**2+C*x2**2-C*2*x1*x2*cos(C*x3-C*x4+C))+C',
+        #     'C*x1*x2*x3/x4+C',
+        #     'C*4*pi*x1*(C*x2/(2*pi)+C)**2/(C*x3*x4**2+C)+C',
+        #     'C*x1*x2*x3/x4+C',
+        #     'C*1/(C*x1-1+C)*x2*x3/x4+C',
+        #     'C*x1*(C*cos(C*x2*x3+C)+C*x4*cos(C*x2*x3+C)**2+C)+C',
+        #     'C*x1/(C*4*pi*x2+C)*3*cos(C*x3+C)*sin(C*x3+C)/x4**3+C',
+        #     'C*x1*x2/(C*x3*(C*x4**2-x5**2+C)+C)+C',
+        #     'C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)*x3*x4+C',
+        #     'C*1/(C*4*pi*x1*x2**2+C)*2*x3/x4+C',
+        #     'C*x1*x2*x3/(2*x4)+C',
+        #     'C*x1*x2*x3/x4+C',
+        #     'C*1/(C*exp(C*(C*x1/(2*pi)+C)*x4/(C*x2*x3+C)+C)-1)+C',
+        #     'C*(x1/(2*pi))*x2/(C*exp(C*(C*x1/(2*pi)+C)*x2/(C*x3*x4+C))-1)+C',
+        #     'C*x1*sqrt(C*x2**2+C*x3**2+C*x4**2+C)+C',
+        #     'C*2*x1*x2**2*x3/(C*x4/(2*pi)+C)+C',
+        #     'C*x1*(C*exp(C*x3*x2/(C*x4*x5+C)+C)-1)+C',
+        #     '-C*x1*x2*x3/x4+C',
+        # ], 
+        # 5: [
+        #     # AI Faynman
+        #     'C*x1*x2*x3/(C*x4*x5*x3**3+C)+C',  
+        #     'C*x1*(C*x2+C*x3*x4*sin(C*x5+C))+C',     
+        #     'C*x1*x2*x3*(C*1/x4-C*1/x5+C)+C',  
+        #     'C*x1/(2*pi)*x2**3/(pi**2*x5**2*(exp((x1/(2*pi))*x2/(x3*x4))-1))+C',   
+        #     'C*x1*x2*x3*log(x4/x5)+C',
+        #     'C*x1*(C*x2-C*x3+C)*x4/x5+C',
+        #     'C*x1*x2**2*x3/(C*3*x4*x5+C)+C',
+        #     'C*x1/(C*4*pi*x2*x3*(1-C*x4/x5+C)+C)+C',
+        #     'C*x1*x2*x3*x4/(C*x5/(2*pi)+C)+C',
+        #     'C*x1/(C*exp(C*x2*x3/(C*x4*x5+C)+C)+C*exp(-C*x2*x3/(C*x4*x5+C)))+C',
+        #     'C*x1*x2*tanh(C*x2*x3/(C*x4*x5+C)+C)+C',
+        #     '-C*x1*x3**4/(C*2*(C*4*pi*x2+C)**2*(C*x4/(2*pi)+C)**2)*(C*1/x5**2+C)',
+        # ], 
+        # 6: [
+        #     # AI Faynman
+        #     'C*x1*x4+C*x2*x5+C*x3*x6+C', 
+        #     'C*x1**2*x2**2/(C*6*x3*x4*x5**3+C)+C',     
+        #     'C*x1*exp(-C*x2*x3*x4/(C*x5*x6+C))+C',      
+        #     'C*x1/(C*4*pi*x2+C)*3*x5/x6**5*sqrt(C*x3**2+x4**2+C)+C',
+        #     'C*x1*(1+C*x2*x3*cos(C*x4+C)/(C*x5*x6+C)+C)+C',
+        #     'C*(C*x1*x5*x4/(C*x6/(2*pi)+C)+C)*sin(C*(C*x2-C*x3+C)*x4/2)**2/(C*(C*x2-C*x3+C)*x4/2)**2+C',
+        # ], 
+        # 7: [
+        #     # AI Faynman
+        #     'C*(C*1/2*x1*x4*x5**2+C)*(C*8*x6*x7**2/3+C)*(C*x2**4/(C*x2**2-C*x3**2+C)**2+C)+C',
             
-        ], 
-        8: [
-            # AI Faynman
-            'C*x1*x8/(C*x4*x5+C)+C*(C*x1*x2+C)/(C*x3*x7**2*x4*x5+C)*x6+C',            
-        ], 
-        9: [
-            # AI Faynman
-            'C*x3*x4*x5/((C*x2+C*x1+C)**2+(C*x6+C*x7+C)**2+(C*x8+C*x9)**2+C)+C',
-        ], 
+        # ], 
+        # 8: [
+        #     # AI Faynman
+        #     'C*x1*x8/(C*x4*x5+C)+C*(C*x1*x2+C)/(C*x3*x7**2*x4*x5+C)*x6+C',            
+        # ], 
+        # 9: [
+        #     # AI Faynman
+        #     'C*x3*x4*x5/((C*x2+C*x1+C)**2+(C*x6+C*x7+C)**2+(C*x8+C*x9)**2+C)+C',
+        # ], 
     }
 
 # Check if there is a similar equation in the training set
@@ -402,49 +402,50 @@ eqList = []
 for lst in templatesEQs.values():
     eqList.extend(lst)
 
-bestErr = {key:0 for key in eqList}
-bestEquations = {'C':0 for key in eqList}
-bestTemplates = {'C':0 for key in eqList}
+bestErr = {key:1000000 for key in eqList}
+bestEquations = {key:'C' for key in eqList}
+bestTemplates = {key:'C' for key in eqList}
 
 print('The list of equations:', eqList)
-foundEQ = {}
-for sample in tqdm(trainText):
-    try:
-        sample = json.loads(sample) # convert the sequence tokens to a dictionary
-    except:
-        print("Couldn't convert to json: {}".format(sample))
-        idx = idx - 1 
-        idx = idx if idx>=0 else 0
-        sample = trainText[idx]
-        sample = json.loads(sample)
+# foundEQ = {}
+# for sample in tqdm(trainText):
+#     try:
+#         sample = json.loads(sample) # convert the sequence tokens to a dictionary
+#     except:
+#         print("Couldn't convert to json: {}".format(sample))
+#         idx = idx - 1 
+#         idx = idx if idx>=0 else 0
+#         sample = trainText[idx]
+#         sample = json.loads(sample)
         
-    # find the number of variables in the equation
-    eq = sample['Skeleton']
+#     # find the number of variables in the equation
+#     eq = sample['Skeleton']
 
-    if eq in eqList:
-        foundEQ[eq] = 1 if eq not in foundEQ else foundEQ[eq] + 1
-        print('This equation has been found in the data: {}'.format(eq))
+#     if eq in eqList:
+#         foundEQ[eq] = 1 if eq not in foundEQ else foundEQ[eq] + 1
+#         print('This equation has been found in the data: {}'.format(eq))
 
-# save the results to a file
-fileName = './benchmarkSimilarEquations.json'
-with open(fileName, 'w', encoding="utf-8") as o:
-    json.dump(foundEQ, o)
+# for eq in eqList:
+#     if eq not in foundEQ.keys():
+#         foundEQ[eq] = 0
+#         print('This equation: {} is not in the data!'.format(eq))
 
-for eq in eqList:
-    if eq not in foundEQ.keys():
-        print('This equation: {} is not in the data!'.format(eq))
+# # save the results to a file
+# fileName = './benchmarkSimilarEquations.json'
+# with open(fileName, 'w', encoding="utf-8") as o:
+#     json.dump(foundEQ, o)
         
-print('{} has been saved succesfully.'.format(fileName))
+# print('{} has been saved succesfully.'.format(fileName))
 
 # load the best model
 model.load_state_dict(torch.load(ckptPath))
 model = model.eval().to(trainer.device)
 print('{} model has been loaded!'.format(ckptPath))
 
-numTests = 100
+numTests = 10
 from utils import *
 for i in tqdm(range(numTests)):
-    for skeletonEqn in eqList:
+    for skeletonEqn in tqdm(eqList):
         # replace the constants with new ones
         target = ''
         for chr in skeletonEqn:
@@ -454,7 +455,10 @@ for i in tqdm(range(numTests)):
             target += chr
         pointsList = []
         pointsListTest = []
-        for p in range(numPoints):
+
+        nPoints = np.random.randint(*numPoints) 
+
+        for p in range(nPoints):
             minX, maxX = (trainRange[0], trainRange[1]) 
             x = list(np.round(np.random.uniform(minX, maxX, numVars), decimals))
             tmpEq = target + ''
@@ -472,7 +476,7 @@ for i in tqdm(range(numTests)):
             pointsList.append(p)
 
         # generate test points
-        for p in range(numPoints):
+        for p in range(nPoints):
             minX, maxX = (testRange[0][0], testRange[1][0]) if random.random() < 0.5 else (testRange[0][1], testRange[1][1])
             x = list(np.round(np.random.uniform(minX, maxX, numVars), decimals))
             tmpEq = target + ''
@@ -484,10 +488,10 @@ for i in tqdm(range(numTests)):
             pointsListTest.append(p)
 
         # initialized the input variable with start token <
-        inputs = torch.tensor([[train_dataset.stoi['<']]]).to(trainer.device)
+        inputs = torch.tensor([[train_dataset.stoi['<']]], dtype=torch.long).to(trainer.device)
 
         # extract points from the input sequence
-        points = torch.zeros(numVars+numYs, numPoints)
+        points = torch.zeros(numVars+numYs, numPoints[1])
         for idx, xy in enumerate(pointsList): # zip(X,Y)): #
             x = xy[0][:numVars] + [0]*(max(numVars-len(xy[0]),0)) # padding
             y = [xy[1]] if type(xy[1])==float or type(xy[1])==int else xy[1]
@@ -497,8 +501,8 @@ for i in tqdm(range(numTests)):
             p = x+y # because it is only one point 
             p = torch.tensor(p)
             #replace nan and inf
-            p = torch.nan_to_num(p, nan=0.0, 
-                                    posinf=train_dataset.threshold[1], 
+            p = torch.nan_to_num(p, nan=train_dataset.threshold[1],
+                                    posinf=train_dataset.threshold[1],
                                     neginf=train_dataset.threshold[0])
             # p[p>train_dataset.threshold[1]] = train_dataset.threshold[1] # clip the upper bound
             # p[p<train_dataset.threshold[0]] = train_dataset.threshold[0] # clip the lower bound
@@ -515,11 +519,17 @@ for i in tqdm(range(numTests)):
         #                         neginf=train_dataset.threshold[0])
         points -= points.mean()
         points /= points.std()
+        points = torch.nan_to_num(points, nan=train_dataset.threshold[1],
+                                 posinf=train_dataset.threshold[1],
+                                 neginf=train_dataset.threshold[0])
 
         points = points.unsqueeze(0).to(trainer.device)
-        outputsHat = sample(model, inputs, blockSize, points=points,
-                        temperature=1.0, sample=True, #top_k=40
-                        )[0]
+        try:
+            outputsHat = sample(model, inputs, blockSize, points=points,
+                            temperature=1.0, sample=True, top_k=0.0, top_p=0.7
+                            )[0]
+        except Exception as e:
+            continue
 
         # filter out predicted
         predicted = ''.join([train_dataset.itos[int(i)] for i in outputsHat])
@@ -535,7 +545,7 @@ for i in tqdm(range(numTests)):
         target = target.replace('\n','')
 
         # extract points from the input sequence
-        pointsTest = torch.zeros(numVars+numYs, numPoints)
+        pointsTest = torch.zeros(numVars+numYs, numPoints[1])
         for idx, xy in enumerate(pointsListTest):
             x = xy[0][:numVars] + [0]*(max(numVars-len(xy[0][:numVars]),0)) # padding
             y = [xy[1]] if type(xy[1])==float else xy[1]
@@ -564,8 +574,8 @@ for i in tqdm(range(numTests)):
 
         # optimize the constants
         # train a regressor to find the constants (too slow)
-        c = [1 for i,x in enumerate(predicted) if x=='C']   # variables
-        c[-1] = 0
+        c = [1.0 for i,x in enumerate(predicted) if x=='C']   # variables
+        #c[-1] = 0.0
         # b = [(-2,2) for i,x in enumerate(predicted) if x=='C']  # bounds on variables
         # predicted = predicted.replace('C','{}').format(*c)
         try:
@@ -584,7 +594,7 @@ for i in tqdm(range(numTests)):
 
         Ys = [] 
         Yhats = []
-        for xs in pointsTest[:-1,:numPoints].T:
+        for xs in pointsTest[:-1,:nPoints].T:
             try:
                 eqTmp = target + '' # copy eq
                 for i,x in enumerate(xs):
@@ -623,9 +633,9 @@ for i in tqdm(range(numTests)):
             bestEquations[skeletonEqn] = predicted
             bestTemplates[skeletonEqn] = template
 
-        print('\nTemplate:{}\nTarget:{}\nPredicted:{}\ntemplate:{}\nErr:{}\n'.format(skeletonEqn, target, predicted, template, err))
+        print('\nTarget Template:{}\nTarget:{}\nPredicted:{}\nTemplate:{}\nErr:{}\n'.format(skeletonEqn, target, predicted, template, err))
     
 # print the final equations
 print('\n\n','-'*100)
 for pr,te,ta,er in zip(bestEquations, bestTemplates, eqList, bestErr):
-    print('PR:{}\nTE:{}\nTA:{}\nErr:{}\n'.format(bestEquations[pr],bestTemplates[te],eqList[ta],bestErr[er]))
+    print('PR:{}\nTE:{}\nTA:{}\nErr:{}\n'.format(bestEquations[pr],bestTemplates[te],ta,bestErr[er]))
