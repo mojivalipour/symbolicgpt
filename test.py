@@ -41,20 +41,22 @@ set_seed(seed)
 # config
 numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=250 # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=9 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints=[30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 400 # spatial extent of the model for its context
 batchSize = 64 # batch size of training data
-trainRange = [-3.0,3.0] 
+const_range = [-2.1, 2.1] # constant range to generate during training only if target is Skeleton
+decimals = 8 # decimals of the points only if target is Skeleton
+trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 testRange = [[-5.0, 3.0],[-3.0, 5.0]]
 useRange = True
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
-dataInfo = 'XYE_{}Var_{}Points_{}EmbeddingSize'.format(numVars, numPoints, embeddingSize)
+dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1-9Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_20-250' #'1-2Var_RandSupport_RandLength__-3to3_-5.0to-3.0-3.0to5.0_10-30Points'
-dataTestFolder = '2Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_200Points'
+dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points' #'1-2Var_RandSupport_RandLength__-3to3_-5.0to-3.0-3.0to5.0_10-30Points'
+dataTestFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
 addr = './SavedModels/' # where to save model
 method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
 # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -69,10 +71,9 @@ variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
 addVars = True if variableEmbedding == 'STR_VAR' else False
 maxNumFiles = 100 # maximum number of file to load in memory for training the neural network
 bestLoss = None # if there is any model to load as pre-trained one
-fName = '{}_SymbolicGPT_{}_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
+fName = '{}_SymbolicGPT_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
                                              'GPT_PT_{}_{}'.format(method, target), 
                                              'Padding',
-                                             blockSize,
                                              variableEmbedding)
 ckptPath = '{}/{}.pt'.format(addr,fName.split('.txt')[0])
 try: 
@@ -96,7 +97,8 @@ else:
     trainText = text[:-1] if len(text[-1]) == 0 else text
     random.shuffle(trainText) # shuffle the dataset, it's important specailly for the combined number of variables experiment
     train_dataset = CharDataset(trainText, blockSize, chars, numVars=numVars, 
-                    numYs=numYs, numPoints=numPoints, target=target, addVars=addVars) 
+                                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
+                                const_range=const_range, xRange=trainRange, decimals=decimals) 
     with open(train_file, 'wb') as f:
         pickle.dump([train_dataset,trainText,chars], f)
 
@@ -114,7 +116,8 @@ files = glob.glob(path)
 textVal = processDataFiles([files[0]])
 textVal = textVal.split('\n') # convert the raw text to a set of examples
 val_dataset = CharDataset(textVal, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, target=target, addVars=addVars)
+                          numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
+                          const_range=const_range, xRange=trainRange, decimals=decimals)
 
 # print a random sample
 idx = np.random.randint(val_dataset.__len__())
@@ -131,7 +134,8 @@ textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
 # test_dataset_target = CharDataset(textTest, blockSize, chars, target=target)
 test_dataset = CharDataset(textTest, blockSize, chars, numVars=numVars, 
-                numYs=numYs, numPoints=numPoints, addVars=addVars)
+                           numYs=numYs, numPoints=numPoints, addVars=addVars,
+                           const_range=const_range, xRange=trainRange, decimals=decimals)
 
 # print a random sample
 idx = np.random.randint(test_dataset.__len__())
@@ -143,7 +147,7 @@ print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,
 
 # create the model
 pconf = PointNetConfig(embeddingSize=embeddingSize, 
-                       numberofPoints=numPoints, 
+                       numberofPoints=numPoints[1]-1, 
                        numberofVars=numVars, 
                        numberofYs=numYs,
                        method=method,
@@ -160,189 +164,6 @@ tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize,
                       final_tokens=2*len(train_dataset)*blockSize,
                       num_workers=0, ckpt_path=ckptPath)
 trainer = Trainer(model, train_dataset, val_dataset, tconf, bestLoss)
-
-# # benchmarks
-# import csv
-
-# rng = np.random.RandomState(seed)
-# benchmarkPath = './benchmark/dsr-benchmark-data/'
-# dataPoints = glob.glob(benchmarkPath+'*.csv')
-
-# # You should add the templates of equations by hand
-# EqTemplates = {
-#         1: [
-#             # Resistor
-#             'C*x1*x2/(C*x1+C*x2+C)+C',
-#             # NGUYEN
-#             'C*x1**3+C*x1**2+C*x1+C', 
-#             'C*x1**4+C*x1**3+C*x1**2+C*x1+C',
-#             'C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C',
-#             'C*x1**6+C*x1**5+C*x1**4+C*x1**3+C*x1**2+C*x1+C',
-#             'C*sin(C*x1**2)*cos(C*x1+C)+C',
-#             'C*sin(C*x1+C)+C*sin(C*x1+C*x1**2)+C',
-#             'C*log(C*x1+C)+C*log(C*x1**2+C)+C',
-#             'C*sqrt(C*x1+C)+C',
-#             ],
-#         2: [
-#             # NGUYEN
-#             'C*sin(C*x1+C)+C*sin(C*x2**2+C)+C',
-#             'C*sin(C*x1+C)*cos(C*x2+C)+C',
-#             'C*x1**x2+C',
-#             'C*x1**4+C*x1**3+C*x2**2+C*x2+C',
-#             # AI Faynman
-#             'C*exp(C*x1**2+C)/sqrt(C*x2+C)+C',
-#             'C*x1*x2+C',
-#             'C*1/2*x1*x2**2+C',
-#             'C*x1/x2+C',
-#             'C*arcsin(C*x1*sin(C*x2+C)+C)+C',
-#             'C*(C*x1/(2*pi)+C)*x2+C',
-#             'C*3/2*x1*x2+C',
-#             'C*x1/(C*4*pi*x2**2+C)+C',
-#             'C*x1*x2**2/2+C',
-#             'C*1+C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)+C',
-#             'C*x1*x2**2+C',
-#             'C*x1/(2*(1+C*x2+C))+C',
-#             'C*x1*(C*x2/(2*pi)+C)+C',
-#             ], 
-#         3: [
-#             # AI Faynman
-#             'C*exp(C*(x1/x2)**2)/(C*sqrt(2*x3)*x2+C)+C',
-#             'C*x1/sqrt(1-x2**2/x3**2+C)+C',
-#             'C*x1*x2*x3+C',
-#             'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
-#             'C*(C*x1+C*x2+C)/(C*1+C*x1*x2/x3**2+C)+C',
-#             'C*x1*x3*sin(C*x2+C)+C',
-#             'C*1/(C*1/x1+C*x2/x3+C)+C',
-#             'C*x1*sin(C*x2*x3/2+C)**2/sin(x3/2)**2+C',
-#             'C*arcsin(C*x1/(C*x2*x3+C)+C)+C',
-#             'C*x1/(C*1-C*x2/x3+C)+C',
-#             'C*(1+C*x1/x3+C)/sqrt(1-C*x1**2/x3**2+C)*x2+C',
-#             'C*(C*x1/(C*x3+C)+C)*x2+C',
-#             'C*x1+C*x2+C*2*sqrt(x1*x2)*cos(x3)+C',
-#             'C*1/(x1-1)*x2*x3+C',
-#             'C*x1*x2*x3+C',
-#             'C*sqrt(x1*x2/x3)+C',
-#             'C*x1*x2**2/sqrt(C*1-C*x3**2/x2**2+C)+C',
-#             'C*x1/(C*4*pi*x2*x3+C)+C',
-#             'C*1/(C*4*pi*x1+C)*x4*cos(C*x2+C)/x3**2+C',
-#             'C*3/5*x1**2/(C*4*pi*x2*x3+C)+C',
-#             'C*x1/x2*1/(1+x3)+C',
-#             'C*x1/sqrt(C*1-C*x2**2/x3**2+C)+C',
-#             'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
-#             '-C*x1*x3*COS(C*x2+C)+C',
-#             '-C*x1*x2*COS(C*x3+C)+C',
-#             'C*sqrt(C*x1**2/x2**2-C*pi**2/x3**2+C)+C',
-#             'C*x1*x2*x3**2+C',
-#             'C*x1*x2/(C*2*pi*x3+C)+C',
-#             'C*x1*x2*x3/2+C',
-#             'C*x1*x2/(4*pi*x3)+C',
-#             'C*x1*(1+C*x2+C)*x3+C',
-#             'C*2*x1*x2/(C*x3/(2*pi)+C)+C',
-#             'C*sin(C*x1*x2/(C*x3/(2*pi)+C)+C)**2+C',
-#             'C*2*x1*(1-C*cos(C*x2*x3+C)+C)+C',
-#             'C*(C*x1/(2*pi)+C)**2/(C*2*x2*x3**2+C)+C',
-#             'C*2*pi*x3/(C*x1*x2+C)+C',
-#             'C*x1*(1+C*x2*cos(x3)+C)+C',
-#         ], 
-#         4: [
-#             # AI Faynman
-#             'C*exp(C*((C*x1+C*x2+C)/x3)**2+C)/(C*sqrt(C*x4+C)*x3+C)+C', 
-#             'C*sqrt(C*(C*x2+C*x1+C)**2+(C*x3+C*x4+C)**2+C)+C',    
-#             'C*x1*x2/(C*x3*x4*x2**3+C)+C',
-#             'C/2*x1*(C*x2**2+C*x3**2+C*x4**2+C)+C',
-#             'C*(C*x1-C*x2*x3+C)/sqrt(C*1-C*x2**2/x4**2+C)+C',
-#             'C*(C*x1-C*x3*x2/x4**2+C)/sqrt(C*1-C*x3**2/x4**2+C)+C',
-#             'C*(C*x1*x3+C*x2*x4+C)/(C*x1+C*x2+C)+C',
-#             'C*x1*x2*x3*sin(C*x4+C)+C',
-#             'C*1/2*x1*(C*x3**2+C*x4**2+C)*1/2*x2**2+C',
-#             'C*sqrt(C*x1**2+C*x2**2-C*2*x1*x2*cos(C*x3-C*x4+C))+C',
-#             'C*x1*x2*x3/x4+C',
-#             'C*4*pi*x1*(C*x2/(2*pi)+C)**2/(C*x3*x4**2+C)+C',
-#             'C*x1*x2*x3/x4+C',
-#             'C*1/(C*x1-1+C)*x2*x3/x4+C',
-#             'C*x1*(C*cos(C*x2*x3+C)+C*x4*cos(C*x2*x3+C)**2+C)+C',
-#             'C*x1/(C*4*pi*x2+C)*3*cos(C*x3+C)*sin(C*x3+C)/x4**3+C',
-#             'C*x1*x2/(C*x3*(C*x4**2-x5**2+C)+C)+C',
-#             'C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)*x3*x4+C',
-#             'C*1/(C*4*pi*x1*x2**2+C)*2*x3/x4+C',
-#             'C*x1*x2*x3/(2*x4)+C',
-#             'C*x1*x2*x3/x4+C',
-#             'C*1/(C*exp(C*(C*x1/(2*pi)+C)*x4/(C*x2*x3+C)+C)-1)+C',
-#             'C*(x1/(2*pi))*x2/(C*exp(C*(C*x1/(2*pi)+C)*x2/(C*x3*x4+C))-1)+C',
-#             'C*x1*sqrt(C*x2**2+C*x3**2+C*x4**2+C)+C',
-#             'C*2*x1*x2**2*x3/(C*x4/(2*pi)+C)+C',
-#             'C*x1*(C*exp(C*x3*x2/(C*x4*x5+C)+C)-1)+C',
-#             '-C*x1*x2*x3/x4+C',
-#         ], 
-#         5: [
-#             # AI Faynman
-#             'C*x1*x2*x3/(C*x4*x5*x3**3+C)+C',  
-#             'C*x1*(C*x2+C*x3*x4*sin(C*x5+C))+C',     
-#             'C*x1*x2*x3*(C*1/x4-C*1/x5+C)+C',  
-#             'C*x1/(2*pi)*x2**3/(pi**2*x5**2*(exp((x1/(2*pi))*x2/(x3*x4))-1))+C',   
-#             'C*x1*x2*x3*ln(x4/x5)+C',
-#             'C*x1*(C*x2-C*x3+C)*x4/x5+C',
-#             'C*x1*x2**2*x3/(C*3*x4*x5+C)+C',
-#             'C*x1/(C*4*pi*x2*x3*(1-C*x4/x5+C)+C)+C',
-#             'C*x1*x2*x3*x4/(C*x5/(2*pi)+C)+C',
-#             'C*x1/(C*exp(C*x2*x3/(C*x4*x5+C)+C)+C*exp(-C*x2*x3/(C*x4*x5+C)))+C',
-#             'C*x1*x2*tanh(C*x2*x3/(C*x4*x5+C)+C)+C',
-#             '-C*x1*x3**4/(C*2*(C*4*pi*x2+C)**2*(C*x4/(2*pi)+C)**2)*(C*1/x5**2+C)',
-#         ], 
-#         6: [
-#             # AI Faynman
-#             'C*x1*x4+C*x2*x5+C*x3*x6+C', 
-#             'C*x1**2*x2**2/(C*6*x3*x4*x5**3+C)+C',     
-#             'C*x1*exp(-C*x2*x3*x4/(C*x5*x6+C))+C',      
-#             'C*x1/(C*4*pi*x2+C)*3*x5/x6**5*sqrt(C*x3**2+x4**2+C)+C',
-#             'C*x1*(1+C*x2*x3*cos(C*x4+C)/(C*x5*x6+C)+C)+C',
-#             'C*(C*x1*x5*x4/(C*x6/(2*pi)+C)+C)*sin(C*(C*x2-C*x3+C)*x4/2)**2/(C*(C*x2-C*x3+C)*x4/2)**2+C',
-#         ], 
-#         7: [
-#             # AI Faynman
-#             'C*(C*1/2*x1*x4*x5**2+C)*(C*8*x6*x7**2/3+C)*(C*x2**4/(C*x2**2-C*x3**2+C)**2+C)+C',
-            
-#         ], 
-#         8: [
-#             # AI Faynman
-#             'C*x1*x8/(C*x4*x5+C)+C*(C*x1*x2+C)/(C*x3*x7**2*x4*x5+C)*x6+C',            
-#         ], 
-#         9: [
-#             # AI Faynman
-#             'C*x3*x4*x5/((C*x2+C*x1+C)**2+(C*x6+C*x7+C)**2+(C*x8+C*x9)**2+C)+C',
-#         ], 
-#     }
-
-# # save the results to a file
-# fileName = './testEquationsFound.json'
-# if not os.path.isfile(fileName):
-#     # Check if there is a similar equation in the training set
-#     eqList = list(EqTemplates.values())
-#     foundEQ = {}
-#     for idx, sample in tqdm(enumerate(trainText), total=len(trainText)):
-#         try:
-#             sample = json.loads(sample) # convert the sequence tokens to a dictionary
-#         except:
-#             print("Couldn't convert to json: {}".format(sample))
-#             idx = idx - 1 
-#             idx = idx if idx>=0 else 0
-#             sample = trainText[idx]
-#             sample = json.loads(sample)
-            
-#         # find the number of variables in the equation
-#         eq = sample['Skeleton']
-
-#         if eq in eqList:
-#             foundEQ[eq] = 1 if eq not in foundEQ else foundEQ[eq] + 1
-#             print('This equation has been found in the data: {}'.format(eq))
-    
-#     with open(fileName, 'w', encoding="utf-8") as o:
-#         json.dump(foundEQ, o)
-#     print('{} has been saved succesfully.'.format(fileName))
-
-#     for eq in eqList:
-#         if eq not in foundEQ.keys():
-#             print('This equation: {} is not in the data!'.format(eq))
 
 # load the best model
 model.load_state_dict(torch.load(ckptPath))
@@ -369,6 +190,11 @@ try:
 
             inputs,outputs,points,variables = batch
 
+            eq = ''.join([train_dataset.itos[int(i)] for i in outputs[0]])
+            eq = eq.strip(train_dataset.paddingToken).split('>')
+            eq = eq[0] #if len(eq[0])>=1 else eq[1]
+            eq = eq.strip('<').strip(">")
+
             print('Test Case {}.'.format(i))
             o.write('Test Case {}/{}.\n'.format(i,len(textTest)-1))
 
@@ -379,34 +205,33 @@ try:
             # points = points[:,:numPoints] # filter anything more than maximum number of points
             variables = variables.to(trainer.device)
 
-            bestErr = 1000
+            bestErr = 10000000
             bestPredicted = 'C'
             for i in tqdm(range(numTests)):
                 outputsHat = sample(model, 
-                            inputs, 
-                            blockSize, 
-                            points=points,
-                            variables=variables,
-                            temperature=1.0, 
-                            sample=True, 
-                            top_k=40)[0]
+                                    inputs, 
+                                    blockSize, 
+                                    points=points,
+                                    variables=variables,
+                                    temperature=0.9, 
+                                    sample=True, 
+                                    top_k=40,
+                                    top_p=0.7,
+                                    )[0]
 
                 # filter out predicted
-                target = ''.join([train_dataset.itos[int(i)] for i in outputs[0]])
                 predicted = ''.join([train_dataset.itos[int(i)] for i in outputsHat])
 
                 if variableEmbedding == 'STR_VAR':
-                    target = target.split(':')[-1]
+                    eq = eq.split(':')[-1]
                     predicted = predicted.split(':')[-1]
 
-                target = target.strip(train_dataset.paddingToken).split('>')
-                target = target[0] #if len(target[0])>=1 else target[1]
-                target = target.strip('<').strip(">")
                 predicted = predicted.strip(train_dataset.paddingToken).split('>')
                 predicted = predicted[0] #if len(predicted[0])>=1 else predicted[1]
                 predicted = predicted.strip('<').strip(">")
+                predicted = predicted.replace('Ce','C*e')
 
-                print('Target:{}\nSkeleton:{}'.format(target, predicted))
+                print('Target:{}\nSkeleton:{}'.format(eq, predicted))
 
                 # train a regressor to find the constants (too slow)
                 c = [1.0 for i,x in enumerate(predicted) if x=='C'] # initialize coefficients as 1
@@ -431,7 +256,7 @@ try:
                 Yhats = []
                 for xs in t['XT']:
                     try:
-                        eqTmp = target + '' # copy eq
+                        eqTmp = eq + '' # copy eq
                         eqTmp = eqTmp.replace(' ','')
                         eqTmp = eqTmp.replace('\n','')
                         for i,x in enumerate(xs):
@@ -477,15 +302,15 @@ try:
                 print('Err:{}'.format(err))
                 print('') # just an empty line
             
-            o.write('{}\n'.format(target))
-            o.write('{}:\n'.format('SymbolicGPT'))
-            o.write('{}\n'.format(predicted))
+            resultDict[fName]['SymbolicGPT'].append(bestErr)
 
-            resultDict[fName]['SymbolicGPT'].append(err)
+            o.write('{}\n'.format(eq))
+            o.write('{}:\n'.format('SymbolicGPT'))
+            o.write('{}\n'.format(bestPredicted))
 
             o.write('{}\n{}\n\n'.format( 
-                                    predicted,
-                                    err
+                                    bestPredicted,
+                                    bestErr
                                     ))
 
     print('Avg Err:{}'.format(np.mean(resultDict[fName]['SymbolicGPT'])))
