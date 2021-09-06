@@ -214,7 +214,7 @@ class CharDataset(Dataset):
             chunk = json.loads(chunk) # convert the sequence tokens to a dictionary
             
         # find the number of variables in the equation
-        printInfoCondition = random.random() < 0.001
+        printInfoCondition = random.random() < 0.00001
         eq = chunk[self.target]
         if printInfoCondition:
             print(f'\nEquation: {eq}')

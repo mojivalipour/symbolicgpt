@@ -14,7 +14,7 @@ def processData(numSamples, nv, decimals,
                 template, dataPath, fileID, time,
                 supportPoints=None,
                 supportPointsTest=None,
-                numberofPoints=30,
+                numberofPoints=[20,250],
                 xRange=[0.1, 3.1], testPoints=False,
                 testRange=[0.0, 6.0], n_levels=3,
                 allow_constants=True,
@@ -147,7 +147,7 @@ def main():
     numVars = list(range(1,10)) #list(range(31)) #[1,2,3,4,5]
     decimals = 4
     numberofPoints = [20,250] # only usable if support points has not been provided
-    numSamples = 1000 // len(numVars) # number of generated samples
+    numSamples = 2500 // len(numVars) # number of generated samples
     folder = './Dataset'
     dataPath = folder +'/{}_{}_{}.json'
 
@@ -180,7 +180,7 @@ def main():
     
     sortY = False # if the data is sorted based on y
     threshold = 5000
-    templateProb = 0.3 # the probability of generating an equation from the templates
+    templateProb = 1.0 #0.3 # the probability of generating an equation from the templates
     templatesEQs = {
         1: [
             # NGUYEN

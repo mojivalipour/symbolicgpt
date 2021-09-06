@@ -15,7 +15,7 @@ def processData(numSamples, nv, decimals,
                 template, dataPath, fileID, time, 
                 supportPoints=None, 
                 supportPointsTest=None,
-                numberofPoints=30,
+                numberofPoints=[20,250],
                 xRange=[0.1,3.1], testPoints=False,
                 testRange=[0.0,6.0], n_levels = 3,
                 allow_constants=True, 
@@ -92,13 +92,13 @@ def processData(numSamples, nv, decimals,
 
             try:
                 data = generateDataStrEq(cleanEqn, n_points=nPoints, n_vars=nv,
-                                            decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
+                                         decimals=decimals, supportPoints=supportPoints, min_x=xRange[0], max_x=xRange[1])
             except: 
                 # for different reason this might happend including but not limited to division by zero
                 continue
             # if testPoints:
             #     dataTest = generateDataStrEq(currEqn, n_points=numberofPoints, n_vars=nv, decimals=decimals,
-            #                                         supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1]))   
+            #                                  supportPoints=supportPointsTest, min_x=testRange[0], max_x=testRange[1]))   
 
             # use the new x and y
             x,y = data
@@ -188,7 +188,7 @@ def main():
     sortY = False # if the data is sorted based on y
     numSamplesEachEq = 5
     threshold = 5000
-    templateProb = 0.3 # the probability of generating an equation from the templates
+    templateProb = 0.1 # the probability of generating an equation from the templates
     templatesEQs = None # template equations, if NONE then there will be no specific templates for the generated equations
     templatesEQs = {
         1: [
@@ -208,128 +208,128 @@ def main():
             'C*sin(C*x1+C)*cos(C*x2+C)+C',
             'C*x1**x2+C',
             'C*x1**4+C*x1**3+C*x2**2+C*x2+C',
-            # AI Faynman
-            'C*exp(C*x1**2+C)/sqrt(C*x2+C)+C',
-            'C*x1*x2+C',
-            'C*1/2*x1*x2**2+C',
-            'C*x1/x2+C',
-            'C*arcsin(C*x1*sin(C*x2+C)+C)+C',
-            'C*(C*x1/(2*pi)+C)*x2+C',
-            'C*3/2*x1*x2+C',
-            'C*x1/(C*4*pi*x2**2+C)+C',
-            'C*x1*x2**2/2+C',
-            'C*1+C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)+C',
-            'C*x1*x2**2+C',
-            'C*x1/(2*(1+C*x2+C))+C',
-            'C*x1*(C*x2/(2*pi)+C)+C',
+            # # AI Faynman
+            # 'C*exp(C*x1**2+C)/sqrt(C*x2+C)+C',
+            # 'C*x1*x2+C',
+            # 'C*1/2*x1*x2**2+C',
+            # 'C*x1/x2+C',
+            # 'C*arcsin(C*x1*sin(C*x2+C)+C)+C',
+            # 'C*(C*x1/(2*pi)+C)*x2+C',
+            # 'C*3/2*x1*x2+C',
+            # 'C*x1/(C*4*pi*x2**2+C)+C',
+            # 'C*x1*x2**2/2+C',
+            # 'C*1+C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)+C',
+            # 'C*x1*x2**2+C',
+            # 'C*x1/(2*(1+C*x2+C))+C',
+            # 'C*x1*(C*x2/(2*pi)+C)+C',
             ], 
-        3: [
-            # AI Faynman
-            'C*exp(C*(x1/x2)**2)/(C*sqrt(2*x3)*x2+C)+C',
-            'C*x1/sqrt(1-x2**2/x3**2+C)+C',
-            'C*x1*x2*x3+C',
-            'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
-            'C*(C*x1+C*x2+C)/(C*1+C*x1*x2/x3**2+C)+C',
-            'C*x1*x3*sin(C*x2+C)+C',
-            'C*1/(C*1/x1+C*x2/x3+C)+C',
-            'C*x1*sin(C*x2*x3/2+C)**2/sin(x3/2)**2+C',
-            'C*arcsin(C*x1/(C*x2*x3+C)+C)+C',
-            'C*x1/(C*1-C*x2/x3+C)+C',
-            'C*(1+C*x1/x3+C)/sqrt(1-C*x1**2/x3**2+C)*x2+C',
-            'C*(C*x1/(C*x3+C)+C)*x2+C',
-            'C*x1+C*x2+C*2*sqrt(x1*x2)*cos(x3)+C',
-            'C*1/(x1-1)*x2*x3+C',
-            'C*x1*x2*x3+C',
-            'C*sqrt(x1*x2/x3)+C',
-            'C*x1*x2**2/sqrt(C*1-C*x3**2/x2**2+C)+C',
-            'C*x1/(C*4*pi*x2*x3+C)+C',
-            'C*1/(C*4*pi*x1+C)*x4*cos(C*x2+C)/x3**2+C',
-            'C*3/5*x1**2/(C*4*pi*x2*x3+C)+C',
-            'C*x1/x2*1/(1+x3)+C',
-            'C*x1/sqrt(C*1-C*x2**2/x3**2+C)+C',
-            'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
-            '-C*x1*x3*COS(C*x2+C)+C',
-            '-C*x1*x2*COS(C*x3+C)+C',
-            'C*sqrt(C*x1**2/x2**2-C*pi**2/x3**2+C)+C',
-            'C*x1*x2*x3**2+C',
-            'C*x1*x2/(C*2*pi*x3+C)+C',
-            'C*x1*x2*x3/2+C',
-            'C*x1*x2/(4*pi*x3)+C',
-            'C*x1*(1+C*x2+C)*x3+C',
-            'C*2*x1*x2/(C*x3/(2*pi)+C)+C',
-            'C*sin(C*x1*x2/(C*x3/(2*pi)+C)+C)**2+C',
-            'C*2*x1*(1-C*cos(C*x2*x3+C)+C)+C',
-            'C*(C*x1/(2*pi)+C)**2/(C*2*x2*x3**2+C)+C',
-            'C*2*pi*x3/(C*x1*x2+C)+C',
-            'C*x1*(1+C*x2*cos(x3)+C)+C',
-        ], 
-        4: [
-            # AI Faynman
-            'C*exp(C*((C*x1+C*x2+C)/x3)**2+C)/(C*sqrt(C*x4+C)*x3+C)+C', 
-            'C*sqrt(C*(C*x2+C*x1+C)**2+(C*x3+C*x4+C)**2+C)+C',    
-            'C*x1*x2/(C*x3*x4*x2**3+C)+C',
-            'C/2*x1*(C*x2**2+C*x3**2+C*x4**2+C)+C',
-            'C*(C*x1-C*x2*x3+C)/sqrt(C*1-C*x2**2/x4**2+C)+C',
-            'C*(C*x1-C*x3*x2/x4**2+C)/sqrt(C*1-C*x3**2/x4**2+C)+C',
-            'C*(C*x1*x3+C*x2*x4+C)/(C*x1+C*x2+C)+C',
-            'C*x1*x2*x3*sin(C*x4+C)+C',
-            'C*1/2*x1*(C*x3**2+C*x4**2+C)*1/2*x2**2+C',
-            'C*sqrt(C*x1**2+C*x2**2-C*2*x1*x2*cos(C*x3-C*x4+C))+C',
-            'C*x1*x2*x3/x4+C',
-            'C*4*pi*x1*(C*x2/(2*pi)+C)**2/(C*x3*x4**2+C)+C',
-            'C*x1*x2*x3/x4+C',
-            'C*1/(C*x1-1+C)*x2*x3/x4+C',
-            'C*x1*(C*cos(C*x2*x3+C)+C*x4*cos(C*x2*x3+C)**2+C)+C',
-            'C*x1/(C*4*pi*x2+C)*3*cos(C*x3+C)*sin(C*x3+C)/x4**3+C',
-            'C*x1*x2/(C*x3*(C*x4**2-x5**2+C)+C)+C',
-            'C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)*x3*x4+C',
-            'C*1/(C*4*pi*x1*x2**2+C)*2*x3/x4+C',
-            'C*x1*x2*x3/(2*x4)+C',
-            'C*x1*x2*x3/x4+C',
-            'C*1/(C*exp(C*(C*x1/(2*pi)+C)*x4/(C*x2*x3+C)+C)-1)+C',
-            'C*(x1/(2*pi))*x2/(C*exp(C*(C*x1/(2*pi)+C)*x2/(C*x3*x4+C))-1)+C',
-            'C*x1*sqrt(C*x2**2+C*x3**2+C*x4**2+C)+C',
-            'C*2*x1*x2**2*x3/(C*x4/(2*pi)+C)+C',
-            'C*x1*(C*exp(C*x3*x2/(C*x4*x5+C)+C)-1)+C',
-            '-C*x1*x2*x3/x4+C',
-        ], 
-        5: [
-            # AI Faynman
-            'C*x1*x2*x3/(C*x4*x5*x3**3+C)+C',  
-            'C*x1*(C*x2+C*x3*x4*sin(C*x5+C))+C',     
-            'C*x1*x2*x3*(C*1/x4-C*1/x5+C)+C',  
-            'C*x1/(2*pi)*x2**3/(pi**2*x5**2*(exp((x1/(2*pi))*x2/(x3*x4))-1))+C',   
-            'C*x1*x2*x3*ln(x4/x5)+C',
-            'C*x1*(C*x2-C*x3+C)*x4/x5+C',
-            'C*x1*x2**2*x3/(C*3*x4*x5+C)+C',
-            'C*x1/(C*4*pi*x2*x3*(1-C*x4/x5+C)+C)+C',
-            'C*x1*x2*x3*x4/(C*x5/(2*pi)+C)+C',
-            'C*x1/(C*exp(C*x2*x3/(C*x4*x5+C)+C)+C*exp(-C*x2*x3/(C*x4*x5+C)))+C',
-            'C*x1*x2*tanh(C*x2*x3/(C*x4*x5+C)+C)+C',
-            '-C*x1*x3**4/(C*2*(C*4*pi*x2+C)**2*(C*x4/(2*pi)+C)**2)*(C*1/x5**2+C)',
-        ], 
-        6: [
-            # AI Faynman
-            'C*x1*x4+C*x2*x5+C*x3*x6+C', 
-            'C*x1**2*x2**2/(C*6*x3*x4*x5**3+C)+C',     
-            'C*x1*exp(-C*x2*x3*x4/(C*x5*x6+C))+C',      
-            'C*x1/(C*4*pi*x2+C)*3*x5/x6**5*sqrt(C*x3**2+x4**2+C)+C',
-            'C*x1*(1+C*x2*x3*cos(C*x4+C)/(C*x5*x6+C)+C)+C',
-            'C*(C*x1*x5*x4/(C*x6/(2*pi)+C)+C)*sin(C*(C*x2-C*x3+C)*x4/2)**2/(C*(C*x2-C*x3+C)*x4/2)**2+C',
-        ], 
-        7: [
-            # AI Faynman
-            'C*(C*1/2*x1*x4*x5**2+C)*(C*8*x6*x7**2/3+C)*(C*x2**4/(C*x2**2-C*x3**2+C)**2+C)+C',
+        # 3: [
+        #     # AI Faynman
+        #     'C*exp(C*(x1/x2)**2)/(C*sqrt(2*x3)*x2+C)+C',
+        #     'C*x1/sqrt(1-x2**2/x3**2+C)+C',
+        #     'C*x1*x2*x3+C',
+        #     'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
+        #     'C*(C*x1+C*x2+C)/(C*1+C*x1*x2/x3**2+C)+C',
+        #     'C*x1*x3*sin(C*x2+C)+C',
+        #     'C*1/(C*1/x1+C*x2/x3+C)+C',
+        #     'C*x1*sin(C*x2*x3/2+C)**2/sin(x3/2)**2+C',
+        #     'C*arcsin(C*x1/(C*x2*x3+C)+C)+C',
+        #     'C*x1/(C*1-C*x2/x3+C)+C',
+        #     'C*(1+C*x1/x3+C)/sqrt(1-C*x1**2/x3**2+C)*x2+C',
+        #     'C*(C*x1/(C*x3+C)+C)*x2+C',
+        #     'C*x1+C*x2+C*2*sqrt(x1*x2)*cos(x3)+C',
+        #     'C*1/(x1-1)*x2*x3+C',
+        #     'C*x1*x2*x3+C',
+        #     'C*sqrt(x1*x2/x3)+C',
+        #     'C*x1*x2**2/sqrt(C*1-C*x3**2/x2**2+C)+C',
+        #     'C*x1/(C*4*pi*x2*x3+C)+C',
+        #     'C*1/(C*4*pi*x1+C)*x4*cos(C*x2+C)/x3**2+C',
+        #     'C*3/5*x1**2/(C*4*pi*x2*x3+C)+C',
+        #     'C*x1/x2*1/(1+x3)+C',
+        #     'C*x1/sqrt(C*1-C*x2**2/x3**2+C)+C',
+        #     'C*x1*x2/sqrt(C*1-C*x2**2/x3**2+C)+C',
+        #     '-C*x1*x3*COS(C*x2+C)+C',
+        #     '-C*x1*x2*COS(C*x3+C)+C',
+        #     'C*sqrt(C*x1**2/x2**2-C*pi**2/x3**2+C)+C',
+        #     'C*x1*x2*x3**2+C',
+        #     'C*x1*x2/(C*2*pi*x3+C)+C',
+        #     'C*x1*x2*x3/2+C',
+        #     'C*x1*x2/(4*pi*x3)+C',
+        #     'C*x1*(1+C*x2+C)*x3+C',
+        #     'C*2*x1*x2/(C*x3/(2*pi)+C)+C',
+        #     'C*sin(C*x1*x2/(C*x3/(2*pi)+C)+C)**2+C',
+        #     'C*2*x1*(1-C*cos(C*x2*x3+C)+C)+C',
+        #     'C*(C*x1/(2*pi)+C)**2/(C*2*x2*x3**2+C)+C',
+        #     'C*2*pi*x3/(C*x1*x2+C)+C',
+        #     'C*x1*(1+C*x2*cos(x3)+C)+C',
+        # ], 
+        # 4: [
+        #     # AI Faynman
+        #     'C*exp(C*((C*x1+C*x2+C)/x3)**2+C)/(C*sqrt(C*x4+C)*x3+C)+C', 
+        #     'C*sqrt(C*(C*x2+C*x1+C)**2+(C*x3+C*x4+C)**2+C)+C',    
+        #     'C*x1*x2/(C*x3*x4*x2**3+C)+C',
+        #     'C/2*x1*(C*x2**2+C*x3**2+C*x4**2+C)+C',
+        #     'C*(C*x1-C*x2*x3+C)/sqrt(C*1-C*x2**2/x4**2+C)+C',
+        #     'C*(C*x1-C*x3*x2/x4**2+C)/sqrt(C*1-C*x3**2/x4**2+C)+C',
+        #     'C*(C*x1*x3+C*x2*x4+C)/(C*x1+C*x2+C)+C',
+        #     'C*x1*x2*x3*sin(C*x4+C)+C',
+        #     'C*1/2*x1*(C*x3**2+C*x4**2+C)*1/2*x2**2+C',
+        #     'C*sqrt(C*x1**2+C*x2**2-C*2*x1*x2*cos(C*x3-C*x4+C))+C',
+        #     'C*x1*x2*x3/x4+C',
+        #     'C*4*pi*x1*(C*x2/(2*pi)+C)**2/(C*x3*x4**2+C)+C',
+        #     'C*x1*x2*x3/x4+C',
+        #     'C*1/(C*x1-1+C)*x2*x3/x4+C',
+        #     'C*x1*(C*cos(C*x2*x3+C)+C*x4*cos(C*x2*x3+C)**2+C)+C',
+        #     'C*x1/(C*4*pi*x2+C)*3*cos(C*x3+C)*sin(C*x3+C)/x4**3+C',
+        #     'C*x1*x2/(C*x3*(C*x4**2-x5**2+C)+C)+C',
+        #     'C*x1*x2/(C*1-C*(C*x1*x2/3+C)+C)*x3*x4+C',
+        #     'C*1/(C*4*pi*x1*x2**2+C)*2*x3/x4+C',
+        #     'C*x1*x2*x3/(2*x4)+C',
+        #     'C*x1*x2*x3/x4+C',
+        #     'C*1/(C*exp(C*(C*x1/(2*pi)+C)*x4/(C*x2*x3+C)+C)-1)+C',
+        #     'C*(x1/(2*pi))*x2/(C*exp(C*(C*x1/(2*pi)+C)*x2/(C*x3*x4+C))-1)+C',
+        #     'C*x1*sqrt(C*x2**2+C*x3**2+C*x4**2+C)+C',
+        #     'C*2*x1*x2**2*x3/(C*x4/(2*pi)+C)+C',
+        #     'C*x1*(C*exp(C*x3*x2/(C*x4*x5+C)+C)-1)+C',
+        #     '-C*x1*x2*x3/x4+C',
+        # ], 
+        # 5: [
+        #     # AI Faynman
+        #     'C*x1*x2*x3/(C*x4*x5*x3**3+C)+C',  
+        #     'C*x1*(C*x2+C*x3*x4*sin(C*x5+C))+C',     
+        #     'C*x1*x2*x3*(C*1/x4-C*1/x5+C)+C',  
+        #     'C*x1/(2*pi)*x2**3/(pi**2*x5**2*(exp((x1/(2*pi))*x2/(x3*x4))-1))+C',   
+        #     'C*x1*x2*x3*ln(x4/x5)+C',
+        #     'C*x1*(C*x2-C*x3+C)*x4/x5+C',
+        #     'C*x1*x2**2*x3/(C*3*x4*x5+C)+C',
+        #     'C*x1/(C*4*pi*x2*x3*(1-C*x4/x5+C)+C)+C',
+        #     'C*x1*x2*x3*x4/(C*x5/(2*pi)+C)+C',
+        #     'C*x1/(C*exp(C*x2*x3/(C*x4*x5+C)+C)+C*exp(-C*x2*x3/(C*x4*x5+C)))+C',
+        #     'C*x1*x2*tanh(C*x2*x3/(C*x4*x5+C)+C)+C',
+        #     '-C*x1*x3**4/(C*2*(C*4*pi*x2+C)**2*(C*x4/(2*pi)+C)**2)*(C*1/x5**2+C)',
+        # ], 
+        # 6: [
+        #     # AI Faynman
+        #     'C*x1*x4+C*x2*x5+C*x3*x6+C', 
+        #     'C*x1**2*x2**2/(C*6*x3*x4*x5**3+C)+C',     
+        #     'C*x1*exp(-C*x2*x3*x4/(C*x5*x6+C))+C',      
+        #     'C*x1/(C*4*pi*x2+C)*3*x5/x6**5*sqrt(C*x3**2+x4**2+C)+C',
+        #     'C*x1*(1+C*x2*x3*cos(C*x4+C)/(C*x5*x6+C)+C)+C',
+        #     'C*(C*x1*x5*x4/(C*x6/(2*pi)+C)+C)*sin(C*(C*x2-C*x3+C)*x4/2)**2/(C*(C*x2-C*x3+C)*x4/2)**2+C',
+        # ], 
+        # 7: [
+        #     # AI Faynman
+        #     'C*(C*1/2*x1*x4*x5**2+C)*(C*8*x6*x7**2/3+C)*(C*x2**4/(C*x2**2-C*x3**2+C)**2+C)+C',
             
-        ], 
-        8: [
-            # AI Faynman
-            'C*x1*x8/(C*x4*x5+C)+C*(C*x1*x2+C)/(C*x3*x7**2*x4*x5+C)*x6+C',            
-        ], 
-        9: [
-            # AI Faynman
-            'C*x3*x4*x5/((C*x2+C*x1+C)**2+(C*x6+C*x7+C)**2+(C*x8+C*x9)**2+C)+C',
-        ], 
+        # ], 
+        # 8: [
+        #     # AI Faynman
+        #     'C*x1*x8/(C*x4*x5+C)+C*(C*x1*x2+C)/(C*x3*x7**2*x4*x5+C)*x6+C',            
+        # ], 
+        # 9: [
+        #     # AI Faynman
+        #     'C*x3*x4*x5/((C*x2+C*x1+C)**2+(C*x6+C*x7+C)**2+(C*x8+C*x9)**2+C)+C',
+        # ], 
     }
 
     print(os.mkdir(folder) if not os.path.isdir(folder) else 'We do have the path already!')

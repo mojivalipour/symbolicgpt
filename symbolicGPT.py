@@ -39,8 +39,8 @@ set_seed(42)
 device='gpu'
 numEpochs = 20 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints = [30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars = 1 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints = [200,201] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars = 2 # the dimenstion of input points x, if you don't know then use the maximum
 numYs = 1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 64 # spatial extent of the model for its context
 testBlockSize = 400
@@ -50,7 +50,7 @@ const_range = [-2.1, 2.1] # constant range to generate during training only if t
 decimals = 8 # decimals of the points only if target is Skeleton
 trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
-dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
+dataFolder = '2Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_200Points'
 dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 addr = './SavedModels/' # where to save model
