@@ -37,10 +37,11 @@ set_seed(42)
 
 # config
 device='gpu'
+scratch=False # if you want to ignore the cache and start for scratch
 numEpochs = 20 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints = [200,201] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars = 2 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints = [10,201] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars = 5 # the dimenstion of input points x, if you don't know then use the maximum
 numYs = 1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 64 # spatial extent of the model for its context
 testBlockSize = 400
@@ -50,7 +51,7 @@ const_range = [-2.1, 2.1] # constant range to generate during training only if t
 decimals = 8 # decimals of the points only if target is Skeleton
 trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
-dataFolder = '2Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_200Points'
+dataFolder = '1-5Var_RandSupport_RandLength_-3to3_-5.0to-3.0-3.0to5.0_10to200Points'
 dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 addr = './SavedModels/' # where to save model
@@ -79,7 +80,7 @@ except:
 
 # load the train dataset
 train_file = 'train_dataset.pb' # make sure to delete if you want to start from scratch
-if os.path.isfile(train_file):
+if os.path.isfile(train_file) and not scratch:
     # just load the train set
     with open(train_file, 'rb') as f:
         train_dataset,trainText,chars = pickle.load(f)
