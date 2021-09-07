@@ -16,9 +16,17 @@ Paper: [link](https://arxiv.org/abs/2106.14131)
 
 # Setup the environment
 - Install [Anaconda](https://www.anaconda.com/products/individual/)
-- Create the environment from environment.yml, as an alternative we also provided the requirements.txt
+- Create the environment from environment.yml, as an alternative we also provided the requirements.txt (using Conda)
 ```bash
 conda env create -f environment.yml
+```
+- As an alternative you can install the following packages:
+```bash
+pip install numpy
+pip install torch
+pip install matplotlib
+pip install scipy
+
 ```
 
 # Dataset Generation
