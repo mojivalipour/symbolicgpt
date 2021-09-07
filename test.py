@@ -40,6 +40,7 @@ set_seed(seed)
 
 # config
 numEpochs = 4 # number of epochs to train the GPT+PT model
+scratch=True # if you want to ignore the cache and start for scratch
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
 numPoints=[200,201] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=2 # the dimenstion of input points x, if you don't know then use the maximum
@@ -50,6 +51,7 @@ const_range = [-2.1, 2.1] # constant range to generate during training only if t
 decimals = 8 # decimals of the points only if target is Skeleton
 trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 testRange = [[-5.0, 3.0],[-3.0, 5.0]]
+numTests = 1 # number of times to generate candidates for one test equation
 useRange = True
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
 dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
@@ -82,8 +84,8 @@ except:
     print('Folder already exists!')
 
 # load the train dataset
-train_file = 'train_dataset.pb'
-if os.path.isfile(train_file):
+train_file = 'train_dataset_{}.pb'.format(fName)
+if os.path.isfile(train_file) and not scratch:
     # just load the train set
     with open(train_file, 'rb') as f:
         train_dataset,trainText,chars = pickle.load(f)
@@ -179,7 +181,6 @@ loader = torch.utils.data.DataLoader(
                                 batch_size=1,
                                 num_workers=0)
 
-numTests = 1
 from utils import *
 resultDict = {}
 try:

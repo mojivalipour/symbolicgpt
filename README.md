@@ -26,7 +26,6 @@ pip install numpy
 pip install torch
 pip install matplotlib
 pip install scipy
-
 ```
 
 # Dataset Generation
