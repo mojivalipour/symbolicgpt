@@ -4,6 +4,7 @@
 
 def main(resultDict, modelKey):
     # set up logging
+    import time
     import logging
     logging.basicConfig(
             format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -41,8 +42,8 @@ def main(resultDict, modelKey):
     # NOTE: make sure your data points are in the same range with trainRange
 
     # config
-    numTests = 10 # number of times to generate candidates for one test equation
-    parallel = True
+    numTests = 1 # number of times to generate candidates for one test equation
+    parallel = False
     scratch=False # if you want to ignore the cache and start for scratch
     embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
     numPoints=[30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
@@ -56,7 +57,7 @@ def main(resultDict, modelKey):
     trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
     testRange = [[-5.0, 3.0],[-3.0, 5.0]]
     useRange = True
-    dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
+    dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'
     dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
     titleTemplate = "{} equations of {} variables - Benchmark"
     target = 'Skeleton' #'Skeleton' #'EQ'
@@ -185,17 +186,24 @@ def main(resultDict, modelKey):
                                     pin_memory=True,
                                     batch_size=1,
                                     num_workers=0)
-
+        
+    experiment_times = []
     try:
         if not parallel:
             for i, (inputs,outputs,points,variables) in tqdm(enumerate(loader), total=len(test_dataset)):
+                import time
+                start_time = time.time()
                 tokenize_predict_and_evaluate(
                                     i, inputs, points, outputs, variables, 
                                     train_dataset, textTest, trainer, model, 
                                     resultDict, numTests, variableEmbedding, 
-                                    blockSize, fName, modelKey=modelKey)
+                                    blockSize, fName, modelKey=modelKey, device=trainer.device)
+                generation_time = time.time() - start_time
+                print(f'The required time for equation {i} was {generation_time}!')
+                experiment_times.append(generation_time)
             plot_and_save_results(resultDict, fName, pconf, titleTemplate, 
                                 textTest, modelKey=modelKey)
+            print(f'The average time for one instance is {np.mean(experiment_times)}')
         else:
             processes = []
             device = 'cpu'
@@ -206,6 +214,7 @@ def main(resultDict, modelKey):
             # Define a list (queue) for tasks and computation results
             tasks = manager.Queue()
             results = manager.Queue()
+            maximum_number_process = 10
             for i, (inputs,outputs,points,variables) in tqdm(enumerate(loader), total=len(test_dataset)):
                 print(f'equation {i} ...')
                 # proc = multiprocessing.Process(target=tokenize_predict_and_evaluate, args=(
@@ -232,6 +241,10 @@ def main(resultDict, modelKey):
                 processes.append(proc)
                 tasks.put(i)
                 # processes.append(proc)
+
+                if i%maximum_number_process==0:
+                    print('joining ...')
+                    time.sleep(1*30)
 
             # for proc in processes:
             #     proc.join()
@@ -287,7 +300,7 @@ def parallel_wraper(process_name, tasks, results, arguments):
 
             # Add result to the queue
             results.put((eq, bestPredicted, bestErr))
-            tasks.task_done()
+        tasks.task_done()
 
     return
 

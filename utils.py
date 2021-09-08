@@ -298,7 +298,6 @@ def generate_sample_and_evaluate(model, t, eq, inputs,
             Yhat = 100
         Yhats.append(Yhat)
     err = relativeErr(Ys,Yhats, info=True)
-
     
     print('\nTarget:{}'.format(eq))
     print('Skeleton+LS:{}'.format(predicted))
