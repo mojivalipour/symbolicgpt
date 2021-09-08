@@ -38,10 +38,10 @@ set_seed(42)
 # config
 device='gpu'
 scratch=True # if you want to ignore the cache and start for scratch
-numEpochs = 20 # number of epochs to train the GPT+PT model
+numEpochs = 4 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints = [10,201] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars = 5 # the dimenstion of input points x, if you don't know then use the maximum
+numPoints = [20,251] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numVars = 9 # the dimenstion of input points x, if you don't know then use the maximum
 numYs = 1 # the dimension of output points y = f(x), if you don't know then use the maximum
 blockSize = 64 # spatial extent of the model for its context
 testBlockSize = 400

@@ -78,7 +78,7 @@ Follow each dataset config file and change the corresponding parameters (numVars
 ## Reproduce the experiments
 
 
-### Use this in symbolicGPT.py to reproduce the results for 1-9 Variables Model
+### Use this in symbolicGPT.py to reproduce the results for 1-9 Variables Model (General Model)
 ```python
 numEpochs = 20 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT

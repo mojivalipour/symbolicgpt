@@ -5,9 +5,11 @@ import torch
 import numpy as np
 import torch.nn as nn
 from tqdm import tqdm
+from scipy.optimize import minimize
 from torch.utils.data import Dataset
 from torch.nn import functional as F
 from numpy import * # to override the math functions
+from matplotlib import pyplot as plt
 
 def set_seed(seed):
     random.seed(seed)
@@ -22,7 +24,7 @@ def top_k_logits(logits, k):
     return out
 
 # @torch.no_grad()
-# def sample(model, x, steps, points=None, variables=None, temperature=1.0, sample=False, top_k=None):
+# def sample_from_model(model, x, steps, points=None, variables=None, temperature=1.0, sample=False, top_k=None):
 #     """
 #     take a conditioning sequence of indices in x (of shape (b,t)) and predict the next token in
 #     the sequence, feeding the predictions back into the model each time. Clearly the sampling
@@ -84,7 +86,7 @@ def top_k_top_p_filtering(logits, top_k=0.0, top_p=0.0, filter_value=-float('Inf
     return logits
 
 @torch.no_grad()
-def sample(model, x, steps, points=None, variables=None, temperature=1.0, sample=False, top_k=0.0, top_p=0.0):
+def sample_from_model(model, x, steps, points=None, variables=None, temperature=1.0, sample=False, top_k=0.0, top_p=0.0):
     """
     take a conditioning sequence of indices in x (of shape (b,t)) and predict the next token in
     the sequence, feeding the predictions back into the model each time. Clearly the sampling
@@ -113,6 +115,197 @@ def sample(model, x, steps, points=None, variables=None, temperature=1.0, sample
         x = torch.cat((x, ix.unsqueeze(0)), dim=1)
 
     return x
+
+def plot_and_save_results(resultDict, fName, pconf, titleTemplate, textTest, modelKey='SymbolicGPT'):
+    # plot the error frequency for model comparison
+    num_eqns = len(resultDict[fName][modelKey]['err'])
+    num_vars = pconf.numberofVars
+    title = titleTemplate.format(num_eqns, num_vars)
+
+    models = list(key for key in resultDict[fName].keys() if len(resultDict[fName][key]['err'])==num_eqns)
+    lists_of_error_scores = [resultDict[fName][key]['err'] for key in models if len(resultDict[fName][key]['err'])==num_eqns]
+    linestyles = ["-","dashdot","dotted","--"]
+
+    eps = 0.00001
+    y, x, _ = plt.hist([np.log([max(min(x+eps, 1e5),1e-5) for x in e]) for e in lists_of_error_scores],
+                    label=models,
+                    cumulative=True, 
+                    histtype="step", 
+                    bins=2000, 
+                    density=True,
+                    log=False)
+    y = np.expand_dims(y,0)
+    plt.figure(figsize=(15, 10))
+
+    for idx, m in enumerate(models): 
+        plt.plot(x[:-1], 
+            y[idx] * 100, 
+            linestyle=linestyles[idx], 
+            label=m)
+
+    plt.legend(loc="upper left")
+    plt.title(title)
+    plt.xlabel("Log of Relative Mean Square Error")
+    plt.ylabel("Normalized Cumulative Frequency")
+
+    name = '{}.png'.format(fName.split('.txt')[0])
+    plt.savefig(name)
+
+    for i in num_eqns:
+        err = resultDict[fName][modelKey]['err']
+        eq = resultDict[fName][modelKey]['trg']
+        predicted = resultDict[fName][modelKey]['prd']
+        print('Test Case {}.'.format(i))
+        print('Target:{}\nSkeleton:{}'.format(eq, predicted))
+        print('Err:{}'.format(err))
+        print('') # just an empty line
+
+        with open(fName, 'w', encoding="utf-8") as o:
+            o.write('Test Case {}/{}.\n'.format(i,len(textTest)-1))
+
+            o.write('{}\n'.format(eq))
+            o.write('{}:\n'.format(modelKey))
+            o.write('{}\n'.format(predicted))
+
+            o.write('{}\n{}\n\n'.format( 
+                                    predicted,
+                                    err
+                                    ))
+
+        print('Avg Err:{}'.format(np.mean(resultDict[fName][modelKey]['err'])))
+
+def tokenize_predict_and_evaluate(i, inputs, points, outputs, variables, 
+                                  train_dataset, textTest, trainer, model, resultDict,
+                                  numTests, variableEmbedding, blockSize, fName, 
+                                  modelKey='SymbolicGPT'):
+    
+    eq = ''.join([train_dataset.itos[int(i)] for i in outputs[0]])
+    eq = eq.strip(train_dataset.paddingToken).split('>')
+    eq = eq[0] #if len(eq[0])>=1 else eq[1]
+    eq = eq.strip('<').strip(">")
+    if variableEmbedding == 'STR_VAR':
+            eq = eq.split(':')[-1]
+
+    t = json.loads(textTest[i])
+
+    inputs = inputs[:,0:1].to(trainer.device)
+    points = points.to(trainer.device)
+    # points = points[:,:numPoints] # filter anything more than maximum number of points
+    variables = variables.to(trainer.device)
+
+    bestErr = 10000000
+    bestPredicted = 'C'
+    for i in range(numTests):
+        
+        predicted, err = generate_sample_and_evaluate(
+                            model, t, eq, inputs, 
+                            blockSize, points, variables, 
+                            train_dataset, variableEmbedding)
+
+        if err < bestErr:
+            bestErr = err
+            bestPredicted = predicted
+    
+    resultDict[fName][modelKey]['err'].append(bestErr)
+    resultDict[fName][modelKey]['trg'].append(eq)
+    resultDict[fName][modelKey]['prd'].append(bestPredicted)
+
+    return bestPredicted, bestErr, resultDict
+
+def generate_sample_and_evaluate(model, t, eq, inputs, 
+                                 blockSize, points, variables, 
+                                 train_dataset, variableEmbedding):
+
+    
+    outputsHat = sample_from_model(model, 
+                        inputs, 
+                        blockSize, 
+                        points=points,
+                        variables=variables,
+                        temperature=0.9, 
+                        sample=True, 
+                        top_k=40,
+                        top_p=0.7,
+                        )[0]
+
+    # filter out predicted
+    predicted = ''.join([train_dataset.itos[int(i)] for i in outputsHat])
+
+    if variableEmbedding == 'STR_VAR':
+        predicted = predicted.split(':')[-1]
+
+    predicted = predicted.strip(train_dataset.paddingToken).split('>')
+    predicted = predicted[0] #if len(predicted[0])>=1 else predicted[1]
+    predicted = predicted.strip('<').strip(">")
+    predicted = predicted.replace('Ce','C*e')
+
+    # train a regressor to find the constants (too slow)
+    c = [1.0 for i,x in enumerate(predicted) if x=='C'] # initialize coefficients as 1
+    # c[-1] = 0 # initialize the constant as zero
+    b = [(-2,2) for i,x in enumerate(predicted) if x=='C']  # bounds on variables
+    try:
+        if len(c) != 0:
+            # This is the bottleneck in our algorithm
+            # for easier comparison, we are using minimize package  
+            cHat = minimize(lossFunc, c, #bounds=b,
+                        args=(predicted, t['X'], t['Y'])) 
+
+            predicted = predicted.replace('C','{}').format(*cHat.x)
+    except ValueError:
+        raise 'Err: Wrong Equation {}'.format(predicted)
+    except Exception as e:
+        raise 'Err: Wrong Equation {}, Err: {}'.format(predicted, e)
+    
+    Ys = [] #t['YT']
+    Yhats = []
+    for xs in t['XT']:
+        try:
+            eqTmp = eq + '' # copy eq
+            eqTmp = eqTmp.replace(' ','')
+            eqTmp = eqTmp.replace('\n','')
+            for i,x in enumerate(xs):
+                # replace xi with the value in the eq
+                eqTmp = eqTmp.replace('x{}'.format(i+1), str(x))
+                if ',' in eqTmp:
+                    assert 'There is a , in the equation!'
+            YEval = eval(eqTmp)
+            # YEval = 0 if np.isnan(YEval) else YEval
+            # YEval = 100 if np.isinf(YEval) else YEval
+        except:
+            print('TA: For some reason, we used the default value. Eq:{}'.format(eqTmp))
+            print(i)
+            raise
+            continue # if there is any point in the target equation that has any problem, ignore it
+            YEval = 100 #TODO: Maybe I have to punish the model for each wrong template not for each point
+        Ys.append(YEval)
+        try:
+            eqTmp = predicted + '' # copy eq
+            eqTmp = eqTmp.replace(' ','')
+            eqTmp = eqTmp.replace('\n','')
+            for i,x in enumerate(xs):
+                # replace xi with the value in the eq
+                eqTmp = eqTmp.replace('x{}'.format(i+1), str(x))
+                if ',' in eqTmp:
+                    assert 'There is a , in the equation!'
+            Yhat = eval(eqTmp)
+            # Yhat = 0 if np.isnan(Yhat) else Yhat
+            # Yhat = 100 if np.isinf(Yhat) else Yhat
+        except:
+            print('PR: For some reason, we used the default value. Eq:{}'.format(eqTmp))
+            Yhat = 100
+        Yhats.append(Yhat)
+    err = relativeErr(Ys,Yhats, info=True)
+
+    
+    print('\nTarget:{}'.format(eq))
+    print('Skeleton+LS:{}'.format(predicted))
+    print('Err:{}'.format(err))
+    print('-'*10)
+
+    if type(err) is np.complex128 or np.complex:
+        err = abs(err.real)
+
+    return predicted, err
 
 # helper class and functions
 # add a safe wrapper for numpy math functions
