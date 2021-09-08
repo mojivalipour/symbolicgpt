@@ -194,35 +194,102 @@ def main(resultDict, modelKey):
                                     train_dataset, textTest, trainer, model, 
                                     resultDict, numTests, variableEmbedding, 
                                     blockSize, fName, modelKey=modelKey)
+            plot_and_save_results(resultDict, fName, pconf, titleTemplate, 
+                                textTest, modelKey=modelKey)
         else:
-            # processes = []
+            processes = []
             device = 'cpu'
             model = model.cpu()
-            pool = multiprocessing.Pool() # processes=10
+            #pool = multiprocessing.Pool() # processes=10
+            # Define IPC manager
+            manager = multiprocessing.Manager()
+            # Define a list (queue) for tasks and computation results
+            tasks = manager.Queue()
+            results = manager.Queue()
             for i, (inputs,outputs,points,variables) in tqdm(enumerate(loader), total=len(test_dataset)):
-                # proc = Process(target=tokenize_predict_and_evaluate, args=(
+                print(f'equation {i} ...')
+                # proc = multiprocessing.Process(target=tokenize_predict_and_evaluate, args=(
+                #                 i, inputs, points, outputs, variables, 
+                #                 train_dataset, textTest, trainer, model, 
+                #                 resultDict, numTests, variableEmbedding, 
+                #                 blockSize, fName, results, modelKey,device))
+                arguments = (i, inputs, points, outputs, variables, 
+                             train_dataset, textTest, trainer, model, 
+                             resultDict, numTests, variableEmbedding, 
+                             blockSize, fName, modelKey,device)
+                # Set process name
+                process_name = f'Equation {i}'
+
+                proc = multiprocessing.Process(target=parallel_wraper, 
+                                               args=(process_name, tasks, results, arguments))
+                
+                # pool.apply_async(tokenize_predict_and_evaluate, args=(
                 #                 i, inputs, points, outputs, variables, 
                 #                 train_dataset, textTest, trainer, model, 
                 #                 resultDict, numTests, variableEmbedding, 
                 #                 blockSize, fName, modelKey,device,))
-                pool.apply_async(tokenize_predict_and_evaluate, args=(
-                                i, inputs, points, outputs, variables, 
-                                train_dataset, textTest, trainer, model, 
-                                resultDict, numTests, variableEmbedding, 
-                                blockSize, fName, modelKey,device,))
-                # proc.start()
+                proc.start()
+                processes.append(proc)
+                tasks.put(i)
                 # processes.append(proc)
 
             # for proc in processes:
             #     proc.join()
-            pool.close()
-            pool.join()
+            # pool.close()
+            # pool.join()
+
+            tasks.join() # wait for threads to finish
+            print("All tasks completed")
+            keys = ['trg','prd','err']
+            items = [results.get() for _ in range(results.qsize())]
+            print(items)
+            for item in items:
+                print(idx, item)
+                for idx, key in enumerate(keys):
+                    resultDict[fName][modelKey][key].append(item[idx])
+            plot_and_save_results(resultDict, fName, pconf, titleTemplate, 
+                                textTest, modelKey=modelKey)
 
     except KeyboardInterrupt:
         print('KeyboardInterrupt')
 
-    plot_and_save_results(resultDict, fName, pconf, titleTemplate, 
-                          textTest, modelKey=modelKey)
+    
+
+def parallel_wraper(process_name, tasks, results, arguments):
+    print('[%s] evaluation routine starts' % process_name)
+
+    (i, inputs, points, outputs, variables, 
+     train_dataset, textTest, trainer, model, 
+     resultDict, numTests, variableEmbedding, 
+     blockSize, fName, modelKey,device) = arguments
+
+    while True:
+        new_value = tasks.get()
+        if new_value < 0:
+            print(f'{process_name}:{i} evaluation routine quits')
+
+            # Indicate finished
+            results.put(-1)
+            break
+        else:
+            from utils import tokenize_predict_and_evaluate
+
+            eq, bestPredicted, bestErr = tokenize_predict_and_evaluate(
+                i, inputs, points, outputs, variables, 
+                train_dataset, textTest, trainer, model, 
+                resultDict, numTests, variableEmbedding, 
+                blockSize, fName, modelKey, device)
+
+            # Output which process received the value
+            # and the calculation result
+            print(f'{process_name} received value: {new_value}')
+            print(f'{process_name} calculated value: {(eq, bestPredicted, bestErr)}')
+
+            # Add result to the queue
+            results.put((eq, bestPredicted, bestErr))
+            tasks.task_done()
+
+    return
 
 if __name__ == '__main__':
     modelKey='SymbolicGPT'

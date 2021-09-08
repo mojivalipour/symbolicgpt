@@ -117,66 +117,68 @@ def sample_from_model(model, x, steps, points=None, variables=None, temperature=
     return x
 
 def plot_and_save_results(resultDict, fName, pconf, titleTemplate, textTest, modelKey='SymbolicGPT'):
-    # plot the error frequency for model comparison
-    num_eqns = len(resultDict[fName][modelKey]['err'])
-    num_vars = pconf.numberofVars
-    title = titleTemplate.format(num_eqns, num_vars)
+    if isinstance(resultDict, dict):
+        # plot the error frequency for model comparison
+        num_eqns = len(resultDict[fName][modelKey]['err'])
+        num_vars = pconf.numberofVars
+        title = titleTemplate.format(num_eqns, num_vars)
 
-    models = list(key for key in resultDict[fName].keys() if len(resultDict[fName][key]['err'])==num_eqns)
-    lists_of_error_scores = [resultDict[fName][key]['err'] for key in models if len(resultDict[fName][key]['err'])==num_eqns]
-    linestyles = ["-","dashdot","dotted","--"]
+        models = list(key for key in resultDict[fName].keys() if len(resultDict[fName][key]['err'])==num_eqns)
+        lists_of_error_scores = [resultDict[fName][key]['err'] for key in models if len(resultDict[fName][key]['err'])==num_eqns]
+        linestyles = ["-","dashdot","dotted","--"]
 
-    eps = 0.00001
-    y, x, _ = plt.hist([np.log([max(min(x+eps, 1e5),1e-5) for x in e]) for e in lists_of_error_scores],
-                    label=models,
-                    cumulative=True, 
-                    histtype="step", 
-                    bins=2000, 
-                    density=True,
-                    log=False)
-    y = np.expand_dims(y,0)
-    plt.figure(figsize=(15, 10))
+        eps = 0.00001
+        y, x, _ = plt.hist([np.log([max(min(x+eps, 1e5),1e-5) for x in e]) for e in lists_of_error_scores],
+                        label=models,
+                        cumulative=True, 
+                        histtype="step", 
+                        bins=2000, 
+                        density=True,
+                        log=False)
+        y = np.expand_dims(y,0)
+        plt.figure(figsize=(15, 10))
 
-    for idx, m in enumerate(models): 
-        plt.plot(x[:-1], 
-            y[idx] * 100, 
-            linestyle=linestyles[idx], 
-            label=m)
+        for idx, m in enumerate(models): 
+            plt.plot(x[:-1], 
+                y[idx] * 100, 
+                linestyle=linestyles[idx], 
+                label=m)
 
-    plt.legend(loc="upper left")
-    plt.title(title)
-    plt.xlabel("Log of Relative Mean Square Error")
-    plt.ylabel("Normalized Cumulative Frequency")
+        plt.legend(loc="upper left")
+        plt.title(title)
+        plt.xlabel("Log of Relative Mean Square Error")
+        plt.ylabel("Normalized Cumulative Frequency")
 
-    name = '{}.png'.format(fName.split('.txt')[0])
-    plt.savefig(name)
-
-    for i in num_eqns:
-        err = resultDict[fName][modelKey]['err']
-        eq = resultDict[fName][modelKey]['trg']
-        predicted = resultDict[fName][modelKey]['prd']
-        print('Test Case {}.'.format(i))
-        print('Target:{}\nSkeleton:{}'.format(eq, predicted))
-        print('Err:{}'.format(err))
-        print('') # just an empty line
+        name = '{}.png'.format(fName.split('.txt')[0])
+        plt.savefig(name)
 
         with open(fName, 'w', encoding="utf-8") as o:
-            o.write('Test Case {}/{}.\n'.format(i,len(textTest)-1))
+            for i in range(num_eqns):
+                err = resultDict[fName][modelKey]['err'][i]
+                eq = resultDict[fName][modelKey]['trg'][i]
+                predicted = resultDict[fName][modelKey]['prd'][i]
+                print('Test Case {}.'.format(i))
+                print('Target:{}\nSkeleton:{}'.format(eq, predicted))
+                print('Err:{}'.format(err))
+                print('') # just an empty line
 
-            o.write('{}\n'.format(eq))
-            o.write('{}:\n'.format(modelKey))
-            o.write('{}\n'.format(predicted))
+            
+                o.write('Test Case {}/{}.\n'.format(i,len(textTest)-1))
 
-            o.write('{}\n{}\n\n'.format( 
-                                    predicted,
-                                    err
-                                    ))
+                o.write('{}\n'.format(eq))
+                o.write('{}:\n'.format(modelKey))
+                o.write('{}\n'.format(predicted))
 
-        print('Avg Err:{}'.format(np.mean(resultDict[fName][modelKey]['err'])))
+                o.write('{}\n{}\n\n'.format( 
+                                        predicted,
+                                        err
+                                        ))
+
+                print('Avg Err:{}'.format(np.mean(resultDict[fName][modelKey]['err'])))
 
 def tokenize_predict_and_evaluate(i, inputs, points, outputs, variables, 
                                   train_dataset, textTest, trainer, model, resultDict,
-                                  numTests, variableEmbedding, blockSize, fName, 
+                                  numTests, variableEmbedding, blockSize, fName,
                                   modelKey='SymbolicGPT', device='cpu'):
     
     eq = ''.join([train_dataset.itos[int(i)] for i in outputs[0]])
@@ -211,7 +213,7 @@ def tokenize_predict_and_evaluate(i, inputs, points, outputs, variables,
     resultDict[fName][modelKey]['trg'].append(eq)
     resultDict[fName][modelKey]['prd'].append(bestPredicted)
 
-    return bestPredicted, bestErr, resultDict
+    return eq, bestPredicted, bestErr
 
 def generate_sample_and_evaluate(model, t, eq, inputs, 
                                  blockSize, points, variables, 
