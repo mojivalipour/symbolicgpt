@@ -79,7 +79,7 @@ except:
     print('Folder already exists!')
 
 # load the train dataset
-train_file = 'train_dataset.pb' # make sure to delete if you want to start from scratch
+train_file = 'train_dataset_{}.pb'.format(fName)
 if os.path.isfile(train_file) and not scratch:
     # just load the train set
     with open(train_file, 'rb') as f:
@@ -95,7 +95,7 @@ else:
     random.shuffle(trainText) # shuffle the dataset, it's important specailly for the combined number of variables experiment
     train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
                     numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
-                    const_range=const_range, xRange=trainRange, decimals=decimals, trainMode=True) 
+                    const_range=const_range, xRange=trainRange, decimals=decimals, augment=False) 
     with open(train_file, 'wb') as f:
         pickle.dump([train_dataset,trainText,chars], f)
 

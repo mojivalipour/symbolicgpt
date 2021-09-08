@@ -164,9 +164,9 @@ def relativeErr(y, yHat, info=False, eps=1e-5):
 
 class CharDataset(Dataset):
     def __init__(self, data, block_size, chars, 
-        numVars, numYs, numPoints, target='EQ', 
-        addVars=False, const_range=[-0.4, 0.4],
-        xRange=[-3.0,3.0], decimals=4, trainMode=False):
+                 numVars, numYs, numPoints, target='EQ', 
+                 addVars=False, const_range=[-0.4, 0.4],
+                 xRange=[-3.0,3.0], decimals=4, augment=False):
 
         data_size, vocab_size = len(data), len(chars)
         print('data has %d examples, %d unique.' % (data_size, vocab_size))
@@ -194,7 +194,7 @@ class CharDataset(Dataset):
         self.const_range = const_range
         self.xRange = xRange
         self.decimals = decimals
-        self.trainMode = trainMode
+        self.augment = augment
     
     def __len__(self):
         return len(self.data)-1
@@ -214,7 +214,7 @@ class CharDataset(Dataset):
             chunk = json.loads(chunk) # convert the sequence tokens to a dictionary
             
         # find the number of variables in the equation
-        printInfoCondition = random.random() < 0.00001
+        printInfoCondition = random.random() < 0.0000001
         eq = chunk[self.target]
         if printInfoCondition:
             print(f'\nEquation: {eq}')
@@ -227,7 +227,7 @@ class CharDataset(Dataset):
             if v > numVars:
                 numVars = v
 
-        if self.target == 'Skeleton' and self.trainMode:
+        if self.target == 'Skeleton' and self.augment:
             threshold = 5000
             # randomly generate the constants
             cleanEqn = ''

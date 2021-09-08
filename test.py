@@ -39,19 +39,19 @@ set_seed(seed)
 # NOTE: make sure your data points are in the same range with trainRange
 
 # config
-numEpochs = 4 # number of epochs to train the GPT+PT model
 scratch=True # if you want to ignore the cache and start for scratch
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
 numPoints=[200,201] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=2 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 400 # spatial extent of the model for its context
+blockSize = 64 # spatial extent of the model for its context
+testBlockSize = 400
 batchSize = 64 # batch size of training data
 const_range = [-2.1, 2.1] # constant range to generate during training only if target is Skeleton
 decimals = 8 # decimals of the points only if target is Skeleton
 trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 testRange = [[-5.0, 3.0],[-3.0, 5.0]]
-numTests = 1 # number of times to generate candidates for one test equation
+numTests = 10 # number of times to generate candidates for one test equation
 useRange = True
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
 dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
@@ -135,7 +135,7 @@ files = glob.glob(path)
 textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
 # test_dataset_target = CharDataset(textTest, blockSize, chars, target=target)
-test_dataset = CharDataset(textTest, blockSize, chars, numVars=numVars, 
+test_dataset = CharDataset(textTest, testBlockSize, chars, numVars=numVars, 
                            numYs=numYs, numPoints=numPoints, addVars=addVars,
                            const_range=const_range, xRange=trainRange, decimals=decimals)
 
@@ -160,7 +160,7 @@ mconf = GPTConfig(train_dataset.vocab_size, train_dataset.block_size,
 model = GPT(mconf, pconf)
     
 # initialize a trainer instance and kick off training
-tconf = TrainerConfig(max_epochs=numEpochs, batch_size=batchSize, 
+tconf = TrainerConfig(max_epochs=1, batch_size=batchSize, 
                       learning_rate=6e-4,
                       lr_decay=True, warmup_tokens=512*20, 
                       final_tokens=2*len(train_dataset)*blockSize,
@@ -187,7 +187,7 @@ try:
     with open(fName, 'w', encoding="utf-8") as o:
         resultDict[fName] = {'SymbolicGPT':[]}
 
-        for i, batch in enumerate(loader):
+        for i, batch in tqdm(enumerate(loader)):
 
             inputs,outputs,points,variables = batch
 
@@ -208,7 +208,7 @@ try:
 
             bestErr = 10000000
             bestPredicted = 'C'
-            for i in tqdm(range(numTests)):
+            for i in range(numTests):
                 outputsHat = sample(model, 
                                     inputs, 
                                     blockSize, 
