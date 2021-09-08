@@ -1,88 +1,92 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# set up logging
-import logging
-logging.basicConfig(
-        format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
-        datefmt="%m/%d/%Y %H:%M:%S",
-        level=logging.INFO,
-)
-
-# load libraries
-import os
-import glob
-import json
-import pickle
-import math
-import random
-import numpy as np
-from tqdm import tqdm
-from numpy import * # to override the math functions
-
-import torch
-import torch.nn as nn
-from torch.nn import functional as F
-#from torch.utils.data import Dataset
-
-from utils import set_seed
-from matplotlib import pyplot as plt
-from trainer import Trainer, TrainerConfig
-from models import GPT, GPTConfig, PointNetConfig
-from utils import processDataFiles, CharDataset, tokenize_predict_and_evaluate, plot_and_save_results
-
-# set the random seed
-seed = 42
-set_seed(seed)
-
-# NOTE: make sure your data points are in the same range with trainRange
-
-# config
-numTests = 10 # number of times to generate candidates for one test equation
-scratch=False # if you want to ignore the cache and start for scratch
-embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints=[30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
-numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 64 # spatial extent of the model for its context
-testBlockSize = 400
-batchSize = 64 # batch size of training data
-const_range = [-2.1, 2.1] # constant range to generate during training only if target is Skeleton
-decimals = 8 # decimals of the points only if target is Skeleton
-trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
-testRange = [[-5.0, 3.0],[-3.0, 5.0]]
-useRange = True
-dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
-dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
-titleTemplate = "{} equations of {} variables - Benchmark"
-target = 'Skeleton' #'Skeleton' #'EQ'
-dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
-dataTestFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
-addr = './SavedModels/' # where to save model
-method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
-# EMB_CAT: Concat point embedding to GPT token+pos embedding
-# EMB_SUM: Add point embedding to GPT tokens+pos embedding
-# OUT_CAT: Concat the output of the self-attention and point embedding
-# OUT_SUM: Add the output of the self-attention and point embedding
-# EMB_CON: Conditional Embedding, add the point embedding as the first token
-variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
-# NOT_VAR: Do nothing, will not pass any information from the number of variables in the equation to the GPT
-# LEA_EMB: Learnable embedding for the variables, added to the pointNET embedding
-# STR_VAR: Add the number of variables to the first token
-addVars = True if variableEmbedding == 'STR_VAR' else False
-maxNumFiles = 100 # maximum number of file to load in memory for training the neural network
-bestLoss = None # if there is any model to load as pre-trained one
-fName = '{}_SymbolicGPT_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
-                                             'GPT_PT_{}_{}'.format(method, target), 
-                                             'Padding',
-                                             variableEmbedding)
+#from numpy import * # to override the math functions
 
 def main(resultDict, modelKey):
+    # set up logging
+    import logging
+    logging.basicConfig(
+            format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
+            datefmt="%m/%d/%Y %H:%M:%S",
+            level=logging.INFO,
+    )
+
+    # load libraries
+    import os
+    import glob
+    import json
+    import pickle
+    import math
+    import random
+    import numpy as np
+    from tqdm import tqdm
+    
+    import torch
+    import torch.nn as nn
+    from torch.nn import functional as F
+    #from torch.utils.data import Dataset
+
+    from utils import set_seed
+    import multiprocessing
+    #from multiprocessing import Process
+    from matplotlib import pyplot as plt
+    from trainer import Trainer, TrainerConfig
+    from models import GPT, GPTConfig, PointNetConfig
+    from utils import processDataFiles, CharDataset, tokenize_predict_and_evaluate, plot_and_save_results
+
+    # set the random seed
+    seed = 42
+    set_seed(seed)
+
+    # NOTE: make sure your data points are in the same range with trainRange
+
+    # config
+    numTests = 10 # number of times to generate candidates for one test equation
+    parallel = True
+    scratch=False # if you want to ignore the cache and start for scratch
+    embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
+    numPoints=[30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+    numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
+    numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
+    blockSize = 64 # spatial extent of the model for its context
+    testBlockSize = 400
+    batchSize = 64 # batch size of training data
+    const_range = [-2.1, 2.1] # constant range to generate during training only if target is Skeleton
+    decimals = 8 # decimals of the points only if target is Skeleton
+    trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
+    testRange = [[-5.0, 3.0],[-3.0, 5.0]]
+    useRange = True
+    dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/' #'./datasets/'
+    dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
+    titleTemplate = "{} equations of {} variables - Benchmark"
+    target = 'Skeleton' #'Skeleton' #'EQ'
+    dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
+    dataTestFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
+    addr = './SavedModels/' # where to save model
+    method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
+    # EMB_CAT: Concat point embedding to GPT token+pos embedding
+    # EMB_SUM: Add point embedding to GPT tokens+pos embedding
+    # OUT_CAT: Concat the output of the self-attention and point embedding
+    # OUT_SUM: Add the output of the self-attention and point embedding
+    # EMB_CON: Conditional Embedding, add the point embedding as the first token
+    variableEmbedding = 'NOT_VAR' # NOT_VAR/LEA_EMB/STR_VAR
+    # NOT_VAR: Do nothing, will not pass any information from the number of variables in the equation to the GPT
+    # LEA_EMB: Learnable embedding for the variables, added to the pointNET embedding
+    # STR_VAR: Add the number of variables to the first token
+    addVars = True if variableEmbedding == 'STR_VAR' else False
+    maxNumFiles = 100 # maximum number of file to load in memory for training the neural network
+    bestLoss = None # if there is any model to load as pre-trained one
+    fName = '{}_SymbolicGPT_{}_{}_{}_MINIMIZE.txt'.format(dataInfo, 
+                                                'GPT_PT_{}_{}'.format(method, target), 
+                                                'Padding',
+                                                variableEmbedding)
     ckptPath = '{}/{}.pt'.format(addr,fName.split('.txt')[0])
     try: 
         os.mkdir(addr)
     except:
         print('Folder already exists!')
+
+    resultDict[fName] = {modelKey:{'err':[],'trg':[],'prd':[]}}
 
     # load the train dataset
     train_file = 'train_dataset_{}.pb'.format(fName)
@@ -183,25 +187,36 @@ def main(resultDict, modelKey):
                                     num_workers=0)
 
     try:
-        # for i, (inputs,outputs,points,variables) in tqdm(enumerate(loader), total=len(test_dataset)):
-        #     tokenize_predict_and_evaluate(
-        #                         i, inputs, points, outputs, variables, 
-        #                         train_dataset, textTest, trainer, model, 
-        #                         resultDict, numTests, variableEmbedding, 
-        #                         blockSize, fName, modelKey=modelKey)
-        from multiprocessing import Process
-        processes = []
-        for i, (inputs,outputs,points,variables) in tqdm(enumerate(loader), total=len(test_dataset)):
-            proc = Process(target=tokenize_predict_and_evaluate(
-                            i, inputs, points, outputs, variables, 
-                            train_dataset, textTest, trainer, model, 
-                            resultDict, numTests, variableEmbedding, 
-                            blockSize, fName, modelKey=modelKey))
-            proc.start()
-            processes.append(proc)
+        if not parallel:
+            for i, (inputs,outputs,points,variables) in tqdm(enumerate(loader), total=len(test_dataset)):
+                tokenize_predict_and_evaluate(
+                                    i, inputs, points, outputs, variables, 
+                                    train_dataset, textTest, trainer, model, 
+                                    resultDict, numTests, variableEmbedding, 
+                                    blockSize, fName, modelKey=modelKey)
+        else:
+            # processes = []
+            device = 'cpu'
+            model = model.cpu()
+            pool = multiprocessing.Pool() # processes=10
+            for i, (inputs,outputs,points,variables) in tqdm(enumerate(loader), total=len(test_dataset)):
+                # proc = Process(target=tokenize_predict_and_evaluate, args=(
+                #                 i, inputs, points, outputs, variables, 
+                #                 train_dataset, textTest, trainer, model, 
+                #                 resultDict, numTests, variableEmbedding, 
+                #                 blockSize, fName, modelKey,device,))
+                pool.apply_async(tokenize_predict_and_evaluate, args=(
+                                i, inputs, points, outputs, variables, 
+                                train_dataset, textTest, trainer, model, 
+                                resultDict, numTests, variableEmbedding, 
+                                blockSize, fName, modelKey,device,))
+                # proc.start()
+                # processes.append(proc)
 
-        for proc in processes:
-            proc.join()
+            # for proc in processes:
+            #     proc.join()
+            pool.close()
+            pool.join()
 
     except KeyboardInterrupt:
         print('KeyboardInterrupt')
@@ -212,7 +227,6 @@ def main(resultDict, modelKey):
 if __name__ == '__main__':
     modelKey='SymbolicGPT'
     resultDict = {}
-    resultDict[fName] = {modelKey:{'err':[],'trg':[],'prd':[]}}
     main(resultDict, modelKey)
 
     

@@ -177,21 +177,22 @@ def plot_and_save_results(resultDict, fName, pconf, titleTemplate, textTest, mod
 def tokenize_predict_and_evaluate(i, inputs, points, outputs, variables, 
                                   train_dataset, textTest, trainer, model, resultDict,
                                   numTests, variableEmbedding, blockSize, fName, 
-                                  modelKey='SymbolicGPT'):
+                                  modelKey='SymbolicGPT', device='cpu'):
     
     eq = ''.join([train_dataset.itos[int(i)] for i in outputs[0]])
     eq = eq.strip(train_dataset.paddingToken).split('>')
     eq = eq[0] #if len(eq[0])>=1 else eq[1]
     eq = eq.strip('<').strip(">")
+    print(eq)
     if variableEmbedding == 'STR_VAR':
             eq = eq.split(':')[-1]
 
     t = json.loads(textTest[i])
 
-    inputs = inputs[:,0:1].to(trainer.device)
-    points = points.to(trainer.device)
+    inputs = inputs[:,0:1].to(device)
+    points = points.to(device)
     # points = points[:,:numPoints] # filter anything more than maximum number of points
-    variables = variables.to(trainer.device)
+    variables = variables.to(device)
 
     bestErr = 10000000
     bestPredicted = 'C'
