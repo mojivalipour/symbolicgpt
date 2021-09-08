@@ -174,7 +174,9 @@ def main(resultDict, modelKey):
     trainer = Trainer(model, train_dataset, val_dataset, tconf, bestLoss)
 
     # load the best model
-    model.load_state_dict(torch.load(ckptPath))
+    mapLocation = None if isinstance(trainer.device, int) else 'cpu'
+    print(mapLocation)
+    model.load_state_dict(torch.load(ckptPath, map_location=mapLocation))
     model = model.eval().to(trainer.device)
     print('{} model has been loaded!'.format(ckptPath))
 
@@ -203,7 +205,7 @@ def main(resultDict, modelKey):
                 experiment_times.append(generation_time)
             plot_and_save_results(resultDict, fName, pconf, titleTemplate, 
                                 textTest, modelKey=modelKey)
-            print(f'The average time for one instance is {np.mean(experiment_times)}')
+            print(f'The average time for one instance is {np.mean(experiment_times)}+-{np.std(experiment_times)}')
         else:
             processes = []
             device = 'cpu'

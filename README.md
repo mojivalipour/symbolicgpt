@@ -26,6 +26,7 @@ pip install numpy
 pip install torch
 pip install matplotlib
 pip install scipy
+pip install tqdm
 ```
 
 # Dataset Generation
