@@ -52,6 +52,7 @@ decimals = 8 # decimals of the points only if target is Skeleton
 trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
 dataFolder = '1-9Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_20-250'
+dataTestFolder = '1-9Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_20-250/Test_Benchmarks'
 dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 addr = './SavedModels/' # where to save model
@@ -96,8 +97,8 @@ else:
     train_dataset = CharDataset(text, blockSize, chars, numVars=numVars, 
                     numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
                     const_range=const_range, xRange=trainRange, decimals=decimals, augment=False) 
-    with open(train_file, 'wb') as f:
-        pickle.dump([train_dataset,trainText,chars], f)
+    # with open(train_file, 'wb') as f:
+    #     pickle.dump([train_dataset,trainText,chars], f)
 
 # print a random sample
 idx = np.random.randint(train_dataset.__len__())
@@ -125,7 +126,8 @@ outputs = ''.join([train_dataset.itos[int(i)] for i in outputs])
 print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,outputs,points, variables))
 
 # load the test data
-path = '{}/{}/Test/*.json'.format(dataDir,dataFolder)
+path = f'{dataDir}/{dataTestFolder}/*.json'
+print(f'test path is {path}')
 files = glob.glob(path)
 textTest = processDataFiles(files)
 textTest = textTest.split('\n') # convert the raw text to a set of examples
