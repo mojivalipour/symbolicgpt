@@ -25,7 +25,7 @@ import torch.nn as nn
 from torch.nn import functional as F
 #from torch.utils.data import Dataset
 
-from utils import set_seed, sample
+from utils import set_seed, sample_from_model
 from matplotlib import pyplot as plt
 from trainer import Trainer, TrainerConfig
 from models import GPT, GPTConfig, PointNetConfig
@@ -38,20 +38,20 @@ set_seed(42)
 # config
 device='gpu'
 scratch=True # if you want to ignore the cache and start for scratch
-numEpochs = 4 # number of epochs to train the GPT+PT model
+numEpochs = 40 # number of epochs to train the GPT+PT model
 embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-numPoints = [20,251] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+numPoints = [20,250] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars = 9 # the dimenstion of input points x, if you don't know then use the maximum
 numYs = 1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 64 # spatial extent of the model for its context
-testBlockSize = 400
+blockSize = 32 # spatial extent of the model for its context
+testBlockSize = 800
 batchSize = 128 # batch size of training data
 target = 'Skeleton' #'Skeleton' #'EQ'
 const_range = [-2.1, 2.1] # constant range to generate during training only if target is Skeleton
 decimals = 8 # decimals of the points only if target is Skeleton
 trainRange = [-3.0,3.0] # support range to generate during training only if target is Skeleton
 dataDir = 'D:/Datasets/Symbolic Dataset/Datasets/FirstDataGenerator/'  #'./datasets/'
-dataFolder = '1-5Var_RandSupport_RandLength_-3to3_-5.0to-3.0-3.0to5.0_10to200Points'
+dataFolder = '1-9Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_20-250'
 dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
 titleTemplate = "{} equations of {} variables - Benchmark"
 addr = './SavedModels/' # where to save model
@@ -204,7 +204,7 @@ try:
             inputs = inputs[:,0:1].to(trainer.device)
             points = points.to(trainer.device)
             variables = variables.to(trainer.device)
-            outputsHat = sample(
+            outputsHat = sample_from_model(
                           model, 
                           inputs, 
                           blockSize, 

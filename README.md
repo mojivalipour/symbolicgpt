@@ -86,7 +86,7 @@ embeddingSize = 512 # the hidden dimension of the representation of both GPT and
 numPoints=[20,250] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=9 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 64 # spatial extent of the model for its context
+blockSize = 200 # spatial extent of the model for its context
 testBlockSize = 400
 batchSize = 128 # batch size of training data
 target = 'Skeleton' #'Skeleton' #'EQ'
@@ -110,7 +110,7 @@ embeddingSize = 512 # the hidden dimension of the representation of both GPT and
 numPoints=[10,200] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=5 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 64 # spatial extent of the model for its context
+blockSize = 200 # spatial extent of the model for its context
 testBlockSize = 400
 batchSize = 128 # batch size of training data
 target = 'Skeleton' #'Skeleton' #'EQ'
@@ -134,7 +134,7 @@ embeddingSize = 512 # the hidden dimension of the representation of both GPT and
 numPoints=[500,501] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=3 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 64 # spatial extent of the model for its context
+blockSize = 200 # spatial extent of the model for its context
 testBlockSize = 400
 batchSize = 128 # batch size of training data
 target = 'Skeleton' #'Skeleton' #'EQ'
@@ -182,7 +182,7 @@ embeddingSize = 512 # the hidden dimension of the representation of both GPT and
 numPoints=[30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
 numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
 numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
-blockSize = 64 # spatial extent of the model for its context
+blockSize = 200 # spatial extent of the model for its context
 testBlockSize = 400
 batchSize = 128 # batch size of training data
 target = 'Skeleton' #'Skeleton' #'EQ'

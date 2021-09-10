@@ -44,10 +44,10 @@ def main(resultDict, modelKey):
     # config
     numTests = 1 # number of times to generate candidates for one test equation
     parallel = False
-    scratch=False # if you want to ignore the cache and start for scratch
+    scratch=True # if you want to ignore the cache and start for scratch
     embeddingSize = 512 # the hidden dimension of the representation of both GPT and PT
-    numPoints=[30,31] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
-    numVars=1 # the dimenstion of input points x, if you don't know then use the maximum
+    numPoints=[500,501] # number of points that we are going to receive to make a prediction about f given x and y, if you don't know then use the maximum
+    numVars=3 # the dimenstion of input points x, if you don't know then use the maximum
     numYs=1 # the dimension of output points y = f(x), if you don't know then use the maximum
     blockSize = 64 # spatial extent of the model for its context
     testBlockSize = 400
@@ -61,8 +61,8 @@ def main(resultDict, modelKey):
     dataInfo = 'XYE_{}Var_{}-{}Points_{}EmbeddingSize'.format(numVars, numPoints[0], numPoints[1], embeddingSize)
     titleTemplate = "{} equations of {} variables - Benchmark"
     target = 'Skeleton' #'Skeleton' #'EQ'
-    dataFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
-    dataTestFolder = '1Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_30Points'
+    dataFolder = '3Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_500Points'
+    dataTestFolder = '3Var_RandSupport_FixedLength_-3to3_-5.0to-3.0-3.0to5.0_500Points/Test'
     addr = './SavedModels/' # where to save model
     method = 'EMB_SUM' # EMB_CAT/EMB_SUM/OUT_SUM/OUT_CAT/EMB_CON -> whether to concat the embedding or use summation. 
     # EMB_CAT: Concat point embedding to GPT token+pos embedding
@@ -107,8 +107,8 @@ def main(resultDict, modelKey):
         train_dataset = CharDataset(trainText, blockSize, chars, numVars=numVars, 
                                     numYs=numYs, numPoints=numPoints, target=target, addVars=addVars,
                                     const_range=const_range, xRange=trainRange, decimals=decimals) 
-        with open(train_file, 'wb') as f:
-            pickle.dump([train_dataset,trainText,chars], f)
+        # with open(train_file, 'wb') as f:
+        #     pickle.dump([train_dataset,trainText,chars], f)
 
     # print a random sample
     idx = np.random.randint(train_dataset.__len__())
@@ -136,7 +136,7 @@ def main(resultDict, modelKey):
     print('id:{}\ninputs:{}\noutputs:{}\npoints:{}\nvariables:{}'.format(idx,inputs,outputs,points, variables))
 
     # load the test data
-    path = '{}/{}/Test/*.json'.format(dataDir,dataTestFolder)
+    path = '{}/{}/*.json'.format(dataDir,dataTestFolder)
     files = glob.glob(path)
     textTest = processDataFiles(files)
     textTest = textTest.split('\n') # convert the raw text to a set of examples
