@@ -31,7 +31,7 @@ pip install tqdm
 
 # Dataset Generation
 
-You can skip this step if you already downloaded the datasets using this [link](https://drive.google.com/drive/folders/19HsGO_dMgx2xHQBJmgU8-ngy47cU-lNk?usp=sharing).
+You can skip this step if you already downloaded the datasets using this [link](https://www.dropbox.com/sh/yq03daorth1h4kj/AADolbgySCjOO18qGoP5Abqfa?dl=0).
 
 ## How to generate the training data:
 - Use the corresponding config file (config.txt) for each experiment
